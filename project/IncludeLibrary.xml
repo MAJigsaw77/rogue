@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+
+	<!--Include this file only once-->
+
+	<pragma once="true" />
+
+	<!--Project Specific-->
+
+	<set name="PROJECT_DIR" value="${this_dir}" />
+
+	<set name="PROJECT_THIRDPARTY_DIR" value="${PROJECT_DIR}/../thirdparty" />
+
+	<set name="PROJECT_LIB_DIR" value="${PROJECT_DIR}/../lib" />
+
+	<!--Libraries Config-->
+
+	<include name="${PROJECT_THIRDPARTY_DIR}/libraries-config.xml" />
+
+	<!--Includes-->
+
+	<files id="haxe">
+		<include name="${PROJECT_THIRDPARTY_DIR}/libraries-includes.xml" />
+	</files>
+
+	<files id="__main__">
+		<include name="${PROJECT_THIRDPARTY_DIR}/libraries-includes.xml" />
+	</files>
+
+	<!--Linking Libraries-->
+
+	<target id="haxe">
+		<section if="windows">
+			<lib name="${PROJECT_LIB_DIR}/WindowsArm64/rogue.lib" if="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Windows64/rogue.lib" if="HXCPP_M64" unless="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Windows/rogue.lib" if="HXCPP_M32" />
+		</section>
+
+		<section if="android">
+			<lib name="${PROJECT_LIB_DIR}/Android/librogue-64.so" if="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Android/librogue-v7.so" if="HXCPP_ARMV7" />
+			<lib name="${PROJECT_LIB_DIR}/Android/librogue-x86.so" if="HXCPP_X86" />
+			<lib name="${PROJECT_LIB_DIR}/Android/librogue-x86_64.so" if="HXCPP_X86_64" />
+		</section>
+	</target>
+
+	<!--Copy Libraries-->
+
+	<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/WindowsArm64" if="HXCPP_ARM64" />
+	<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows64" if="HXCPP_M64" unless="HXCPP_ARM64" />
+	<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows" if="HXCPP_M32" />
+</xml>

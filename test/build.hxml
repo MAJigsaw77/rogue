@@ -1,0 +1,9 @@
+--resource assets/default.frag
+--resource assets/default.vert
+--class-path source
+--cpp bin/cpp
+--define analyzer-optimize
+--library rogue
+--main Main
+--cmd cd bin\cpp
+--cmd Main.exe

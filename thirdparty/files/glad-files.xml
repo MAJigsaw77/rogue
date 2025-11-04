@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<files id="glad-files" dir="${GLAD_DIRECTORY}">
+		<!-- glad include -->
+		<compilerflag value="-I${GLAD_OVERRIDE_DIRECTORY}/include" />
+		<compilerflag value="-I${GLAD_DIRECTORY}/include" />
+
+		<compilerflag value="-DGLAD_API_CALL_EXPORT" unless="static_link" />
+		<compilerflag value="-DGLAD_API_CALL_EXPORT_BUILD" unless="static_link" />
+
+		<!-- glad src -->
+		<file name="src/gl.c" if="windows || macos || linux" />
+		<file name="src/gles2.c" if="android || rpi || emscripten || iphone" />
+		<file name="src/egl.c" if="android || rpi" />
+	</files>
+</xml>

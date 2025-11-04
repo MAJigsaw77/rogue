@@ -1,0 +1,12 @@
+[submodule "thirdparty/submodules/sdl"]
+	path = thirdparty/submodules/sdl
+	url = https://github.com/libsdl-org/SDL.git
+[submodule "thirdparty/submodules/mojoal"]
+	path = thirdparty/submodules/mojoal
+	url = https://github.com/icculus/mojoAL.git
+[submodule "thirdparty/submodules/sdl_image"]
+	path = thirdparty/submodules/sdl_image
+	url = https://github.com/libsdl-org/SDL_image.git
+[submodule "thirdparty/submodules/sdl_ttf"]
+	path = thirdparty/submodules/sdl_ttf
+	url = https://github.com/libsdl-org/SDL_ttf.git

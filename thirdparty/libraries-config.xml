@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<set name="MOJOAL_DIRECTORY" value="${this_dir}/submodules/mojoal" />
+	<set name="MOJOAL_OVERRIDE_DIRECTORY" value="${this_dir}/override/mojoal" />
+
+	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
+	<set name="GLAD_OVERRIDE_DIRECTORY" value="${this_dir}/override/glad" />
+
+	<set name="SDL_DIRECTORY" value="${this_dir}/submodules/sdl" />
+	<set name="SDL_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl" />
+
+	<set name="SDL_IMAGE_DIRECTORY" value="${this_dir}/submodules/sdl_image" />
+	<set name="SDL_IMAGE_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_image" />
+
+	<set name="SDL_TTF_DIRECTORY" value="${this_dir}/submodules/sdl_ttf" />
+	<set name="SDL_TTF_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf" />
+</xml>

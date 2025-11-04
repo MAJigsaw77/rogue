@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<section>
+		<compilerflag value="-I${SDL_DIRECTORY}/include" />
+
+		<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
+
+		<compilerflag value="-DSDL_MAIN_HANDLED" />
+	</section>
+
+	<section>
+		<compilerflag value="-I${GLAD_DIRECTORY}/include" />
+
+		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
+	</section>
+
+	<compilerflag value="-I${MOJOAL_DIRECTORY}" />
+</xml>

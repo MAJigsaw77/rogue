@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<files id="mojoal-files" dir="${MOJOAL_DIRECTORY}">
+		<!-- sdl overrideable include -->
+		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
+		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include/build_config" />
+
+		<!-- sdl include -->
+		<compilerflag value="-I${SDL_DIRECTORY}/include" />
+		<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
+
+		<!-- mojoal include -->
+		<compilerflag value="-I${MOJOAL_OVERRIDE_DIRECTORY}/AL" />
+		<compilerflag value="-I${MOJOAL_DIRECTORY}/AL" />
+
+		<!-- mojoal src -->
+		<file name="mojoal.c" />
+	</files>
+</xml>
