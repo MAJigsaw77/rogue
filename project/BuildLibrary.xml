@@ -38,10 +38,9 @@
 	<target id="${PROJECT_NAME}" output="${LIBPREFIX}${PROJECT_NAME}${HX_TARGET_SUFFIX}" tool="linker" toolid="${STD_MODULE_LINK}">
 
 		<outdir name="${PROJECT_LIB_DIR}/${BINDIR}" />
-		<libdir name="${PROJECT_LIB_DIR}/${BINDIR}" />
 
 		<files id="sdl-files" />
-		<files id="sdl_image-files" />
+		<!-- <files id="sdl_image-files" /> -->
 		<files id="glad-files" />
 		<files id="mojoal-files" />
 
@@ -74,5 +73,11 @@
 		<target id="${PROJECT_NAME}" />
 
 	</target>
+
+	<!--Copy the Windows lib (thanks tobil4sk)-->
+
+	<section unless="static_link">
+		<copyFile toolId="dll" name="${PROJECT_NAME}.lib" from="obj/lib" if="windows" />
+	</section>
 
 </xml>
