@@ -1,3 +1,4 @@
 lib
 project/obj
 test/bin
+tools/opengl/gl.xml

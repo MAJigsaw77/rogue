@@ -5,7 +5,10 @@ import cpp.RawPointer;
 
 import haxe.Resource;
 
+import rogue.internal.externs.glad.opengl.GL;
+import rogue.internal.externs.glad.opengl.Glad;
 import rogue.internal.externs.sdl.SDL;
+import rogue.internal.externs.utils.VoidPointer;
 
 @:buildXml("<include name=\"${haxelib:rogue}/project/IncludeLibrary.xml\" />")
 @:headerInclude('glad/gl.h')
@@ -14,15 +17,119 @@ class Main
 	static final WINDOW_WIDTH:Int = 1280;
 	static final WINDOW_HEIGHT:Int = 720;
 
+	static function createVertexArray():GLuint
+	{
+		var vertexArray:GLuint = 0;
+		GL.genVertexArrays(1, RawPointer.addressOf(vertexArray));
+		return vertexArray;
+	}
+
+	static function createBuffer():GLuint
+	{
+		var vertexBufferObject:GLuint = 0;
+		GL.genBuffers(1, RawPointer.addressOf(vertexBufferObject));
+		return vertexBufferObject;
+	}
+
+	static function createProgram(vertexShader:GLuint, fragmentShader:GLuint, window:RawPointer<SDL_Window>):GLuint
+	{
+		var shaderProgram:GLuint = GL.createProgram();
+
+		GL.attachShader(shaderProgram, vertexShader);
+		GL.attachShader(shaderProgram, fragmentShader);
+
+		{
+			GL.linkProgram(shaderProgram);
+
+			final log:Null<String> = checkProgramLinking(shaderProgram);
+
+			if (log != null && log.length > 0)
+			{
+				SDL.ShowSimpleMessageBox(SDL.MESSAGEBOX_ERROR, "Program Error", log, window);
+				Sys.exit(1);
+			}
+
+			GL.useProgram(shaderProgram);
+		}
+
+		GL.deleteShader(vertexShader);
+		GL.deleteShader(fragmentShader);
+
+		return shaderProgram;
+	}
+
+	static function createShader(type:GLenum, window:RawPointer<SDL_Window>, source:ConstGLcharStar):GLuint
+	{
+		var shader:GLuint = GL.createShader(type);
+
+		GL.shaderSource(shader, 1, RawPointer.addressOf(source), null);
+		GL.compileShader(shader);
+
+		final log:Null<String> = checkShaderCompilation(shader);
+
+		if (log != null && log.length > 0)
+		{
+			SDL.ShowSimpleMessageBox(SDL.MESSAGEBOX_ERROR, "Shader Error", log, window);
+			Sys.exit(1);
+		}
+
+		return shader;
+	}
+
+	static function checkShaderCompilation(shader:GLuint):Null<String>
+	{
+		var success:GLint = 0;
+
+		GL.getShaderiv(shader, GL.COMPILE_STATUS, RawPointer.addressOf(success));
+
+		if (success == 0)
+		{
+			var infoLog:CastGLcharStar = untyped __cpp__('new GLchar[1024]');
+
+			GL.getShaderInfoLog(shader, 1024, null, infoLog);
+
+			final infoLogStr:String = new String(untyped infoLog);
+
+			untyped __cpp__('delete[] {0}', infoLog);
+
+			return infoLogStr;
+		}
+
+		return null;
+	}
+
+	static function checkProgramLinking(program:GLuint):Null<String>
+	{
+		var success:GLint = 0;
+
+		GL.getProgramiv(program, GL.LINK_STATUS, RawPointer.addressOf(success));
+
+		if (success == 0)
+		{
+			var infoLog:CastGLcharStar = untyped __cpp__('new GLchar[1024]');
+
+			GL.getProgramInfoLog(program, 1024, null, infoLog);
+
+			final infoLogStr:String = new String(untyped infoLog);
+
+			untyped __cpp__('delete[] {0}', infoLog);
+
+			return infoLogStr;
+		}
+
+		return null;
+	}
+
 	public static function main():Void
 	{
 		if (!SDL.Init(SDL.INIT_VIDEO))
 		{
 			Sys.println('SDL initialization failed: ${cast (SDL.GetError(), String)}');
+			return;
 		}
 
 		#if macos
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+		SDL.GL_SetAttribute(SD_GL_CONTEXT_FLAGS, SDL.GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
 		#end
 
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL.GL_CONTEXT_PROFILE_CORE);
@@ -31,13 +138,16 @@ class Main
 
 		SDL.GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-		final window:RawPointer<SDL_Window> = SDL.CreateWindow('Rogue', 1280, 720, untyped SDL.WINDOW_OPENGL | untyped SDL.WINDOW_RESIZABLE);
+		SDL.GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+		SDL.GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+
+		final window:RawPointer<SDL_Window> = SDL.CreateWindow('Rogue', WINDOW_WIDTH, WINDOW_HEIGHT, untyped SDL.WINDOW_OPENGL | SDL.WINDOW_RESIZABLE);
 
 		if (window == null)
 		{
 			Sys.println('Window creation failed: ${cast (SDL.GetError(), String)}');
-
 			SDL.Quit();
+			return;
 		}
 
 		final glContext:SDL_GLContext = SDL.GL_CreateContext(window);
@@ -45,146 +155,103 @@ class Main
 		if (glContext == null)
 		{
 			Sys.println('OpenGL context creation failed: ${cast (SDL.GetError(), String)}');
-
 			SDL.DestroyWindow(window);
 			SDL.Quit();
+			return;
 		}
 
-		final version:Int = untyped __cpp__('gladLoadGL((GLADloadfunc){0})', SDL.GL_GetProcAddress);
+		final version:Int = Glad.loadGL(cast SDL.GL_GetProcAddress);
 
 		if (version == 0)
 		{
 			Sys.println('Failed to initialize GLAD2');
-
 			SDL.GL_DestroyContext(glContext);
 			SDL.DestroyWindow(window);
 			SDL.Quit();
+			return;
 		}
 
-		SDL.GL_SetSwapInterval(1);
+		GL.enable(GL.MULTISAMPLE);
 
-		final vertexShaderSource:ConstCharStar = Resource.getString('assets/default.vert');
+		GL.viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-		final vertexShader:Int = untyped glCreateShader(untyped GL_VERTEX_SHADER);
-		untyped glShaderSource(vertexShader, 1, cpp.RawPointer.addressOf(vertexShaderSource), null);
-		untyped glCompileShader(vertexShader);
+		SDL.GL_SetSwapInterval(0);
 
-		final fragmentShaderSource:ConstCharStar = Resource.getString('assets/default.frag');
+		final windowTitle:ConstCharStar = SDL.GetWindowTitle(window);
+		final version:ConstGLcharStar = cast GL.getString(GL.VERSION);
 
-		final fragmentShader:Int = untyped glCreateShader(untyped GL_FRAGMENT_SHADER);
-		untyped glShaderSource(fragmentShader, 1, cpp.RawPointer.addressOf(fragmentShaderSource), null);
-		untyped glCompileShader(fragmentShader);
+		SDL.SetWindowTitle(window, '${windowTitle.toString()} - ${version.toString()}');
 
-		untyped __cpp__('
-    
-    GLint success;
-    char infoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        printf("Vertex shader compilation failed: %s\\n", infoLog);
-    }
-    
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        printf("Fragment shader compilation failed: %s\\n", infoLog);
-    }
-    
-    // Create shader program
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        printf("Shader program linking failed: %s\\n", infoLog);
-    }
-    
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-    
-    // Triangle vertices with colors (x, y, z, r, g, b)
-    float vertices[] = {
-        // positions        // colors
-         0.0f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // top - red
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left - green
-         0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // bottom right - blue
-    };
-    
-    // Create VAO, VBO
-    GLuint VAO, VBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    
-    // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    
-    // Color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-    
-    // Main loop
-    bool running = true;
-    SDL_Event event;
-    Uint64 startTime = SDL_GetTicks();
-    
-    while (running) {
-        // Handle events
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) {
-                running = false;
-            }
-            else if (event.type == SDL_EVENT_KEY_DOWN) {
-                if (event.key.key == SDLK_ESCAPE) {
-                    running = false;
-                }
-            }
-        }
-        
-        // Calculate rotation
-        float time = (SDL_GetTicks() - startTime) / 1000.0f;
-        float angle = time * 1.0f; // Rotate 1 radian per second
-        
-        // Create transformation matrix (simple 2D rotation)
-        float transform[16] = {
-            cosf(angle), -sinf(angle), 0.0f, 0.0f,
-            sinf(angle),  cosf(angle), 0.0f, 0.0f,
-            0.0f,         0.0f,        1.0f, 0.0f,
-            0.0f,         0.0f,        0.0f, 1.0f
-        };
-        
-        // Clear screen
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        
-        // Draw triangle
-        glUseProgram(shaderProgram);
-        GLint transformLoc = glGetUniformLocation(shaderProgram, "transform");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, transform);
-        
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        
-        // Swap buffers
-        SDL_GL_SwapWindow(window);
-    }
-    
-    // Cleanup
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteProgram(shaderProgram);
-	', vertexShaderSource, fragmentShaderSource);
+		final vertexShader:GLuint = createShader(GL.VERTEX_SHADER, window, Resource.getString('assets/default.vert'));
+		final fragmentShader:GLuint = createShader(GL.FRAGMENT_SHADER, window, Resource.getString('assets/default.frag'));
+		final shaderProgram:GLuint = createProgram(vertexShader, fragmentShader, window);
+		final vertexArray:GLuint = createVertexArray();
+		final vertexBufferObject:GLuint = createBuffer();
+
+		GL.bindVertexArray(vertexArray);
+
+		{
+			GL.bindBuffer(GL.ARRAY_BUFFER, vertexBufferObject);
+
+			{
+				final verticles:Array<GLfloat> = [
+					0.0,  0.5, 0.0, 1.0, 0.0, 0.0,
+					-0.5, -0.5, 0.0, 0.0, 1.0, 0.0,
+					0.5, -0.5, 0.0, 0.0, 0.0, 1.0
+				];
+
+				GL.bufferData(GL.ARRAY_BUFFER, verticles.length * GLfloat.size(), verticles, GL.STATIC_DRAW);
+
+				GL.vertexAttribPointer(0, 3, GL.FLOAT, GL.FALSE, 6 * GLfloat.size(), 0);
+				GL.enableVertexAttribArray(0);
+
+				GL.vertexAttribPointer(1, 3, GL.FLOAT, GL.FALSE, 6 * GLfloat.size(), 3 * GLfloat.size());
+				GL.enableVertexAttribArray(1);
+			}
+
+			GL.bindBuffer(GL.ARRAY_BUFFER, 0);
+		}
+
+		GL.bindVertexArray(0);
+
+		var running:Bool = true;
+
+		final event:SDL_Event = new SDL_Event();
+
+		while (running)
+		{
+			while (SDL.PollEvent(RawPointer.addressOf(event)))
+			{
+				if (event.type == SDL_EVENT_QUIT)
+				{
+					running = false;
+				}
+				else if (event.type == SDL_EVENT_KEY_DOWN)
+				{
+					if (event.key.key == SDL.K_ESCAPE)
+					{
+						running = false;
+					}
+				}
+				else if (event.type == SDL_EVENT_WINDOW_RESIZED)
+				{
+					GL.viewport(0, 0, event.window.data1, event.window.data2);
+				}
+			}
+
+			GL.clearColor(0.1, 0.1, 0.1, 1.0);
+			GL.clear(GL.COLOR_BUFFER_BIT);
+
+			GL.bindVertexArray(vertexArray);
+			GL.drawArrays(GL.TRIANGLES, 0, 3);
+			GL.bindVertexArray(0);
+
+			SDL.GL_SwapWindow(window);
+		}
+
+		GL.deleteVertexArrays(1, RawPointer.addressOf(vertexArray));
+		GL.deleteBuffers(1, RawPointer.addressOf(vertexBufferObject));
+		GL.deleteProgram(shaderProgram);
 
 		SDL.GL_DestroyContext(glContext);
 		SDL.DestroyWindow(window);
