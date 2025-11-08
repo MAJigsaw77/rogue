@@ -81,11 +81,11 @@ extern class SDL_AsyncIOOutcome
 	var asyncio:RawPointer<SDL_AsyncIO>;
 	var type:SDL_AsyncIOTaskType;
 	var result:SDL_AsyncIOResult;
-	var buffer:VoidPointer;
+	var buffer:RawPointer<cpp.Void>;
 	var offset:UInt64;
 	var bytes_requested:UInt64;
 	var bytes_transferred:UInt64;
-	var userdata:VoidPointer;
+	var userdata:RawPointer<cpp.Void>;
 }
 
 @:include('SDL3/SDL.h')
@@ -321,8 +321,8 @@ extern enum abstract SDL_CameraPosition(SDL_CameraPosition_Impl)
 @:native('SDL_CameraPosition')
 private extern class SDL_CameraPosition_Impl {}
 
-typedef SDL_ClipboardDataCallback = Callable<(userdata:VoidPointer, mime_type:ConstCharStar, size:RawPointer<SizeT>) -> VoidConstPointer>;
-typedef SDL_ClipboardCleanupCallback = Callable<(userdata:VoidPointer) -> Void>;
+typedef SDL_ClipboardDataCallback = Callable<(userdata:RawPointer<cpp.Void>, mime_type:ConstCharStar, size:RawPointer<SizeT>) -> RawConstPointer<cpp.Void>>;
+typedef SDL_ClipboardCleanupCallback = Callable<(userdata:RawPointer<cpp.Void>) -> Void>;
 
 @:include('SDL3/SDL.h')
 @:structAccess
@@ -335,7 +335,7 @@ extern class SDL_DialogFileFilter
 	var pattern:ConstCharStar;
 }
 
-typedef SDL_DialogFileCallback = Callable<(userdata:VoidPointer, filelist:ConstCharStarConstStar, filter:Int) -> Void>;
+typedef SDL_DialogFileCallback = Callable<(userdata:RawPointer<cpp.Void>, filelist:ConstCharStarConstStar, filter:Int) -> Void>;
 
 extern enum abstract SDL_FileDialogType(SDL_FileDialogType_Impl)
 {
@@ -1103,7 +1103,7 @@ extern class SDL_GamepadSensorEvent
 	var timestamp:UInt64;
 	var which:SDL_JoystickID;
 	var sensor:Int32;
-	var data:SinglePointer;
+	var data:RawPointer<Single>;
 	var sensor_timestamp:UInt64;
 }
 
@@ -1301,7 +1301,7 @@ extern class SDL_SensorEvent
 	var reserved:UInt32;
 	var timestamp:UInt64;
 	var which:SDL_SensorID;
-	var data:SinglePointer;
+	var data:RawPointer<Single>;
 	var sensor_timestamp:UInt64;
 }
 
@@ -1329,8 +1329,8 @@ extern class SDL_UserEvent
 	var timestamp:UInt64;
 	var windowID:SDL_WindowID;
 	var code:Int32;
-	var data1:VoidPointer;
-	var data2:VoidPointer;
+	var data1:RawPointer<cpp.Void>;
+	var data2:RawPointer<cpp.Void>;
 }
 
 @:include('SDL3/SDL.h')
@@ -1378,7 +1378,7 @@ extern class SDL_Event
 	var render:SDL_RenderEvent;
 	var drop:SDL_DropEvent;
 	var clipboard:SDL_ClipboardEvent;
-	var padding:UInt8Pointer;
+	var padding:RawPointer<UInt8>;
 }
 
 extern enum abstract SDL_EventAction(SDL_EventAction_Impl)
@@ -1404,7 +1404,7 @@ extern enum abstract SDL_EventAction(SDL_EventAction_Impl)
 @:native('SDL_EventAction')
 private extern class SDL_EventAction_Impl {}
 
-typedef SDL_EventFilter = Callable<(userdata:VoidPointer, event:RawPointer<SDL_Event>) -> Bool>;
+typedef SDL_EventFilter = Callable<(userdata:RawPointer<cpp.Void>, event:RawPointer<SDL_Event>) -> Bool>;
 
 extern enum abstract SDL_Folder(SDL_Folder_Impl)
 {
@@ -1526,7 +1526,7 @@ extern enum abstract SDL_EnumerationResult(SDL_EnumerationResult_Impl)
 @:native('SDL_EnumerationResult')
 private extern class SDL_EnumerationResult_Impl {}
 
-typedef SDL_EnumerateDirectoryCallback = Callable<(userdata:VoidPointer, dirname:ConstCharStar, fname:ConstCharStar) -> SDL_EnumerationResult>;
+typedef SDL_EnumerateDirectoryCallback = Callable<(userdata:RawPointer<cpp.Void>, dirname:ConstCharStar, fname:ConstCharStar) -> SDL_EnumerationResult>;
 
 @:include('SDL3/SDL.h')
 @:native('SDL_Gamepad')
@@ -3218,7 +3218,7 @@ extern class SDL_GPUShaderCreateInfo
 	function new():Void;
 
 	var code_size:SizeT;
-	var code:UInt8ConstPointer;
+	var code:RawConstPointer<UInt8>;
 	var entrypoint:ConstCharStar;
 	var format:SDL_GPUShaderFormat;
 	var stage:SDL_GPUShaderStage;
@@ -3378,7 +3378,7 @@ extern class SDL_GPUComputePipelineCreateInfo
 	function new():Void;
 
 	var code_size:SizeT;
-	var code:UInt8ConstPointer;
+	var code:RawConstPointer<UInt8>;
 	var entrypoint:ConstCharStar;
 	var format:SDL_GPUShaderFormat;
 	var num_samplers:UInt32;
@@ -3512,7 +3512,7 @@ extern class SDL_GUID
 {
 	function new():Void;
 
-	var data:UInt8Pointer;
+	var data:RawPointer<UInt8>;
 }
 
 @:include('SDL3/SDL.h')
@@ -3527,7 +3527,7 @@ extern class SDL_HapticDirection
 	function new():Void;
 
 	var type:UInt8;
-	var dir:Int32Pointer;
+	var dir:RawPointer<Int32>;
 }
 
 @:include('SDL3/SDL.h')
@@ -3586,12 +3586,12 @@ extern class SDL_HapticCondition
 	var delay:UInt16;
 	var button:UInt16;
 	var interval:UInt16;
-	var right_sat:UInt16Pointer;
-	var left_sat:UInt16Pointer;
-	var right_coeff:Int16Pointer;
-	var left_coeff:Int16Pointer;
-	var deadband:UInt16Pointer;
-	var center:Int16Pointer;
+	var right_sat:RawPointer<UInt16>;
+	var left_sat:RawPointer<UInt16>;
+	var right_coeff:RawPointer<Int16>;
+	var left_coeff:RawPointer<Int16>;
+	var deadband:RawPointer<UInt16>;
+	var center:RawPointer<Int16>;
 }
 
 @:include('SDL3/SDL.h')
@@ -3644,7 +3644,7 @@ extern class SDL_HapticCustom
 	var channels:UInt8;
 	var period:UInt16;
 	var samples:UInt16;
-	var data:UInt16Pointer;
+	var data:RawPointer<UInt16>;
 	var attack_length:UInt16;
 	var attack_level:UInt16;
 	var fade_length:UInt16;
@@ -3754,7 +3754,7 @@ extern enum abstract SDL_HintPriority(SDL_HintPriority_Impl)
 @:native('SDL_HintPriority')
 private extern class SDL_HintPriority_Impl {}
 
-typedef SDL_HintCallback = Callable<(userdata:VoidPointer, name:ConstCharStar, oldValue:ConstCharStar, newValue:ConstCharStar) -> Void>;
+typedef SDL_HintCallback = Callable<(userdata:RawPointer<cpp.Void>, name:ConstCharStar, oldValue:ConstCharStar, newValue:ConstCharStar) -> Void>;
 
 @:include('SDL3/SDL.h')
 @:native('SDL_InitFlags')
@@ -3763,7 +3763,7 @@ typedef SDL_HintCallback = Callable<(userdata:VoidPointer, name:ConstCharStar, o
 @:notNull
 extern abstract SDL_InitFlags from UInt32 to UInt32 {}
 
-typedef SDL_MainThreadCallback = Callable<(userdata:VoidPointer) -> Void>;
+typedef SDL_MainThreadCallback = Callable<(userdata:RawPointer<cpp.Void>) -> Void>;
 
 extern enum abstract SDL_IOStatus(SDL_IOStatus_Impl)
 {
@@ -3828,12 +3828,12 @@ extern class SDL_IOStreamInterface
 	function new():Void;
 
 	var version:UInt32;
-	var size:Callable<(userdata:VoidPointer) -> Int64>;
-	var seek:Callable<(userdata:VoidPointer, offset:Int64, whence:SDL_IOWhence) -> Int64>;
-	var read:Callable<(userdata:VoidPointer, ptr:VoidPointer, size:SizeT, status:RawPointer<SDL_IOStatus>) -> SizeT>;
-	var write:Callable<(userdata:VoidPointer, ptr:VoidConstPointer, size:SizeT, status:RawPointer<SDL_IOStatus>) -> SizeT>;
-	var flush:Callable<(userdata:VoidPointer, status:RawPointer<SDL_IOStatus>) -> Bool>;
-	var close:Callable<(userdata:VoidPointer) -> Bool>;
+	var size:Callable<(userdata:RawPointer<cpp.Void>) -> Int64>;
+	var seek:Callable<(userdata:RawPointer<cpp.Void>, offset:Int64, whence:SDL_IOWhence) -> Int64>;
+	var read:Callable<(userdata:RawPointer<cpp.Void>, ptr:RawPointer<cpp.Void>, size:SizeT, status:RawPointer<SDL_IOStatus>) -> SizeT>;
+	var write:Callable<(userdata:RawPointer<cpp.Void>, ptr:RawConstPointer<cpp.Void>, size:SizeT, status:RawPointer<SDL_IOStatus>) -> SizeT>;
+	var flush:Callable<(userdata:RawPointer<cpp.Void>, status:RawPointer<SDL_IOStatus>) -> Bool>;
+	var close:Callable<(userdata:RawPointer<cpp.Void>) -> Bool>;
 }
 
 @:include('SDL3/SDL.h')
@@ -3932,7 +3932,7 @@ extern class SDL_VirtualJoystickTouchpadDesc
 	function new():Void;
 
 	var nfingers:UInt16;
-	var padding:UInt16Pointer;
+	var padding:RawPointer<UInt16>;
 }
 
 @:include('SDL3/SDL.h')
@@ -3964,21 +3964,21 @@ extern class SDL_VirtualJoystickDesc
 	var nhats:UInt16;
 	var ntouchpads:UInt16;
 	var nsensors:UInt16;
-	var padding2:UInt16Pointer;
+	var padding2:RawPointer<UInt16>;
 	var button_mask:UInt32;
 	var axis_mask:UInt32;
 	var name:ConstCharStar;
 	var touchpads:RawConstPointer<SDL_VirtualJoystickTouchpadDesc>;
 	var sensors:RawConstPointer<SDL_VirtualJoystickSensorDesc>;
-	var userdata:VoidPointer;
-	var Update:Callable<(userdata:VoidPointer) -> Void>;
-	var SetPlayerIndex:Callable<(userdata:VoidPointer, player_index:Int) -> Void>;
-	var Rumble:Callable<(userdata:VoidPointer, low:UInt16, high:UInt16) -> Bool>;
-	var RumbleTriggers:Callable<(userdata:VoidPointer, left:UInt16, right:UInt16) -> Bool>;
-	var SetLED:Callable<(userdata:VoidPointer, red:UInt8, green:UInt8, blue:UInt8) -> Bool>;
-	var SendEffect:Callable<(userdata:VoidPointer, data:VoidConstPointer, size:Int) -> Bool>;
-	var SetSensorsEnabled:Callable<(userdata:VoidPointer, enabled:Bool) -> Bool>;
-	var Cleanup:Callable<(userdata:VoidPointer) -> Void>;
+	var userdata:RawPointer<cpp.Void>;
+	var Update:Callable<(userdata:RawPointer<cpp.Void>) -> Void>;
+	var SetPlayerIndex:Callable<(userdata:RawPointer<cpp.Void>, player_index:Int) -> Void>;
+	var Rumble:Callable<(userdata:RawPointer<cpp.Void>, low:UInt16, high:UInt16) -> Bool>;
+	var RumbleTriggers:Callable<(userdata:RawPointer<cpp.Void>, left:UInt16, right:UInt16) -> Bool>;
+	var SetLED:Callable<(userdata:RawPointer<cpp.Void>, red:UInt8, green:UInt8, blue:UInt8) -> Bool>;
+	var SendEffect:Callable<(userdata:RawPointer<cpp.Void>, data:RawConstPointer<cpp.Void>, size:Int) -> Bool>;
+	var SetSensorsEnabled:Callable<(userdata:RawPointer<cpp.Void>, enabled:Bool) -> Bool>;
+	var Cleanup:Callable<(userdata:RawPointer<cpp.Void>) -> Void>;
 }
 
 @:include('SDL3/SDL.h')
@@ -4199,7 +4199,7 @@ extern enum abstract SDL_LogPriority(SDL_LogPriority_Impl)
 @:native('SDL_LogPriority')
 private extern class SDL_LogPriority_Impl {}
 
-typedef SDL_LogOutputFunction = Callable<(userdata:VoidPointer, category:Int, priority:SDL_LogPriority, message:ConstCharStar) -> Void>;
+typedef SDL_LogOutputFunction = Callable<(userdata:RawPointer<cpp.Void>, category:Int, priority:SDL_LogPriority, message:ConstCharStar) -> Void>;
 
 @:include('SDL3/SDL.h')
 @:native('SDL_MessageBoxFlags')
@@ -4463,7 +4463,7 @@ extern class SDL_InitState
 
 	var status:SDL_AtomicInt;
 	var thread:SDL_ThreadID;
-	var reserved:VoidPointer;
+	var reserved:RawPointer<cpp.Void>;
 }
 
 @:include('SDL3/SDL.h')
@@ -5304,7 +5304,7 @@ extern class SDL_PixelFormatDetails
 	var format:SDL_PixelFormat;
 	var bits_per_pixel:UInt8;
 	var bytes_per_pixel:UInt8;
-	var padding:UInt8Pointer;
+	var padding:RawPointer<UInt8>;
 	var Rmask:UInt32;
 	var Gmask:UInt32;
 	var Bmask:UInt32;
@@ -5392,8 +5392,8 @@ extern enum abstract SDL_PropertyType(SDL_PropertyType_Impl)
 @:native('SDL_PropertyType')
 private extern class SDL_PropertyType_Impl {}
 
-typedef SDL_CleanupPropertyCallback = Callable<(userdata:VoidPointer, value:VoidPointer) -> Void>;
-typedef SDL_EnumeratePropertiesCallback = Callable<(userdata:VoidPointer, props:SDL_PropertiesID, name:ConstCharStar) -> Void>;
+typedef SDL_CleanupPropertyCallback = Callable<(userdata:RawPointer<cpp.Void>, value:RawPointer<cpp.Void>) -> Void>;
+typedef SDL_EnumeratePropertiesCallback = Callable<(userdata:RawPointer<cpp.Void>, props:SDL_PropertiesID, name:ConstCharStar) -> Void>;
 
 @:include('SDL3/SDL.h')
 @:structAccess
@@ -6303,7 +6303,7 @@ private extern class SDL_SensorType_Impl {}
 extern abstract SDL_Time from Int64 to Int64 {}
 
 #if ROGUE_SDL_FUNCTION_POINTER_IS_VOID_POINTER
-typedef SDL_FunctionPointer = VoidPointer;
+typedef SDL_FunctionPointer = RawPointer<cpp.Void>;
 #else
 typedef SDL_FunctionPointer = Callable<Void->Void>;
 #end
@@ -6316,17 +6316,17 @@ extern class SDL_StorageInterface
 	function new():Void;
 
 	var version:UInt32;
-	var close:Callable<(userdata:VoidPointer) -> Bool>;
-	var ready:Callable<(userdata:VoidPointer) -> Bool>;
-	var enumerate:Callable<(userdata:VoidPointer, path:ConstCharStar, callback:SDL_EnumerateDirectoryCallback, callback_userdata:VoidPointer) -> Bool>;
-	var info:Callable<(userdata:VoidPointer, path:ConstCharStar, info:RawPointer<SDL_PathInfo>) -> Bool>;
-	var read_file:Callable<(userdata:VoidPointer, path:ConstCharStar, destination:VoidPointer, length:UInt64) -> Bool>;
-	var write_file:Callable<(userdata:VoidPointer, path:ConstCharStar, source:VoidConstPointer, length:UInt64) -> Bool>;
-	var mkdir:Callable<(userdata:VoidPointer, path:ConstCharStar) -> Bool>;
-	var remove:Callable<(userdata:VoidPointer, path:ConstCharStar) -> Bool>;
-	var rename:Callable<(userdata:VoidPointer, oldpath:ConstCharStar, newpath:ConstCharStar) -> Bool>;
-	var copy:Callable<(userdata:VoidPointer, oldpath:ConstCharStar, newpath:ConstCharStar) -> Bool>;
-	var space_remaining:Callable<(userdata:VoidPointer) -> UInt64>;
+	var close:Callable<(userdata:RawPointer<cpp.Void>) -> Bool>;
+	var ready:Callable<(userdata:RawPointer<cpp.Void>) -> Bool>;
+	var enumerate:Callable<(userdata:RawPointer<cpp.Void>, path:ConstCharStar, callback:SDL_EnumerateDirectoryCallback, callback_userdata:RawPointer<cpp.Void>) -> Bool>;
+	var info:Callable<(userdata:RawPointer<cpp.Void>, path:ConstCharStar, info:RawPointer<SDL_PathInfo>) -> Bool>;
+	var read_file:Callable<(userdata:RawPointer<cpp.Void>, path:ConstCharStar, destination:RawPointer<cpp.Void>, length:UInt64) -> Bool>;
+	var write_file:Callable<(userdata:RawPointer<cpp.Void>, path:ConstCharStar, source:RawConstPointer<cpp.Void>, length:UInt64) -> Bool>;
+	var mkdir:Callable<(userdata:RawPointer<cpp.Void>, path:ConstCharStar) -> Bool>;
+	var remove:Callable<(userdata:RawPointer<cpp.Void>, path:ConstCharStar) -> Bool>;
+	var rename:Callable<(userdata:RawPointer<cpp.Void>, oldpath:ConstCharStar, newpath:ConstCharStar) -> Bool>;
+	var copy:Callable<(userdata:RawPointer<cpp.Void>, oldpath:ConstCharStar, newpath:ConstCharStar) -> Bool>;
+	var space_remaining:Callable<(userdata:RawPointer<cpp.Void>) -> UInt64>;
 }
 
 @:include('SDL3/SDL.h')
@@ -6398,9 +6398,9 @@ extern class SDL_Surface
 	var w:Int;
 	var h:Int;
 	var pitch:Int;
-	var pixels:VoidPointer;
+	var pixels:RawPointer<cpp.Void>;
 	var refcount:Int;
-	var reserved:VoidPointer;
+	var reserved:RawPointer<cpp.Void>;
 }
 
 #if windows
@@ -6408,19 +6408,19 @@ extern class SDL_Surface
 @:native('MSG')
 extern class MSG {}
 
-typedef SDL_WindowsMessageHook = Callable<(userdata:VoidPointer, msg:RawPointer<MSG>) -> Bool>;
+typedef SDL_WindowsMessageHook = Callable<(userdata:RawPointer<cpp.Void>, msg:RawPointer<MSG>) -> Bool>;
 #end
 
 @:include('SDL3/SDL.h')
 @:native('XEvent')
 extern class XEvent {}
 
-typedef SDL_X11EventHook = Callable<(userdata:VoidPointer, xevent:RawPointer<XEvent>) -> Bool>;
+typedef SDL_X11EventHook = Callable<(userdata:RawPointer<cpp.Void>, xevent:RawPointer<XEvent>) -> Bool>;
 #if iphone
-typedef SDL_iOSAnimationCallback = Callable<(userdata:VoidPointer) -> Void>;
+typedef SDL_iOSAnimationCallback = Callable<(userdata:RawPointer<cpp.Void>) -> Void>;
 #end
 #if android
-typedef SDL_RequestAndroidPermissionCallback = Callable<(userdata:VoidPointer, permission:ConstcharStar, granted:Bool) -> Void>;
+typedef SDL_RequestAndroidPermissionCallback = Callable<(userdata:RawPointer<cpp.Void>, permission:ConstcharStar, granted:Bool) -> Void>;
 #end
 
 extern enum abstract SDL_Sandbox(SDL_Sandbox_Impl)
@@ -6525,8 +6525,8 @@ extern enum abstract SDL_ThreadState(SDL_ThreadState_Impl)
 @:native('SDL_ThreadState')
 private extern class SDL_ThreadState_Impl {}
 
-typedef SDL_ThreadFunction = Callable<(data:VoidPointer) -> Int>;
-typedef SDL_TLSDestructorCallback = Callable<(value:VoidPointer) -> Void>;
+typedef SDL_ThreadFunction = Callable<(data:RawPointer<cpp.Void>) -> Int>;
+typedef SDL_TLSDestructorCallback = Callable<(value:RawPointer<cpp.Void>) -> Void>;
 
 @:include('SDL3/SDL.h')
 @:structAccess
@@ -6596,8 +6596,8 @@ private extern class SDL_TimeFormat_Impl {}
 @:notNull
 extern abstract SDL_TimerID from UInt32 to UInt32 {}
 
-typedef SDL_TimerCallback = Callable<(userdata:VoidPointer, timerID:SDL_TimerID, interval:UInt32) -> UInt32>;
-typedef SDL_NSTimerCallback = Callable<(userdata:VoidPointer, timerID:SDL_TimerID, interval:UInt64) -> UInt64>;
+typedef SDL_TimerCallback = Callable<(userdata:RawPointer<cpp.Void>, timerID:SDL_TimerID, interval:UInt32) -> UInt32>;
+typedef SDL_NSTimerCallback = Callable<(userdata:RawPointer<cpp.Void>, timerID:SDL_TimerID, interval:UInt64) -> UInt64>;
 
 @:include('SDL3/SDL.h')
 @:native('SDL_TouchID')
@@ -6671,7 +6671,7 @@ extern class SDL_TrayEntry {}
 @:notNull
 extern abstract SDL_TrayEntryFlags from UInt32 to UInt32 {}
 
-typedef SDL_TrayCallback = Callable<(userdata:VoidPointer, entry:RawPointer<SDL_TrayEntry>) -> Void>;
+typedef SDL_TrayCallback = Callable<(userdata:RawPointer<cpp.Void>, entry:RawPointer<SDL_TrayEntry>) -> Void>;
 
 @:include('SDL3/SDL.h')
 @:native('SDL_DisplayID')
@@ -6797,7 +6797,9 @@ private extern class SDL_FlashOperation_Impl {}
 
 @:include('SDL3/SDL.h')
 @:native('SDL_GLContext')
-extern class SDL_GLContext {}
+@:scalar
+@:coreType
+extern abstract SDL_GLContext from RawPointer<cpp.Void> to RawPointer<cpp.Void> {}
 
 extern enum abstract SDL_GLAttr(SDL_GLAttr_Impl)
 {
@@ -6969,7 +6971,7 @@ extern enum abstract SDL_HitTestResult(SDL_HitTestResult_Impl)
 @:native('SDL_HitTestResult')
 private extern class SDL_HitTestResult_Impl {}
 
-typedef SDL_HitTest = Callable<(win:RawPointer<SDL_Window>, area:RawConstPointer<SDL_Point>, data:VoidPointer) -> SDL_HitTestResult>;
+typedef SDL_HitTest = Callable<(win:RawPointer<SDL_Window>, area:RawConstPointer<SDL_Point>, data:RawPointer<cpp.Void>) -> SDL_HitTestResult>;
 
 /**
  * This class provides static methods to interact with the `SDL` library.
@@ -6985,13 +6987,13 @@ extern class SDL
 	static function GetAsyncIOSize(asyncio:SDL_AsyncIO):Int64;
 
 	@:native('SDL_ReadAsyncIO')
-	static function ReadAsyncIO(asyncio:SDL_AsyncIO, ptr:VoidPointer, offset:UInt64, size:UInt64, queue:SDL_AsyncIOQueue, userdata:VoidPointer):Bool;
+	static function ReadAsyncIO(asyncio:SDL_AsyncIO, ptr:RawPointer<cpp.Void>, offset:UInt64, size:UInt64, queue:SDL_AsyncIOQueue, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_WriteAsyncIO')
-	static function WriteAsyncIO(asyncio:SDL_AsyncIO, ptr:VoidPointer, offset:UInt64, size:UInt64, queue:SDL_AsyncIOQueue, userdata:VoidPointer):Bool;
+	static function WriteAsyncIO(asyncio:SDL_AsyncIO, ptr:RawPointer<cpp.Void>, offset:UInt64, size:UInt64, queue:SDL_AsyncIOQueue, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_CloseAsyncIO')
-	static function CloseAsyncIO(asyncio:SDL_AsyncIO, flush:Bool, queue:SDL_AsyncIOQueue, userdata:VoidPointer):Bool;
+	static function CloseAsyncIO(asyncio:SDL_AsyncIO, flush:Bool, queue:SDL_AsyncIOQueue, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_CreateAsyncIOQueue')
 	static function CreateAsyncIOQueue():SDL_AsyncIOQueue;
@@ -7009,7 +7011,7 @@ extern class SDL
 	static function SignalAsyncIOQueue(queue:SDL_AsyncIOQueue):Void;
 
 	@:native('SDL_LoadFileAsync')
-	static function LoadFileAsync(file:ConstCharStar, queue:SDL_AsyncIOQueue, userdata:VoidPointer):Bool;
+	static function LoadFileAsync(file:ConstCharStar, queue:SDL_AsyncIOQueue, userdata:RawPointer<cpp.Void>):Bool;
 
 	// SDL_atomic.h
 	@:native('SDL_TryLockSpinlock')
@@ -7049,13 +7051,13 @@ extern class SDL
 	static function GetAtomicU32(a:RawPointer<SDL_AtomicU32>):UInt32;
 
 	@:native('SDL_CompareAndSwapAtomicPointer')
-	static function CompareAndSwapAtomicPointer(a:RawPointer<VoidPointer>, oldval:VoidPointer, newval:VoidPointer):Bool;
+	static function CompareAndSwapAtomicPointer(a:RawPointer<RawPointer<cpp.Void>>, oldval:RawPointer<cpp.Void>, newval:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_SetAtomicPointer')
-	static function SetAtomicPointer(a:RawPointer<VoidPointer>, v:VoidPointer):VoidPointer;
+	static function SetAtomicPointer(a:RawPointer<RawPointer<cpp.Void>>, v:RawPointer<cpp.Void>):RawPointer<cpp.Void>;
 
 	@:native('SDL_GetAtomicPointer')
-	static function GetAtomicPointer(a:RawPointer<VoidPointer>):VoidPointer;
+	static function GetAtomicPointer(a:RawPointer<RawPointer<cpp.Void>>):RawPointer<cpp.Void>;
 
 	// SDL_audio.h
 	@:native('SDL_GetNumAudioDrivers')
@@ -7068,19 +7070,19 @@ extern class SDL
 	static function GetCurrentAudioDriver():ConstCharStar;
 
 	@:native('SDL_GetAudioPlaybackDevices')
-	static function GetAudioPlaybackDevices(count:IntPointer):RawPointer<SDL_AudioDeviceID>;
+	static function GetAudioPlaybackDevices(count:RawPointer<Int>):RawPointer<SDL_AudioDeviceID>;
 
 	@:native('SDL_GetAudioRecordingDevices')
-	static function GetAudioRecordingDevices(count:IntPointer):RawPointer<SDL_AudioDeviceID>;
+	static function GetAudioRecordingDevices(count:RawPointer<Int>):RawPointer<SDL_AudioDeviceID>;
 
 	@:native('SDL_GetAudioDeviceName')
 	static function GetAudioDeviceName(devid:SDL_AudioDeviceID):ConstCharStar;
 
 	@:native('SDL_GetAudioDeviceFormat')
-	static function GetAudioDeviceFormat(devid:SDL_AudioDeviceID, spec:RawPointer<SDL_AudioSpec>, sampleFrames:IntPointer):Bool;
+	static function GetAudioDeviceFormat(devid:SDL_AudioDeviceID, spec:RawPointer<SDL_AudioSpec>, sampleFrames:RawPointer<Int>):Bool;
 
 	@:native('SDL_GetAudioDeviceChannelMap')
-	static function GetAudioDeviceChannelMap(devid:SDL_AudioDeviceID, count:IntPointer):IntPointer;
+	static function GetAudioDeviceChannelMap(devid:SDL_AudioDeviceID, count:RawPointer<Int>):RawPointer<Int>;
 
 	@:native('SDL_OpenAudioDevice')
 	static function OpenAudioDevice(devid:SDL_AudioDeviceID, spec:RawPointer<SDL_AudioSpec>):SDL_AudioDeviceID;
@@ -7149,22 +7151,22 @@ extern class SDL
 	static function SetAudioStreamGain(stream:RawPointer<SDL_AudioStream>, gain:Single):Bool;
 
 	@:native('SDL_GetAudioStreamInputChannelMap')
-	static function GetAudioStreamInputChannelMap(stream:RawPointer<SDL_AudioStream>, count:IntPointer):IntPointer;
+	static function GetAudioStreamInputChannelMap(stream:RawPointer<SDL_AudioStream>, count:RawPointer<Int>):RawPointer<Int>;
 
 	@:native('SDL_GetAudioStreamOutputChannelMap')
-	static function GetAudioStreamOutputChannelMap(stream:RawPointer<SDL_AudioStream>, count:IntPointer):IntPointer;
+	static function GetAudioStreamOutputChannelMap(stream:RawPointer<SDL_AudioStream>, count:RawPointer<Int>):RawPointer<Int>;
 
 	@:native('SDL_SetAudioStreamInputChannelMap')
-	static function SetAudioStreamInputChannelMap(stream:RawPointer<SDL_AudioStream>, chmap:IntPointer, count:Int):Bool;
+	static function SetAudioStreamInputChannelMap(stream:RawPointer<SDL_AudioStream>, chmap:RawPointer<Int>, count:Int):Bool;
 
 	@:native('SDL_SetAudioStreamOutputChannelMap')
-	static function SetAudioStreamOutputChannelMap(stream:RawPointer<SDL_AudioStream>, chmap:IntPointer, count:Int):Bool;
+	static function SetAudioStreamOutputChannelMap(stream:RawPointer<SDL_AudioStream>, chmap:RawPointer<Int>, count:Int):Bool;
 
 	@:native('SDL_PutAudioStreamData')
-	static function PutAudioStreamData(stream:RawPointer<SDL_AudioStream>, buf:VoidPointer, len:Int):Bool;
+	static function PutAudioStreamData(stream:RawPointer<SDL_AudioStream>, buf:RawPointer<cpp.Void>, len:Int):Bool;
 
 	@:native('SDL_GetAudioStreamData')
-	static function GetAudioStreamData(stream:RawPointer<SDL_AudioStream>, buf:VoidPointer, len:Int):Int;
+	static function GetAudioStreamData(stream:RawPointer<SDL_AudioStream>, buf:RawPointer<cpp.Void>, len:Int):Int;
 
 	@:native('SDL_GetAudioStreamAvailable')
 	static function GetAudioStreamAvailable(stream:RawPointer<SDL_AudioStream>):Int;
@@ -7194,31 +7196,31 @@ extern class SDL
 	static function UnlockAudioStream(stream:RawPointer<SDL_AudioStream>):Bool;
 
 	@:native('SDL_SetAudioStreamGetCallback')
-	static function SetAudioStreamGetCallback(stream:RawPointer<SDL_AudioStream>, callback:VoidPointer, userdata:VoidPointer):Bool;
+	static function SetAudioStreamGetCallback(stream:RawPointer<SDL_AudioStream>, callback:RawPointer<cpp.Void>, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_SetAudioStreamPutCallback')
-	static function SetAudioStreamPutCallback(stream:RawPointer<SDL_AudioStream>, callback:VoidPointer, userdata:VoidPointer):Bool;
+	static function SetAudioStreamPutCallback(stream:RawPointer<SDL_AudioStream>, callback:RawPointer<cpp.Void>, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_DestroyAudioStream')
 	static function DestroyAudioStream(stream:RawPointer<SDL_AudioStream>):Void;
 
 	@:native('SDL_OpenAudioDeviceStream')
-	static function OpenAudioDeviceStream(devid:SDL_AudioDeviceID, spec:RawPointer<SDL_AudioSpec>, callback:VoidPointer,
-		userdata:VoidPointer):RawPointer<SDL_AudioStream>;
+	static function OpenAudioDeviceStream(devid:SDL_AudioDeviceID, spec:RawPointer<SDL_AudioSpec>, callback:RawPointer<cpp.Void>,
+		userdata:RawPointer<cpp.Void>):RawPointer<SDL_AudioStream>;
 
 	@:native('SDL_LoadWAV_IO')
-	static function LoadWAV_IO(src:RawPointer<SDL_IOStream>, closeio:Bool, spec:RawPointer<SDL_AudioSpec>, audioBuf:RawPointer<UInt8Pointer>,
-		audioLen:UInt32Pointer):Bool;
+	static function LoadWAV_IO(src:RawPointer<SDL_IOStream>, closeio:Bool, spec:RawPointer<SDL_AudioSpec>, audioBuf:RawPointer<RawPointer<UInt8>>,
+		audioLen:RawPointer<UInt32>):Bool;
 
 	@:native('SDL_LoadWAV')
-	static function LoadWAV(path:ConstCharStar, spec:RawPointer<SDL_AudioSpec>, audioBuf:RawPointer<UInt8Pointer>, audioLen:UInt32Pointer):Bool;
+	static function LoadWAV(path:ConstCharStar, spec:RawPointer<SDL_AudioSpec>, audioBuf:RawPointer<RawPointer<UInt8>>, audioLen:RawPointer<UInt32>):Bool;
 
 	@:native('SDL_MixAudio')
-	static function MixAudio(dst:UInt8Pointer, src:UInt8Pointer, format:SDL_AudioFormat, len:UInt32, volume:Single):Bool;
+	static function MixAudio(dst:RawPointer<UInt8>, src:RawPointer<UInt8>, format:SDL_AudioFormat, len:UInt32, volume:Single):Bool;
 
 	@:native('SDL_ConvertAudioSamples')
-	static function ConvertAudioSamples(srcSpec:RawPointer<SDL_AudioSpec>, srcData:UInt8Pointer, srcLen:Int, dstSpec:RawPointer<SDL_AudioSpec>,
-		dstData:RawPointer<UInt8Pointer>, dstLen:IntPointer):Bool;
+	static function ConvertAudioSamples(srcSpec:RawPointer<SDL_AudioSpec>, srcData:RawPointer<UInt8>, srcLen:Int, dstSpec:RawPointer<SDL_AudioSpec>,
+		dstData:RawPointer<RawPointer<UInt8>>, dstLen:RawPointer<Int>):Bool;
 
 	@:native('SDL_GetAudioFormatName')
 	static function GetAudioFormatName(format:SDL_AudioFormat):ConstCharStar;
@@ -7273,10 +7275,10 @@ extern class SDL
 	static function GetCurrentCameraDriver():ConstCharStar;
 
 	@:native('SDL_GetCameras')
-	static function GetCameras(count:IntPointer):RawPointer<SDL_CameraID>;
+	static function GetCameras(count:RawPointer<Int>):RawPointer<SDL_CameraID>;
 
 	@:native('SDL_GetCameraSupportedFormats')
-	static function GetCameraSupportedFormats(instance_id:SDL_CameraID, count:IntPointer):RawPointer<RawPointer<SDL_CameraSpec>>;
+	static function GetCameraSupportedFormats(instance_id:SDL_CameraID, count:RawPointer<Int>):RawPointer<RawPointer<SDL_CameraSpec>>;
 
 	@:native('SDL_GetCameraName')
 	static function GetCameraName(instance_id:SDL_CameraID):ConstCharStar;
@@ -7300,7 +7302,7 @@ extern class SDL
 	static function GetCameraFormat(camera:RawPointer<SDL_Camera>, spec:RawPointer<SDL_CameraSpec>):Bool;
 
 	@:native('SDL_AcquireCameraFrame')
-	static function AcquireCameraFrame(camera:RawPointer<SDL_Camera>, timestampNS:UInt64Pointer):RawPointer<SDL_Surface>;
+	static function AcquireCameraFrame(camera:RawPointer<SDL_Camera>, timestampNS:RawPointer<UInt64>):RawPointer<SDL_Surface>;
 
 	@:native('SDL_ReleaseCameraFrame')
 	static function ReleaseCameraFrame(camera:RawPointer<SDL_Camera>, frame:RawPointer<SDL_Surface>):Void;
@@ -7328,20 +7330,20 @@ extern class SDL
 	static function HasPrimarySelectionText():Bool;
 
 	@:native('SDL_SetClipboardData')
-	static function SetClipboardData(callback:SDL_ClipboardDataCallback, cleanup:SDL_ClipboardCleanupCallback, userdata:VoidPointer,
+	static function SetClipboardData(callback:SDL_ClipboardDataCallback, cleanup:SDL_ClipboardCleanupCallback, userdata:RawPointer<cpp.Void>,
 		mimeTypes:RawPointer<ConstCharStar>, numMimeTypes:Int):Bool;
 
 	@:native('SDL_ClearClipboardData')
 	static function ClearClipboardData():Bool;
 
 	@:native('SDL_GetClipboardData')
-	static function GetClipboardData(mimeType:ConstCharStar, size:IntPointer):VoidPointer;
+	static function GetClipboardData(mimeType:ConstCharStar, size:RawPointer<Int>):RawPointer<cpp.Void>;
 
 	@:native('SDL_HasClipboardData')
 	static function HasClipboardData(mimeType:ConstCharStar):Bool;
 
 	@:native('SDL_GetClipboardMimeTypes')
-	static function GetClipboardMimeTypes(numMimeTypes:IntPointer):RawPointer<CastCharStar>;
+	static function GetClipboardMimeTypes(numMimeTypes:RawPointer<Int>):RawPointer<CastCharStar>;
 
 	// SDL_cpuinfo.h
 	@:native('SDL_CACHELINE_SIZE')
@@ -7403,19 +7405,19 @@ extern class SDL
 
 	// SDL_dialog.h
 	@:native('SDL_ShowOpenFileDialog')
-	static function ShowOpenFileDialog(callback:SDL_DialogFileCallback, userdata:VoidPointer, window:RawPointer<SDL_Window>,
+	static function ShowOpenFileDialog(callback:SDL_DialogFileCallback, userdata:RawPointer<cpp.Void>, window:RawPointer<SDL_Window>,
 		filters:RawConstPointer<SDL_DialogFileFilter>, nfilters:Int, default_location:ConstCharStar, allow_many:Bool):Void;
 
 	@:native('SDL_ShowSaveFileDialog')
-	static function ShowSaveFileDialog(callback:SDL_DialogFileCallback, userdata:VoidPointer, window:RawPointer<SDL_Window>,
+	static function ShowSaveFileDialog(callback:SDL_DialogFileCallback, userdata:RawPointer<cpp.Void>, window:RawPointer<SDL_Window>,
 		filters:RawConstPointer<SDL_DialogFileFilter>, nfilters:Int, default_location:ConstCharStar):Void;
 
 	@:native('SDL_ShowOpenFolderDialog')
-	static function ShowOpenFolderDialog(callback:SDL_DialogFileCallback, userdata:VoidPointer, window:RawPointer<SDL_Window>, default_location:ConstCharStar,
+	static function ShowOpenFolderDialog(callback:SDL_DialogFileCallback, userdata:RawPointer<cpp.Void>, window:RawPointer<SDL_Window>, default_location:ConstCharStar,
 		allow_many:Bool):Void;
 
 	@:native('SDL_ShowFileDialogWithProperties')
-	static function ShowFileDialogWithProperties(type:SDL_FileDialogType, callback:SDL_DialogFileCallback, userdata:VoidPointer, props:SDL_PropertiesID):Void;
+	static function ShowFileDialogWithProperties(type:SDL_FileDialogType, callback:SDL_DialogFileCallback, userdata:RawPointer<cpp.Void>, props:SDL_PropertiesID):Void;
 
 	@:native('SDL_PROP_FILE_DIALOG_FILTERS_POINTER')
 	static var PROP_FILE_DIALOG_FILTERS_POINTER:ConstCharStar;
@@ -7489,19 +7491,19 @@ extern class SDL
 	static function PushEvent(event:RawPointer<SDL_Event>):Bool;
 
 	@:native('SDL_SetEventFilter')
-	static function SetEventFilter(filter:SDL_EventFilter, userdata:VoidPointer):Void;
+	static function SetEventFilter(filter:SDL_EventFilter, userdata:RawPointer<cpp.Void>):Void;
 
 	@:native('SDL_GetEventFilter')
-	static function GetEventFilter(filter:RawPointer<SDL_EventFilter>, userdata:RawPointer<VoidPointer>):Bool;
+	static function GetEventFilter(filter:RawPointer<SDL_EventFilter>, userdata:RawPointer<RawPointer<cpp.Void>>):Bool;
 
 	@:native('SDL_AddEventWatch')
-	static function AddEventWatch(filter:SDL_EventFilter, userdata:VoidPointer):Bool;
+	static function AddEventWatch(filter:SDL_EventFilter, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_RemoveEventWatch')
-	static function RemoveEventWatch(filter:SDL_EventFilter, userdata:VoidPointer):Void;
+	static function RemoveEventWatch(filter:SDL_EventFilter, userdata:RawPointer<cpp.Void>):Void;
 
 	@:native('SDL_FilterEvents')
-	static function FilterEvents(filter:SDL_EventFilter, userdata:VoidPointer):Void;
+	static function FilterEvents(filter:SDL_EventFilter, userdata:RawPointer<cpp.Void>):Void;
 
 	@:native('SDL_SetEventEnabled')
 	static function SetEventEnabled(type:UInt32, enabled:Bool):Void;
@@ -7529,7 +7531,7 @@ extern class SDL
 	static function CreateDirectory(path:ConstCharStar):Bool;
 
 	@:native('SDL_EnumerateDirectory')
-	static function EnumerateDirectory(path:ConstCharStar, callback:SDL_EnumerateDirectoryCallback, userdata:VoidPointer):Bool;
+	static function EnumerateDirectory(path:ConstCharStar, callback:SDL_EnumerateDirectoryCallback, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_RemovePath')
 	static function RemovePath(path:ConstCharStar):Bool;
@@ -7544,7 +7546,7 @@ extern class SDL
 	static function GetPathInfo(path:ConstCharStar, info:RawPointer<SDL_PathInfo>):Bool;
 
 	@:native('SDL_GlobDirectory')
-	static function GlobDirectory(path:ConstCharStar, pattern:ConstCharStar, flags:SDL_GlobFlags, count:IntPointer):RawPointer<ConstCharStar>;
+	static function GlobDirectory(path:ConstCharStar, pattern:ConstCharStar, flags:SDL_GlobFlags, count:RawPointer<Int>):RawPointer<ConstCharStar>;
 
 	@:native('SDL_GetCurrentDirectory')
 	static function GetCurrentDirectory():ConstCharStar;
@@ -7563,7 +7565,7 @@ extern class SDL
 	static function ReloadGamepadMappings():Bool;
 
 	@:native('SDL_GetGamepadMappings')
-	static function GetGamepadMappings(count:IntPointer):RawPointer<ConstCharStar>;
+	static function GetGamepadMappings(count:RawPointer<Int>):RawPointer<ConstCharStar>;
 
 	@:native('SDL_GetGamepadMappingForGUID')
 	static function GetGamepadMappingForGUID(guid:SDL_GUID):ConstCharStar;
@@ -7578,7 +7580,7 @@ extern class SDL
 	static function HasGamepad():Bool;
 
 	@:native('SDL_GetGamepads')
-	static function GetGamepads(count:IntPointer):RawPointer<SDL_JoystickID>;
+	static function GetGamepads(count:RawPointer<Int>):RawPointer<SDL_JoystickID>;
 
 	@:native('SDL_IsGamepad')
 	static function IsGamepad(instance_id:SDL_JoystickID):Bool;
@@ -7683,7 +7685,7 @@ extern class SDL
 	static function GetGamepadConnectionState(gamepad:RawPointer<SDL_Gamepad>):SDL_JoystickConnectionState;
 
 	@:native('SDL_GetGamepadPowerInfo')
-	static function GetGamepadPowerInfo(gamepad:RawPointer<SDL_Gamepad>, percent:IntPointer):SDL_PowerState;
+	static function GetGamepadPowerInfo(gamepad:RawPointer<SDL_Gamepad>, percent:RawPointer<Int>):SDL_PowerState;
 
 	@:native('SDL_GamepadConnected')
 	static function GamepadConnected(gamepad:RawPointer<SDL_Gamepad>):Bool;
@@ -7698,7 +7700,7 @@ extern class SDL
 	static function GamepadEventsEnabled():Bool;
 
 	@:native('SDL_GetGamepadBindings')
-	static function GetGamepadBindings(gamepad:RawPointer<SDL_Gamepad>, count:IntPointer):RawPointer<RawPointer<SDL_GamepadBinding>>;
+	static function GetGamepadBindings(gamepad:RawPointer<SDL_Gamepad>, count:RawPointer<Int>):RawPointer<RawPointer<SDL_GamepadBinding>>;
 
 	@:native('SDL_UpdateGamepads')
 	static function UpdateGamepads():Void;
@@ -7746,8 +7748,8 @@ extern class SDL
 	static function GetNumGamepadTouchpadFingers(gamepad:RawPointer<SDL_Gamepad>, touchpad:Int):Int;
 
 	@:native('SDL_GetGamepadTouchpadFinger')
-	static function GetGamepadTouchpadFinger(gamepad:RawPointer<SDL_Gamepad>, touchpad:Int, finger:Int, down:BoolPointer, x:SinglePointer, y:SinglePointer,
-		pressure:SinglePointer):Bool;
+	static function GetGamepadTouchpadFinger(gamepad:RawPointer<SDL_Gamepad>, touchpad:Int, finger:Int, down:RawPointer<Bool>, x:RawPointer<Single>, y:RawPointer<Single>,
+		pressure:RawPointer<Single>):Bool;
 
 	@:native('SDL_GamepadHasSensor')
 	static function GamepadHasSensor(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType):Bool;
@@ -7762,7 +7764,7 @@ extern class SDL
 	static function GetGamepadSensorDataRate(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType):Single;
 
 	@:native('SDL_GetGamepadSensorData')
-	static function GetGamepadSensorData(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType, data:SinglePointer, num_values:Int):Bool;
+	static function GetGamepadSensorData(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType, data:RawPointer<Single>, num_values:Int):Bool;
 
 	@:native('SDL_RumbleGamepad')
 	static function RumbleGamepad(gamepad:RawPointer<SDL_Gamepad>, low_frequency_rumble:UInt16, high_frequency_rumble:UInt16, duration_ms:UInt32):Bool;
@@ -7774,7 +7776,7 @@ extern class SDL
 	static function SetGamepadLED(gamepad:RawPointer<SDL_Gamepad>, red:UInt8, green:UInt8, blue:UInt8):Bool;
 
 	@:native('SDL_SendGamepadEffect')
-	static function SendGamepadEffect(gamepad:RawPointer<SDL_Gamepad>, data:VoidPointer, size:Int):Bool;
+	static function SendGamepadEffect(gamepad:RawPointer<SDL_Gamepad>, data:RawPointer<cpp.Void>, size:Int):Bool;
 
 	@:native('SDL_CloseGamepad')
 	static function CloseGamepad(gamepad:RawPointer<SDL_Gamepad>):Void;
@@ -8018,13 +8020,13 @@ extern class SDL
 	static function AcquireGPUCommandBuffer(device:RawPointer<SDL_GPUDevice>):RawPointer<SDL_GPUCommandBuffer>;
 
 	@:native('SDL_PushGPUVertexUniformData')
-	static function PushGPUVertexUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:VoidConstPointer, length:UInt32):Void;
+	static function PushGPUVertexUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:RawConstPointer<cpp.Void>, length:UInt32):Void;
 
 	@:native('SDL_PushGPUFragmentUniformData')
-	static function PushGPUFragmentUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:VoidConstPointer, length:UInt32):Void;
+	static function PushGPUFragmentUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:RawConstPointer<cpp.Void>, length:UInt32):Void;
 
 	@:native('SDL_PushGPUComputeUniformData')
-	static function PushGPUComputeUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:VoidConstPointer, length:UInt32):Void;
+	static function PushGPUComputeUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:RawConstPointer<cpp.Void>, length:UInt32):Void;
 
 	@:native('SDL_BeginGPURenderPass')
 	static function BeginGPURenderPass(command_buffer:RawPointer<SDL_GPUCommandBuffer>, color_target_infos:RawConstPointer<SDL_GPUColorTargetInfo>,
@@ -8126,7 +8128,7 @@ extern class SDL
 	static function EndGPUComputePass(compute_pass:RawPointer<SDL_GPUComputePass>):Void;
 
 	@:native('SDL_MapGPUTransferBuffer')
-	static function MapGPUTransferBuffer(device:RawPointer<SDL_GPUDevice>, transfer_buffer:RawPointer<SDL_GPUTransferBuffer>, cycle:Bool):VoidPointer;
+	static function MapGPUTransferBuffer(device:RawPointer<SDL_GPUDevice>, transfer_buffer:RawPointer<SDL_GPUTransferBuffer>, cycle:Bool):RawPointer<cpp.Void>;
 
 	@:native('SDL_UnmapGPUTransferBuffer')
 	static function UnmapGPUTransferBuffer(device:RawPointer<SDL_GPUDevice>, transfer_buffer:RawPointer<SDL_GPUTransferBuffer>):Void;
@@ -8193,14 +8195,14 @@ extern class SDL
 
 	@:native('SDL_AcquireGPUSwapchainTexture')
 	static function AcquireGPUSwapchainTexture(command_buffer:RawPointer<SDL_GPUCommandBuffer>, window:RawPointer<SDL_Window>,
-		swapchain_texture:RawPointer<RawPointer<SDL_GPUTexture>>, swapchain_texture_width:UInt32Pointer, swapchain_texture_height:UInt32Pointer):Bool;
+		swapchain_texture:RawPointer<RawPointer<SDL_GPUTexture>>, swapchain_texture_width:RawPointer<UInt32>, swapchain_texture_height:RawPointer<UInt32>):Bool;
 
 	@:native('SDL_WaitForGPUSwapchain')
 	static function WaitForGPUSwapchain(device:RawPointer<SDL_GPUDevice>, window:RawPointer<SDL_Window>):Bool;
 
 	@:native('SDL_WaitAndAcquireGPUSwapchainTexture')
 	static function WaitAndAcquireGPUSwapchainTexture(command_buffer:RawPointer<SDL_GPUCommandBuffer>, window:RawPointer<SDL_Window>,
-		swapchain_texture:RawPointer<RawPointer<SDL_GPUTexture>>, swapchain_texture_width:UInt32Pointer, swapchain_texture_height:UInt32Pointer):Bool;
+		swapchain_texture:RawPointer<RawPointer<SDL_GPUTexture>>, swapchain_texture_width:RawPointer<UInt32>, swapchain_texture_height:RawPointer<UInt32>):Bool;
 
 	@:native('SDL_SubmitGPUCommandBuffer')
 	static function SubmitGPUCommandBuffer(command_buffer:RawPointer<SDL_GPUCommandBuffer>):Bool;
@@ -8321,7 +8323,7 @@ extern class SDL
 
 	// SDL_haptic.h
 	@:native('SDL_GetHaptics')
-	static function GetHaptics(count:IntPointer):RawPointer<SDL_HapticID>;
+	static function GetHaptics(count:RawPointer<Int>):RawPointer<SDL_HapticID>;
 
 	@:native('SDL_GetHapticNameForID')
 	static function GetHapticNameForID(instance_id:SDL_HapticID):ConstCharStar;
@@ -8436,25 +8438,25 @@ extern class SDL
 	static function HidOpenPath(path:ConstCharStar):RawPointer<SDL_hid_device>;
 
 	@:native('SDL_hid_write')
-	static function HidWrite(dev:RawPointer<SDL_hid_device>, data:UInt8ConstPointer, length:SizeT):Int;
+	static function HidWrite(dev:RawPointer<SDL_hid_device>, data:RawConstPointer<UInt8>, length:SizeT):Int;
 
 	@:native('SDL_hid_read_timeout')
-	static function HidReadTimeout(dev:RawPointer<SDL_hid_device>, data:UInt8Pointer, length:SizeT, milliseconds:Int):Int;
+	static function HidReadTimeout(dev:RawPointer<SDL_hid_device>, data:RawPointer<UInt8>, length:SizeT, milliseconds:Int):Int;
 
 	@:native('SDL_hid_read')
-	static function HidRead(dev:RawPointer<SDL_hid_device>, data:UInt8Pointer, length:SizeT):Int;
+	static function HidRead(dev:RawPointer<SDL_hid_device>, data:RawPointer<UInt8>, length:SizeT):Int;
 
 	@:native('SDL_hid_set_nonblocking')
 	static function HidSetNonBlocking(dev:RawPointer<SDL_hid_device>, nonblock:Int):Int;
 
 	@:native('SDL_hid_send_feature_report')
-	static function HidSendFeatureReport(dev:RawPointer<SDL_hid_device>, data:UInt8ConstPointer, length:SizeT):Int;
+	static function HidSendFeatureReport(dev:RawPointer<SDL_hid_device>, data:RawConstPointer<UInt8>, length:SizeT):Int;
 
 	@:native('SDL_hid_get_feature_report')
-	static function HidGetFeatureReport(dev:RawPointer<SDL_hid_device>, data:UInt8Pointer, length:SizeT):Int;
+	static function HidGetFeatureReport(dev:RawPointer<SDL_hid_device>, data:RawPointer<UInt8>, length:SizeT):Int;
 
 	@:native('SDL_hid_get_input_report')
-	static function HidGetInputReport(dev:RawPointer<SDL_hid_device>, data:UInt8Pointer, length:SizeT):Int;
+	static function HidGetInputReport(dev:RawPointer<SDL_hid_device>, data:RawPointer<UInt8>, length:SizeT):Int;
 
 	@:native('SDL_hid_close')
 	static function HidClose(dev:RawPointer<SDL_hid_device>):Int;
@@ -8475,7 +8477,7 @@ extern class SDL
 	static function HidGetDeviceInfo(dev:RawPointer<SDL_hid_device>):RawPointer<SDL_hid_device_info>;
 
 	@:native('SDL_hid_get_report_descriptor')
-	static function HidGetReportDescriptor(dev:RawPointer<SDL_hid_device>, buf:UInt8Pointer, buf_size:SizeT):Int;
+	static function HidGetReportDescriptor(dev:RawPointer<SDL_hid_device>, buf:RawPointer<UInt8>, buf_size:SizeT):Int;
 
 	@:native('SDL_hid_ble_scan')
 	static function HidBleScan(active:Bool):Void;
@@ -9214,10 +9216,10 @@ extern class SDL
 	static function GetHintBoolean(name:ConstCharStar, default_value:Bool):Bool;
 
 	@:native('SDL_AddHintCallback')
-	static function AddHintCallback(name:ConstCharStar, callback:SDL_HintCallback, userdata:VoidPointer):Bool;
+	static function AddHintCallback(name:ConstCharStar, callback:SDL_HintCallback, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_RemoveHintCallback')
-	static function RemoveHintCallback(name:ConstCharStar, callback:SDL_HintCallback, userdata:VoidPointer):Void;
+	static function RemoveHintCallback(name:ConstCharStar, callback:SDL_HintCallback, userdata:RawPointer<cpp.Void>):Void;
 
 	// SDL_init.h
 	@:native('SDL_INIT_AUDIO')
@@ -9263,7 +9265,7 @@ extern class SDL
 	static function IsMainThread():Bool;
 
 	@:native('SDL_RunOnMainThread')
-	static function RunOnMainThread(callback:SDL_MainThreadCallback, userdata:VoidPointer, wait_complete:Bool):Bool;
+	static function RunOnMainThread(callback:SDL_MainThreadCallback, userdata:RawPointer<cpp.Void>, wait_complete:Bool):Bool;
 
 	@:native('SDL_SetAppMetadata')
 	static function SetAppMetadata(appname:ConstCharStar, appversion:ConstCharStar, appidentifier:ConstCharStar):Bool;
@@ -9312,7 +9314,7 @@ extern class SDL
 	static var PROP_IOSTREAM_ANDROID_AASSET_POINTER:ConstCharStar;
 
 	@:native('SDL_IOFromMem')
-	static function IOFromMem(mem:VoidPointer, size:SizeT):RawPointer<SDL_IOStream>;
+	static function IOFromMem(mem:RawPointer<cpp.Void>, size:SizeT):RawPointer<SDL_IOStream>;
 
 	@:native('SDL_PROP_IOSTREAM_MEMORY_POINTER')
 	static var PROP_IOSTREAM_MEMORY_POINTER:ConstCharStar;
@@ -9321,7 +9323,7 @@ extern class SDL
 	static var PROP_IOSTREAM_MEMORY_SIZE_NUMBER:ConstCharStar;
 
 	@:native('SDL_IOFromConstMem')
-	static function IOFromConstMem(mem:VoidConstPointer, size:SizeT):RawPointer<SDL_IOStream>;
+	static function IOFromConstMem(mem:RawConstPointer<cpp.Void>, size:SizeT):RawPointer<SDL_IOStream>;
 
 	@:native('SDL_IOFromDynamicMem')
 	static function IOFromDynamicMem():RawPointer<SDL_IOStream>;
@@ -9333,7 +9335,7 @@ extern class SDL
 	static var PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER:ConstCharStar;
 
 	@:native('SDL_OpenIO')
-	static function OpenIO(iface:RawPointer<SDL_IOStreamInterface>, userdata:VoidPointer):RawPointer<SDL_IOStream>;
+	static function OpenIO(iface:RawPointer<SDL_IOStreamInterface>, userdata:RawPointer<cpp.Void>):RawPointer<SDL_IOStream>;
 
 	@:native('SDL_CloseIO')
 	static function CloseIO(context:RawPointer<SDL_IOStream>):Bool;
@@ -9354,10 +9356,10 @@ extern class SDL
 	static function TellIO(context:RawPointer<SDL_IOStream>):Int64;
 
 	@:native('SDL_ReadIO')
-	static function ReadIO(context:RawPointer<SDL_IOStream>, ptr:VoidPointer, size:SizeT):SizeT;
+	static function ReadIO(context:RawPointer<SDL_IOStream>, ptr:RawPointer<cpp.Void>, size:SizeT):SizeT;
 
 	@:native('SDL_WriteIO')
-	static function WriteIO(context:RawPointer<SDL_IOStream>, ptr:VoidConstPointer, size:SizeT):SizeT;
+	static function WriteIO(context:RawPointer<SDL_IOStream>, ptr:RawConstPointer<cpp.Void>, size:SizeT):SizeT;
 
 	@:native('SDL_IOprintf')
 	static function IOprintf(context:RawPointer<SDL_IOStream>, fmt:ConstCharStar, args:Rest<VarArg>):SizeT;
@@ -9369,58 +9371,58 @@ extern class SDL
 	static function FlushIO(context:RawPointer<SDL_IOStream>):Bool;
 
 	@:native('SDL_LoadFile_IO')
-	static function LoadFile_IO(src:RawPointer<SDL_IOStream>, datasize:RawPointer<SizeT>, closeio:Bool):VoidPointer;
+	static function LoadFile_IO(src:RawPointer<SDL_IOStream>, datasize:RawPointer<SizeT>, closeio:Bool):RawPointer<cpp.Void>;
 
 	@:native('SDL_LoadFile')
-	static function LoadFile(file:ConstCharStar, datasize:RawPointer<SizeT>):VoidPointer;
+	static function LoadFile(file:ConstCharStar, datasize:RawPointer<SizeT>):RawPointer<cpp.Void>;
 
 	@:native('SDL_SaveFile_IO')
-	static function SaveFile_IO(src:RawPointer<SDL_IOStream>, data:VoidConstPointer, datasize:SizeT, closeio:Bool):Bool;
+	static function SaveFile_IO(src:RawPointer<SDL_IOStream>, data:RawConstPointer<cpp.Void>, datasize:SizeT, closeio:Bool):Bool;
 
 	@:native('SDL_SaveFile')
-	static function SaveFile(file:ConstCharStar, data:VoidConstPointer, datasize:SizeT):Bool;
+	static function SaveFile(file:ConstCharStar, data:RawConstPointer<cpp.Void>, datasize:SizeT):Bool;
 
 	@:native('SDL_ReadU8')
-	static function ReadU8(src:RawPointer<SDL_IOStream>, value:UInt8Pointer):Bool;
+	static function ReadU8(src:RawPointer<SDL_IOStream>, value:RawPointer<UInt8>):Bool;
 
 	@:native('SDL_ReadS8')
 	static function ReadS8(src:RawPointer<SDL_IOStream>, value:RawPointer<Int8>):Bool;
 
 	@:native('SDL_ReadU16LE')
-	static function ReadU16LE(src:RawPointer<SDL_IOStream>, value:UInt16Pointer):Bool;
+	static function ReadU16LE(src:RawPointer<SDL_IOStream>, value:RawPointer<UInt16>):Bool;
 
 	@:native('SDL_ReadS16LE')
-	static function ReadS16LE(src:RawPointer<SDL_IOStream>, value:Int16Pointer):Bool;
+	static function ReadS16LE(src:RawPointer<SDL_IOStream>, value:RawPointer<Int16>):Bool;
 
 	@:native('SDL_ReadU16BE')
-	static function ReadU16BE(src:RawPointer<SDL_IOStream>, value:UInt16Pointer):Bool;
+	static function ReadU16BE(src:RawPointer<SDL_IOStream>, value:RawPointer<UInt16>):Bool;
 
 	@:native('SDL_ReadS16BE')
-	static function ReadS16BE(src:RawPointer<SDL_IOStream>, value:Int16Pointer):Bool;
+	static function ReadS16BE(src:RawPointer<SDL_IOStream>, value:RawPointer<Int16>):Bool;
 
 	@:native('SDL_ReadU32LE')
-	static function ReadU32LE(src:RawPointer<SDL_IOStream>, value:UInt32Pointer):Bool;
+	static function ReadU32LE(src:RawPointer<SDL_IOStream>, value:RawPointer<UInt32>):Bool;
 
 	@:native('SDL_ReadS32LE')
-	static function ReadS32LE(src:RawPointer<SDL_IOStream>, value:Int32Pointer):Bool;
+	static function ReadS32LE(src:RawPointer<SDL_IOStream>, value:RawPointer<Int32>):Bool;
 
 	@:native('SDL_ReadU32BE')
-	static function ReadU32BE(src:RawPointer<SDL_IOStream>, value:UInt32Pointer):Bool;
+	static function ReadU32BE(src:RawPointer<SDL_IOStream>, value:RawPointer<UInt32>):Bool;
 
 	@:native('SDL_ReadS32BE')
-	static function ReadS32BE(src:RawPointer<SDL_IOStream>, value:Int32Pointer):Bool;
+	static function ReadS32BE(src:RawPointer<SDL_IOStream>, value:RawPointer<Int32>):Bool;
 
 	@:native('SDL_ReadU64LE')
-	static function ReadU64LE(src:RawPointer<SDL_IOStream>, value:UInt64Pointer):Bool;
+	static function ReadU64LE(src:RawPointer<SDL_IOStream>, value:RawPointer<UInt64>):Bool;
 
 	@:native('SDL_ReadS64LE')
-	static function ReadS64LE(src:RawPointer<SDL_IOStream>, value:Int64Pointer):Bool;
+	static function ReadS64LE(src:RawPointer<SDL_IOStream>, value:RawPointer<Int64>):Bool;
 
 	@:native('SDL_ReadU64BE')
-	static function ReadU64BE(src:RawPointer<SDL_IOStream>, value:UInt64Pointer):Bool;
+	static function ReadU64BE(src:RawPointer<SDL_IOStream>, value:RawPointer<UInt64>):Bool;
 
 	@:native('SDL_ReadS64BE')
-	static function ReadS64BE(src:RawPointer<SDL_IOStream>, value:Int64Pointer):Bool;
+	static function ReadS64BE(src:RawPointer<SDL_IOStream>, value:RawPointer<Int64>):Bool;
 
 	@:native('SDL_WriteU8')
 	static function WriteU8(dst:RawPointer<SDL_IOStream>, value:UInt8):Bool;
@@ -9481,7 +9483,7 @@ extern class SDL
 	static function HasJoystick():Bool;
 
 	@:native('SDL_GetJoysticks')
-	static function GetJoysticks(count:IntPointer):RawPointer<SDL_JoystickID>;
+	static function GetJoysticks(count:RawPointer<Int>):RawPointer<SDL_JoystickID>;
 
 	@:native('SDL_GetJoystickNameForID')
 	static function GetJoystickNameForID(instance_id:SDL_JoystickID):ConstCharStar;
@@ -9542,7 +9544,7 @@ extern class SDL
 		pressure:Single):Bool;
 
 	@:native('SDL_SendJoystickVirtualSensorData')
-	static function SendJoystickVirtualSensorData(joystick:RawPointer<SDL_Joystick>, type:SDL_SensorType, sensor_timestamp:UInt64, data:SinglePointer,
+	static function SendJoystickVirtualSensorData(joystick:RawPointer<SDL_Joystick>, type:SDL_SensorType, sensor_timestamp:UInt64, data:RawPointer<Single>,
 		num_values:Int):Bool;
 
 	@:native('SDL_GetJoystickProperties')
@@ -9597,7 +9599,7 @@ extern class SDL
 	static function GetJoystickType(joystick:RawPointer<SDL_Joystick>):SDL_JoystickType;
 
 	@:native('SDL_GetJoystickGUIDInfo')
-	static function GetJoystickGUIDInfo(guid:SDL_GUID, vendor:UInt16Pointer, product:UInt16Pointer, version:UInt16Pointer, crc16:UInt16Pointer):Void;
+	static function GetJoystickGUIDInfo(guid:SDL_GUID, vendor:RawPointer<UInt16>, product:RawPointer<UInt16>, version:RawPointer<UInt16>, crc16:RawPointer<UInt16>):Void;
 
 	@:native('SDL_JoystickConnected')
 	static function JoystickConnected(joystick:RawPointer<SDL_Joystick>):Bool;
@@ -9630,10 +9632,10 @@ extern class SDL
 	static function GetJoystickAxis(joystick:RawPointer<SDL_Joystick>, axis:Int):Int16;
 
 	@:native('SDL_GetJoystickAxisInitialState')
-	static function GetJoystickAxisInitialState(joystick:RawPointer<SDL_Joystick>, axis:Int, state:Int16Pointer):Bool;
+	static function GetJoystickAxisInitialState(joystick:RawPointer<SDL_Joystick>, axis:Int, state:RawPointer<Int16>):Bool;
 
 	@:native('SDL_GetJoystickBall')
-	static function GetJoystickBall(joystick:RawPointer<SDL_Joystick>, ball:Int, dx:IntPointer, dy:IntPointer):Bool;
+	static function GetJoystickBall(joystick:RawPointer<SDL_Joystick>, ball:Int, dx:RawPointer<Int>, dy:RawPointer<Int>):Bool;
 
 	@:native('SDL_GetJoystickHat')
 	static function GetJoystickHat(joystick:RawPointer<SDL_Joystick>, hat:Int):UInt8;
@@ -9678,7 +9680,7 @@ extern class SDL
 	static function SetJoystickLED(joystick:RawPointer<SDL_Joystick>, red:UInt8, green:UInt8, blue:UInt8):Bool;
 
 	@:native('SDL_SendJoystickEffect')
-	static function SendJoystickEffect(joystick:RawPointer<SDL_Joystick>, data:VoidConstPointer, size:Int):Bool;
+	static function SendJoystickEffect(joystick:RawPointer<SDL_Joystick>, data:RawConstPointer<cpp.Void>, size:Int):Bool;
 
 	@:native('SDL_CloseJoystick')
 	static function CloseJoystick(joystick:RawPointer<SDL_Joystick>):Void;
@@ -9687,14 +9689,14 @@ extern class SDL
 	static function GetJoystickConnectionState(joystick:RawPointer<SDL_Joystick>):SDL_JoystickConnectionState;
 
 	@:native('SDL_GetJoystickPowerInfo')
-	static function GetJoystickPowerInfo(joystick:RawPointer<SDL_Joystick>, percent:IntPointer):SDL_PowerState;
+	static function GetJoystickPowerInfo(joystick:RawPointer<SDL_Joystick>, percent:RawPointer<Int>):SDL_PowerState;
 
 	// SDL_keyboard.h
 	@:native('SDL_HasKeyboard')
 	static function HasKeyboard():Bool;
 
 	@:native('SDL_GetKeyboards')
-	static function GetKeyboards(count:IntPointer):RawPointer<SDL_KeyboardID>;
+	static function GetKeyboards(count:RawPointer<Int>):RawPointer<SDL_KeyboardID>;
 
 	@:native('SDL_GetKeyboardNameForID')
 	static function GetKeyboardNameForID(instance_id:SDL_KeyboardID):ConstCharStar;
@@ -9703,7 +9705,7 @@ extern class SDL
 	static function GetKeyboardFocus():RawPointer<SDL_Window>;
 
 	@:native('SDL_GetKeyboardState')
-	static function GetKeyboardState(numkeys:IntPointer):BoolConstPointer;
+	static function GetKeyboardState(numkeys:RawPointer<Int>):RawConstPointer<Bool>;
 
 	@:native('SDL_ResetKeyboard')
 	static function ResetKeyboard():Void;
@@ -9769,7 +9771,7 @@ extern class SDL
 	static function SetTextInputArea(window:RawPointer<SDL_Window>, rect:RawConstPointer<SDL_Rect>, cursor:Int):Bool;
 
 	@:native('SDL_GetTextInputArea')
-	static function GetTextInputArea(window:RawPointer<SDL_Window>, rect:RawPointer<SDL_Rect>, cursor:IntPointer):Bool;
+	static function GetTextInputArea(window:RawPointer<SDL_Window>, rect:RawPointer<SDL_Rect>, cursor:RawPointer<Int>):Bool;
 
 	@:native('SDL_HasScreenKeyboardSupport')
 	static function HasScreenKeyboardSupport():Bool;
@@ -10618,7 +10620,7 @@ extern class SDL
 
 	// SDL_locale.h
 	@:native('SDL_GetPreferredLocales')
-	static function GetPreferredLocales(count:IntPointer):RawPointer<RawPointer<SDL_Locale>>;
+	static function GetPreferredLocales(count:RawPointer<Int>):RawPointer<RawPointer<SDL_Locale>>;
 
 	// SDL_log.h
 	@:native('SDL_SetLogPriorities')
@@ -10670,10 +10672,10 @@ extern class SDL
 	public static function GetDefaultLogOutputFunction():SDL_LogOutputFunction;
 
 	@:native('SDL_GetLogOutputFunction')
-	public static function GetLogOutputFunction(callback:RawPointer<SDL_LogOutputFunction>, userdata:RawPointer<VoidPointer>):Void;
+	public static function GetLogOutputFunction(callback:RawPointer<SDL_LogOutputFunction>, userdata:RawPointer<RawPointer<cpp.Void>>):Void;
 
 	@:native('SDL_SetLogOutputFunction')
-	public static function SetLogOutputFunction(callback:SDL_LogOutputFunction, userdata:VoidPointer):Void;
+	public static function SetLogOutputFunction(callback:SDL_LogOutputFunction, userdata:RawPointer<cpp.Void>):Void;
 
 	// SDL_messagebox.h
 	@:native('SDL_MESSAGEBOX_ERROR')
@@ -10698,7 +10700,7 @@ extern class SDL
 	static var MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT:UInt32;
 
 	@:native('SDL_ShowMessageBox')
-	public static function ShowMessageBox(messageboxdata:RawConstPointer<SDL_MessageBoxData>, buttonid:IntPointer):Bool;
+	public static function ShowMessageBox(messageboxdata:RawConstPointer<SDL_MessageBoxData>, buttonid:RawPointer<Int>):Bool;
 
 	@:native('SDL_ShowSimpleMessageBox')
 	public static function ShowSimpleMessageBox(flags:SDL_MessageBoxFlags, title:ConstCharStar, message:ConstCharStar, window:RawPointer<SDL_Window>):Bool;
@@ -10742,7 +10744,7 @@ extern class SDL
 	public static function HasMouse():Bool;
 
 	@:native('SDL_GetMice')
-	public static function GetMice(count:IntPointer):RawPointer<SDL_MouseID>;
+	public static function GetMice(count:RawPointer<Int>):RawPointer<SDL_MouseID>;
 
 	@:native('SDL_GetMouseNameForID')
 	public static function GetMouseNameForID(instance_id:SDL_MouseID):ConstCharStar;
@@ -10751,13 +10753,13 @@ extern class SDL
 	public static function GetMouseFocus():RawPointer<SDL_Window>;
 
 	@:native('SDL_GetMouseState')
-	public static function GetMouseState(x:SinglePointer, y:SinglePointer):SDL_MouseButtonFlags;
+	public static function GetMouseState(x:RawPointer<Single>, y:RawPointer<Single>):SDL_MouseButtonFlags;
 
 	@:native('SDL_GetGlobalMouseState')
-	public static function GetGlobalMouseState(x:SinglePointer, y:SinglePointer):SDL_MouseButtonFlags;
+	public static function GetGlobalMouseState(x:RawPointer<Single>, y:RawPointer<Single>):SDL_MouseButtonFlags;
 
 	@:native('SDL_GetRelativeMouseState')
-	public static function GetRelativeMouseState(x:SinglePointer, y:SinglePointer):SDL_MouseButtonFlags;
+	public static function GetRelativeMouseState(x:RawPointer<Single>, y:RawPointer<Single>):SDL_MouseButtonFlags;
 
 	@:native('SDL_WarpMouseInWindow')
 	public static function WarpMouseInWindow(window:RawPointer<SDL_Window>, x:Single, y:Single):Void;
@@ -10775,7 +10777,7 @@ extern class SDL
 	public static function CaptureMouse(enabled:Bool):Bool;
 
 	@:native('SDL_CreateCursor')
-	public static function CreateCursor(data:UInt8ConstPointer, mask:UInt8ConstPointer, w:Int, h:Int, hot_x:Int, hot_y:Int):RawPointer<SDL_Cursor>;
+	public static function CreateCursor(data:RawConstPointer<UInt8>, mask:RawConstPointer<UInt8>, w:Int, h:Int, hot_x:Int, hot_y:Int):RawPointer<SDL_Cursor>;
 
 	@:native('SDL_CreateColorCursor')
 	public static function CreateColorCursor(surface:RawPointer<SDL_Surface>, hot_x:Int, hot_y:Int):RawPointer<SDL_Cursor>;
@@ -10928,8 +10930,8 @@ extern class SDL
 	static function GetPixelFormatName(format:SDL_PixelFormat):ConstCharStar;
 
 	@:native('SDL_GetMasksForPixelFormat')
-	static function GetMasksForPixelFormat(format:SDL_PixelFormat, bpp:IntPointer, Rmask:UInt32Pointer, Gmask:UInt32Pointer, Bmask:UInt32Pointer,
-		Amask:UInt32Pointer):Bool;
+	static function GetMasksForPixelFormat(format:SDL_PixelFormat, bpp:RawPointer<Int>, Rmask:RawPointer<UInt32>, Gmask:RawPointer<UInt32>, Bmask:RawPointer<UInt32>,
+		Amask:RawPointer<UInt32>):Bool;
 
 	@:native('SDL_GetPixelFormatForMasks')
 	static function GetPixelFormatForMasks(bpp:Int, Rmask:UInt32, Gmask:UInt32, Bmask:UInt32, Amask:UInt32):SDL_PixelFormat;
@@ -10953,12 +10955,12 @@ extern class SDL
 	static function MapRGBA(format:RawConstPointer<SDL_PixelFormatDetails>, palette:RawConstPointer<SDL_Palette>, r:UInt8, g:UInt8, b:UInt8, a:UInt8):UInt32;
 
 	@:native('SDL_GetRGB')
-	static function GetRGB(pixel:UInt32, format:RawConstPointer<SDL_PixelFormatDetails>, palette:RawConstPointer<SDL_Palette>, r:UInt8Pointer, g:UInt8Pointer,
-		b:UInt8Pointer):Void;
+	static function GetRGB(pixel:UInt32, format:RawConstPointer<SDL_PixelFormatDetails>, palette:RawConstPointer<SDL_Palette>, r:RawPointer<UInt8>, g:RawPointer<UInt8>,
+		b:RawPointer<UInt8>):Void;
 
 	@:native('SDL_GetRGBA')
-	static function GetRGBA(pixel:UInt32, format:RawConstPointer<SDL_PixelFormatDetails>, palette:RawConstPointer<SDL_Palette>, r:UInt8Pointer,
-		g:UInt8Pointer, b:UInt8Pointer, a:UInt8Pointer):Void;
+	static function GetRGBA(pixel:UInt32, format:RawConstPointer<SDL_PixelFormatDetails>, palette:RawConstPointer<SDL_Palette>, r:RawPointer<UInt8>,
+		g:RawPointer<UInt8>, b:RawPointer<UInt8>, a:RawPointer<UInt8>):Void;
 
 	// SDL_platform.h
 	@:native('SDL_GetPlatform')
@@ -10966,7 +10968,7 @@ extern class SDL
 
 	// SDL_power.h
 	@:native('SDL_GetPowerInfo')
-	static function GetPowerInfo(seconds:IntPointer, percent:IntPointer):SDL_PowerState;
+	static function GetPowerInfo(seconds:RawPointer<Int>, percent:RawPointer<Int>):SDL_PowerState;
 
 	// SDL_properties.h
 	@:native('SDL_GetGlobalProperties')
@@ -10985,11 +10987,11 @@ extern class SDL
 	static function UnlockProperties(props:SDL_PropertiesID):Void;
 
 	@:native('SDL_SetPointerPropertyWithCleanup')
-	static function SetPointerPropertyWithCleanup(props:SDL_PropertiesID, name:ConstCharStar, value:VoidPointer, cleanup:SDL_CleanupPropertyCallback,
-		userdata:VoidPointer):Bool;
+	static function SetPointerPropertyWithCleanup(props:SDL_PropertiesID, name:ConstCharStar, value:RawPointer<cpp.Void>, cleanup:SDL_CleanupPropertyCallback,
+		userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_SetPointerProperty')
-	static function SetPointerProperty(props:SDL_PropertiesID, name:ConstCharStar, value:VoidPointer):Bool;
+	static function SetPointerProperty(props:SDL_PropertiesID, name:ConstCharStar, value:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_SetStringProperty')
 	static function SetStringProperty(props:SDL_PropertiesID, name:ConstCharStar, value:ConstCharStar):Bool;
@@ -11010,7 +11012,7 @@ extern class SDL
 	static function GetPropertyType(props:SDL_PropertiesID, name:ConstCharStar):SDL_PropertyType;
 
 	@:native('SDL_GetPointerProperty')
-	static function GetPointerProperty(props:SDL_PropertiesID, name:ConstCharStar, default_value:VoidPointer):VoidPointer;
+	static function GetPointerProperty(props:SDL_PropertiesID, name:ConstCharStar, default_value:RawPointer<cpp.Void>):RawPointer<cpp.Void>;
 
 	@:native('SDL_GetStringProperty')
 	static function GetStringProperty(props:SDL_PropertiesID, name:ConstCharStar, default_value:ConstCharStar):ConstCharStar;
@@ -11028,7 +11030,7 @@ extern class SDL
 	static function ClearProperty(props:SDL_PropertiesID, name:ConstCharStar):Bool;
 
 	@:native('SDL_EnumerateProperties')
-	static function EnumerateProperties(props:SDL_PropertiesID, callback:SDL_EnumeratePropertiesCallback, userdata:VoidPointer):Bool;
+	static function EnumerateProperties(props:SDL_PropertiesID, callback:SDL_EnumeratePropertiesCallback, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_DestroyProperties')
 	static function DestroyProperties(props:SDL_PropertiesID):Void;
@@ -11059,7 +11061,7 @@ extern class SDL
 	static function GetRectEnclosingPoints(points:RawConstPointer<SDL_Point>, count:Int, clip:RawConstPointer<SDL_Rect>, result:RawPointer<SDL_Rect>):Bool;
 
 	@:native('SDL_GetRectAndLineIntersection')
-	static function GetRectAndLineIntersection(rect:RawConstPointer<SDL_Rect>, X1:IntPointer, Y1:IntPointer, X2:IntPointer, Y2:IntPointer):Bool;
+	static function GetRectAndLineIntersection(rect:RawConstPointer<SDL_Rect>, X1:RawPointer<Int>, Y1:RawPointer<Int>, X2:RawPointer<Int>, Y2:RawPointer<Int>):Bool;
 
 	@:native('SDL_PointInRectFloat')
 	static function PointInRectFloat(p:RawConstPointer<SDL_FPoint>, r:RawConstPointer<SDL_FRect>):Bool;
@@ -11087,8 +11089,8 @@ extern class SDL
 		result:RawPointer<SDL_FRect>):Bool;
 
 	@:native('SDL_GetRectAndLineIntersectionFloat')
-	static function GetRectAndLineIntersectionFloat(rect:RawConstPointer<SDL_FRect>, X1:SinglePointer, Y1:SinglePointer, X2:SinglePointer,
-		Y2:SinglePointer):Bool;
+	static function GetRectAndLineIntersectionFloat(rect:RawConstPointer<SDL_FRect>, X1:RawPointer<Single>, Y1:RawPointer<Single>, X2:RawPointer<Single>,
+		Y2:RawPointer<Single>):Bool;
 
 	// SDL_render.h
 	@:native('SDL_SOFTWARE_RENDERER')
@@ -11231,10 +11233,10 @@ extern class SDL
 	static var PROP_RENDERER_GPU_DEVICE_POINTER:ConstCharStar;
 
 	@:native('SDL_GetRenderOutputSize')
-	static function GetRenderOutputSize(renderer:RawPointer<SDL_Renderer>, w:IntPointer, h:IntPointer):Bool;
+	static function GetRenderOutputSize(renderer:RawPointer<SDL_Renderer>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('SDL_GetCurrentRenderOutputSize')
-	static function GetCurrentRenderOutputSize(renderer:RawPointer<SDL_Renderer>, w:IntPointer, h:IntPointer):Bool;
+	static function GetCurrentRenderOutputSize(renderer:RawPointer<SDL_Renderer>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('SDL_CreateTexture')
 	static function CreateTexture(renderer:RawPointer<SDL_Renderer>, format:SDL_PixelFormat, access:SDL_TextureAccess, w:Int, h:Int):RawPointer<SDL_Texture>;
@@ -11399,7 +11401,7 @@ extern class SDL
 	static function GetRendererFromTexture(texture:RawPointer<SDL_Texture>):RawPointer<SDL_Renderer>;
 
 	@:native('SDL_GetTextureSize')
-	static function GetTextureSize(texture:RawPointer<SDL_Texture>, w:SinglePointer, h:SinglePointer):Bool;
+	static function GetTextureSize(texture:RawPointer<SDL_Texture>, w:RawPointer<Single>, h:RawPointer<Single>):Bool;
 
 	@:native('SDL_SetTextureColorMod')
 	static function SetTextureColorMod(texture:RawPointer<SDL_Texture>, r:UInt8, g:UInt8, b:UInt8):Bool;
@@ -11408,10 +11410,10 @@ extern class SDL
 	static function SetTextureColorModFloat(texture:RawPointer<SDL_Texture>, r:Single, g:Single, b:Single):Bool;
 
 	@:native('SDL_GetTextureColorMod')
-	static function GetTextureColorMod(texture:RawPointer<SDL_Texture>, r:UInt8Pointer, g:UInt8Pointer, b:UInt8Pointer):Bool;
+	static function GetTextureColorMod(texture:RawPointer<SDL_Texture>, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>):Bool;
 
 	@:native('SDL_GetTextureColorModFloat')
-	static function GetTextureColorModFloat(texture:RawPointer<SDL_Texture>, r:SinglePointer, g:SinglePointer, b:SinglePointer):Bool;
+	static function GetTextureColorModFloat(texture:RawPointer<SDL_Texture>, r:RawPointer<Single>, g:RawPointer<Single>, b:RawPointer<Single>):Bool;
 
 	@:native('SDL_SetTextureAlphaMod')
 	static function SetTextureAlphaMod(texture:RawPointer<SDL_Texture>, alpha:UInt8):Bool;
@@ -11420,10 +11422,10 @@ extern class SDL
 	static function SetTextureAlphaModFloat(texture:RawPointer<SDL_Texture>, alpha:Single):Bool;
 
 	@:native('SDL_GetTextureAlphaMod')
-	static function GetTextureAlphaMod(texture:RawPointer<SDL_Texture>, alpha:UInt8Pointer):Bool;
+	static function GetTextureAlphaMod(texture:RawPointer<SDL_Texture>, alpha:RawPointer<UInt8>):Bool;
 
 	@:native('SDL_GetTextureAlphaModFloat')
-	static function GetTextureAlphaModFloat(texture:RawPointer<SDL_Texture>, alpha:SinglePointer):Bool;
+	static function GetTextureAlphaModFloat(texture:RawPointer<SDL_Texture>, alpha:RawPointer<Single>):Bool;
 
 	@:native('SDL_SetTextureBlendMode')
 	static function SetTextureBlendMode(texture:RawPointer<SDL_Texture>, blendMode:SDL_BlendMode):Bool;
@@ -11438,18 +11440,18 @@ extern class SDL
 	static function GetTextureScaleMode(texture:RawPointer<SDL_Texture>, scaleMode:RawPointer<SDL_ScaleMode>):Bool;
 
 	@:native('SDL_UpdateTexture')
-	static function UpdateTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, pixels:VoidConstPointer, pitch:Int):Bool;
+	static function UpdateTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, pixels:RawConstPointer<cpp.Void>, pitch:Int):Bool;
 
 	@:native('SDL_UpdateYUVTexture')
-	static function UpdateYUVTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, Yplane:UInt8ConstPointer, Ypitch:Int,
-		Uplane:UInt8ConstPointer, Upitch:Int, Vplane:UInt8ConstPointer, Vpitch:Int):Bool;
+	static function UpdateYUVTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, Yplane:RawConstPointer<UInt8>, Ypitch:Int,
+		Uplane:RawConstPointer<UInt8>, Upitch:Int, Vplane:RawConstPointer<UInt8>, Vpitch:Int):Bool;
 
 	@:native('SDL_UpdateNVTexture')
-	static function UpdateNVTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, Yplane:UInt8ConstPointer, Ypitch:Int,
-		UVplane:UInt8ConstPointer, UVpitch:Int):Bool;
+	static function UpdateNVTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, Yplane:RawConstPointer<UInt8>, Ypitch:Int,
+		UVplane:RawConstPointer<UInt8>, UVpitch:Int):Bool;
 
 	@:native('SDL_LockTexture')
-	static function LockTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, pixels:RawPointer<VoidPointer>, pitch:IntPointer):Bool;
+	static function LockTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, pixels:RawPointer<RawPointer<cpp.Void>>, pitch:RawPointer<Int>):Bool;
 
 	@:native('SDL_LockTextureToSurface')
 	static function LockTextureToSurface(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, surface:RawPointer<RawPointer<SDL_Surface>>):Bool;
@@ -11467,17 +11469,17 @@ extern class SDL
 	static function SetRenderLogicalPresentation(renderer:RawPointer<SDL_Renderer>, w:Int, h:Int, mode:SDL_RendererLogicalPresentation):Bool;
 
 	@:native('SDL_GetRenderLogicalPresentation')
-	static function GetRenderLogicalPresentation(renderer:RawPointer<SDL_Renderer>, w:IntPointer, h:IntPointer,
+	static function GetRenderLogicalPresentation(renderer:RawPointer<SDL_Renderer>, w:RawPointer<Int>, h:RawPointer<Int>,
 		mode:RawPointer<SDL_RendererLogicalPresentation>):Bool;
 
 	@:native('SDL_GetRenderLogicalPresentationRect')
 	static function GetRenderLogicalPresentationRect(renderer:RawPointer<SDL_Renderer>, rect:RawPointer<SDL_FRect>):Bool;
 
 	@:native('SDL_RenderCoordinatesFromWindow')
-	static function RenderCoordinatesFromWindow(renderer:RawPointer<SDL_Renderer>, window_x:Single, window_y:Single, x:SinglePointer, y:SinglePointer):Bool;
+	static function RenderCoordinatesFromWindow(renderer:RawPointer<SDL_Renderer>, window_x:Single, window_y:Single, x:RawPointer<Single>, y:RawPointer<Single>):Bool;
 
 	@:native('SDL_RenderCoordinatesToWindow')
-	static function RenderCoordinatesToWindow(renderer:RawPointer<SDL_Renderer>, x:Single, y:Single, window_x:SinglePointer, window_y:SinglePointer):Bool;
+	static function RenderCoordinatesToWindow(renderer:RawPointer<SDL_Renderer>, x:Single, y:Single, window_x:RawPointer<Single>, window_y:RawPointer<Single>):Bool;
 
 	@:native('SDL_ConvertEventToRenderCoordinates')
 	static function ConvertEventToRenderCoordinates(renderer:RawPointer<SDL_Renderer>, event:RawPointer<SDL_Event>):Bool;
@@ -11507,7 +11509,7 @@ extern class SDL
 	static function SetRenderScale(renderer:RawPointer<SDL_Renderer>, scaleX:Single, scaleY:Single):Bool;
 
 	@:native('SDL_GetRenderScale')
-	static function GetRenderScale(renderer:RawPointer<SDL_Renderer>, scaleX:SinglePointer, scaleY:SinglePointer):Bool;
+	static function GetRenderScale(renderer:RawPointer<SDL_Renderer>, scaleX:RawPointer<Single>, scaleY:RawPointer<Single>):Bool;
 
 	@:native('SDL_SetRenderDrawColor')
 	static function SetRenderDrawColor(renderer:RawPointer<SDL_Renderer>, r:UInt8, g:UInt8, b:UInt8, a:UInt8):Bool;
@@ -11516,16 +11518,16 @@ extern class SDL
 	static function SetRenderDrawColorFloat(renderer:RawPointer<SDL_Renderer>, r:Single, g:Single, b:Single, a:Single):Bool;
 
 	@:native('SDL_GetRenderDrawColor')
-	static function GetRenderDrawColor(renderer:RawPointer<SDL_Renderer>, r:UInt8Pointer, g:UInt8Pointer, b:UInt8Pointer, a:UInt8Pointer):Bool;
+	static function GetRenderDrawColor(renderer:RawPointer<SDL_Renderer>, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>, a:RawPointer<UInt8>):Bool;
 
 	@:native('SDL_GetRenderDrawColorFloat')
-	static function GetRenderDrawColorFloat(renderer:RawPointer<SDL_Renderer>, r:SinglePointer, g:SinglePointer, b:SinglePointer, a:SinglePointer):Bool;
+	static function GetRenderDrawColorFloat(renderer:RawPointer<SDL_Renderer>, r:RawPointer<Single>, g:RawPointer<Single>, b:RawPointer<Single>, a:RawPointer<Single>):Bool;
 
 	@:native('SDL_SetRenderColorScale')
 	static function SetRenderColorScale(renderer:RawPointer<SDL_Renderer>, scale:Single):Bool;
 
 	@:native('SDL_GetRenderColorScale')
-	static function GetRenderColorScale(renderer:RawPointer<SDL_Renderer>, scale:SinglePointer):Bool;
+	static function GetRenderColorScale(renderer:RawPointer<SDL_Renderer>, scale:RawPointer<Single>):Bool;
 
 	@:native('SDL_SetRenderDrawBlendMode')
 	static function SetRenderDrawBlendMode(renderer:RawPointer<SDL_Renderer>, blendMode:SDL_BlendMode):Bool;
@@ -11582,11 +11584,11 @@ extern class SDL
 
 	@:native('SDL_RenderGeometry')
 	static function RenderGeometry(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, vertices:RawConstPointer<SDL_Vertex>, num_vertices:Int,
-		indices:Int32ConstPointer, num_indices:Int):Bool;
+		indices:RawConstPointer<Int32>, num_indices:Int):Bool;
 
 	@:native('SDL_RenderGeometryRaw')
-	static function RenderGeometryRaw(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, xy:SingleConstPointer, xy_stride:Int,
-		color:RawConstPointer<SDL_FColor>, color_stride:Int, uv:SingleConstPointer, uv_stride:Int, num_vertices:Int, indices:VoidConstPointer,
+	static function RenderGeometryRaw(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, xy:RawConstPointer<Single>, xy_stride:Int,
+		color:RawConstPointer<SDL_FColor>, color_stride:Int, uv:RawConstPointer<Single>, uv_stride:Int, num_vertices:Int, indices:RawConstPointer<cpp.Void>,
 		num_indices:Int, size_indices:Int):Bool;
 
 	@:native('SDL_RenderReadPixels')
@@ -11614,7 +11616,7 @@ extern class SDL
 	static var RENDERER_VSYNC_ADAPTIVE:Int;
 
 	@:native('SDL_GetRenderVSync')
-	static function GetRenderVSync(renderer:RawPointer<SDL_Renderer>, vsync:IntPointer):Bool;
+	static function GetRenderVSync(renderer:RawPointer<SDL_Renderer>, vsync:RawPointer<Int>):Bool;
 
 	@:native("SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE")
 	static var DEBUG_TEXT_FONT_CHARACTER_SIZE:Int;
@@ -11627,7 +11629,7 @@ extern class SDL
 
 	// SDL_sensor.h
 	@:native('SDL_GetSensors')
-	static function GetSensors(count:IntPointer):RawPointer<SDL_SensorID>;
+	static function GetSensors(count:RawPointer<Int>):RawPointer<SDL_SensorID>;
 
 	@:native('SDL_GetSensorNameForID')
 	static function GetSensorNameForID(instance_id:SDL_SensorID):ConstCharStar;
@@ -11660,7 +11662,7 @@ extern class SDL
 	static function GetSensorID(sensor:RawPointer<SDL_Sensor>):SDL_SensorID;
 
 	@:native('SDL_GetSensorData')
-	static function GetSensorData(sensor:RawPointer<SDL_Sensor>, data:SinglePointer, num_values:Int):Bool;
+	static function GetSensorData(sensor:RawPointer<SDL_Sensor>, data:RawPointer<Single>, num_values:Int):Bool;
 
 	@:native('SDL_CloseSensor')
 	static function CloseSensor(sensor:RawPointer<SDL_Sensor>):Void;
@@ -11679,7 +11681,7 @@ extern class SDL
 	static function OpenFileStorage(path:ConstCharStar):RawPointer<SDL_Storage>;
 
 	@:native('SDL_OpenStorage')
-	static function OpenStorage(iface:RawConstPointer<SDL_StorageInterface>, userdata:VoidPointer):RawPointer<SDL_Storage>;
+	static function OpenStorage(iface:RawConstPointer<SDL_StorageInterface>, userdata:RawPointer<cpp.Void>):RawPointer<SDL_Storage>;
 
 	@:native('SDL_CloseStorage')
 	static function CloseStorage(storage:RawPointer<SDL_Storage>):Bool;
@@ -11688,20 +11690,20 @@ extern class SDL
 	static function StorageReady(storage:RawPointer<SDL_Storage>):Bool;
 
 	@:native('SDL_GetStorageFileSize')
-	static function GetStorageFileSize(storage:RawPointer<SDL_Storage>, path:ConstCharStar, length:UInt64Pointer):Bool;
+	static function GetStorageFileSize(storage:RawPointer<SDL_Storage>, path:ConstCharStar, length:RawPointer<UInt64>):Bool;
 
 	@:native('SDL_ReadStorageFile')
-	static function ReadStorageFile(storage:RawPointer<SDL_Storage>, path:ConstCharStar, destination:VoidPointer, length:UInt64):Bool;
+	static function ReadStorageFile(storage:RawPointer<SDL_Storage>, path:ConstCharStar, destination:RawPointer<cpp.Void>, length:UInt64):Bool;
 
 	@:native('SDL_WriteStorageFile')
-	static function WriteStorageFile(storage:RawPointer<SDL_Storage>, path:ConstCharStar, source:VoidConstPointer, length:UInt64):Bool;
+	static function WriteStorageFile(storage:RawPointer<SDL_Storage>, path:ConstCharStar, source:RawConstPointer<cpp.Void>, length:UInt64):Bool;
 
 	@:native('SDL_CreateStorageDirectory')
 	static function CreateStorageDirectory(storage:RawPointer<SDL_Storage>, path:ConstCharStar):Bool;
 
 	@:native('SDL_EnumerateStorageDirectory')
 	static function EnumerateStorageDirectory(storage:RawPointer<SDL_Storage>, path:ConstCharStar, callback:SDL_EnumerateDirectoryCallback,
-		userdata:VoidPointer):Bool;
+		userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_RemoveStoragePath')
 	static function RemoveStoragePath(storage:RawPointer<SDL_Storage>, path:ConstCharStar):Bool;
@@ -11720,7 +11722,7 @@ extern class SDL
 
 	@:native('SDL_GlobStorageDirectory')
 	static function GlobStorageDirectory(storage:RawPointer<SDL_Storage>, path:ConstCharStar, pattern:ConstCharStar, flags:SDL_GlobFlags,
-		count:IntPointer):RawPointer<CastCharStar>;
+		count:RawPointer<Int>):RawPointer<CastCharStar>;
 
 	// SDL_surface.h
 	@:native('SDL_SURFACE_PREALLOCATED')
@@ -11739,7 +11741,7 @@ extern class SDL
 	static function CreateSurface(width:Int, height:Int, format:SDL_PixelFormat):RawPointer<SDL_Surface>;
 
 	@:native('SDL_CreateSurfaceFrom')
-	static function CreateSurfaceFrom(width:Int, height:Int, format:SDL_PixelFormat, pixels:VoidPointer, pitch:Int):RawPointer<SDL_Surface>;
+	static function CreateSurfaceFrom(width:Int, height:Int, format:SDL_PixelFormat, pixels:RawPointer<cpp.Void>, pitch:Int):RawPointer<SDL_Surface>;
 
 	@:native('SDL_DestroySurface')
 	static function DestroySurface(surface:RawPointer<SDL_Surface>):Void;
@@ -11784,7 +11786,7 @@ extern class SDL
 	static function SurfaceHasAlternateImages(surface:RawPointer<SDL_Surface>):Bool;
 
 	@:native('SDL_GetSurfaceImages')
-	static function GetSurfaceImages(surface:RawPointer<SDL_Surface>, count:IntPointer):RawPointer<RawPointer<SDL_Surface>>;
+	static function GetSurfaceImages(surface:RawPointer<SDL_Surface>, count:RawPointer<Int>):RawPointer<RawPointer<SDL_Surface>>;
 
 	@:native('SDL_RemoveSurfaceAlternateImages')
 	static function RemoveSurfaceAlternateImages(surface:RawPointer<SDL_Surface>):Void;
@@ -11820,19 +11822,19 @@ extern class SDL
 	static function SurfaceHasColorKey(surface:RawPointer<SDL_Surface>):Bool;
 
 	@:native('SDL_GetSurfaceColorKey')
-	static function GetSurfaceColorKey(surface:RawPointer<SDL_Surface>, key:UInt32Pointer):Bool;
+	static function GetSurfaceColorKey(surface:RawPointer<SDL_Surface>, key:RawPointer<UInt32>):Bool;
 
 	@:native('SDL_SetSurfaceColorMod')
 	static function SetSurfaceColorMod(surface:RawPointer<SDL_Surface>, r:UInt8, g:UInt8, b:UInt8):Bool;
 
 	@:native('SDL_GetSurfaceColorMod')
-	static function GetSurfaceColorMod(surface:RawPointer<SDL_Surface>, r:UInt8Pointer, g:UInt8Pointer, b:UInt8Pointer):Bool;
+	static function GetSurfaceColorMod(surface:RawPointer<SDL_Surface>, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>):Bool;
 
 	@:native('SDL_SetSurfaceAlphaMod')
 	static function SetSurfaceAlphaMod(surface:RawPointer<SDL_Surface>, alpha:UInt8):Bool;
 
 	@:native('SDL_GetSurfaceAlphaMod')
-	static function GetSurfaceAlphaMod(surface:RawPointer<SDL_Surface>, alpha:UInt8Pointer):Bool;
+	static function GetSurfaceAlphaMod(surface:RawPointer<SDL_Surface>, alpha:RawPointer<UInt8>):Bool;
 
 	@:native('SDL_SetSurfaceBlendMode')
 	static function SetSurfaceBlendMode(surface:RawPointer<SDL_Surface>, blendMode:SDL_BlendMode):Bool;
@@ -11863,17 +11865,17 @@ extern class SDL
 		colorspace:SDL_Colorspace, props:SDL_PropertiesID):RawPointer<SDL_Surface>;
 
 	@:native('SDL_ConvertPixels')
-	static function ConvertPixels(width:Int, height:Int, src_format:SDL_PixelFormat, src:VoidPointer, src_pitch:Int, dst_format:SDL_PixelFormat,
-		dst:VoidPointer, dst_pitch:Int):Bool;
+	static function ConvertPixels(width:Int, height:Int, src_format:SDL_PixelFormat, src:RawPointer<cpp.Void>, src_pitch:Int, dst_format:SDL_PixelFormat,
+		dst:RawPointer<cpp.Void>, dst_pitch:Int):Bool;
 
 	@:native('SDL_ConvertPixelsAndColorspace')
 	static function ConvertPixelsAndColorspace(width:Int, height:Int, src_format:SDL_PixelFormat, src_colorspace:SDL_Colorspace,
-		src_properties:SDL_PropertiesID, src:VoidPointer, src_pitch:Int, dst_format:SDL_PixelFormat, dst_colorspace:SDL_Colorspace,
-		dst_properties:SDL_PropertiesID, dst:VoidPointer, dst_pitch:Int):Bool;
+		src_properties:SDL_PropertiesID, src:RawPointer<cpp.Void>, src_pitch:Int, dst_format:SDL_PixelFormat, dst_colorspace:SDL_Colorspace,
+		dst_properties:SDL_PropertiesID, dst:RawPointer<cpp.Void>, dst_pitch:Int):Bool;
 
 	@:native('SDL_PremultiplyAlpha')
-	static function PremultiplyAlpha(width:Int, height:Int, src_format:SDL_PixelFormat, src:VoidPointer, src_pitch:Int, dst_format:SDL_PixelFormat,
-		dst:VoidPointer, dst_pitch:Int, linear:Bool):Bool;
+	static function PremultiplyAlpha(width:Int, height:Int, src_format:SDL_PixelFormat, src:RawPointer<cpp.Void>, src_pitch:Int, dst_format:SDL_PixelFormat,
+		dst:RawPointer<cpp.Void>, dst_pitch:Int, linear:Bool):Bool;
 
 	@:native('SDL_PremultiplySurfaceAlpha')
 	static function PremultiplySurfaceAlpha(surface:RawPointer<SDL_Surface>, linear:Bool):Bool;
@@ -11924,11 +11926,11 @@ extern class SDL
 	static function MapSurfaceRGBA(surface:RawPointer<SDL_Surface>, r:UInt8, g:UInt8, b:UInt8, a:UInt8):UInt32;
 
 	@:native('SDL_ReadSurfacePixel')
-	static function ReadSurfacePixel(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:UInt8Pointer, g:UInt8Pointer, b:UInt8Pointer, a:UInt8Pointer):Bool;
+	static function ReadSurfacePixel(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>, a:RawPointer<UInt8>):Bool;
 
 	@:native('SDL_ReadSurfacePixelFloat')
-	static function ReadSurfacePixelFloat(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:SinglePointer, g:SinglePointer, b:SinglePointer,
-		a:SinglePointer):Bool;
+	static function ReadSurfacePixelFloat(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:RawPointer<Single>, g:RawPointer<Single>, b:RawPointer<Single>,
+		a:RawPointer<Single>):Bool;
 
 	@:native('SDL_WriteSurfacePixel')
 	static function WriteSurfacePixel(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:UInt8, g:UInt8, b:UInt8, a:UInt8):Bool;
@@ -11939,11 +11941,11 @@ extern class SDL
 	// SDL_system.h
 	#if windows
 	@:native('SDL_SetWindowsMessageHook')
-	static function SetWindowsMessageHook(callback:SDL_WindowsMessageHook, userdata:VoidPointer):Void;
+	static function SetWindowsMessageHook(callback:SDL_WindowsMessageHook, userdata:RawPointer<cpp.Void>):Void;
 	#end
 
 	@:native('SDL_SetX11EventHook')
-	static function SetX11EventHook(callback:SDL_X11EventHook, userdata:VoidPointer):Void;
+	static function SetX11EventHook(callback:SDL_X11EventHook, userdata:RawPointer<cpp.Void>):Void;
 
 	#if linux
 	@:native('SDL_SetLinuxThreadPriority')
@@ -11955,7 +11957,7 @@ extern class SDL
 
 	#if iphone
 	@:native('SDL_SetiOSAnimationCallback')
-	static function SetiOSAnimationCallback(window:RawPointer<SDL_Window>, interval:Int, callback:SDL_iOSAnimationCallback, callbackParam:VoidPointer):Void;
+	static function SetiOSAnimationCallback(window:RawPointer<SDL_Window>, interval:Int, callback:SDL_iOSAnimationCallback, callbackParam:RawPointer<cpp.Void>):Void;
 
 	@:native('SDL_SetiOSEventPump')
 	static function SetiOSEventPump(enabled:Bool):Void;
@@ -11963,10 +11965,10 @@ extern class SDL
 
 	#if android
 	@:native('SDL_GetAndroidJNIEnv')
-	static function GetAndroidJNIEnv():VoidPointer;
+	static function GetAndroidJNIEnv():RawPointer<cpp.Void>;
 
 	@:native('SDL_GetAndroidActivity')
-	static function GetAndroidActivity():VoidPointer;
+	static function GetAndroidActivity():RawPointer<cpp.Void>;
 
 	@:native('SDL_GetAndroidSDKVersion')
 	static function GetAndroidSDKVersion():Int;
@@ -11999,7 +12001,7 @@ extern class SDL
 	static function GetAndroidCachePath():ConstCharStar;
 
 	@:native('SDL_RequestAndroidPermission')
-	static function RequestAndroidPermission(permission:ConstcharStar, cb:SDL_RequestAndroidPermissionCallback, userdata:VoidPointer):Bool;
+	static function RequestAndroidPermission(permission:ConstcharStar, cb:SDL_RequestAndroidPermissionCallback, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_ShowAndroidToast')
 	static function ShowAndroidToast(message:ConstCharStar, duration:Int, gravity:Int, xoffset:Int, yoffset:Int):Bool;
@@ -12019,7 +12021,7 @@ extern class SDL
 
 	// SDL_thread.h
 	@:native('SDL_CreateThread')
-	static function CreateThread(fn:SDL_ThreadFunction, name:ConstCharStar, data:VoidPointer):RawPointer<SDL_Thread>;
+	static function CreateThread(fn:SDL_ThreadFunction, name:ConstCharStar, data:RawPointer<cpp.Void>):RawPointer<SDL_Thread>;
 
 	@:native('SDL_CreateThreadWithProperties')
 	static function CreateThreadWithProperties(props:SDL_PropertiesID):RawPointer<SDL_Thread>;
@@ -12049,7 +12051,7 @@ extern class SDL
 	static function SetCurrentThreadPriority(priority:SDL_ThreadPriority):Bool;
 
 	@:native('SDL_WaitThread')
-	static function WaitThread(thread:RawPointer<SDL_Thread>, status:IntPointer):Void;
+	static function WaitThread(thread:RawPointer<SDL_Thread>, status:RawPointer<Int>):Void;
 
 	@:native('SDL_GetThreadState')
 	static function GetThreadState(thread:RawPointer<SDL_Thread>):SDL_ThreadState;
@@ -12058,10 +12060,10 @@ extern class SDL
 	static function DetachThread(thread:RawPointer<SDL_Thread>):Void;
 
 	@:native('SDL_GetTLS')
-	static function GetTLS(id:RawPointer<SDL_TLSID>):VoidPointer;
+	static function GetTLS(id:RawPointer<SDL_TLSID>):RawPointer<cpp.Void>;
 
 	@:native('SDL_SetTLS')
-	static function SetTLS(id:RawPointer<SDL_TLSID>, value:VoidPointer, destructor:SDL_TLSDestructorCallback):Bool;
+	static function SetTLS(id:RawPointer<SDL_TLSID>, value:RawPointer<cpp.Void>, destructor:SDL_TLSDestructorCallback):Bool;
 
 	@:native('SDL_CleanupTLS')
 	static function CleanupTLS():Void;
@@ -12080,7 +12082,7 @@ extern class SDL
 	static function DateTimeToTime(dt:RawConstPointer<SDL_DateTime>, ticks:RawPointer<SDL_Time>):Bool;
 
 	@:native('SDL_TimeToWindows')
-	static function TimeToWindows(ticks:SDL_Time, dwLowDateTime:UInt32Pointer, dwHighDateTime:UInt32Pointer):Void;
+	static function TimeToWindows(ticks:SDL_Time, dwLowDateTime:RawPointer<UInt32>, dwHighDateTime:RawPointer<UInt32>):Void;
 
 	@:native('SDL_TimeFromWindows')
 	static function TimeFromWindows(dwLowDateTime:UInt32, dwHighDateTime:UInt32):SDL_Time;
@@ -12117,17 +12119,17 @@ extern class SDL
 	static function DelayPrecise(ns:UInt64):Void;
 
 	@:native('SDL_AddTimer')
-	static function AddTimer(interval:UInt32, callback:SDL_TimerCallback, userdata:VoidPointer):SDL_TimerID;
+	static function AddTimer(interval:UInt32, callback:SDL_TimerCallback, userdata:RawPointer<cpp.Void>):SDL_TimerID;
 
 	@:native('SDL_AddTimerNS')
-	static function AddTimerNS(interval:UInt64, callback:SDL_NSTimerCallback, userdata:VoidPointer):SDL_TimerID;
+	static function AddTimerNS(interval:UInt64, callback:SDL_NSTimerCallback, userdata:RawPointer<cpp.Void>):SDL_TimerID;
 
 	@:native('SDL_RemoveTimer')
 	static function RemoveTimer(id:SDL_TimerID):Bool;
 
 	// SDL_touch.h
 	@:native('SDL_GetTouchDevices')
-	static function GetTouchDevices(count:IntPointer):RawPointer<SDL_TouchID>;
+	static function GetTouchDevices(count:RawPointer<Int>):RawPointer<SDL_TouchID>;
 
 	@:native('SDL_GetTouchDeviceName')
 	static function GetTouchDeviceName(touchID:SDL_TouchID):ConstCharStar;
@@ -12136,7 +12138,7 @@ extern class SDL
 	static function GetTouchDeviceType(touchID:SDL_TouchID):SDL_TouchDeviceType;
 
 	@:native('SDL_GetTouchFingers')
-	static function GetTouchFingers(touchID:SDL_TouchID, count:IntPointer):RawPointer<RawPointer<SDL_Finger>>;
+	static function GetTouchFingers(touchID:SDL_TouchID, count:RawPointer<Int>):RawPointer<RawPointer<SDL_Finger>>;
 
 	// SDL_tray.h
 	@:native('SDL_TRAYENTRY_BUTTON')
@@ -12177,7 +12179,7 @@ extern class SDL
 	static function GetTraySubmenu(entry:RawPointer<SDL_TrayEntry>):RawPointer<SDL_TrayMenu>;
 
 	@:native('SDL_GetTrayEntries')
-	static function GetTrayEntries(menu:RawPointer<SDL_TrayMenu>, count:IntPointer):RawPointer<RawPointer<SDL_TrayEntry>>;
+	static function GetTrayEntries(menu:RawPointer<SDL_TrayMenu>, count:RawPointer<Int>):RawPointer<RawPointer<SDL_TrayEntry>>;
 
 	@:native('SDL_RemoveTrayEntry')
 	static function RemoveTrayEntry(entry:RawPointer<SDL_TrayEntry>):Void;
@@ -12204,7 +12206,7 @@ extern class SDL
 	static function GetTrayEntryEnabled(entry:RawPointer<SDL_TrayEntry>):Bool;
 
 	@:native('SDL_SetTrayEntryCallback')
-	static function SetTrayEntryCallback(entry:RawPointer<SDL_TrayEntry>, callback:SDL_TrayCallback, userdata:VoidPointer):Void;
+	static function SetTrayEntryCallback(entry:RawPointer<SDL_TrayEntry>, callback:SDL_TrayCallback, userdata:RawPointer<cpp.Void>):Void;
 
 	@:native('SDL_ClickTrayEntry')
 	static function ClickTrayEntry(entry:RawPointer<SDL_TrayEntry>):Void;
@@ -12362,7 +12364,7 @@ extern class SDL
 	static function GetSystemTheme():SDL_SystemTheme;
 
 	@:native('SDL_GetDisplays')
-	static function GetDisplays(count:IntPointer):RawPointer<SDL_DisplayID>;
+	static function GetDisplays(count:RawPointer<Int>):RawPointer<SDL_DisplayID>;
 
 	@:native('SDL_GetPrimaryDisplay')
 	static function GetPrimaryDisplay():SDL_DisplayID;
@@ -12395,7 +12397,7 @@ extern class SDL
 	static function GetDisplayContentScale(displayID:SDL_DisplayID):Single;
 
 	@:native('SDL_GetFullscreenDisplayModes')
-	static function GetFullscreenDisplayModes(displayID:SDL_DisplayID, count:IntPointer):RawPointer<RawPointer<SDL_DisplayMode>>;
+	static function GetFullscreenDisplayModes(displayID:SDL_DisplayID, count:RawPointer<Int>):RawPointer<RawPointer<SDL_DisplayMode>>;
 
 	@:native('SDL_GetClosestFullscreenDisplayMode')
 	static function GetClosestFullscreenDisplayMode(displayID:SDL_DisplayID, w:Int, h:Int, refresh_rate:Single, include_high_density_modes:Bool,
@@ -12429,13 +12431,13 @@ extern class SDL
 	static function GetWindowFullscreenMode(window:RawPointer<SDL_Window>):RawConstPointer<SDL_DisplayMode>;
 
 	@:native('SDL_GetWindowICCProfile')
-	static function GetWindowICCProfile(window:RawPointer<SDL_Window>, size:RawPointer<SizeT>):VoidPointer;
+	static function GetWindowICCProfile(window:RawPointer<SDL_Window>, size:RawPointer<SizeT>):RawPointer<cpp.Void>;
 
 	@:native('SDL_GetWindowPixelFormat')
 	static function GetWindowPixelFormat(window:RawPointer<SDL_Window>):SDL_PixelFormat;
 
 	@:native('SDL_GetWindows')
-	static function GetWindows(count:IntPointer):RawPointer<RawPointer<SDL_Window>>;
+	static function GetWindows(count:RawPointer<Int>):RawPointer<RawPointer<SDL_Window>>;
 
 	@:native('SDL_CreateWindow')
 	static function CreateWindow(title:ConstCharStar, w:Int, h:Int, flags:SDL_WindowFlags):RawPointer<SDL_Window>;
@@ -12681,13 +12683,13 @@ extern class SDL
 	static function SetWindowPosition(window:RawPointer<SDL_Window>, x:Int, y:Int):Bool;
 
 	@:native('SDL_GetWindowPosition')
-	static function GetWindowPosition(window:RawPointer<SDL_Window>, x:IntPointer, y:IntPointer):Bool;
+	static function GetWindowPosition(window:RawPointer<SDL_Window>, x:RawPointer<Int>, y:RawPointer<Int>):Bool;
 
 	@:native('SDL_SetWindowSize')
 	static function SetWindowSize(window:RawPointer<SDL_Window>, w:Int, h:Int):Bool;
 
 	@:native('SDL_GetWindowSize')
-	static function GetWindowSize(window:RawPointer<SDL_Window>, w:IntPointer, h:IntPointer):Bool;
+	static function GetWindowSize(window:RawPointer<SDL_Window>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('SDL_GetWindowSafeArea')
 	static function GetWindowSafeArea(window:RawPointer<SDL_Window>, rect:RawPointer<SDL_Rect>):Bool;
@@ -12696,25 +12698,25 @@ extern class SDL
 	static function SetWindowAspectRatio(window:RawPointer<SDL_Window>, min_aspect:Single, max_aspect:Single):Bool;
 
 	@:native('SDL_GetWindowAspectRatio')
-	static function GetWindowAspectRatio(window:RawPointer<SDL_Window>, min_aspect:SinglePointer, max_aspect:SinglePointer):Bool;
+	static function GetWindowAspectRatio(window:RawPointer<SDL_Window>, min_aspect:RawPointer<Single>, max_aspect:RawPointer<Single>):Bool;
 
 	@:native('SDL_GetWindowBordersSize')
-	static function GetWindowBordersSize(window:RawPointer<SDL_Window>, top:IntPointer, left:IntPointer, bottom:IntPointer, right:IntPointer):Bool;
+	static function GetWindowBordersSize(window:RawPointer<SDL_Window>, top:RawPointer<Int>, left:RawPointer<Int>, bottom:RawPointer<Int>, right:RawPointer<Int>):Bool;
 
 	@:native('SDL_GetWindowSizeInPixels')
-	static function GetWindowSizeInPixels(window:RawPointer<SDL_Window>, w:IntPointer, h:IntPointer):Bool;
+	static function GetWindowSizeInPixels(window:RawPointer<SDL_Window>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('SDL_SetWindowMinimumSize')
 	static function SetWindowMinimumSize(window:RawPointer<SDL_Window>, min_w:Int, min_h:Int):Bool;
 
 	@:native('SDL_GetWindowMinimumSize')
-	static function GetWindowMinimumSize(window:RawPointer<SDL_Window>, w:IntPointer, h:IntPointer):Bool;
+	static function GetWindowMinimumSize(window:RawPointer<SDL_Window>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('SDL_SetWindowMaximumSize')
 	static function SetWindowMaximumSize(window:RawPointer<SDL_Window>, max_w:Int, max_h:Int):Bool;
 
 	@:native('SDL_GetWindowMaximumSize')
-	static function GetWindowMaximumSize(window:RawPointer<SDL_Window>, w:IntPointer, h:IntPointer):Bool;
+	static function GetWindowMaximumSize(window:RawPointer<SDL_Window>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('SDL_SetWindowBordered')
 	static function SetWindowBordered(window:RawPointer<SDL_Window>, bordered:Bool):Bool;
@@ -12765,7 +12767,7 @@ extern class SDL
 	static var WINDOW_SURFACE_VSYNC_ADAPTIVE:Int;
 
 	@:native('SDL_GetWindowSurfaceVSync')
-	static function GetWindowSurfaceVSync(window:RawPointer<SDL_Window>, vsync:IntPointer):Bool;
+	static function GetWindowSurfaceVSync(window:RawPointer<SDL_Window>, vsync:RawPointer<Int>):Bool;
 
 	@:native('SDL_UpdateWindowSurface')
 	static function UpdateWindowSurface(window:RawPointer<SDL_Window>):Bool;
@@ -12816,7 +12818,7 @@ extern class SDL
 	static function ShowWindowSystemMenu(window:RawPointer<SDL_Window>, x:Int, y:Int):Bool;
 
 	@:native('SDL_SetWindowHitTest')
-	static function SetWindowHitTest(window:RawPointer<SDL_Window>, callback:SDL_HitTest, callback_data:VoidPointer):Bool;
+	static function SetWindowHitTest(window:RawPointer<SDL_Window>, callback:SDL_HitTest, callback_data:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_SetWindowShape')
 	static function SetWindowShape(window:RawPointer<SDL_Window>, shape:RawPointer<SDL_Surface>):Bool;
@@ -12855,7 +12857,7 @@ extern class SDL
 	static function GL_SetAttribute(attr:SDL_GLAttr, value:Int):Bool;
 
 	@:native('SDL_GL_GetAttribute')
-	static function GL_GetAttribute(attr:SDL_GLAttr, value:IntPointer):Bool;
+	static function GL_GetAttribute(attr:SDL_GLAttr, value:RawPointer<Int>):Bool;
 
 	@:native('SDL_GL_CreateContext')
 	static function GL_CreateContext(window:RawPointer<SDL_Window>):SDL_GLContext;
@@ -12873,7 +12875,7 @@ extern class SDL
 	static function GL_SetSwapInterval(interval:Int):Bool;
 
 	@:native('SDL_GL_GetSwapInterval')
-	static function GL_GetSwapInterval(interval:IntPointer):Bool;
+	static function GL_GetSwapInterval(interval:RawPointer<Int>):Bool;
 
 	@:native('SDL_GL_SwapWindow')
 	static function GL_SwapWindow(window:RawPointer<SDL_Window>):Bool;

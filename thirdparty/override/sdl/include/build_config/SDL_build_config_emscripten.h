@@ -184,9 +184,8 @@
 /* Enable various shared object loading systems */
 #define SDL_LOADSO_DLOPEN 1
 
-/* Enable various threading systems */
-#define SDL_THREAD_PTHREAD
-#define SDL_THREAD_PTHREAD_RECURSIVE_MUTEX
+/* Disable Threads */
+#define SDL_THREADS_DISABLED
 
 /* Enable various RTC systems */
 #define SDL_TIME_UNIX 1

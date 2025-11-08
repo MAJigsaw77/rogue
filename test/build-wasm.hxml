@@ -1,0 +1,23 @@
+--resource assets/gl300es/default.frag
+--resource assets/gl300es/default.vert
+
+--class-path source
+
+--define emscripten
+
+--define EMSDK=C:\emsdk
+
+--define analyzer-optimize
+
+--define HXCPP_LINK_EMSCRIPTEN_EXT=.html
+--define HXCPP_LINK_MEMORY_GROWTH
+--define HXCPP_LINK_NO_EXCEPTIONS
+
+--library rogue
+
+--main Main
+
+--cpp bin/wasm
+--cmd cd bin\wasm
+--cmd start http://localhost:8000/Main.html
+--cmd python server.py

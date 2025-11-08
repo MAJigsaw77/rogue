@@ -166,7 +166,7 @@ extern class TTF_GPUAtlasDrawSequence
 	var xy:Int;
 	var uv:Int;
 	var num_vertices:Int;
-	var indices:IntPointer;
+	var indices:RawPointer<Int>;
 	var num_indices:Int;
 	var image_type:TTF_ImageType;
 	var next:RawPointer<TTF_GPUAtlasDrawSequence>;
@@ -227,10 +227,10 @@ extern class TTF
 	static function Version():Int;
 
 	@:native('TTF_GetFreeTypeVersion')
-	static function GetFreeTypeVersion(major:IntPointer, minor:IntPointer, patch:IntPointer):Void;
+	static function GetFreeTypeVersion(major:RawPointer<Int>, minor:RawPointer<Int>, patch:RawPointer<Int>):Void;
 
 	@:native('TTF_GetHarfBuzzVersion')
-	static function GetHarfBuzzVersion(major:IntPointer, minor:IntPointer, patch:IntPointer):Void;
+	static function GetHarfBuzzVersion(major:RawPointer<Int>, minor:RawPointer<Int>, patch:RawPointer<Int>):Void;
 
 	@:native('TTF_Init')
 	static function Init():Bool;
@@ -308,7 +308,7 @@ extern class TTF
 	static function GetFontSize(font:RawPointer<TTF_Font>):Single;
 
 	@:native('TTF_GetFontDPI')
-	static function GetFontDPI(font:RawPointer<TTF_Font>, hdpi:IntPointer, vdpi:IntPointer):Bool;
+	static function GetFontDPI(font:RawPointer<TTF_Font>, hdpi:RawPointer<Int>, vdpi:RawPointer<Int>):Bool;
 
 	@:native('TTF_STYLE_NORMAL')
 	static var STYLE_NORMAL:UInt32;
@@ -458,20 +458,20 @@ extern class TTF
 	static function GetGlyphImageForIndex(font:RawPointer<TTF_Font>, glyph_index:UInt32, image_type:RawPointer<TTF_ImageType>):RawPointer<SDL_Surface>;
 
 	@:native('TTF_GetGlyphMetrics')
-	static function GetGlyphMetrics(font:RawPointer<TTF_Font>, ch:UInt32, minx:IntPointer, maxx:IntPointer, miny:IntPointer, maxy:IntPointer,
-		advance:IntPointer):Bool;
+	static function GetGlyphMetrics(font:RawPointer<TTF_Font>, ch:UInt32, minx:RawPointer<Int>, maxx:RawPointer<Int>, miny:RawPointer<Int>, maxy:RawPointer<Int>,
+		advance:RawPointer<Int>):Bool;
 
 	@:native('TTF_GetGlyphKerning')
-	static function GetGlyphKerning(font:RawPointer<TTF_Font>, previous_ch:UInt32, ch:UInt32, kerning:IntPointer):Bool;
+	static function GetGlyphKerning(font:RawPointer<TTF_Font>, previous_ch:UInt32, ch:UInt32, kerning:RawPointer<Int>):Bool;
 
 	@:native('TTF_GetStringSize')
-	static function GetStringSize(font:RawPointer<TTF_Font>, text:ConstCharStar, length:SizeT, w:IntPointer, h:IntPointer):Bool;
+	static function GetStringSize(font:RawPointer<TTF_Font>, text:ConstCharStar, length:SizeT, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('TTF_GetStringSizeWrapped')
-	static function GetStringSizeWrapped(font:RawPointer<TTF_Font>, text:ConstCharStar, length:SizeT, wrap_width:Int, w:IntPointer, h:IntPointer):Bool;
+	static function GetStringSizeWrapped(font:RawPointer<TTF_Font>, text:ConstCharStar, length:SizeT, wrap_width:Int, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('TTF_MeasureString')
-	static function MeasureString(font:RawPointer<TTF_Font>, text:ConstCharStar, length:SizeT, max_width:Int, measured_width:IntPointer,
+	static function MeasureString(font:RawPointer<TTF_Font>, text:ConstCharStar, length:SizeT, max_width:Int, measured_width:RawPointer<Int>,
 		measured_length:RawPointer<SizeT>):Bool;
 
 	@:native('TTF_RenderText_Solid')
@@ -601,22 +601,22 @@ extern class TTF
 	static function SetTextColorFloat(text:RawPointer<TTF_Text>, r:Single, g:Single, b:Single, a:Single):Bool;
 
 	@:native('TTF_GetTextColor')
-	static function GetTextColor(text:RawPointer<TTF_Text>, r:UInt8Pointer, g:UInt8Pointer, b:UInt8Pointer, a:UInt8Pointer):Bool;
+	static function GetTextColor(text:RawPointer<TTF_Text>, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>, a:RawPointer<UInt8>):Bool;
 
 	@:native('TTF_GetTextColorFloat')
-	static function GetTextColorFloat(text:RawPointer<TTF_Text>, r:SinglePointer, g:SinglePointer, b:SinglePointer, a:SinglePointer):Bool;
+	static function GetTextColorFloat(text:RawPointer<TTF_Text>, r:RawPointer<Single>, g:RawPointer<Single>, b:RawPointer<Single>, a:RawPointer<Single>):Bool;
 
 	@:native('TTF_SetTextPosition')
 	static function SetTextPosition(text:RawPointer<TTF_Text>, x:Int, y:Int):Bool;
 
 	@:native('TTF_GetTextPosition')
-	static function GetTextPosition(text:RawPointer<TTF_Text>, x:IntPointer, y:IntPointer):Bool;
+	static function GetTextPosition(text:RawPointer<TTF_Text>, x:RawPointer<Int>, y:RawPointer<Int>):Bool;
 
 	@:native('TTF_SetTextWrapWidth')
 	static function SetTextWrapWidth(text:RawPointer<TTF_Text>, wrap_width:Int):Bool;
 
 	@:native('TTF_GetTextWrapWidth')
-	static function GetTextWrapWidth(text:RawPointer<TTF_Text>, wrap_width:IntPointer):Bool;
+	static function GetTextWrapWidth(text:RawPointer<TTF_Text>, wrap_width:RawPointer<Int>):Bool;
 
 	@:native('TTF_SetTextWrapWhitespaceVisible')
 	static function SetTextWrapWhitespaceVisible(text:RawPointer<TTF_Text>, visible:Bool):Bool;
@@ -637,7 +637,7 @@ extern class TTF
 	static function DeleteTextString(text:RawPointer<TTF_Text>, offset:Int, length:Int):Bool;
 
 	@:native('TTF_GetTextSize')
-	static function GetTextSize(text:RawPointer<TTF_Text>, w:IntPointer, h:IntPointer):Bool;
+	static function GetTextSize(text:RawPointer<TTF_Text>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
 
 	@:native('TTF_SUBSTRING_DIRECTION_MASK')
 	static var SUBSTRING_DIRECTION_MASK:UInt32;
@@ -661,7 +661,7 @@ extern class TTF
 	static function GetTextSubStringForLine(text:RawPointer<TTF_Text>, line:Int, substring:RawPointer<TTF_SubString>):Bool;
 
 	@:native('TTF_GetTextSubStringsForRange')
-	static function GetTextSubStringsForRange(text:RawPointer<TTF_Text>, offset:Int, length:Int, count:IntPointer):RawPointer<RawPointer<TTF_SubString>>;
+	static function GetTextSubStringsForRange(text:RawPointer<TTF_Text>, offset:Int, length:Int, count:RawPointer<Int>):RawPointer<RawPointer<TTF_SubString>>;
 
 	@:native('TTF_GetTextSubStringForPoint')
 	static function GetTextSubStringForPoint(text:RawPointer<TTF_Text>, x:Int, y:Int, substring:RawPointer<TTF_SubString>):Bool;

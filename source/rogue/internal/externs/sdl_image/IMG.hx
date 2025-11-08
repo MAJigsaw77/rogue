@@ -16,7 +16,7 @@ extern class IMG_Animation
 	var w:Int;
 	var h:Int;
 	var frames:RawPointer<RawPointer<SDL_Surface>>;
-	var delays:IntPointer;
+	var delays:RawPointer<Int>;
 }
 
 /**

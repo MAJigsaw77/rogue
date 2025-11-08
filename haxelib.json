@@ -12,8 +12,6 @@
 	],
 	"classPath": "source",
 	"dependencies": {
-		"hxcpp": "",
-		"lime": "",
-		"openfl": ""
+		"hxcpp": ""
 	}
 }

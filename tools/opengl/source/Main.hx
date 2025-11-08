@@ -14,7 +14,7 @@ using StringTools;
 
 class Main
 {
-    static final INVALID_KEYWORDS:Array<String> = ['in'];
+	static final INVALID_KEYWORDS:Array<String> = ['in'];
 
 	static final GL_EXTERNS_TO_FROM:Map<String, String> = [
 		'GLenum' => 'UInt32',
@@ -51,11 +51,15 @@ class Main
 		'GLsync' => 'RawPointer<Void>',
 		'_cl_context' => 'CL_Context',
 		'_cl_event' => 'CL_Event',
-		'GLDEBUGPROC' => 'Callable<(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawConstPointer<Void>)->Void>',
-		'GLDEBUGPROCARB' => 'Callable<(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawConstPointer<Void>)->Void>',
-		'GLDEBUGPROCKHR' => 'Callable<(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawConstPointer<Void>)->Void>',
-		'GLDEBUGPROCAMD' => 'Callable<(id:GLuint, category:GLenum, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawPointer<Void>)->Void>',
-		'GLVULKANPROCNV' => 'Callable<()->Void>',
+		'GLDEBUGPROC' =>
+		'Callable<(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawConstPointer<Void>)->Void>',
+		'GLDEBUGPROCARB' =>
+		'Callable<(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawConstPointer<Void>)->Void>',
+		'GLDEBUGPROCKHR' =>
+		'Callable<(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawConstPointer<Void>)->Void>',
+		'GLDEBUGPROCAMD' =>
+		'Callable<(id:GLuint, category:GLenum, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawPointer<Void>)->Void>',
+		'GLVULKANPROCNV' => 'Callable<Void->Void>',
 		'GLhalfNV' => 'UInt16',
 		'GLvdpauSurfaceNV' => 'Int',
 	];
@@ -86,7 +90,15 @@ class Main
 
 		final GL_ACCESS:Access = new Access(GL_CONTENT);
 
-		for (enumsVal in GL_ACCESS.nodes.enums)
+		generateOpenGLExterns(GL_ACCESS, 'gl');
+		generateOpenGLExterns(GL_ACCESS, 'gles2');
+	}
+
+	static function generateOpenGLExterns(access:Access, platform:String):Void
+	{
+		GL_FILE = [];
+
+		for (enumsVal in access.nodes.enums)
 		{
 			for (enumVal in enumsVal.nodes.resolve('enum'))
 			{
@@ -95,7 +107,7 @@ class Main
 			}
 		}
 
-		for (commandsVal in GL_ACCESS.nodes.commands)
+		for (commandsVal in access.nodes.commands)
 		{
 			for (commandVal in commandsVal.nodes.command)
 			{
@@ -104,9 +116,9 @@ class Main
 			}
 		}
 
-		for (featureVal in GL_ACCESS.nodes.feature)
+		for (featureVal in access.nodes.feature)
 		{
-			if (featureVal.has.api && featureVal.att.api == 'gl')
+			if (featureVal.has.api && featureVal.att.api == platform)
 			{
 				for (requireVal in featureVal.nodes.require)
 				{
@@ -125,7 +137,7 @@ class Main
 			}
 		}
 
-		for (extensionVal in GL_ACCESS.node.extensions.nodes.extension)
+		for (extensionVal in access.node.extensions.nodes.extension)
 		{
 			var supportedVers:Array<String> = extensionVal.att.supported.split('|');
 
@@ -134,7 +146,7 @@ class Main
 
 				for (supportedVer in supportedVers)
 				{
-					if (supportedVer == 'gl')
+					if (supportedVer == platform)
 						isPureGL = true;
 				}
 
@@ -164,7 +176,7 @@ class Main
 			}
 		}
 
-		addLine('package rogue.internal.externs.glad;');
+		addLine('package rogue.internal.externs.glad.open$platform;');
 		addLine('');
 		addLine('import cpp.Callable;');
 		addLine('import cpp.Char;');
@@ -180,7 +192,7 @@ class Main
 		addLine('import cpp.UInt8;');
 		addLine('');
 
-		for (typeVal in GL_ACCESS.node.types.nodes.type)
+		for (typeVal in access.node.types.nodes.type)
 		{
 			if (typeVal.innerHTML.contains('KHR/khrplatform.h') || typeVal.innerHTML.contains('GLvoid'))
 				continue;
@@ -201,13 +213,13 @@ class Main
 				}
 				else if (name.startsWith('_'))
 				{
-					addLine('@:include(\'glad/gl.h\')');
+					addLine('@:include(\'glad/$platform.h\')');
 					addLine('@:native(\'$name\')');
 					emptyClass(type);
 				}
 				else
 				{
-					addLine('@:include(\'glad/gl.h\')');
+					addLine('@:include(\'glad/$platform.h\')');
 					addLine('@:native(\'$name\')');
 					addLine('@:scalar');
 					addLine('@:coreType');
@@ -258,13 +270,14 @@ class Main
 			}
 		}
 
-		addLine('@:include(\'glad/gl.h\')');
+		addLine('@:include(\'glad/$platform.h\')');
 		startWritingToClass('GL');
 
 		for (enumName in GL_ENUMS_TO_BE_ADDED)
 		{
 			addNative(enumName, 1);
-			addLine('static var ${fixStartWithNumberHaxeCrap(enumName.split('GL_')[1])}:${!enumName.startsWith('GL_TIMEOUT_IGNORED') ? 'GLuint' : 'GLuint64'};', 1);
+			addLine('static var ${fixStartWithNumberHaxeCrap(enumName.split('GL_')[1])}:${!enumName.startsWith('GL_TIMEOUT_IGNORED') ? 'GLuint' : 'GLuint64'};',
+				1);
 			addLine('');
 		}
 
@@ -279,7 +292,7 @@ class Main
 
 		endWritingToClass();
 
-		File.saveContent('GL.hx', GL_FILE.join('\n'));
+		File.saveContent('../../source/rogue/internal/externs/glad/open$platform/GL.hx', GL_FILE.join('\n'));
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -444,10 +457,10 @@ class Main
 		return commandsParam;
 	}
 
-    static function clearInvalidKeywords(str:String):String
-    {
-        return INVALID_KEYWORDS.contains(str) ? '_$str' : str;
-    }
+	static function clearInvalidKeywords(str:String):String
+	{
+		return INVALID_KEYWORDS.contains(str) ? '_$str' : str;
+	}
 
 	static function fixStartWithNumberHaxeCrap(str:String):String
 	{

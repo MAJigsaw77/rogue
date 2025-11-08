@@ -596,20 +596,20 @@
 				<file name="src/thread/SDL_thread.c" />
 
 				<!-- src/thread/generic -->
-				<file name="src/thread/generic/SDL_syscond.c" if="windows" />
-				<!-- <file name="src/thread/generic/SDL_sysmutex.c" /> -->
-				<file name="src/thread/generic/SDL_sysrwlock.c" if="windows" />
-				<!-- <file name="src/thread/generic/SDL_syssem.c" /> -->
-				<!-- <file name="src/thread/generic/SDL_systhread.c" /> -->
-				<!-- <file name="src/thread/generic/SDL_systls.c" /> -->
+				<file name="src/thread/generic/SDL_syscond.c" if="windows || emscripten" />
+				<file name="src/thread/generic/SDL_sysmutex.c" if="emscripten" />
+				<file name="src/thread/generic/SDL_sysrwlock.c" if="windows || emscripten" />
+				<file name="src/thread/generic/SDL_syssem.c" if="emscripten" />
+				<file name="src/thread/generic/SDL_systhread.c" if="emscripten" />
+				<file name="src/thread/generic/SDL_systls.c" if="emscripten" />
 
 				<!-- src/thread/pthread -->
-				<file name="src/thread/pthread/SDL_syscond.c" unless="windows" />
-				<file name="src/thread/pthread/SDL_sysmutex.c" unless="windows" />
-				<file name="src/thread/pthread/SDL_sysrwlock.c" unless="windows" />
-				<file name="src/thread/pthread/SDL_syssem.c" unless="windows" />
-				<file name="src/thread/pthread/SDL_systhread.c" unless="windows" />
-				<file name="src/thread/pthread/SDL_systls.c" unless="windows" />
+				<file name="src/thread/pthread/SDL_syscond.c" unless="windows || emscripten" />
+				<file name="src/thread/pthread/SDL_sysmutex.c" unless="windows || emscripten" />
+				<file name="src/thread/pthread/SDL_sysrwlock.c" unless="windows || emscripten" />
+				<file name="src/thread/pthread/SDL_syssem.c" unless="windows || emscripten" />
+				<file name="src/thread/pthread/SDL_systhread.c" unless="windows || emscripten" />
+				<file name="src/thread/pthread/SDL_systls.c" unless="windows || emscripten" />
 
 				<!-- src/thread/windows -->
 				<file name="src/thread/windows/SDL_syscond_cv.c" if="windows" />

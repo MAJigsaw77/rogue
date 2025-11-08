@@ -1,33 +1,67 @@
 package;
 
 import cpp.ConstCharStar;
+import cpp.Pointer;
 import cpp.RawPointer;
 
 import haxe.Resource;
 
+import rogue.internal.externs.sdl.SDL;
+#if (android || rpi || emscripten || iphone)
+import rogue.internal.externs.glad.opengles2.GL;
+import rogue.internal.externs.glad.opengles2.Glad;
+#else
 import rogue.internal.externs.glad.opengl.GL;
 import rogue.internal.externs.glad.opengl.Glad;
-import rogue.internal.externs.sdl.SDL;
-import rogue.internal.externs.utils.VoidPointer;
+#end
 
 @:buildXml("<include name=\"${haxelib:rogue}/project/IncludeLibrary.xml\" />")
-@:headerInclude('glad/gl.h')
 class Main
 {
 	static final WINDOW_WIDTH:Int = 1280;
 	static final WINDOW_HEIGHT:Int = 720;
 
+	static var window:RawPointer<SDL_Window>;
+
+	@:unreflective
+	static var glContext:SDL_GLContext;
+
+	static var shaderProgram:GLuint = 0;
+	static var vertexArray:GLuint = 0;
+	static var vertexBufferObject:GLuint = 0;
+
+	static var running:Bool = true;
+
+	static function isExtensionSupported(extensionName:String):Bool
+	{
+		var numExtensions:GLint = 0;
+
+		GL.getIntegerv(GL.NUM_EXTENSIONS, Pointer.addressOf(numExtensions).raw);
+
+		for (i in 0...numExtensions)
+		{
+			final ext:ConstGLcharStar = cast GL.getStringi(GL.EXTENSIONS, i);
+
+			if (ext != null && ext.toString() == extensionName)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	static function createVertexArray():GLuint
 	{
 		var vertexArray:GLuint = 0;
-		GL.genVertexArrays(1, RawPointer.addressOf(vertexArray));
+		GL.genVertexArrays(1, Pointer.addressOf(vertexArray).raw);
 		return vertexArray;
 	}
 
 	static function createBuffer():GLuint
 	{
 		var vertexBufferObject:GLuint = 0;
-		GL.genBuffers(1, RawPointer.addressOf(vertexBufferObject));
+		GL.genBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		return vertexBufferObject;
 	}
 
@@ -62,7 +96,7 @@ class Main
 	{
 		var shader:GLuint = GL.createShader(type);
 
-		GL.shaderSource(shader, 1, RawPointer.addressOf(source), null);
+		GL.shaderSource(shader, 1, Pointer.addressOf(source).raw, null);
 		GL.compileShader(shader);
 
 		final log:Null<String> = checkShaderCompilation(shader);
@@ -80,7 +114,7 @@ class Main
 	{
 		var success:GLint = 0;
 
-		GL.getShaderiv(shader, GL.COMPILE_STATUS, RawPointer.addressOf(success));
+		GL.getShaderiv(shader, GL.COMPILE_STATUS, Pointer.addressOf(success).raw);
 
 		if (success == 0)
 		{
@@ -102,7 +136,7 @@ class Main
 	{
 		var success:GLint = 0;
 
-		GL.getProgramiv(program, GL.LINK_STATUS, RawPointer.addressOf(success));
+		GL.getProgramiv(program, GL.LINK_STATUS, Pointer.addressOf(success).raw);
 
 		if (success == 0)
 		{
@@ -132,16 +166,20 @@ class Main
 		SDL.GL_SetAttribute(SD_GL_CONTEXT_FLAGS, SDL.GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
 		#end
 
+		#if (android || rpi || emscripten || iphone)
+		SDL.GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL.GL_CONTEXT_PROFILE_ES);
+		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+		#else
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL.GL_CONTEXT_PROFILE_CORE);
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-
-		SDL.GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		#end
 
 		SDL.GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 		SDL.GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
-		final window:RawPointer<SDL_Window> = SDL.CreateWindow('Rogue', WINDOW_WIDTH, WINDOW_HEIGHT, untyped SDL.WINDOW_OPENGL | SDL.WINDOW_RESIZABLE);
+		window = SDL.CreateWindow('Rogue', WINDOW_WIDTH, WINDOW_HEIGHT, untyped SDL.WINDOW_OPENGL | SDL.WINDOW_RESIZABLE);
 
 		if (window == null)
 		{
@@ -150,7 +188,7 @@ class Main
 			return;
 		}
 
-		final glContext:SDL_GLContext = SDL.GL_CreateContext(window);
+		glContext = SDL.GL_CreateContext(window);
 
 		if (glContext == null)
 		{
@@ -160,33 +198,43 @@ class Main
 			return;
 		}
 
+		#if (android || rpi || emscripten || iphone)
+		final version:Int = Glad.loadGLES2(cast SDL.GL_GetProcAddress);
+		#else
 		final version:Int = Glad.loadGL(cast SDL.GL_GetProcAddress);
+		#end
 
 		if (version == 0)
 		{
 			Sys.println('Failed to initialize GLAD2');
+
 			SDL.GL_DestroyContext(glContext);
 			SDL.DestroyWindow(window);
 			SDL.Quit();
+
 			return;
 		}
 
-		GL.enable(GL.MULTISAMPLE);
+		if (isExtensionSupported('GL_EXT_multisample'))
+		{
+			GL.enable(GL.MULTISAMPLE_EXT);
+		}
 
 		GL.viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		SDL.GL_SetSwapInterval(0);
 
-		final windowTitle:ConstCharStar = SDL.GetWindowTitle(window);
-		final version:ConstGLcharStar = cast GL.getString(GL.VERSION);
+		#if (android || rpi || emscripten || iphone)
+		final vertexShader:GLuint = createShader(GL.VERTEX_SHADER, window, Resource.getString('assets/gl300es/default.vert'));
+		final fragmentShader:GLuint = createShader(GL.FRAGMENT_SHADER, window, Resource.getString('assets/gl300es/default.frag'));
+		#else
+		final vertexShader:GLuint = createShader(GL.VERTEX_SHADER, window, Resource.getString('assets/gl330core/default.vert'));
+		final fragmentShader:GLuint = createShader(GL.FRAGMENT_SHADER, window, Resource.getString('assets/gl330core/default.frag'));
+		#end
 
-		SDL.SetWindowTitle(window, '${windowTitle.toString()} - ${version.toString()}');
-
-		final vertexShader:GLuint = createShader(GL.VERTEX_SHADER, window, Resource.getString('assets/default.vert'));
-		final fragmentShader:GLuint = createShader(GL.FRAGMENT_SHADER, window, Resource.getString('assets/default.frag'));
-		final shaderProgram:GLuint = createProgram(vertexShader, fragmentShader, window);
-		final vertexArray:GLuint = createVertexArray();
-		final vertexBufferObject:GLuint = createBuffer();
+		shaderProgram = createProgram(vertexShader, fragmentShader, window);
+		vertexArray = createVertexArray();
+		vertexBufferObject = createBuffer();
 
 		GL.bindVertexArray(vertexArray);
 
@@ -195,17 +243,17 @@ class Main
 
 			{
 				final verticles:Array<GLfloat> = [
-					0.0,  0.5, 0.0, 1.0, 0.0, 0.0,
+					 0.0,  0.5, 0.0, 1.0, 0.0, 0.0,
 					-0.5, -0.5, 0.0, 0.0, 1.0, 0.0,
-					0.5, -0.5, 0.0, 0.0, 0.0, 1.0
+					 0.5, -0.5, 0.0, 0.0, 0.0, 1.0
 				];
 
-				GL.bufferData(GL.ARRAY_BUFFER, verticles.length * GLfloat.size(), verticles, GL.STATIC_DRAW);
+				GL.bufferData(GL.ARRAY_BUFFER, verticles.length * GLfloat.size(), cast Pointer.arrayElem(verticles, 0).raw, GL.STATIC_DRAW);
 
-				GL.vertexAttribPointer(0, 3, GL.FLOAT, GL.FALSE, 6 * GLfloat.size(), 0);
+				GL.vertexAttribPointer(0, 3, GL.FLOAT, GL.FALSE, 6 * GLfloat.size(), cast 0);
 				GL.enableVertexAttribArray(0);
 
-				GL.vertexAttribPointer(1, 3, GL.FLOAT, GL.FALSE, 6 * GLfloat.size(), 3 * GLfloat.size());
+				GL.vertexAttribPointer(1, 3, GL.FLOAT, GL.FALSE, 6 * GLfloat.size(), cast 3 * GLfloat.size());
 				GL.enableVertexAttribArray(1);
 			}
 
@@ -214,47 +262,54 @@ class Main
 
 		GL.bindVertexArray(0);
 
-		var running:Bool = true;
-
-		final event:SDL_Event = new SDL_Event();
-
+		#if emscripten
+		emscripten.Emscripten.set_main_loop(cpp.Callable.fromStaticFunction(run), 0, true);
+		#else
 		while (running)
 		{
-			while (SDL.PollEvent(RawPointer.addressOf(event)))
-			{
-				if (event.type == SDL_EVENT_QUIT)
-				{
-					running = false;
-				}
-				else if (event.type == SDL_EVENT_KEY_DOWN)
-				{
-					if (event.key.key == SDL.K_ESCAPE)
-					{
-						running = false;
-					}
-				}
-				else if (event.type == SDL_EVENT_WINDOW_RESIZED)
-				{
-					GL.viewport(0, 0, event.window.data1, event.window.data2);
-				}
-			}
-
-			GL.clearColor(0.1, 0.1, 0.1, 1.0);
-			GL.clear(GL.COLOR_BUFFER_BIT);
-
-			GL.bindVertexArray(vertexArray);
-			GL.drawArrays(GL.TRIANGLES, 0, 3);
-			GL.bindVertexArray(0);
-
-			SDL.GL_SwapWindow(window);
+			run();
 		}
+		#end
 
-		GL.deleteVertexArrays(1, RawPointer.addressOf(vertexArray));
-		GL.deleteBuffers(1, RawPointer.addressOf(vertexBufferObject));
+		GL.deleteVertexArrays(1, Pointer.addressOf(vertexArray).raw);
+		GL.deleteBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		GL.deleteProgram(shaderProgram);
 
 		SDL.GL_DestroyContext(glContext);
 		SDL.DestroyWindow(window);
 		SDL.Quit();
+	}
+
+	static function run():Void
+	{
+		var event:SDL_Event = new SDL_Event();
+
+		while (SDL.PollEvent(RawPointer.addressOf(event)))
+		{
+			if (event.type == SDL_EVENT_QUIT)
+			{
+				running = false;
+			}
+			else if (event.type == SDL_EVENT_KEY_DOWN)
+			{
+				if (event.key.key == SDL.K_ESCAPE)
+				{
+					running = false;
+				}
+			}
+			else if (event.type == SDL_EVENT_WINDOW_RESIZED)
+			{
+				GL.viewport(0, 0, event.window.data1, event.window.data2);
+			}
+		}
+
+		GL.clearColor(0.1, 0.1, 0.1, 1.0);
+		GL.clear(GL.COLOR_BUFFER_BIT);
+
+		GL.bindVertexArray(vertexArray);
+		GL.drawArrays(GL.TRIANGLES, 0, 3);
+		GL.bindVertexArray(0);
+
+		SDL.GL_SwapWindow(window);
 	}
 }

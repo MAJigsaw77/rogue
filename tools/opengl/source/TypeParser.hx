@@ -49,11 +49,6 @@ class TypeParser
 			index = 1;
 			baseType = info.constLevels[0] ? 'Const${info.base}Star' : 'Cast${info.base}Star';
 		}
-		else if (info.base.startsWith('void') && info.pointerDepth > 0)
-		{
-			index = 1;
-			baseType = info.constLevels[0] ? 'VoidConstPointer' : 'VoidPointer';
-		}
 
 		for (i in index...info.pointerDepth)
 		{

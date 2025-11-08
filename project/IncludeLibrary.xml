@@ -42,7 +42,25 @@
 			<lib name="${PROJECT_LIB_DIR}/Android/librogue-x86.so" if="HXCPP_X86" />
 			<lib name="${PROJECT_LIB_DIR}/Android/librogue-x86_64.so" if="HXCPP_X86_64" />
 		</section>
+
+		<section if="emscripten">
+			<lib name="${PROJECT_LIB_DIR}/Emscripten/librogue.a" />
+		</section>
 	</target>
+
+    <linker id="exe" exe="em++" if="emscripten">
+		<flag value="-s" />
+		<flag value="USE_WEBGL2=1" />
+
+		<flag value="-s" />
+		<flag value="FULL_ES3=1" />
+
+		<flag value="-s" />
+		<flag value="MIN_WEBGL_VERSION=2" />
+
+		<flag value="-s" />
+		<flag value="MAX_WEBGL_VERSION=2" />
+    </linker>
 
 	<!--Copy Libraries-->
 

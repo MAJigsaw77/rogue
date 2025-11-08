@@ -1,4 +1,4 @@
-package rogue.internal.externs.glad.opengl;
+package rogue.internal.externs.glad.opengles2;
 
 import cpp.Callable;
 import cpp.Char;
@@ -13,7 +13,7 @@ import cpp.UInt32;
 import cpp.UInt64;
 import cpp.UInt8;
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLenum')
 @:scalar
 @:coreType
@@ -26,7 +26,7 @@ extern abstract GLenum from UInt32 to UInt32
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLboolean')
 @:scalar
 @:coreType
@@ -39,7 +39,7 @@ extern abstract GLboolean from UInt8 to UInt8
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLbitfield')
 @:scalar
 @:coreType
@@ -52,7 +52,7 @@ extern abstract GLbitfield from UInt32 to UInt32
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLbyte')
 @:scalar
 @:coreType
@@ -65,7 +65,7 @@ extern abstract GLbyte from Int8 to Int8
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLubyte')
 @:scalar
 @:coreType
@@ -78,7 +78,7 @@ extern abstract GLubyte from UInt8 to UInt8
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLshort')
 @:scalar
 @:coreType
@@ -91,7 +91,7 @@ extern abstract GLshort from Int16 to Int16
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLushort')
 @:scalar
 @:coreType
@@ -104,7 +104,7 @@ extern abstract GLushort from UInt16 to UInt16
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLint')
 @:scalar
 @:coreType
@@ -117,7 +117,7 @@ extern abstract GLint from Int to Int
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLuint')
 @:scalar
 @:coreType
@@ -130,7 +130,7 @@ extern abstract GLuint from UInt32 to UInt32
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLclampx')
 @:scalar
 @:coreType
@@ -143,7 +143,7 @@ extern abstract GLclampx from Int to Int
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLsizei')
 @:scalar
 @:coreType
@@ -156,7 +156,7 @@ extern abstract GLsizei from Int to Int
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLfloat')
 @:scalar
 @:coreType
@@ -169,7 +169,7 @@ extern abstract GLfloat from Single to Single
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLclampf')
 @:scalar
 @:coreType
@@ -182,7 +182,7 @@ extern abstract GLclampf from Single to Single
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLdouble')
 @:scalar
 @:coreType
@@ -195,7 +195,7 @@ extern abstract GLdouble from Float to Float
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLclampd')
 @:scalar
 @:coreType
@@ -208,7 +208,7 @@ extern abstract GLclampd from Float to Float
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLeglClientBufferEXT')
 @:scalar
 @:coreType
@@ -221,7 +221,7 @@ extern abstract GLeglClientBufferEXT from RawPointer<Void> to RawPointer<Void>
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLeglImageOES')
 @:scalar
 @:coreType
@@ -234,7 +234,7 @@ extern abstract GLeglImageOES from RawPointer<Void> to RawPointer<Void>
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLchar')
 @:scalar
 @:coreType
@@ -276,7 +276,7 @@ extern abstract CastGLcharStar(RawPointer<GLchar>) to (RawPointer<GLchar>)
 		return this;
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLcharARB')
 @:scalar
 @:coreType
@@ -318,7 +318,7 @@ extern abstract CastGLcharARBStar(RawPointer<GLcharARB>) to (RawPointer<GLcharAR
 		return this;
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLhandleARB')
 @:scalar
 @:coreType
@@ -331,7 +331,7 @@ extern abstract GLhandleARB from #if apple RawPointer<Void> #else UInt32 #end to
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLhalf')
 @:scalar
 @:coreType
@@ -344,7 +344,7 @@ extern abstract GLhalf from UInt16 to UInt16
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLhalfARB')
 @:scalar
 @:coreType
@@ -357,7 +357,7 @@ extern abstract GLhalfARB from UInt16 to UInt16
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLfixed')
 @:scalar
 @:coreType
@@ -370,7 +370,7 @@ extern abstract GLfixed from Int to Int
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLintptr')
 @:scalar
 @:coreType
@@ -383,7 +383,7 @@ extern abstract GLintptr from Int to Int
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLintptrARB')
 @:scalar
 @:coreType
@@ -396,7 +396,7 @@ extern abstract GLintptrARB from Int to Int
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLsizeiptr')
 @:scalar
 @:coreType
@@ -409,7 +409,7 @@ extern abstract GLsizeiptr from Int to Int
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLsizeiptrARB')
 @:scalar
 @:coreType
@@ -422,7 +422,7 @@ extern abstract GLsizeiptrARB from Int to Int
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLint64')
 @:scalar
 @:coreType
@@ -435,7 +435,7 @@ extern abstract GLint64 from Int64 to Int64
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLint64EXT')
 @:scalar
 @:coreType
@@ -448,7 +448,7 @@ extern abstract GLint64EXT from Int64 to Int64
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLuint64')
 @:scalar
 @:coreType
@@ -461,7 +461,7 @@ extern abstract GLuint64 from UInt64 to UInt64
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLuint64EXT')
 @:scalar
 @:coreType
@@ -474,7 +474,7 @@ extern abstract GLuint64EXT from UInt64 to UInt64
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLsync')
 @:scalar
 @:coreType
@@ -487,11 +487,11 @@ extern abstract GLsync from RawPointer<Void> to RawPointer<Void>
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('_cl_context')
 extern class CL_Context {}
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('_cl_event')
 extern class CL_Event {}
 
@@ -503,7 +503,7 @@ typedef GLDEBUGPROCKHR = Callable<(source:GLenum, type:GLenum, id:GLuint, severi
 
 typedef GLDEBUGPROCAMD = Callable<(id:GLuint, category:GLenum, severity:GLenum, length:GLsizei, message:ConstGLcharStar, userParam:RawPointer<Void>)->Void>;
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLhalfNV')
 @:scalar
 @:coreType
@@ -516,7 +516,7 @@ extern abstract GLhalfNV from UInt16 to UInt16
 	}
 }
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 @:native('GLvdpauSurfaceNV')
 @:scalar
 @:coreType
@@ -531,7 +531,7 @@ extern abstract GLvdpauSurfaceNV from Int to Int
 
 typedef GLVULKANPROCNV = Callable<Void->Void>;
 
-@:include('glad/gl.h')
+@:include('glad/gles2.h')
 extern class GL
 {
 	@:native('GL_DEPTH_BUFFER_BIT')
@@ -15423,6 +15423,2175 @@ extern class GL
 	@:native('GL_FOG_SPECULAR_TEXTURE_WIN')
 	static var FOG_SPECULAR_TEXTURE_WIN:GLuint;
 
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS')
+	static var FRAMEBUFFER_INCOMPLETE_DIMENSIONS:GLuint;
+
+	@:native('GL_MULTISAMPLE_LINE_WIDTH_RANGE')
+	static var MULTISAMPLE_LINE_WIDTH_RANGE:GLuint;
+
+	@:native('GL_MULTISAMPLE_LINE_WIDTH_GRANULARITY')
+	static var MULTISAMPLE_LINE_WIDTH_GRANULARITY:GLuint;
+
+	@:native('GL_MULTIPLY')
+	static var MULTIPLY:GLuint;
+
+	@:native('GL_SCREEN')
+	static var SCREEN:GLuint;
+
+	@:native('GL_OVERLAY')
+	static var OVERLAY:GLuint;
+
+	@:native('GL_DARKEN')
+	static var DARKEN:GLuint;
+
+	@:native('GL_LIGHTEN')
+	static var LIGHTEN:GLuint;
+
+	@:native('GL_COLORDODGE')
+	static var COLORDODGE:GLuint;
+
+	@:native('GL_COLORBURN')
+	static var COLORBURN:GLuint;
+
+	@:native('GL_HARDLIGHT')
+	static var HARDLIGHT:GLuint;
+
+	@:native('GL_SOFTLIGHT')
+	static var SOFTLIGHT:GLuint;
+
+	@:native('GL_DIFFERENCE')
+	static var DIFFERENCE:GLuint;
+
+	@:native('GL_EXCLUSION')
+	static var EXCLUSION:GLuint;
+
+	@:native('GL_HSL_HUE')
+	static var HSL_HUE:GLuint;
+
+	@:native('GL_HSL_SATURATION')
+	static var HSL_SATURATION:GLuint;
+
+	@:native('GL_HSL_COLOR')
+	static var HSL_COLOR:GLuint;
+
+	@:native('GL_HSL_LUMINOSITY')
+	static var HSL_LUMINOSITY:GLuint;
+
+	@:native('GL_PRIMITIVE_BOUNDING_BOX')
+	static var PRIMITIVE_BOUNDING_BOX:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_4x4')
+	static var COMPRESSED_RGBA_ASTC_4x4:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_5x4')
+	static var COMPRESSED_RGBA_ASTC_5x4:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_5x5')
+	static var COMPRESSED_RGBA_ASTC_5x5:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_6x5')
+	static var COMPRESSED_RGBA_ASTC_6x5:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_6x6')
+	static var COMPRESSED_RGBA_ASTC_6x6:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_8x5')
+	static var COMPRESSED_RGBA_ASTC_8x5:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_8x6')
+	static var COMPRESSED_RGBA_ASTC_8x6:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_8x8')
+	static var COMPRESSED_RGBA_ASTC_8x8:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_10x5')
+	static var COMPRESSED_RGBA_ASTC_10x5:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_10x6')
+	static var COMPRESSED_RGBA_ASTC_10x6:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_10x8')
+	static var COMPRESSED_RGBA_ASTC_10x8:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_10x10')
+	static var COMPRESSED_RGBA_ASTC_10x10:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_12x10')
+	static var COMPRESSED_RGBA_ASTC_12x10:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_12x12')
+	static var COMPRESSED_RGBA_ASTC_12x12:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_4x4')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_4x4:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_5x4')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_5x4:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_5x5')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_5x5:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x5')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_6x5:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_6x6:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_8x5')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_8x5:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_8x6')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_8x6:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_8x8')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_8x8:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_10x5')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_10x5:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_10x6')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_10x6:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_10x8')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_10x8:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_10x10')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_10x10:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_12x10')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_12x10:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_12x12')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_12x12:GLuint;
+
+	@:native('GL_3DC_X_AMD')
+	static var _3DC_X_AMD:GLuint;
+
+	@:native('GL_3DC_XY_AMD')
+	static var _3DC_XY_AMD:GLuint;
+
+	@:native('GL_ATC_RGB_AMD')
+	static var ATC_RGB_AMD:GLuint;
+
+	@:native('GL_ATC_RGBA_EXPLICIT_ALPHA_AMD')
+	static var ATC_RGBA_EXPLICIT_ALPHA_AMD:GLuint;
+
+	@:native('GL_ATC_RGBA_INTERPOLATED_ALPHA_AMD')
+	static var ATC_RGBA_INTERPOLATED_ALPHA_AMD:GLuint;
+
+	@:native('GL_Z400_BINARY_AMD')
+	static var Z400_BINARY_AMD:GLuint;
+
+	@:native('GL_DEPTH_STENCIL_OES')
+	static var DEPTH_STENCIL_OES:GLuint;
+
+	@:native('GL_UNSIGNED_INT_24_8_OES')
+	static var UNSIGNED_INT_24_8_OES:GLuint;
+
+	@:native('GL_DEPTH_COMPONENT32_OES')
+	static var DEPTH_COMPONENT32_OES:GLuint;
+
+	@:native('GL_DEPTH24_STENCIL8_OES')
+	static var DEPTH24_STENCIL8_OES:GLuint;
+
+	@:native('GL_READ_FRAMEBUFFER_ANGLE')
+	static var READ_FRAMEBUFFER_ANGLE:GLuint;
+
+	@:native('GL_DRAW_FRAMEBUFFER_ANGLE')
+	static var DRAW_FRAMEBUFFER_ANGLE:GLuint;
+
+	@:native('GL_DRAW_FRAMEBUFFER_BINDING_ANGLE')
+	static var DRAW_FRAMEBUFFER_BINDING_ANGLE:GLuint;
+
+	@:native('GL_READ_FRAMEBUFFER_BINDING_ANGLE')
+	static var READ_FRAMEBUFFER_BINDING_ANGLE:GLuint;
+
+	@:native('GL_RENDERBUFFER_SAMPLES_ANGLE')
+	static var RENDERBUFFER_SAMPLES_ANGLE:GLuint;
+
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_ANGLE')
+	static var FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_ANGLE:GLuint;
+
+	@:native('GL_MAX_SAMPLES_ANGLE')
+	static var MAX_SAMPLES_ANGLE:GLuint;
+
+	@:native('GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE')
+	static var VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE:GLuint;
+
+	@:native('GL_PACK_REVERSE_ROW_ORDER_ANGLE')
+	static var PACK_REVERSE_ROW_ORDER_ANGLE:GLuint;
+
+	@:native('GL_PROGRAM_BINARY_ANGLE')
+	static var PROGRAM_BINARY_ANGLE:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_S3TC_DXT3_ANGLE')
+	static var COMPRESSED_RGBA_S3TC_DXT3_ANGLE:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_S3TC_DXT5_ANGLE')
+	static var COMPRESSED_RGBA_S3TC_DXT5_ANGLE:GLuint;
+
+	@:native('GL_TEXTURE_USAGE_ANGLE')
+	static var TEXTURE_USAGE_ANGLE:GLuint;
+
+	@:native('GL_FRAMEBUFFER_ATTACHMENT_ANGLE')
+	static var FRAMEBUFFER_ATTACHMENT_ANGLE:GLuint;
+
+	@:native('GL_TRANSLATED_SHADER_SOURCE_LENGTH_ANGLE')
+	static var TRANSLATED_SHADER_SOURCE_LENGTH_ANGLE:GLuint;
+
+	@:native('GL_MAX_CLIP_DISTANCES_APPLE')
+	static var MAX_CLIP_DISTANCES_APPLE:GLuint;
+
+	@:native('GL_CLIP_DISTANCE0_APPLE')
+	static var CLIP_DISTANCE0_APPLE:GLuint;
+
+	@:native('GL_CLIP_DISTANCE1_APPLE')
+	static var CLIP_DISTANCE1_APPLE:GLuint;
+
+	@:native('GL_CLIP_DISTANCE2_APPLE')
+	static var CLIP_DISTANCE2_APPLE:GLuint;
+
+	@:native('GL_CLIP_DISTANCE3_APPLE')
+	static var CLIP_DISTANCE3_APPLE:GLuint;
+
+	@:native('GL_CLIP_DISTANCE4_APPLE')
+	static var CLIP_DISTANCE4_APPLE:GLuint;
+
+	@:native('GL_CLIP_DISTANCE5_APPLE')
+	static var CLIP_DISTANCE5_APPLE:GLuint;
+
+	@:native('GL_CLIP_DISTANCE6_APPLE')
+	static var CLIP_DISTANCE6_APPLE:GLuint;
+
+	@:native('GL_CLIP_DISTANCE7_APPLE')
+	static var CLIP_DISTANCE7_APPLE:GLuint;
+
+	@:native('GL_RENDERBUFFER_SAMPLES_APPLE')
+	static var RENDERBUFFER_SAMPLES_APPLE:GLuint;
+
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_APPLE')
+	static var FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_APPLE:GLuint;
+
+	@:native('GL_MAX_SAMPLES_APPLE')
+	static var MAX_SAMPLES_APPLE:GLuint;
+
+	@:native('GL_READ_FRAMEBUFFER_APPLE')
+	static var READ_FRAMEBUFFER_APPLE:GLuint;
+
+	@:native('GL_DRAW_FRAMEBUFFER_APPLE')
+	static var DRAW_FRAMEBUFFER_APPLE:GLuint;
+
+	@:native('GL_DRAW_FRAMEBUFFER_BINDING_APPLE')
+	static var DRAW_FRAMEBUFFER_BINDING_APPLE:GLuint;
+
+	@:native('GL_READ_FRAMEBUFFER_BINDING_APPLE')
+	static var READ_FRAMEBUFFER_BINDING_APPLE:GLuint;
+
+	@:native('GL_SYNC_OBJECT_APPLE')
+	static var SYNC_OBJECT_APPLE:GLuint;
+
+	@:native('GL_MAX_SERVER_WAIT_TIMEOUT_APPLE')
+	static var MAX_SERVER_WAIT_TIMEOUT_APPLE:GLuint;
+
+	@:native('GL_OBJECT_TYPE_APPLE')
+	static var OBJECT_TYPE_APPLE:GLuint;
+
+	@:native('GL_SYNC_CONDITION_APPLE')
+	static var SYNC_CONDITION_APPLE:GLuint;
+
+	@:native('GL_SYNC_STATUS_APPLE')
+	static var SYNC_STATUS_APPLE:GLuint;
+
+	@:native('GL_SYNC_FLAGS_APPLE')
+	static var SYNC_FLAGS_APPLE:GLuint;
+
+	@:native('GL_SYNC_FENCE_APPLE')
+	static var SYNC_FENCE_APPLE:GLuint;
+
+	@:native('GL_SYNC_GPU_COMMANDS_COMPLETE_APPLE')
+	static var SYNC_GPU_COMMANDS_COMPLETE_APPLE:GLuint;
+
+	@:native('GL_UNSIGNALED_APPLE')
+	static var UNSIGNALED_APPLE:GLuint;
+
+	@:native('GL_SIGNALED_APPLE')
+	static var SIGNALED_APPLE:GLuint;
+
+	@:native('GL_ALREADY_SIGNALED_APPLE')
+	static var ALREADY_SIGNALED_APPLE:GLuint;
+
+	@:native('GL_TIMEOUT_EXPIRED_APPLE')
+	static var TIMEOUT_EXPIRED_APPLE:GLuint;
+
+	@:native('GL_CONDITION_SATISFIED_APPLE')
+	static var CONDITION_SATISFIED_APPLE:GLuint;
+
+	@:native('GL_WAIT_FAILED_APPLE')
+	static var WAIT_FAILED_APPLE:GLuint;
+
+	@:native('GL_SYNC_FLUSH_COMMANDS_BIT_APPLE')
+	static var SYNC_FLUSH_COMMANDS_BIT_APPLE:GLuint;
+
+	@:native('GL_TIMEOUT_IGNORED_APPLE')
+	static var TIMEOUT_IGNORED_APPLE:GLuint64;
+
+	@:native('GL_TEXTURE_MAX_LEVEL_APPLE')
+	static var TEXTURE_MAX_LEVEL_APPLE:GLuint;
+
+	@:native('GL_UNSIGNED_INT_10F_11F_11F_REV_APPLE')
+	static var UNSIGNED_INT_10F_11F_11F_REV_APPLE:GLuint;
+
+	@:native('GL_UNSIGNED_INT_5_9_9_9_REV_APPLE')
+	static var UNSIGNED_INT_5_9_9_9_REV_APPLE:GLuint;
+
+	@:native('GL_R11F_G11F_B10F_APPLE')
+	static var R11F_G11F_B10F_APPLE:GLuint;
+
+	@:native('GL_RGB9_E5_APPLE')
+	static var RGB9_E5_APPLE:GLuint;
+
+	@:native('GL_MALI_PROGRAM_BINARY_ARM')
+	static var MALI_PROGRAM_BINARY_ARM:GLuint;
+
+	@:native('GL_MALI_SHADER_BINARY_ARM')
+	static var MALI_SHADER_BINARY_ARM:GLuint;
+
+	@:native('GL_SHADER_CORE_COUNT_ARM')
+	static var SHADER_CORE_COUNT_ARM:GLuint;
+
+	@:native('GL_SHADER_CORE_ACTIVE_COUNT_ARM')
+	static var SHADER_CORE_ACTIVE_COUNT_ARM:GLuint;
+
+	@:native('GL_SHADER_CORE_PRESENT_MASK_ARM')
+	static var SHADER_CORE_PRESENT_MASK_ARM:GLuint;
+
+	@:native('GL_SHADER_CORE_MAX_WARP_COUNT_ARM')
+	static var SHADER_CORE_MAX_WARP_COUNT_ARM:GLuint;
+
+	@:native('GL_SHADER_CORE_PIXEL_RATE_ARM')
+	static var SHADER_CORE_PIXEL_RATE_ARM:GLuint;
+
+	@:native('GL_SHADER_CORE_TEXEL_RATE_ARM')
+	static var SHADER_CORE_TEXEL_RATE_ARM:GLuint;
+
+	@:native('GL_SHADER_CORE_FMA_RATE_ARM')
+	static var SHADER_CORE_FMA_RATE_ARM:GLuint;
+
+	@:native('GL_FETCH_PER_SAMPLE_ARM')
+	static var FETCH_PER_SAMPLE_ARM:GLuint;
+
+	@:native('GL_FRAGMENT_SHADER_FRAMEBUFFER_FETCH_MRT_ARM')
+	static var FRAGMENT_SHADER_FRAMEBUFFER_FETCH_MRT_ARM:GLuint;
+
+	@:native('GL_TEXTURE_UNNORMALIZED_COORDINATES_ARM')
+	static var TEXTURE_UNNORMALIZED_COORDINATES_ARM:GLuint;
+
+	@:native('GL_SMAPHS30_PROGRAM_BINARY_DMP')
+	static var SMAPHS30_PROGRAM_BINARY_DMP:GLuint;
+
+	@:native('GL_SMAPHS_PROGRAM_BINARY_DMP')
+	static var SMAPHS_PROGRAM_BINARY_DMP:GLuint;
+
+	@:native('GL_DMP_PROGRAM_BINARY_DMP')
+	static var DMP_PROGRAM_BINARY_DMP:GLuint;
+
+	@:native('GL_SHADER_BINARY_DMP')
+	static var SHADER_BINARY_DMP:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_EXT')
+	static var SURFACE_COMPRESSION_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_NONE_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_NONE_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_DEFAULT_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_DEFAULT_EXT:GLuint;
+
+	@:native('GL_SAMPLER_EXTERNAL_2D_Y2Y_EXT')
+	static var SAMPLER_EXTERNAL_2D_Y2Y_EXT:GLuint;
+
+	@:native('GL_TEXTURE_EXTERNAL_OES')
+	static var TEXTURE_EXTERNAL_OES:GLuint;
+
+	@:native('GL_TEXTURE_BINDING_EXTERNAL_OES')
+	static var TEXTURE_BINDING_EXTERNAL_OES:GLuint;
+
+	@:native('GL_REQUIRED_TEXTURE_IMAGE_UNITS_OES')
+	static var REQUIRED_TEXTURE_IMAGE_UNITS_OES:GLuint;
+
+	@:native('GL_SRC1_COLOR_EXT')
+	static var SRC1_COLOR_EXT:GLuint;
+
+	@:native('GL_SRC1_ALPHA_EXT')
+	static var SRC1_ALPHA_EXT:GLuint;
+
+	@:native('GL_ONE_MINUS_SRC1_COLOR_EXT')
+	static var ONE_MINUS_SRC1_COLOR_EXT:GLuint;
+
+	@:native('GL_ONE_MINUS_SRC1_ALPHA_EXT')
+	static var ONE_MINUS_SRC1_ALPHA_EXT:GLuint;
+
+	@:native('GL_SRC_ALPHA_SATURATE_EXT')
+	static var SRC_ALPHA_SATURATE_EXT:GLuint;
+
+	@:native('GL_LOCATION_INDEX_EXT')
+	static var LOCATION_INDEX_EXT:GLuint;
+
+	@:native('GL_MAX_DUAL_SOURCE_DRAW_BUFFERS_EXT')
+	static var MAX_DUAL_SOURCE_DRAW_BUFFERS_EXT:GLuint;
+
+	@:native('GL_MAP_PERSISTENT_BIT_EXT')
+	static var MAP_PERSISTENT_BIT_EXT:GLuint;
+
+	@:native('GL_MAP_COHERENT_BIT_EXT')
+	static var MAP_COHERENT_BIT_EXT:GLuint;
+
+	@:native('GL_DYNAMIC_STORAGE_BIT_EXT')
+	static var DYNAMIC_STORAGE_BIT_EXT:GLuint;
+
+	@:native('GL_CLIENT_STORAGE_BIT_EXT')
+	static var CLIENT_STORAGE_BIT_EXT:GLuint;
+
+	@:native('GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT_EXT')
+	static var CLIENT_MAPPED_BUFFER_BARRIER_BIT_EXT:GLuint;
+
+	@:native('GL_BUFFER_IMMUTABLE_STORAGE_EXT')
+	static var BUFFER_IMMUTABLE_STORAGE_EXT:GLuint;
+
+	@:native('GL_BUFFER_STORAGE_FLAGS_EXT')
+	static var BUFFER_STORAGE_FLAGS_EXT:GLuint;
+
+	@:native('GL_LOWER_LEFT_EXT')
+	static var LOWER_LEFT_EXT:GLuint;
+
+	@:native('GL_UPPER_LEFT_EXT')
+	static var UPPER_LEFT_EXT:GLuint;
+
+	@:native('GL_NEGATIVE_ONE_TO_ONE_EXT')
+	static var NEGATIVE_ONE_TO_ONE_EXT:GLuint;
+
+	@:native('GL_ZERO_TO_ONE_EXT')
+	static var ZERO_TO_ONE_EXT:GLuint;
+
+	@:native('GL_CLIP_ORIGIN_EXT')
+	static var CLIP_ORIGIN_EXT:GLuint;
+
+	@:native('GL_CLIP_DEPTH_MODE_EXT')
+	static var CLIP_DEPTH_MODE_EXT:GLuint;
+
+	@:native('GL_MAX_CLIP_DISTANCES_EXT')
+	static var MAX_CLIP_DISTANCES_EXT:GLuint;
+
+	@:native('GL_MAX_CULL_DISTANCES_EXT')
+	static var MAX_CULL_DISTANCES_EXT:GLuint;
+
+	@:native('GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES_EXT')
+	static var MAX_COMBINED_CLIP_AND_CULL_DISTANCES_EXT:GLuint;
+
+	@:native('GL_CLIP_DISTANCE0_EXT')
+	static var CLIP_DISTANCE0_EXT:GLuint;
+
+	@:native('GL_CLIP_DISTANCE1_EXT')
+	static var CLIP_DISTANCE1_EXT:GLuint;
+
+	@:native('GL_CLIP_DISTANCE2_EXT')
+	static var CLIP_DISTANCE2_EXT:GLuint;
+
+	@:native('GL_CLIP_DISTANCE3_EXT')
+	static var CLIP_DISTANCE3_EXT:GLuint;
+
+	@:native('GL_CLIP_DISTANCE4_EXT')
+	static var CLIP_DISTANCE4_EXT:GLuint;
+
+	@:native('GL_CLIP_DISTANCE5_EXT')
+	static var CLIP_DISTANCE5_EXT:GLuint;
+
+	@:native('GL_CLIP_DISTANCE6_EXT')
+	static var CLIP_DISTANCE6_EXT:GLuint;
+
+	@:native('GL_CLIP_DISTANCE7_EXT')
+	static var CLIP_DISTANCE7_EXT:GLuint;
+
+	@:native('GL_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT')
+	static var FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT:GLuint;
+
+	@:native('GL_UNSIGNED_NORMALIZED_EXT')
+	static var UNSIGNED_NORMALIZED_EXT:GLuint;
+
+	@:native('GL_DEPTH_CLAMP_EXT')
+	static var DEPTH_CLAMP_EXT:GLuint;
+
+	@:native('GL_COLOR_EXT')
+	static var COLOR_EXT:GLuint;
+
+	@:native('GL_DEPTH_EXT')
+	static var DEPTH_EXT:GLuint;
+
+	@:native('GL_STENCIL_EXT')
+	static var STENCIL_EXT:GLuint;
+
+	@:native('GL_QUERY_COUNTER_BITS_EXT')
+	static var QUERY_COUNTER_BITS_EXT:GLuint;
+
+	@:native('GL_CURRENT_QUERY_EXT')
+	static var CURRENT_QUERY_EXT:GLuint;
+
+	@:native('GL_QUERY_RESULT_EXT')
+	static var QUERY_RESULT_EXT:GLuint;
+
+	@:native('GL_QUERY_RESULT_AVAILABLE_EXT')
+	static var QUERY_RESULT_AVAILABLE_EXT:GLuint;
+
+	@:native('GL_TIMESTAMP_EXT')
+	static var TIMESTAMP_EXT:GLuint;
+
+	@:native('GL_GPU_DISJOINT_EXT')
+	static var GPU_DISJOINT_EXT:GLuint;
+
+	@:native('GL_MAX_DRAW_BUFFERS_EXT')
+	static var MAX_DRAW_BUFFERS_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER0_EXT')
+	static var DRAW_BUFFER0_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER1_EXT')
+	static var DRAW_BUFFER1_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER2_EXT')
+	static var DRAW_BUFFER2_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER3_EXT')
+	static var DRAW_BUFFER3_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER4_EXT')
+	static var DRAW_BUFFER4_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER5_EXT')
+	static var DRAW_BUFFER5_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER6_EXT')
+	static var DRAW_BUFFER6_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER7_EXT')
+	static var DRAW_BUFFER7_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER8_EXT')
+	static var DRAW_BUFFER8_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER9_EXT')
+	static var DRAW_BUFFER9_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER10_EXT')
+	static var DRAW_BUFFER10_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER11_EXT')
+	static var DRAW_BUFFER11_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER12_EXT')
+	static var DRAW_BUFFER12_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER13_EXT')
+	static var DRAW_BUFFER13_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER14_EXT')
+	static var DRAW_BUFFER14_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER15_EXT')
+	static var DRAW_BUFFER15_EXT:GLuint;
+
+	@:native('GL_GEOMETRY_SHADER_BIT_EXT')
+	static var GEOMETRY_SHADER_BIT_EXT:GLuint;
+
+	@:native('GL_GEOMETRY_LINKED_VERTICES_OUT_EXT')
+	static var GEOMETRY_LINKED_VERTICES_OUT_EXT:GLuint;
+
+	@:native('GL_GEOMETRY_LINKED_INPUT_TYPE_EXT')
+	static var GEOMETRY_LINKED_INPUT_TYPE_EXT:GLuint;
+
+	@:native('GL_GEOMETRY_LINKED_OUTPUT_TYPE_EXT')
+	static var GEOMETRY_LINKED_OUTPUT_TYPE_EXT:GLuint;
+
+	@:native('GL_GEOMETRY_SHADER_INVOCATIONS_EXT')
+	static var GEOMETRY_SHADER_INVOCATIONS_EXT:GLuint;
+
+	@:native('GL_LAYER_PROVOKING_VERTEX_EXT')
+	static var LAYER_PROVOKING_VERTEX_EXT:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_UNIFORM_BLOCKS_EXT')
+	static var MAX_GEOMETRY_UNIFORM_BLOCKS_EXT:GLuint;
+
+	@:native('GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS_EXT')
+	static var MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_INPUT_COMPONENTS_EXT')
+	static var MAX_GEOMETRY_INPUT_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_OUTPUT_COMPONENTS_EXT')
+	static var MAX_GEOMETRY_OUTPUT_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_SHADER_INVOCATIONS_EXT')
+	static var MAX_GEOMETRY_SHADER_INVOCATIONS_EXT:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS_EXT')
+	static var MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS_EXT:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_ATOMIC_COUNTERS_EXT')
+	static var MAX_GEOMETRY_ATOMIC_COUNTERS_EXT:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_IMAGE_UNIFORMS_EXT')
+	static var MAX_GEOMETRY_IMAGE_UNIFORMS_EXT:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_SHADER_STORAGE_BLOCKS_EXT')
+	static var MAX_GEOMETRY_SHADER_STORAGE_BLOCKS_EXT:GLuint;
+
+	@:native('GL_UNDEFINED_VERTEX_EXT')
+	static var UNDEFINED_VERTEX_EXT:GLuint;
+
+	@:native('GL_FRAMEBUFFER_DEFAULT_LAYERS_EXT')
+	static var FRAMEBUFFER_DEFAULT_LAYERS_EXT:GLuint;
+
+	@:native('GL_MAX_FRAMEBUFFER_LAYERS_EXT')
+	static var MAX_FRAMEBUFFER_LAYERS_EXT:GLuint;
+
+	@:native('GL_REFERENCED_BY_GEOMETRY_SHADER_EXT')
+	static var REFERENCED_BY_GEOMETRY_SHADER_EXT:GLuint;
+
+	@:native('GL_VERTEX_ATTRIB_ARRAY_DIVISOR_EXT')
+	static var VERTEX_ATTRIB_ARRAY_DIVISOR_EXT:GLuint;
+
+	@:native('GL_MAP_READ_BIT_EXT')
+	static var MAP_READ_BIT_EXT:GLuint;
+
+	@:native('GL_MAP_WRITE_BIT_EXT')
+	static var MAP_WRITE_BIT_EXT:GLuint;
+
+	@:native('GL_MAP_INVALIDATE_RANGE_BIT_EXT')
+	static var MAP_INVALIDATE_RANGE_BIT_EXT:GLuint;
+
+	@:native('GL_MAP_INVALIDATE_BUFFER_BIT_EXT')
+	static var MAP_INVALIDATE_BUFFER_BIT_EXT:GLuint;
+
+	@:native('GL_MAP_FLUSH_EXPLICIT_BIT_EXT')
+	static var MAP_FLUSH_EXPLICIT_BIT_EXT:GLuint;
+
+	@:native('GL_MAP_UNSYNCHRONIZED_BIT_EXT')
+	static var MAP_UNSYNCHRONIZED_BIT_EXT:GLuint;
+
+	@:native('GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_SAMPLES_EXT')
+	static var FRAMEBUFFER_ATTACHMENT_TEXTURE_SAMPLES_EXT:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT_EXT')
+	static var COLOR_ATTACHMENT_EXT:GLuint;
+
+	@:native('GL_MULTIVIEW_EXT')
+	static var MULTIVIEW_EXT:GLuint;
+
+	@:native('GL_DRAW_BUFFER_EXT')
+	static var DRAW_BUFFER_EXT:GLuint;
+
+	@:native('GL_READ_BUFFER_EXT')
+	static var READ_BUFFER_EXT:GLuint;
+
+	@:native('GL_MAX_MULTIVIEW_BUFFERS_EXT')
+	static var MAX_MULTIVIEW_BUFFERS_EXT:GLuint;
+
+	@:native('GL_ANY_SAMPLES_PASSED_EXT')
+	static var ANY_SAMPLES_PASSED_EXT:GLuint;
+
+	@:native('GL_ANY_SAMPLES_PASSED_CONSERVATIVE_EXT')
+	static var ANY_SAMPLES_PASSED_CONSERVATIVE_EXT:GLuint;
+
+	@:native('GL_PRIMITIVE_BOUNDING_BOX_EXT')
+	static var PRIMITIVE_BOUNDING_BOX_EXT:GLuint;
+
+	@:native('GL_CONTEXT_FLAG_PROTECTED_CONTENT_BIT_EXT')
+	static var CONTEXT_FLAG_PROTECTED_CONTENT_BIT_EXT:GLuint;
+
+	@:native('GL_TEXTURE_PROTECTED_EXT')
+	static var TEXTURE_PROTECTED_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_PVRTC_2BPPV1_EXT')
+	static var COMPRESSED_SRGB_PVRTC_2BPPV1_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_PVRTC_4BPPV1_EXT')
+	static var COMPRESSED_SRGB_PVRTC_4BPPV1_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_ALPHA_PVRTC_2BPPV1_EXT')
+	static var COMPRESSED_SRGB_ALPHA_PVRTC_2BPPV1_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_ALPHA_PVRTC_4BPPV1_EXT')
+	static var COMPRESSED_SRGB_ALPHA_PVRTC_4BPPV1_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_ALPHA_PVRTC_2BPPV2_IMG')
+	static var COMPRESSED_SRGB_ALPHA_PVRTC_2BPPV2_IMG:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_ALPHA_PVRTC_4BPPV2_IMG')
+	static var COMPRESSED_SRGB_ALPHA_PVRTC_4BPPV2_IMG:GLuint;
+
+	@:native('GL_UNSIGNED_SHORT_4_4_4_4_REV_EXT')
+	static var UNSIGNED_SHORT_4_4_4_4_REV_EXT:GLuint;
+
+	@:native('GL_UNSIGNED_SHORT_1_5_5_5_REV_EXT')
+	static var UNSIGNED_SHORT_1_5_5_5_REV_EXT:GLuint;
+
+	@:native('GL_R16_SNORM_EXT')
+	static var R16_SNORM_EXT:GLuint;
+
+	@:native('GL_RG16_SNORM_EXT')
+	static var RG16_SNORM_EXT:GLuint;
+
+	@:native('GL_RGBA16_SNORM_EXT')
+	static var RGBA16_SNORM_EXT:GLuint;
+
+	@:native('GL_GUILTY_CONTEXT_RESET_EXT')
+	static var GUILTY_CONTEXT_RESET_EXT:GLuint;
+
+	@:native('GL_INNOCENT_CONTEXT_RESET_EXT')
+	static var INNOCENT_CONTEXT_RESET_EXT:GLuint;
+
+	@:native('GL_UNKNOWN_CONTEXT_RESET_EXT')
+	static var UNKNOWN_CONTEXT_RESET_EXT:GLuint;
+
+	@:native('GL_CONTEXT_ROBUST_ACCESS_EXT')
+	static var CONTEXT_ROBUST_ACCESS_EXT:GLuint;
+
+	@:native('GL_RESET_NOTIFICATION_STRATEGY_EXT')
+	static var RESET_NOTIFICATION_STRATEGY_EXT:GLuint;
+
+	@:native('GL_LOSE_CONTEXT_ON_RESET_EXT')
+	static var LOSE_CONTEXT_ON_RESET_EXT:GLuint;
+
+	@:native('GL_NO_RESET_NOTIFICATION_EXT')
+	static var NO_RESET_NOTIFICATION_EXT:GLuint;
+
+	@:native('GL_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT')
+	static var FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT:GLuint;
+
+	@:native('GL_MAX_SHADER_PIXEL_LOCAL_STORAGE_FAST_SIZE_EXT')
+	static var MAX_SHADER_PIXEL_LOCAL_STORAGE_FAST_SIZE_EXT:GLuint;
+
+	@:native('GL_MAX_SHADER_PIXEL_LOCAL_STORAGE_SIZE_EXT')
+	static var MAX_SHADER_PIXEL_LOCAL_STORAGE_SIZE_EXT:GLuint;
+
+	@:native('GL_SHADER_PIXEL_LOCAL_STORAGE_EXT')
+	static var SHADER_PIXEL_LOCAL_STORAGE_EXT:GLuint;
+
+	@:native('GL_MAX_SHADER_COMBINED_LOCAL_STORAGE_FAST_SIZE_EXT')
+	static var MAX_SHADER_COMBINED_LOCAL_STORAGE_FAST_SIZE_EXT:GLuint;
+
+	@:native('GL_MAX_SHADER_COMBINED_LOCAL_STORAGE_SIZE_EXT')
+	static var MAX_SHADER_COMBINED_LOCAL_STORAGE_SIZE_EXT:GLuint;
+
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_INSUFFICIENT_SHADER_COMBINED_LOCAL_STORAGE_EXT')
+	static var FRAMEBUFFER_INCOMPLETE_INSUFFICIENT_SHADER_COMBINED_LOCAL_STORAGE_EXT:GLuint;
+
+	@:native('GL_TEXTURE_COMPARE_MODE_EXT')
+	static var TEXTURE_COMPARE_MODE_EXT:GLuint;
+
+	@:native('GL_TEXTURE_COMPARE_FUNC_EXT')
+	static var TEXTURE_COMPARE_FUNC_EXT:GLuint;
+
+	@:native('GL_COMPARE_REF_TO_TEXTURE_EXT')
+	static var COMPARE_REF_TO_TEXTURE_EXT:GLuint;
+
+	@:native('GL_SAMPLER_2D_SHADOW_EXT')
+	static var SAMPLER_2D_SHADOW_EXT:GLuint;
+
+	@:native('GL_TEXTURE_SPARSE_EXT')
+	static var TEXTURE_SPARSE_EXT:GLuint;
+
+	@:native('GL_VIRTUAL_PAGE_SIZE_INDEX_EXT')
+	static var VIRTUAL_PAGE_SIZE_INDEX_EXT:GLuint;
+
+	@:native('GL_NUM_SPARSE_LEVELS_EXT')
+	static var NUM_SPARSE_LEVELS_EXT:GLuint;
+
+	@:native('GL_NUM_VIRTUAL_PAGE_SIZES_EXT')
+	static var NUM_VIRTUAL_PAGE_SIZES_EXT:GLuint;
+
+	@:native('GL_VIRTUAL_PAGE_SIZE_X_EXT')
+	static var VIRTUAL_PAGE_SIZE_X_EXT:GLuint;
+
+	@:native('GL_VIRTUAL_PAGE_SIZE_Y_EXT')
+	static var VIRTUAL_PAGE_SIZE_Y_EXT:GLuint;
+
+	@:native('GL_VIRTUAL_PAGE_SIZE_Z_EXT')
+	static var VIRTUAL_PAGE_SIZE_Z_EXT:GLuint;
+
+	@:native('GL_TEXTURE_CUBE_MAP_ARRAY_OES')
+	static var TEXTURE_CUBE_MAP_ARRAY_OES:GLuint;
+
+	@:native('GL_MAX_SPARSE_TEXTURE_SIZE_EXT')
+	static var MAX_SPARSE_TEXTURE_SIZE_EXT:GLuint;
+
+	@:native('GL_MAX_SPARSE_3D_TEXTURE_SIZE_EXT')
+	static var MAX_SPARSE_3D_TEXTURE_SIZE_EXT:GLuint;
+
+	@:native('GL_MAX_SPARSE_ARRAY_TEXTURE_LAYERS_EXT')
+	static var MAX_SPARSE_ARRAY_TEXTURE_LAYERS_EXT:GLuint;
+
+	@:native('GL_SPARSE_TEXTURE_FULL_ARRAY_CUBE_MIPMAPS_EXT')
+	static var SPARSE_TEXTURE_FULL_ARRAY_CUBE_MIPMAPS_EXT:GLuint;
+
+	@:native('GL_PATCHES_EXT')
+	static var PATCHES_EXT:GLuint;
+
+	@:native('GL_PATCH_VERTICES_EXT')
+	static var PATCH_VERTICES_EXT:GLuint;
+
+	@:native('GL_TESS_CONTROL_OUTPUT_VERTICES_EXT')
+	static var TESS_CONTROL_OUTPUT_VERTICES_EXT:GLuint;
+
+	@:native('GL_TESS_GEN_MODE_EXT')
+	static var TESS_GEN_MODE_EXT:GLuint;
+
+	@:native('GL_TESS_GEN_SPACING_EXT')
+	static var TESS_GEN_SPACING_EXT:GLuint;
+
+	@:native('GL_TESS_GEN_VERTEX_ORDER_EXT')
+	static var TESS_GEN_VERTEX_ORDER_EXT:GLuint;
+
+	@:native('GL_TESS_GEN_POINT_MODE_EXT')
+	static var TESS_GEN_POINT_MODE_EXT:GLuint;
+
+	@:native('GL_ISOLINES_EXT')
+	static var ISOLINES_EXT:GLuint;
+
+	@:native('GL_QUADS_EXT')
+	static var QUADS_EXT:GLuint;
+
+	@:native('GL_FRACTIONAL_ODD_EXT')
+	static var FRACTIONAL_ODD_EXT:GLuint;
+
+	@:native('GL_FRACTIONAL_EVEN_EXT')
+	static var FRACTIONAL_EVEN_EXT:GLuint;
+
+	@:native('GL_MAX_PATCH_VERTICES_EXT')
+	static var MAX_PATCH_VERTICES_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_GEN_LEVEL_EXT')
+	static var MAX_TESS_GEN_LEVEL_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS_EXT')
+	static var MAX_TESS_CONTROL_UNIFORM_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS_EXT')
+	static var MAX_TESS_EVALUATION_UNIFORM_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS_EXT')
+	static var MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS_EXT')
+	static var MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_OUTPUT_COMPONENTS_EXT')
+	static var MAX_TESS_CONTROL_OUTPUT_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_PATCH_COMPONENTS_EXT')
+	static var MAX_TESS_PATCH_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS_EXT')
+	static var MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_OUTPUT_COMPONENTS_EXT')
+	static var MAX_TESS_EVALUATION_OUTPUT_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS_EXT')
+	static var MAX_TESS_CONTROL_UNIFORM_BLOCKS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS_EXT')
+	static var MAX_TESS_EVALUATION_UNIFORM_BLOCKS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_INPUT_COMPONENTS_EXT')
+	static var MAX_TESS_CONTROL_INPUT_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_INPUT_COMPONENTS_EXT')
+	static var MAX_TESS_EVALUATION_INPUT_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS_EXT')
+	static var MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS_EXT')
+	static var MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS_EXT')
+	static var MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS_EXT')
+	static var MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS_EXT')
+	static var MAX_TESS_CONTROL_ATOMIC_COUNTERS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS_EXT')
+	static var MAX_TESS_EVALUATION_ATOMIC_COUNTERS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS_EXT')
+	static var MAX_TESS_CONTROL_IMAGE_UNIFORMS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS_EXT')
+	static var MAX_TESS_EVALUATION_IMAGE_UNIFORMS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_SHADER_STORAGE_BLOCKS_EXT')
+	static var MAX_TESS_CONTROL_SHADER_STORAGE_BLOCKS_EXT:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_SHADER_STORAGE_BLOCKS_EXT')
+	static var MAX_TESS_EVALUATION_SHADER_STORAGE_BLOCKS_EXT:GLuint;
+
+	@:native('GL_IS_PER_PATCH_EXT')
+	static var IS_PER_PATCH_EXT:GLuint;
+
+	@:native('GL_REFERENCED_BY_TESS_CONTROL_SHADER_EXT')
+	static var REFERENCED_BY_TESS_CONTROL_SHADER_EXT:GLuint;
+
+	@:native('GL_REFERENCED_BY_TESS_EVALUATION_SHADER_EXT')
+	static var REFERENCED_BY_TESS_EVALUATION_SHADER_EXT:GLuint;
+
+	@:native('GL_TESS_CONTROL_SHADER_EXT')
+	static var TESS_CONTROL_SHADER_EXT:GLuint;
+
+	@:native('GL_TESS_EVALUATION_SHADER_EXT')
+	static var TESS_EVALUATION_SHADER_EXT:GLuint;
+
+	@:native('GL_TESS_CONTROL_SHADER_BIT_EXT')
+	static var TESS_CONTROL_SHADER_BIT_EXT:GLuint;
+
+	@:native('GL_TESS_EVALUATION_SHADER_BIT_EXT')
+	static var TESS_EVALUATION_SHADER_BIT_EXT:GLuint;
+
+	@:native('GL_TEXTURE_BORDER_COLOR_EXT')
+	static var TEXTURE_BORDER_COLOR_EXT:GLuint;
+
+	@:native('GL_CLAMP_TO_BORDER_EXT')
+	static var CLAMP_TO_BORDER_EXT:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_BINDING_EXT')
+	static var TEXTURE_BUFFER_BINDING_EXT:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_OFFSET_ALIGNMENT_EXT')
+	static var TEXTURE_BUFFER_OFFSET_ALIGNMENT_EXT:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_OFFSET_EXT')
+	static var TEXTURE_BUFFER_OFFSET_EXT:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_SIZE_EXT')
+	static var TEXTURE_BUFFER_SIZE_EXT:GLuint;
+
+	@:native('GL_TEXTURE_ASTC_DECODE_PRECISION_EXT')
+	static var TEXTURE_ASTC_DECODE_PRECISION_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_BPTC_UNORM_EXT')
+	static var COMPRESSED_RGBA_BPTC_UNORM_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM_EXT')
+	static var COMPRESSED_SRGB_ALPHA_BPTC_UNORM_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT_EXT')
+	static var COMPRESSED_RGB_BPTC_SIGNED_FLOAT_EXT:GLuint;
+
+	@:native('GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT_EXT')
+	static var COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT_EXT:GLuint;
+
+	@:native('GL_TEXTURE_CUBE_MAP_ARRAY_EXT')
+	static var TEXTURE_CUBE_MAP_ARRAY_EXT:GLuint;
+
+	@:native('GL_TEXTURE_BINDING_CUBE_MAP_ARRAY_EXT')
+	static var TEXTURE_BINDING_CUBE_MAP_ARRAY_EXT:GLuint;
+
+	@:native('GL_SAMPLER_CUBE_MAP_ARRAY_EXT')
+	static var SAMPLER_CUBE_MAP_ARRAY_EXT:GLuint;
+
+	@:native('GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW_EXT')
+	static var SAMPLER_CUBE_MAP_ARRAY_SHADOW_EXT:GLuint;
+
+	@:native('GL_INT_SAMPLER_CUBE_MAP_ARRAY_EXT')
+	static var INT_SAMPLER_CUBE_MAP_ARRAY_EXT:GLuint;
+
+	@:native('GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY_EXT')
+	static var UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY_EXT:GLuint;
+
+	@:native('GL_TEXTURE_FORMAT_SRGB_OVERRIDE_EXT')
+	static var TEXTURE_FORMAT_SRGB_OVERRIDE_EXT:GLuint;
+
+	@:native('GL_R16_EXT')
+	static var R16_EXT:GLuint;
+
+	@:native('GL_RG16_EXT')
+	static var RG16_EXT:GLuint;
+
+	@:native('GL_RGB16_SNORM_EXT')
+	static var RGB16_SNORM_EXT:GLuint;
+
+	@:native('GL_RED_EXT')
+	static var RED_EXT:GLuint;
+
+	@:native('GL_RG_EXT')
+	static var RG_EXT:GLuint;
+
+	@:native('GL_NUM_SURFACE_COMPRESSION_FIXED_RATES_EXT')
+	static var NUM_SURFACE_COMPRESSION_FIXED_RATES_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_1BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_1BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_2BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_2BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_3BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_3BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_4BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_4BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_5BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_5BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_6BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_6BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_7BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_7BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_8BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_8BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_9BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_9BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_10BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_10BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_11BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_11BPC_EXT:GLuint;
+
+	@:native('GL_SURFACE_COMPRESSION_FIXED_RATE_12BPC_EXT')
+	static var SURFACE_COMPRESSION_FIXED_RATE_12BPC_EXT:GLuint;
+
+	@:native('GL_UNSIGNED_INT_2_10_10_10_REV_EXT')
+	static var UNSIGNED_INT_2_10_10_10_REV_EXT:GLuint;
+
+	@:native('GL_TEXTURE_VIEW_MIN_LEVEL_EXT')
+	static var TEXTURE_VIEW_MIN_LEVEL_EXT:GLuint;
+
+	@:native('GL_TEXTURE_VIEW_NUM_LEVELS_EXT')
+	static var TEXTURE_VIEW_NUM_LEVELS_EXT:GLuint;
+
+	@:native('GL_TEXTURE_VIEW_MIN_LAYER_EXT')
+	static var TEXTURE_VIEW_MIN_LAYER_EXT:GLuint;
+
+	@:native('GL_TEXTURE_VIEW_NUM_LAYERS_EXT')
+	static var TEXTURE_VIEW_NUM_LAYERS_EXT:GLuint;
+
+	@:native('GL_UNPACK_ROW_LENGTH_EXT')
+	static var UNPACK_ROW_LENGTH_EXT:GLuint;
+
+	@:native('GL_UNPACK_SKIP_ROWS_EXT')
+	static var UNPACK_SKIP_ROWS_EXT:GLuint;
+
+	@:native('GL_UNPACK_SKIP_PIXELS_EXT')
+	static var UNPACK_SKIP_PIXELS_EXT:GLuint;
+
+	@:native('GL_GCCSO_SHADER_BINARY_FJ')
+	static var GCCSO_SHADER_BINARY_FJ:GLuint;
+
+	@:native('GL_HUAWEI_PROGRAM_BINARY')
+	static var HUAWEI_PROGRAM_BINARY:GLuint;
+
+	@:native('GL_HUAWEI_SHADER_BINARY')
+	static var HUAWEI_SHADER_BINARY:GLuint;
+
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_AND_DOWNSAMPLE_IMG')
+	static var FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_AND_DOWNSAMPLE_IMG:GLuint;
+
+	@:native('GL_NUM_DOWNSAMPLE_SCALES_IMG')
+	static var NUM_DOWNSAMPLE_SCALES_IMG:GLuint;
+
+	@:native('GL_DOWNSAMPLE_SCALES_IMG')
+	static var DOWNSAMPLE_SCALES_IMG:GLuint;
+
+	@:native('GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_SCALE_IMG')
+	static var FRAMEBUFFER_ATTACHMENT_TEXTURE_SCALE_IMG:GLuint;
+
+	@:native('GL_RENDERBUFFER_SAMPLES_IMG')
+	static var RENDERBUFFER_SAMPLES_IMG:GLuint;
+
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_IMG')
+	static var FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_IMG:GLuint;
+
+	@:native('GL_MAX_SAMPLES_IMG')
+	static var MAX_SAMPLES_IMG:GLuint;
+
+	@:native('GL_TEXTURE_SAMPLES_IMG')
+	static var TEXTURE_SAMPLES_IMG:GLuint;
+
+	@:native('GL_SGX_PROGRAM_BINARY_IMG')
+	static var SGX_PROGRAM_BINARY_IMG:GLuint;
+
+	@:native('GL_BGRA_IMG')
+	static var BGRA_IMG:GLuint;
+
+	@:native('GL_UNSIGNED_SHORT_4_4_4_4_REV_IMG')
+	static var UNSIGNED_SHORT_4_4_4_4_REV_IMG:GLuint;
+
+	@:native('GL_SGX_BINARY_IMG')
+	static var SGX_BINARY_IMG:GLuint;
+
+	@:native('GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG')
+	static var COMPRESSED_RGB_PVRTC_4BPPV1_IMG:GLuint;
+
+	@:native('GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG')
+	static var COMPRESSED_RGB_PVRTC_2BPPV1_IMG:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG')
+	static var COMPRESSED_RGBA_PVRTC_4BPPV1_IMG:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG')
+	static var COMPRESSED_RGBA_PVRTC_2BPPV1_IMG:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_PVRTC_2BPPV2_IMG')
+	static var COMPRESSED_RGBA_PVRTC_2BPPV2_IMG:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_PVRTC_4BPPV2_IMG')
+	static var COMPRESSED_RGBA_PVRTC_4BPPV2_IMG:GLuint;
+
+	@:native('GL_CUBIC_IMG')
+	static var CUBIC_IMG:GLuint;
+
+	@:native('GL_CUBIC_MIPMAP_NEAREST_IMG')
+	static var CUBIC_MIPMAP_NEAREST_IMG:GLuint;
+
+	@:native('GL_CUBIC_MIPMAP_LINEAR_IMG')
+	static var CUBIC_MIPMAP_LINEAR_IMG:GLuint;
+
+	@:native('GL_COPY_READ_BUFFER_NV')
+	static var COPY_READ_BUFFER_NV:GLuint;
+
+	@:native('GL_COPY_WRITE_BUFFER_NV')
+	static var COPY_WRITE_BUFFER_NV:GLuint;
+
+	@:native('GL_COVERAGE_COMPONENT_NV')
+	static var COVERAGE_COMPONENT_NV:GLuint;
+
+	@:native('GL_COVERAGE_COMPONENT4_NV')
+	static var COVERAGE_COMPONENT4_NV:GLuint;
+
+	@:native('GL_COVERAGE_ATTACHMENT_NV')
+	static var COVERAGE_ATTACHMENT_NV:GLuint;
+
+	@:native('GL_COVERAGE_BUFFERS_NV')
+	static var COVERAGE_BUFFERS_NV:GLuint;
+
+	@:native('GL_COVERAGE_SAMPLES_NV')
+	static var COVERAGE_SAMPLES_NV:GLuint;
+
+	@:native('GL_COVERAGE_ALL_FRAGMENTS_NV')
+	static var COVERAGE_ALL_FRAGMENTS_NV:GLuint;
+
+	@:native('GL_COVERAGE_EDGE_FRAGMENTS_NV')
+	static var COVERAGE_EDGE_FRAGMENTS_NV:GLuint;
+
+	@:native('GL_COVERAGE_AUTOMATIC_NV')
+	static var COVERAGE_AUTOMATIC_NV:GLuint;
+
+	@:native('GL_COVERAGE_BUFFER_BIT_NV')
+	static var COVERAGE_BUFFER_BIT_NV:GLuint;
+
+	@:native('GL_DEPTH_COMPONENT16_NONLINEAR_NV')
+	static var DEPTH_COMPONENT16_NONLINEAR_NV:GLuint;
+
+	@:native('GL_MAX_DRAW_BUFFERS_NV')
+	static var MAX_DRAW_BUFFERS_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER0_NV')
+	static var DRAW_BUFFER0_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER1_NV')
+	static var DRAW_BUFFER1_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER2_NV')
+	static var DRAW_BUFFER2_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER3_NV')
+	static var DRAW_BUFFER3_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER4_NV')
+	static var DRAW_BUFFER4_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER5_NV')
+	static var DRAW_BUFFER5_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER6_NV')
+	static var DRAW_BUFFER6_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER7_NV')
+	static var DRAW_BUFFER7_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER8_NV')
+	static var DRAW_BUFFER8_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER9_NV')
+	static var DRAW_BUFFER9_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER10_NV')
+	static var DRAW_BUFFER10_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER11_NV')
+	static var DRAW_BUFFER11_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER12_NV')
+	static var DRAW_BUFFER12_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER13_NV')
+	static var DRAW_BUFFER13_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER14_NV')
+	static var DRAW_BUFFER14_NV:GLuint;
+
+	@:native('GL_DRAW_BUFFER15_NV')
+	static var DRAW_BUFFER15_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT0_NV')
+	static var COLOR_ATTACHMENT0_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT1_NV')
+	static var COLOR_ATTACHMENT1_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT2_NV')
+	static var COLOR_ATTACHMENT2_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT3_NV')
+	static var COLOR_ATTACHMENT3_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT4_NV')
+	static var COLOR_ATTACHMENT4_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT5_NV')
+	static var COLOR_ATTACHMENT5_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT6_NV')
+	static var COLOR_ATTACHMENT6_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT7_NV')
+	static var COLOR_ATTACHMENT7_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT8_NV')
+	static var COLOR_ATTACHMENT8_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT9_NV')
+	static var COLOR_ATTACHMENT9_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT10_NV')
+	static var COLOR_ATTACHMENT10_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT11_NV')
+	static var COLOR_ATTACHMENT11_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT12_NV')
+	static var COLOR_ATTACHMENT12_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT13_NV')
+	static var COLOR_ATTACHMENT13_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT14_NV')
+	static var COLOR_ATTACHMENT14_NV:GLuint;
+
+	@:native('GL_COLOR_ATTACHMENT15_NV')
+	static var COLOR_ATTACHMENT15_NV:GLuint;
+
+	@:native('GL_MAX_COLOR_ATTACHMENTS_NV')
+	static var MAX_COLOR_ATTACHMENTS_NV:GLuint;
+
+	@:native('GL_READ_FRAMEBUFFER_NV')
+	static var READ_FRAMEBUFFER_NV:GLuint;
+
+	@:native('GL_DRAW_FRAMEBUFFER_NV')
+	static var DRAW_FRAMEBUFFER_NV:GLuint;
+
+	@:native('GL_DRAW_FRAMEBUFFER_BINDING_NV')
+	static var DRAW_FRAMEBUFFER_BINDING_NV:GLuint;
+
+	@:native('GL_READ_FRAMEBUFFER_BINDING_NV')
+	static var READ_FRAMEBUFFER_BINDING_NV:GLuint;
+
+	@:native('GL_RENDERBUFFER_SAMPLES_NV')
+	static var RENDERBUFFER_SAMPLES_NV:GLuint;
+
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_NV')
+	static var FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_NV:GLuint;
+
+	@:native('GL_MAX_SAMPLES_NV')
+	static var MAX_SAMPLES_NV:GLuint;
+
+	@:native('GL_VERTEX_ATTRIB_ARRAY_DIVISOR_NV')
+	static var VERTEX_ATTRIB_ARRAY_DIVISOR_NV:GLuint;
+
+	@:native('GL_FLOAT_MAT2x3_NV')
+	static var FLOAT_MAT2x3_NV:GLuint;
+
+	@:native('GL_FLOAT_MAT2x4_NV')
+	static var FLOAT_MAT2x4_NV:GLuint;
+
+	@:native('GL_FLOAT_MAT3x2_NV')
+	static var FLOAT_MAT3x2_NV:GLuint;
+
+	@:native('GL_FLOAT_MAT3x4_NV')
+	static var FLOAT_MAT3x4_NV:GLuint;
+
+	@:native('GL_FLOAT_MAT4x2_NV')
+	static var FLOAT_MAT4x2_NV:GLuint;
+
+	@:native('GL_FLOAT_MAT4x3_NV')
+	static var FLOAT_MAT4x3_NV:GLuint;
+
+	@:native('GL_PIXEL_PACK_BUFFER_NV')
+	static var PIXEL_PACK_BUFFER_NV:GLuint;
+
+	@:native('GL_PIXEL_UNPACK_BUFFER_NV')
+	static var PIXEL_UNPACK_BUFFER_NV:GLuint;
+
+	@:native('GL_PIXEL_PACK_BUFFER_BINDING_NV')
+	static var PIXEL_PACK_BUFFER_BINDING_NV:GLuint;
+
+	@:native('GL_PIXEL_UNPACK_BUFFER_BINDING_NV')
+	static var PIXEL_UNPACK_BUFFER_BINDING_NV:GLuint;
+
+	@:native('GL_POLYGON_MODE_NV')
+	static var POLYGON_MODE_NV:GLuint;
+
+	@:native('GL_POLYGON_OFFSET_POINT_NV')
+	static var POLYGON_OFFSET_POINT_NV:GLuint;
+
+	@:native('GL_POLYGON_OFFSET_LINE_NV')
+	static var POLYGON_OFFSET_LINE_NV:GLuint;
+
+	@:native('GL_POINT_NV')
+	static var POINT_NV:GLuint;
+
+	@:native('GL_LINE_NV')
+	static var LINE_NV:GLuint;
+
+	@:native('GL_FILL_NV')
+	static var FILL_NV:GLuint;
+
+	@:native('GL_READ_BUFFER_NV')
+	static var READ_BUFFER_NV:GLuint;
+
+	@:native('GL_SLUMINANCE_NV')
+	static var SLUMINANCE_NV:GLuint;
+
+	@:native('GL_SLUMINANCE_ALPHA_NV')
+	static var SLUMINANCE_ALPHA_NV:GLuint;
+
+	@:native('GL_SRGB8_NV')
+	static var SRGB8_NV:GLuint;
+
+	@:native('GL_SLUMINANCE8_NV')
+	static var SLUMINANCE8_NV:GLuint;
+
+	@:native('GL_SLUMINANCE8_ALPHA8_NV')
+	static var SLUMINANCE8_ALPHA8_NV:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_S3TC_DXT1_NV')
+	static var COMPRESSED_SRGB_S3TC_DXT1_NV:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT1_NV')
+	static var COMPRESSED_SRGB_ALPHA_S3TC_DXT1_NV:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT3_NV')
+	static var COMPRESSED_SRGB_ALPHA_S3TC_DXT3_NV:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT5_NV')
+	static var COMPRESSED_SRGB_ALPHA_S3TC_DXT5_NV:GLuint;
+
+	@:native('GL_ETC1_SRGB8_NV')
+	static var ETC1_SRGB8_NV:GLuint;
+
+	@:native('GL_SAMPLER_2D_ARRAY_SHADOW_NV')
+	static var SAMPLER_2D_ARRAY_SHADOW_NV:GLuint;
+
+	@:native('GL_SAMPLER_CUBE_SHADOW_NV')
+	static var SAMPLER_CUBE_SHADOW_NV:GLuint;
+
+	@:native('GL_TEXTURE_BORDER_COLOR_NV')
+	static var TEXTURE_BORDER_COLOR_NV:GLuint;
+
+	@:native('GL_CLAMP_TO_BORDER_NV')
+	static var CLAMP_TO_BORDER_NV:GLuint;
+
+	@:native('GL_MAX_VIEWPORTS_NV')
+	static var MAX_VIEWPORTS_NV:GLuint;
+
+	@:native('GL_VIEWPORT_SUBPIXEL_BITS_NV')
+	static var VIEWPORT_SUBPIXEL_BITS_NV:GLuint;
+
+	@:native('GL_VIEWPORT_BOUNDS_RANGE_NV')
+	static var VIEWPORT_BOUNDS_RANGE_NV:GLuint;
+
+	@:native('GL_VIEWPORT_INDEX_PROVOKING_VERTEX_NV')
+	static var VIEWPORT_INDEX_PROVOKING_VERTEX_NV:GLuint;
+
+	@:native('GL_PACK_ROW_LENGTH_NV')
+	static var PACK_ROW_LENGTH_NV:GLuint;
+
+	@:native('GL_PACK_SKIP_ROWS_NV')
+	static var PACK_SKIP_ROWS_NV:GLuint;
+
+	@:native('GL_PACK_SKIP_PIXELS_NV')
+	static var PACK_SKIP_PIXELS_NV:GLuint;
+
+	@:native('GL_ETC1_RGB8_OES')
+	static var ETC1_RGB8_OES:GLuint;
+
+	@:native('GL_DEPTH_COMPONENT24_OES')
+	static var DEPTH_COMPONENT24_OES:GLuint;
+
+	@:native('GL_GEOMETRY_SHADER_OES')
+	static var GEOMETRY_SHADER_OES:GLuint;
+
+	@:native('GL_GEOMETRY_SHADER_BIT_OES')
+	static var GEOMETRY_SHADER_BIT_OES:GLuint;
+
+	@:native('GL_GEOMETRY_LINKED_VERTICES_OUT_OES')
+	static var GEOMETRY_LINKED_VERTICES_OUT_OES:GLuint;
+
+	@:native('GL_GEOMETRY_LINKED_INPUT_TYPE_OES')
+	static var GEOMETRY_LINKED_INPUT_TYPE_OES:GLuint;
+
+	@:native('GL_GEOMETRY_LINKED_OUTPUT_TYPE_OES')
+	static var GEOMETRY_LINKED_OUTPUT_TYPE_OES:GLuint;
+
+	@:native('GL_GEOMETRY_SHADER_INVOCATIONS_OES')
+	static var GEOMETRY_SHADER_INVOCATIONS_OES:GLuint;
+
+	@:native('GL_LAYER_PROVOKING_VERTEX_OES')
+	static var LAYER_PROVOKING_VERTEX_OES:GLuint;
+
+	@:native('GL_LINES_ADJACENCY_OES')
+	static var LINES_ADJACENCY_OES:GLuint;
+
+	@:native('GL_LINE_STRIP_ADJACENCY_OES')
+	static var LINE_STRIP_ADJACENCY_OES:GLuint;
+
+	@:native('GL_TRIANGLES_ADJACENCY_OES')
+	static var TRIANGLES_ADJACENCY_OES:GLuint;
+
+	@:native('GL_TRIANGLE_STRIP_ADJACENCY_OES')
+	static var TRIANGLE_STRIP_ADJACENCY_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_UNIFORM_COMPONENTS_OES')
+	static var MAX_GEOMETRY_UNIFORM_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_UNIFORM_BLOCKS_OES')
+	static var MAX_GEOMETRY_UNIFORM_BLOCKS_OES:GLuint;
+
+	@:native('GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS_OES')
+	static var MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_INPUT_COMPONENTS_OES')
+	static var MAX_GEOMETRY_INPUT_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_OUTPUT_COMPONENTS_OES')
+	static var MAX_GEOMETRY_OUTPUT_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_OUTPUT_VERTICES_OES')
+	static var MAX_GEOMETRY_OUTPUT_VERTICES_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_OES')
+	static var MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_SHADER_INVOCATIONS_OES')
+	static var MAX_GEOMETRY_SHADER_INVOCATIONS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_OES')
+	static var MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS_OES')
+	static var MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_ATOMIC_COUNTERS_OES')
+	static var MAX_GEOMETRY_ATOMIC_COUNTERS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_IMAGE_UNIFORMS_OES')
+	static var MAX_GEOMETRY_IMAGE_UNIFORMS_OES:GLuint;
+
+	@:native('GL_MAX_GEOMETRY_SHADER_STORAGE_BLOCKS_OES')
+	static var MAX_GEOMETRY_SHADER_STORAGE_BLOCKS_OES:GLuint;
+
+	@:native('GL_FIRST_VERTEX_CONVENTION_OES')
+	static var FIRST_VERTEX_CONVENTION_OES:GLuint;
+
+	@:native('GL_LAST_VERTEX_CONVENTION_OES')
+	static var LAST_VERTEX_CONVENTION_OES:GLuint;
+
+	@:native('GL_UNDEFINED_VERTEX_OES')
+	static var UNDEFINED_VERTEX_OES:GLuint;
+
+	@:native('GL_PRIMITIVES_GENERATED_OES')
+	static var PRIMITIVES_GENERATED_OES:GLuint;
+
+	@:native('GL_FRAMEBUFFER_DEFAULT_LAYERS_OES')
+	static var FRAMEBUFFER_DEFAULT_LAYERS_OES:GLuint;
+
+	@:native('GL_MAX_FRAMEBUFFER_LAYERS_OES')
+	static var MAX_FRAMEBUFFER_LAYERS_OES:GLuint;
+
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_OES')
+	static var FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_OES:GLuint;
+
+	@:native('GL_FRAMEBUFFER_ATTACHMENT_LAYERED_OES')
+	static var FRAMEBUFFER_ATTACHMENT_LAYERED_OES:GLuint;
+
+	@:native('GL_REFERENCED_BY_GEOMETRY_SHADER_OES')
+	static var REFERENCED_BY_GEOMETRY_SHADER_OES:GLuint;
+
+	@:native('GL_PROGRAM_BINARY_LENGTH_OES')
+	static var PROGRAM_BINARY_LENGTH_OES:GLuint;
+
+	@:native('GL_NUM_PROGRAM_BINARY_FORMATS_OES')
+	static var NUM_PROGRAM_BINARY_FORMATS_OES:GLuint;
+
+	@:native('GL_PROGRAM_BINARY_FORMATS_OES')
+	static var PROGRAM_BINARY_FORMATS_OES:GLuint;
+
+	@:native('GL_WRITE_ONLY_OES')
+	static var WRITE_ONLY_OES:GLuint;
+
+	@:native('GL_BUFFER_ACCESS_OES')
+	static var BUFFER_ACCESS_OES:GLuint;
+
+	@:native('GL_BUFFER_MAPPED_OES')
+	static var BUFFER_MAPPED_OES:GLuint;
+
+	@:native('GL_BUFFER_MAP_POINTER_OES')
+	static var BUFFER_MAP_POINTER_OES:GLuint;
+
+	@:native('GL_PRIMITIVE_BOUNDING_BOX_OES')
+	static var PRIMITIVE_BOUNDING_BOX_OES:GLuint;
+
+	@:native('GL_ALPHA8_OES')
+	static var ALPHA8_OES:GLuint;
+
+	@:native('GL_DEPTH_COMPONENT16_OES')
+	static var DEPTH_COMPONENT16_OES:GLuint;
+
+	@:native('GL_LUMINANCE4_ALPHA4_OES')
+	static var LUMINANCE4_ALPHA4_OES:GLuint;
+
+	@:native('GL_LUMINANCE8_ALPHA8_OES')
+	static var LUMINANCE8_ALPHA8_OES:GLuint;
+
+	@:native('GL_LUMINANCE8_OES')
+	static var LUMINANCE8_OES:GLuint;
+
+	@:native('GL_RGBA4_OES')
+	static var RGBA4_OES:GLuint;
+
+	@:native('GL_RGB5_A1_OES')
+	static var RGB5_A1_OES:GLuint;
+
+	@:native('GL_RGB565_OES')
+	static var RGB565_OES:GLuint;
+
+	@:native('GL_RGB8_OES')
+	static var RGB8_OES:GLuint;
+
+	@:native('GL_RGBA8_OES')
+	static var RGBA8_OES:GLuint;
+
+	@:native('GL_SAMPLE_SHADING_OES')
+	static var SAMPLE_SHADING_OES:GLuint;
+
+	@:native('GL_MIN_SAMPLE_SHADING_VALUE_OES')
+	static var MIN_SAMPLE_SHADING_VALUE_OES:GLuint;
+
+	@:native('GL_MIN_FRAGMENT_INTERPOLATION_OFFSET_OES')
+	static var MIN_FRAGMENT_INTERPOLATION_OFFSET_OES:GLuint;
+
+	@:native('GL_MAX_FRAGMENT_INTERPOLATION_OFFSET_OES')
+	static var MAX_FRAGMENT_INTERPOLATION_OFFSET_OES:GLuint;
+
+	@:native('GL_FRAGMENT_INTERPOLATION_OFFSET_BITS_OES')
+	static var FRAGMENT_INTERPOLATION_OFFSET_BITS_OES:GLuint;
+
+	@:native('GL_FRAGMENT_SHADER_DERIVATIVE_HINT_OES')
+	static var FRAGMENT_SHADER_DERIVATIVE_HINT_OES:GLuint;
+
+	@:native('GL_STENCIL_INDEX1_OES')
+	static var STENCIL_INDEX1_OES:GLuint;
+
+	@:native('GL_STENCIL_INDEX4_OES')
+	static var STENCIL_INDEX4_OES:GLuint;
+
+	@:native('GL_FRAMEBUFFER_UNDEFINED_OES')
+	static var FRAMEBUFFER_UNDEFINED_OES:GLuint;
+
+	@:native('GL_PATCHES_OES')
+	static var PATCHES_OES:GLuint;
+
+	@:native('GL_PATCH_VERTICES_OES')
+	static var PATCH_VERTICES_OES:GLuint;
+
+	@:native('GL_TESS_CONTROL_OUTPUT_VERTICES_OES')
+	static var TESS_CONTROL_OUTPUT_VERTICES_OES:GLuint;
+
+	@:native('GL_TESS_GEN_MODE_OES')
+	static var TESS_GEN_MODE_OES:GLuint;
+
+	@:native('GL_TESS_GEN_SPACING_OES')
+	static var TESS_GEN_SPACING_OES:GLuint;
+
+	@:native('GL_TESS_GEN_VERTEX_ORDER_OES')
+	static var TESS_GEN_VERTEX_ORDER_OES:GLuint;
+
+	@:native('GL_TESS_GEN_POINT_MODE_OES')
+	static var TESS_GEN_POINT_MODE_OES:GLuint;
+
+	@:native('GL_ISOLINES_OES')
+	static var ISOLINES_OES:GLuint;
+
+	@:native('GL_QUADS_OES')
+	static var QUADS_OES:GLuint;
+
+	@:native('GL_FRACTIONAL_ODD_OES')
+	static var FRACTIONAL_ODD_OES:GLuint;
+
+	@:native('GL_FRACTIONAL_EVEN_OES')
+	static var FRACTIONAL_EVEN_OES:GLuint;
+
+	@:native('GL_MAX_PATCH_VERTICES_OES')
+	static var MAX_PATCH_VERTICES_OES:GLuint;
+
+	@:native('GL_MAX_TESS_GEN_LEVEL_OES')
+	static var MAX_TESS_GEN_LEVEL_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS_OES')
+	static var MAX_TESS_CONTROL_UNIFORM_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS_OES')
+	static var MAX_TESS_EVALUATION_UNIFORM_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS_OES')
+	static var MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS_OES')
+	static var MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_OUTPUT_COMPONENTS_OES')
+	static var MAX_TESS_CONTROL_OUTPUT_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_PATCH_COMPONENTS_OES')
+	static var MAX_TESS_PATCH_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS_OES')
+	static var MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_OUTPUT_COMPONENTS_OES')
+	static var MAX_TESS_EVALUATION_OUTPUT_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS_OES')
+	static var MAX_TESS_CONTROL_UNIFORM_BLOCKS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS_OES')
+	static var MAX_TESS_EVALUATION_UNIFORM_BLOCKS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_INPUT_COMPONENTS_OES')
+	static var MAX_TESS_CONTROL_INPUT_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_INPUT_COMPONENTS_OES')
+	static var MAX_TESS_EVALUATION_INPUT_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS_OES')
+	static var MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS_OES')
+	static var MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS_OES')
+	static var MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS_OES')
+	static var MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS_OES')
+	static var MAX_TESS_CONTROL_ATOMIC_COUNTERS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS_OES')
+	static var MAX_TESS_EVALUATION_ATOMIC_COUNTERS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS_OES')
+	static var MAX_TESS_CONTROL_IMAGE_UNIFORMS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS_OES')
+	static var MAX_TESS_EVALUATION_IMAGE_UNIFORMS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_CONTROL_SHADER_STORAGE_BLOCKS_OES')
+	static var MAX_TESS_CONTROL_SHADER_STORAGE_BLOCKS_OES:GLuint;
+
+	@:native('GL_MAX_TESS_EVALUATION_SHADER_STORAGE_BLOCKS_OES')
+	static var MAX_TESS_EVALUATION_SHADER_STORAGE_BLOCKS_OES:GLuint;
+
+	@:native('GL_PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED_OES')
+	static var PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED_OES:GLuint;
+
+	@:native('GL_IS_PER_PATCH_OES')
+	static var IS_PER_PATCH_OES:GLuint;
+
+	@:native('GL_REFERENCED_BY_TESS_CONTROL_SHADER_OES')
+	static var REFERENCED_BY_TESS_CONTROL_SHADER_OES:GLuint;
+
+	@:native('GL_REFERENCED_BY_TESS_EVALUATION_SHADER_OES')
+	static var REFERENCED_BY_TESS_EVALUATION_SHADER_OES:GLuint;
+
+	@:native('GL_TESS_CONTROL_SHADER_OES')
+	static var TESS_CONTROL_SHADER_OES:GLuint;
+
+	@:native('GL_TESS_EVALUATION_SHADER_OES')
+	static var TESS_EVALUATION_SHADER_OES:GLuint;
+
+	@:native('GL_TESS_CONTROL_SHADER_BIT_OES')
+	static var TESS_CONTROL_SHADER_BIT_OES:GLuint;
+
+	@:native('GL_TESS_EVALUATION_SHADER_BIT_OES')
+	static var TESS_EVALUATION_SHADER_BIT_OES:GLuint;
+
+	@:native('GL_TEXTURE_WRAP_R_OES')
+	static var TEXTURE_WRAP_R_OES:GLuint;
+
+	@:native('GL_TEXTURE_3D_OES')
+	static var TEXTURE_3D_OES:GLuint;
+
+	@:native('GL_TEXTURE_BINDING_3D_OES')
+	static var TEXTURE_BINDING_3D_OES:GLuint;
+
+	@:native('GL_MAX_3D_TEXTURE_SIZE_OES')
+	static var MAX_3D_TEXTURE_SIZE_OES:GLuint;
+
+	@:native('GL_SAMPLER_3D_OES')
+	static var SAMPLER_3D_OES:GLuint;
+
+	@:native('GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_3D_ZOFFSET_OES')
+	static var FRAMEBUFFER_ATTACHMENT_TEXTURE_3D_ZOFFSET_OES:GLuint;
+
+	@:native('GL_TEXTURE_BORDER_COLOR_OES')
+	static var TEXTURE_BORDER_COLOR_OES:GLuint;
+
+	@:native('GL_CLAMP_TO_BORDER_OES')
+	static var CLAMP_TO_BORDER_OES:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_OES')
+	static var TEXTURE_BUFFER_OES:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_BINDING_OES')
+	static var TEXTURE_BUFFER_BINDING_OES:GLuint;
+
+	@:native('GL_MAX_TEXTURE_BUFFER_SIZE_OES')
+	static var MAX_TEXTURE_BUFFER_SIZE_OES:GLuint;
+
+	@:native('GL_TEXTURE_BINDING_BUFFER_OES')
+	static var TEXTURE_BINDING_BUFFER_OES:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_DATA_STORE_BINDING_OES')
+	static var TEXTURE_BUFFER_DATA_STORE_BINDING_OES:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_OFFSET_ALIGNMENT_OES')
+	static var TEXTURE_BUFFER_OFFSET_ALIGNMENT_OES:GLuint;
+
+	@:native('GL_SAMPLER_BUFFER_OES')
+	static var SAMPLER_BUFFER_OES:GLuint;
+
+	@:native('GL_INT_SAMPLER_BUFFER_OES')
+	static var INT_SAMPLER_BUFFER_OES:GLuint;
+
+	@:native('GL_UNSIGNED_INT_SAMPLER_BUFFER_OES')
+	static var UNSIGNED_INT_SAMPLER_BUFFER_OES:GLuint;
+
+	@:native('GL_IMAGE_BUFFER_OES')
+	static var IMAGE_BUFFER_OES:GLuint;
+
+	@:native('GL_INT_IMAGE_BUFFER_OES')
+	static var INT_IMAGE_BUFFER_OES:GLuint;
+
+	@:native('GL_UNSIGNED_INT_IMAGE_BUFFER_OES')
+	static var UNSIGNED_INT_IMAGE_BUFFER_OES:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_OFFSET_OES')
+	static var TEXTURE_BUFFER_OFFSET_OES:GLuint;
+
+	@:native('GL_TEXTURE_BUFFER_SIZE_OES')
+	static var TEXTURE_BUFFER_SIZE_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_3x3x3_OES')
+	static var COMPRESSED_RGBA_ASTC_3x3x3_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_4x3x3_OES')
+	static var COMPRESSED_RGBA_ASTC_4x3x3_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_4x4x3_OES')
+	static var COMPRESSED_RGBA_ASTC_4x4x3_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_4x4x4_OES')
+	static var COMPRESSED_RGBA_ASTC_4x4x4_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_5x4x4_OES')
+	static var COMPRESSED_RGBA_ASTC_5x4x4_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_5x5x4_OES')
+	static var COMPRESSED_RGBA_ASTC_5x5x4_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_5x5x5_OES')
+	static var COMPRESSED_RGBA_ASTC_5x5x5_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_6x5x5_OES')
+	static var COMPRESSED_RGBA_ASTC_6x5x5_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_6x6x5_OES')
+	static var COMPRESSED_RGBA_ASTC_6x6x5_OES:GLuint;
+
+	@:native('GL_COMPRESSED_RGBA_ASTC_6x6x6_OES')
+	static var COMPRESSED_RGBA_ASTC_6x6x6_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_3x3x3_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_3x3x3_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_4x3x3_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_4x3x3_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_4x4x3_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_4x4x3_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_4x4x4_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_4x4x4_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_5x4x4_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_5x4x4_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_5x5x4_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_5x5x4_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_5x5x5_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_5x5x5_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x5x5_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_6x5x5_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x5_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x5_OES:GLuint;
+
+	@:native('GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x6_OES')
+	static var COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x6_OES:GLuint;
+
+	@:native('GL_TEXTURE_BINDING_CUBE_MAP_ARRAY_OES')
+	static var TEXTURE_BINDING_CUBE_MAP_ARRAY_OES:GLuint;
+
+	@:native('GL_SAMPLER_CUBE_MAP_ARRAY_OES')
+	static var SAMPLER_CUBE_MAP_ARRAY_OES:GLuint;
+
+	@:native('GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW_OES')
+	static var SAMPLER_CUBE_MAP_ARRAY_SHADOW_OES:GLuint;
+
+	@:native('GL_INT_SAMPLER_CUBE_MAP_ARRAY_OES')
+	static var INT_SAMPLER_CUBE_MAP_ARRAY_OES:GLuint;
+
+	@:native('GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY_OES')
+	static var UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY_OES:GLuint;
+
+	@:native('GL_IMAGE_CUBE_MAP_ARRAY_OES')
+	static var IMAGE_CUBE_MAP_ARRAY_OES:GLuint;
+
+	@:native('GL_INT_IMAGE_CUBE_MAP_ARRAY_OES')
+	static var INT_IMAGE_CUBE_MAP_ARRAY_OES:GLuint;
+
+	@:native('GL_UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY_OES')
+	static var UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY_OES:GLuint;
+
+	@:native('GL_HALF_FLOAT_OES')
+	static var HALF_FLOAT_OES:GLuint;
+
+	@:native('GL_STENCIL_INDEX_OES')
+	static var STENCIL_INDEX_OES:GLuint;
+
+	@:native('GL_STENCIL_INDEX8_OES')
+	static var STENCIL_INDEX8_OES:GLuint;
+
+	@:native('GL_TEXTURE_2D_MULTISAMPLE_ARRAY_OES')
+	static var TEXTURE_2D_MULTISAMPLE_ARRAY_OES:GLuint;
+
+	@:native('GL_TEXTURE_BINDING_2D_MULTISAMPLE_ARRAY_OES')
+	static var TEXTURE_BINDING_2D_MULTISAMPLE_ARRAY_OES:GLuint;
+
+	@:native('GL_SAMPLER_2D_MULTISAMPLE_ARRAY_OES')
+	static var SAMPLER_2D_MULTISAMPLE_ARRAY_OES:GLuint;
+
+	@:native('GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY_OES')
+	static var INT_SAMPLER_2D_MULTISAMPLE_ARRAY_OES:GLuint;
+
+	@:native('GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY_OES')
+	static var UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY_OES:GLuint;
+
+	@:native('GL_TEXTURE_VIEW_MIN_LEVEL_OES')
+	static var TEXTURE_VIEW_MIN_LEVEL_OES:GLuint;
+
+	@:native('GL_TEXTURE_VIEW_NUM_LEVELS_OES')
+	static var TEXTURE_VIEW_NUM_LEVELS_OES:GLuint;
+
+	@:native('GL_TEXTURE_VIEW_MIN_LAYER_OES')
+	static var TEXTURE_VIEW_MIN_LAYER_OES:GLuint;
+
+	@:native('GL_TEXTURE_VIEW_NUM_LAYERS_OES')
+	static var TEXTURE_VIEW_NUM_LAYERS_OES:GLuint;
+
+	@:native('GL_VERTEX_ARRAY_BINDING_OES')
+	static var VERTEX_ARRAY_BINDING_OES:GLuint;
+
+	@:native('GL_UNSIGNED_INT_10_10_10_2_OES')
+	static var UNSIGNED_INT_10_10_10_2_OES:GLuint;
+
+	@:native('GL_INT_10_10_10_2_OES')
+	static var INT_10_10_10_2_OES:GLuint;
+
+	@:native('GL_MAX_VIEWPORTS_OES')
+	static var MAX_VIEWPORTS_OES:GLuint;
+
+	@:native('GL_VIEWPORT_SUBPIXEL_BITS_OES')
+	static var VIEWPORT_SUBPIXEL_BITS_OES:GLuint;
+
+	@:native('GL_VIEWPORT_BOUNDS_RANGE_OES')
+	static var VIEWPORT_BOUNDS_RANGE_OES:GLuint;
+
+	@:native('GL_VIEWPORT_INDEX_PROVOKING_VERTEX_OES')
+	static var VIEWPORT_INDEX_PROVOKING_VERTEX_OES:GLuint;
+
+	@:native('GL_ALPHA_TEST_QCOM')
+	static var ALPHA_TEST_QCOM:GLuint;
+
+	@:native('GL_ALPHA_TEST_FUNC_QCOM')
+	static var ALPHA_TEST_FUNC_QCOM:GLuint;
+
+	@:native('GL_ALPHA_TEST_REF_QCOM')
+	static var ALPHA_TEST_REF_QCOM:GLuint;
+
+	@:native('GL_BINNING_CONTROL_HINT_QCOM')
+	static var BINNING_CONTROL_HINT_QCOM:GLuint;
+
+	@:native('GL_CPU_OPTIMIZED_QCOM')
+	static var CPU_OPTIMIZED_QCOM:GLuint;
+
+	@:native('GL_GPU_OPTIMIZED_QCOM')
+	static var GPU_OPTIMIZED_QCOM:GLuint;
+
+	@:native('GL_RENDER_DIRECT_TO_FRAMEBUFFER_QCOM')
+	static var RENDER_DIRECT_TO_FRAMEBUFFER_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_WIDTH_QCOM')
+	static var TEXTURE_WIDTH_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_HEIGHT_QCOM')
+	static var TEXTURE_HEIGHT_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_DEPTH_QCOM')
+	static var TEXTURE_DEPTH_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_INTERNAL_FORMAT_QCOM')
+	static var TEXTURE_INTERNAL_FORMAT_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_FORMAT_QCOM')
+	static var TEXTURE_FORMAT_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_TYPE_QCOM')
+	static var TEXTURE_TYPE_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_IMAGE_VALID_QCOM')
+	static var TEXTURE_IMAGE_VALID_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_NUM_LEVELS_QCOM')
+	static var TEXTURE_NUM_LEVELS_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_TARGET_QCOM')
+	static var TEXTURE_TARGET_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_OBJECT_VALID_QCOM')
+	static var TEXTURE_OBJECT_VALID_QCOM:GLuint;
+
+	@:native('GL_STATE_RESTORE')
+	static var STATE_RESTORE:GLuint;
+
+	@:native('GL_FOVEATION_ENABLE_BIT_QCOM')
+	static var FOVEATION_ENABLE_BIT_QCOM:GLuint;
+
+	@:native('GL_FOVEATION_SCALED_BIN_METHOD_BIT_QCOM')
+	static var FOVEATION_SCALED_BIN_METHOD_BIT_QCOM:GLuint;
+
+	@:native('GL_MOTION_ESTIMATION_SEARCH_BLOCK_X_QCOM')
+	static var MOTION_ESTIMATION_SEARCH_BLOCK_X_QCOM:GLuint;
+
+	@:native('GL_MOTION_ESTIMATION_SEARCH_BLOCK_Y_QCOM')
+	static var MOTION_ESTIMATION_SEARCH_BLOCK_Y_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_FOVEATED_FEATURE_BITS_QCOM')
+	static var TEXTURE_FOVEATED_FEATURE_BITS_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_FOVEATED_MIN_PIXEL_DENSITY_QCOM')
+	static var TEXTURE_FOVEATED_MIN_PIXEL_DENSITY_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_FOVEATED_FEATURE_QUERY_QCOM')
+	static var TEXTURE_FOVEATED_FEATURE_QUERY_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_FOVEATED_NUM_FOCAL_POINTS_QUERY_QCOM')
+	static var TEXTURE_FOVEATED_NUM_FOCAL_POINTS_QUERY_QCOM:GLuint;
+
+	@:native('GL_FRAMEBUFFER_INCOMPLETE_FOVEATION_QCOM')
+	static var FRAMEBUFFER_INCOMPLETE_FOVEATION_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_FOVEATED_CUTOFF_DENSITY_QCOM')
+	static var TEXTURE_FOVEATED_CUTOFF_DENSITY_QCOM:GLuint;
+
+	@:native('GL_FOVEATION_SUBSAMPLED_LAYOUT_METHOD_BIT_QCOM')
+	static var FOVEATION_SUBSAMPLED_LAYOUT_METHOD_BIT_QCOM:GLuint;
+
+	@:native('GL_MAX_SHADER_SUBSAMPLED_IMAGE_UNITS_QCOM')
+	static var MAX_SHADER_SUBSAMPLED_IMAGE_UNITS_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_Y_DEGAMMA_QCOM')
+	static var TEXTURE_Y_DEGAMMA_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_CBCR_DEGAMMA_QCOM')
+	static var TEXTURE_CBCR_DEGAMMA_QCOM:GLuint;
+
+	@:native('GL_TEXTURE_LOD_BIAS_QCOM')
+	static var TEXTURE_LOD_BIAS_QCOM:GLuint;
+
+	@:native('GL_PERFMON_GLOBAL_MODE_QCOM')
+	static var PERFMON_GLOBAL_MODE_QCOM:GLuint;
+
+	@:native('GL_FRAMEBUFFER_FETCH_NONCOHERENT_QCOM')
+	static var FRAMEBUFFER_FETCH_NONCOHERENT_QCOM:GLuint;
+
+	@:native('GL_SHADING_RATE_QCOM')
+	static var SHADING_RATE_QCOM:GLuint;
+
+	@:native('GL_SHADING_RATE_PRESERVE_ASPECT_RATIO_QCOM')
+	static var SHADING_RATE_PRESERVE_ASPECT_RATIO_QCOM:GLuint;
+
+	@:native('GL_SHADING_RATE_1X1_PIXELS_QCOM')
+	static var SHADING_RATE_1X1_PIXELS_QCOM:GLuint;
+
+	@:native('GL_SHADING_RATE_1X2_PIXELS_QCOM')
+	static var SHADING_RATE_1X2_PIXELS_QCOM:GLuint;
+
+	@:native('GL_SHADING_RATE_2X1_PIXELS_QCOM')
+	static var SHADING_RATE_2X1_PIXELS_QCOM:GLuint;
+
+	@:native('GL_SHADING_RATE_2X2_PIXELS_QCOM')
+	static var SHADING_RATE_2X2_PIXELS_QCOM:GLuint;
+
+	@:native('GL_SHADING_RATE_4X2_PIXELS_QCOM')
+	static var SHADING_RATE_4X2_PIXELS_QCOM:GLuint;
+
+	@:native('GL_SHADING_RATE_4X4_PIXELS_QCOM')
+	static var SHADING_RATE_4X4_PIXELS_QCOM:GLuint;
+
+	@:native('GL_COLOR_BUFFER_BIT0_QCOM')
+	static var COLOR_BUFFER_BIT0_QCOM:GLuint;
+
+	@:native('GL_COLOR_BUFFER_BIT1_QCOM')
+	static var COLOR_BUFFER_BIT1_QCOM:GLuint;
+
+	@:native('GL_COLOR_BUFFER_BIT2_QCOM')
+	static var COLOR_BUFFER_BIT2_QCOM:GLuint;
+
+	@:native('GL_COLOR_BUFFER_BIT3_QCOM')
+	static var COLOR_BUFFER_BIT3_QCOM:GLuint;
+
+	@:native('GL_COLOR_BUFFER_BIT4_QCOM')
+	static var COLOR_BUFFER_BIT4_QCOM:GLuint;
+
+	@:native('GL_COLOR_BUFFER_BIT5_QCOM')
+	static var COLOR_BUFFER_BIT5_QCOM:GLuint;
+
+	@:native('GL_COLOR_BUFFER_BIT6_QCOM')
+	static var COLOR_BUFFER_BIT6_QCOM:GLuint;
+
+	@:native('GL_COLOR_BUFFER_BIT7_QCOM')
+	static var COLOR_BUFFER_BIT7_QCOM:GLuint;
+
+	@:native('GL_DEPTH_BUFFER_BIT0_QCOM')
+	static var DEPTH_BUFFER_BIT0_QCOM:GLuint;
+
+	@:native('GL_DEPTH_BUFFER_BIT1_QCOM')
+	static var DEPTH_BUFFER_BIT1_QCOM:GLuint;
+
+	@:native('GL_DEPTH_BUFFER_BIT2_QCOM')
+	static var DEPTH_BUFFER_BIT2_QCOM:GLuint;
+
+	@:native('GL_DEPTH_BUFFER_BIT3_QCOM')
+	static var DEPTH_BUFFER_BIT3_QCOM:GLuint;
+
+	@:native('GL_DEPTH_BUFFER_BIT4_QCOM')
+	static var DEPTH_BUFFER_BIT4_QCOM:GLuint;
+
+	@:native('GL_DEPTH_BUFFER_BIT5_QCOM')
+	static var DEPTH_BUFFER_BIT5_QCOM:GLuint;
+
+	@:native('GL_DEPTH_BUFFER_BIT6_QCOM')
+	static var DEPTH_BUFFER_BIT6_QCOM:GLuint;
+
+	@:native('GL_DEPTH_BUFFER_BIT7_QCOM')
+	static var DEPTH_BUFFER_BIT7_QCOM:GLuint;
+
+	@:native('GL_STENCIL_BUFFER_BIT0_QCOM')
+	static var STENCIL_BUFFER_BIT0_QCOM:GLuint;
+
+	@:native('GL_STENCIL_BUFFER_BIT1_QCOM')
+	static var STENCIL_BUFFER_BIT1_QCOM:GLuint;
+
+	@:native('GL_STENCIL_BUFFER_BIT2_QCOM')
+	static var STENCIL_BUFFER_BIT2_QCOM:GLuint;
+
+	@:native('GL_STENCIL_BUFFER_BIT3_QCOM')
+	static var STENCIL_BUFFER_BIT3_QCOM:GLuint;
+
+	@:native('GL_STENCIL_BUFFER_BIT4_QCOM')
+	static var STENCIL_BUFFER_BIT4_QCOM:GLuint;
+
+	@:native('GL_STENCIL_BUFFER_BIT5_QCOM')
+	static var STENCIL_BUFFER_BIT5_QCOM:GLuint;
+
+	@:native('GL_STENCIL_BUFFER_BIT6_QCOM')
+	static var STENCIL_BUFFER_BIT6_QCOM:GLuint;
+
+	@:native('GL_STENCIL_BUFFER_BIT7_QCOM')
+	static var STENCIL_BUFFER_BIT7_QCOM:GLuint;
+
+	@:native('GL_MULTISAMPLE_BUFFER_BIT0_QCOM')
+	static var MULTISAMPLE_BUFFER_BIT0_QCOM:GLuint;
+
+	@:native('GL_MULTISAMPLE_BUFFER_BIT1_QCOM')
+	static var MULTISAMPLE_BUFFER_BIT1_QCOM:GLuint;
+
+	@:native('GL_MULTISAMPLE_BUFFER_BIT2_QCOM')
+	static var MULTISAMPLE_BUFFER_BIT2_QCOM:GLuint;
+
+	@:native('GL_MULTISAMPLE_BUFFER_BIT3_QCOM')
+	static var MULTISAMPLE_BUFFER_BIT3_QCOM:GLuint;
+
+	@:native('GL_MULTISAMPLE_BUFFER_BIT4_QCOM')
+	static var MULTISAMPLE_BUFFER_BIT4_QCOM:GLuint;
+
+	@:native('GL_MULTISAMPLE_BUFFER_BIT5_QCOM')
+	static var MULTISAMPLE_BUFFER_BIT5_QCOM:GLuint;
+
+	@:native('GL_MULTISAMPLE_BUFFER_BIT6_QCOM')
+	static var MULTISAMPLE_BUFFER_BIT6_QCOM:GLuint;
+
+	@:native('GL_MULTISAMPLE_BUFFER_BIT7_QCOM')
+	static var MULTISAMPLE_BUFFER_BIT7_QCOM:GLuint;
+
+	@:native('GL_WRITEONLY_RENDERING_QCOM')
+	static var WRITEONLY_RENDERING_QCOM:GLuint;
+
+	@:native('GL_SHADER_BINARY_VIV')
+	static var SHADER_BINARY_VIV:GLuint;
+
 	@:native('glCullFace')
 	static function cullFace(mode:GLenum):Void;
 
@@ -22997,4 +25166,616 @@ extern class GL
 
 	@:native('glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN')
 	static function replacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(rc:RawPointer<GLuint>, tc:RawPointer<GLfloat>, c:RawPointer<GLfloat>, n:RawPointer<GLfloat>, v:RawPointer<GLfloat>):Void;
+
+	@:native('glBlendBarrier')
+	static function blendBarrier():Void;
+
+	@:native('glPrimitiveBoundingBox')
+	static function primitiveBoundingBox(minX:GLfloat, minY:GLfloat, minZ:GLfloat, minW:GLfloat, maxX:GLfloat, maxY:GLfloat, maxZ:GLfloat, maxW:GLfloat):Void;
+
+	@:native('glBlitFramebufferANGLE')
+	static function blitFramebufferANGLE(srcX0:GLint, srcY0:GLint, srcX1:GLint, srcY1:GLint, dstX0:GLint, dstY0:GLint, dstX1:GLint, dstY1:GLint, mask:GLbitfield, filter:GLenum):Void;
+
+	@:native('glRenderbufferStorageMultisampleANGLE')
+	static function renderbufferStorageMultisampleANGLE(target:GLenum, samples:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei):Void;
+
+	@:native('glDrawArraysInstancedANGLE')
+	static function drawArraysInstancedANGLE(mode:GLenum, first:GLint, count:GLsizei, primcount:GLsizei):Void;
+
+	@:native('glDrawElementsInstancedANGLE')
+	static function drawElementsInstancedANGLE(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, primcount:GLsizei):Void;
+
+	@:native('glVertexAttribDivisorANGLE')
+	static function vertexAttribDivisorANGLE(index:GLuint, divisor:GLuint):Void;
+
+	@:native('glGetTranslatedShaderSourceANGLE')
+	static function getTranslatedShaderSourceANGLE(shader:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, source:CastGLcharStar):Void;
+
+	@:native('glCopyTextureLevelsAPPLE')
+	static function copyTextureLevelsAPPLE(destinationTexture:GLuint, sourceTexture:GLuint, sourceBaseLevel:GLint, sourceLevelCount:GLsizei):Void;
+
+	@:native('glRenderbufferStorageMultisampleAPPLE')
+	static function renderbufferStorageMultisampleAPPLE(target:GLenum, samples:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei):Void;
+
+	@:native('glResolveMultisampleFramebufferAPPLE')
+	static function resolveMultisampleFramebufferAPPLE():Void;
+
+	@:native('glFenceSyncAPPLE')
+	static function fenceSyncAPPLE(condition:GLenum, flags:GLbitfield):GLsync;
+
+	@:native('glIsSyncAPPLE')
+	static function isSyncAPPLE(sync:GLsync):GLboolean;
+
+	@:native('glDeleteSyncAPPLE')
+	static function deleteSyncAPPLE(sync:GLsync):Void;
+
+	@:native('glClientWaitSyncAPPLE')
+	static function clientWaitSyncAPPLE(sync:GLsync, flags:GLbitfield, timeout:GLuint64):GLenum;
+
+	@:native('glWaitSyncAPPLE')
+	static function waitSyncAPPLE(sync:GLsync, flags:GLbitfield, timeout:GLuint64):Void;
+
+	@:native('glGetInteger64vAPPLE')
+	static function getInteger64vAPPLE(pname:GLenum, params:RawPointer<GLint64>):Void;
+
+	@:native('glGetSyncivAPPLE')
+	static function getSyncivAPPLE(sync:GLsync, pname:GLenum, count:GLsizei, length:RawPointer<GLsizei>, values:RawPointer<GLint>):Void;
+
+	@:native('glMaxActiveShaderCoresARM')
+	static function maxActiveShaderCoresARM(count:GLuint):Void;
+
+	@:native('glDrawArraysInstancedBaseInstanceEXT')
+	static function drawArraysInstancedBaseInstanceEXT(mode:GLenum, first:GLint, count:GLsizei, instancecount:GLsizei, baseinstance:GLuint):Void;
+
+	@:native('glDrawElementsInstancedBaseInstanceEXT')
+	static function drawElementsInstancedBaseInstanceEXT(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, instancecount:GLsizei, baseinstance:GLuint):Void;
+
+	@:native('glDrawElementsInstancedBaseVertexBaseInstanceEXT')
+	static function drawElementsInstancedBaseVertexBaseInstanceEXT(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, instancecount:GLsizei, basevertex:GLint, baseinstance:GLuint):Void;
+
+	@:native('glBindFragDataLocationIndexedEXT')
+	static function bindFragDataLocationIndexedEXT(program:GLuint, colorNumber:GLuint, index:GLuint, name:CastGLcharStar):Void;
+
+	@:native('glGetProgramResourceLocationIndexEXT')
+	static function getProgramResourceLocationIndexEXT(program:GLuint, programInterface:GLenum, name:CastGLcharStar):GLint;
+
+	@:native('glGetFragDataIndexEXT')
+	static function getFragDataIndexEXT(program:GLuint, name:CastGLcharStar):GLint;
+
+	@:native('glBufferStorageEXT')
+	static function bufferStorageEXT(target:GLenum, size:GLsizeiptr, data:RawPointer<cpp.Void>, flags:GLbitfield):Void;
+
+	@:native('glClearTexImageEXT')
+	static function clearTexImageEXT(texture:GLuint, level:GLint, format:GLenum, type:GLenum, data:RawPointer<cpp.Void>):Void;
+
+	@:native('glClearTexSubImageEXT')
+	static function clearTexSubImageEXT(texture:GLuint, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, data:RawPointer<cpp.Void>):Void;
+
+	@:native('glClipControlEXT')
+	static function clipControlEXT(origin:GLenum, depth:GLenum):Void;
+
+	@:native('glCopyImageSubDataEXT')
+	static function copyImageSubDataEXT(srcName:GLuint, srcTarget:GLenum, srcLevel:GLint, srcX:GLint, srcY:GLint, srcZ:GLint, dstName:GLuint, dstTarget:GLenum, dstLevel:GLint, dstX:GLint, dstY:GLint, dstZ:GLint, srcWidth:GLsizei, srcHeight:GLsizei, srcDepth:GLsizei):Void;
+
+	@:native('glDiscardFramebufferEXT')
+	static function discardFramebufferEXT(target:GLenum, numAttachments:GLsizei, attachments:RawPointer<GLenum>):Void;
+
+	@:native('glGenQueriesEXT')
+	static function genQueriesEXT(n:GLsizei, ids:RawPointer<GLuint>):Void;
+
+	@:native('glDeleteQueriesEXT')
+	static function deleteQueriesEXT(n:GLsizei, ids:RawPointer<GLuint>):Void;
+
+	@:native('glIsQueryEXT')
+	static function isQueryEXT(id:GLuint):GLboolean;
+
+	@:native('glBeginQueryEXT')
+	static function beginQueryEXT(target:GLenum, id:GLuint):Void;
+
+	@:native('glEndQueryEXT')
+	static function endQueryEXT(target:GLenum):Void;
+
+	@:native('glQueryCounterEXT')
+	static function queryCounterEXT(id:GLuint, target:GLenum):Void;
+
+	@:native('glGetQueryivEXT')
+	static function getQueryivEXT(target:GLenum, pname:GLenum, params:RawPointer<GLint>):Void;
+
+	@:native('glGetQueryObjectivEXT')
+	static function getQueryObjectivEXT(id:GLuint, pname:GLenum, params:RawPointer<GLint>):Void;
+
+	@:native('glGetQueryObjectuivEXT')
+	static function getQueryObjectuivEXT(id:GLuint, pname:GLenum, params:RawPointer<GLuint>):Void;
+
+	@:native('glGetInteger64vEXT')
+	static function getInteger64vEXT(pname:GLenum, data:RawPointer<GLint64>):Void;
+
+	@:native('glDrawBuffersEXT')
+	static function drawBuffersEXT(n:GLsizei, bufs:RawPointer<GLenum>):Void;
+
+	@:native('glEnableiEXT')
+	static function enableiEXT(target:GLenum, index:GLuint):Void;
+
+	@:native('glDisableiEXT')
+	static function disableiEXT(target:GLenum, index:GLuint):Void;
+
+	@:native('glBlendEquationiEXT')
+	static function blendEquationiEXT(buf:GLuint, mode:GLenum):Void;
+
+	@:native('glBlendEquationSeparateiEXT')
+	static function blendEquationSeparateiEXT(buf:GLuint, modeRGB:GLenum, modeAlpha:GLenum):Void;
+
+	@:native('glBlendFunciEXT')
+	static function blendFunciEXT(buf:GLuint, src:GLenum, dst:GLenum):Void;
+
+	@:native('glBlendFuncSeparateiEXT')
+	static function blendFuncSeparateiEXT(buf:GLuint, srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):Void;
+
+	@:native('glColorMaskiEXT')
+	static function colorMaskiEXT(index:GLuint, r:GLboolean, g:GLboolean, b:GLboolean, a:GLboolean):Void;
+
+	@:native('glIsEnablediEXT')
+	static function isEnablediEXT(target:GLenum, index:GLuint):GLboolean;
+
+	@:native('glDrawElementsBaseVertexEXT')
+	static function drawElementsBaseVertexEXT(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, basevertex:GLint):Void;
+
+	@:native('glDrawRangeElementsBaseVertexEXT')
+	static function drawRangeElementsBaseVertexEXT(mode:GLenum, start:GLuint, end:GLuint, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, basevertex:GLint):Void;
+
+	@:native('glDrawElementsInstancedBaseVertexEXT')
+	static function drawElementsInstancedBaseVertexEXT(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, instancecount:GLsizei, basevertex:GLint):Void;
+
+	@:native('glMultiDrawElementsBaseVertexEXT')
+	static function multiDrawElementsBaseVertexEXT(mode:GLenum, count:RawPointer<GLsizei>, type:GLenum, indices:RawPointer<RawConstPointer<cpp.Void>>, drawcount:GLsizei, basevertex:RawPointer<GLint>):Void;
+
+	@:native('glDrawTransformFeedbackEXT')
+	static function drawTransformFeedbackEXT(mode:GLenum, id:GLuint):Void;
+
+	@:native('glDrawTransformFeedbackInstancedEXT')
+	static function drawTransformFeedbackInstancedEXT(mode:GLenum, id:GLuint, instancecount:GLsizei):Void;
+
+	@:native('glVertexAttribDivisorEXT')
+	static function vertexAttribDivisorEXT(index:GLuint, divisor:GLuint):Void;
+
+	@:native('glMapBufferRangeEXT')
+	static function mapBufferRangeEXT(target:GLenum, offset:GLintptr, length:GLsizeiptr, access:GLbitfield):RawPointer<cpp.Void>;
+
+	@:native('glFlushMappedBufferRangeEXT')
+	static function flushMappedBufferRangeEXT(target:GLenum, offset:GLintptr, length:GLsizeiptr):Void;
+
+	@:native('glMultiDrawArraysIndirectEXT')
+	static function multiDrawArraysIndirectEXT(mode:GLenum, indirect:RawPointer<cpp.Void>, drawcount:GLsizei, stride:GLsizei):Void;
+
+	@:native('glMultiDrawElementsIndirectEXT')
+	static function multiDrawElementsIndirectEXT(mode:GLenum, type:GLenum, indirect:RawPointer<cpp.Void>, drawcount:GLsizei, stride:GLsizei):Void;
+
+	@:native('glFramebufferTexture2DMultisampleEXT')
+	static function framebufferTexture2DMultisampleEXT(target:GLenum, attachment:GLenum, textarget:GLenum, texture:GLuint, level:GLint, samples:GLsizei):Void;
+
+	@:native('glReadBufferIndexedEXT')
+	static function readBufferIndexedEXT(src:GLenum, index:GLint):Void;
+
+	@:native('glDrawBuffersIndexedEXT')
+	static function drawBuffersIndexedEXT(n:GLint, location:RawPointer<GLenum>, indices:RawPointer<GLint>):Void;
+
+	@:native('glGetIntegeri_vEXT')
+	static function getIntegeri_vEXT(target:GLenum, index:GLuint, data:RawPointer<GLint>):Void;
+
+	@:native('glPrimitiveBoundingBoxEXT')
+	static function primitiveBoundingBoxEXT(minX:GLfloat, minY:GLfloat, minZ:GLfloat, minW:GLfloat, maxX:GLfloat, maxY:GLfloat, maxZ:GLfloat, maxW:GLfloat):Void;
+
+	@:native('glGetGraphicsResetStatusEXT')
+	static function getGraphicsResetStatusEXT():GLenum;
+
+	@:native('glReadnPixelsEXT')
+	static function readnPixelsEXT(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, bufSize:GLsizei, data:RawPointer<cpp.Void>):Void;
+
+	@:native('glGetnUniformfvEXT')
+	static function getnUniformfvEXT(program:GLuint, location:GLint, bufSize:GLsizei, params:RawPointer<GLfloat>):Void;
+
+	@:native('glGetnUniformivEXT')
+	static function getnUniformivEXT(program:GLuint, location:GLint, bufSize:GLsizei, params:RawPointer<GLint>):Void;
+
+	@:native('glFramebufferPixelLocalStorageSizeEXT')
+	static function framebufferPixelLocalStorageSizeEXT(target:GLuint, size:GLsizei):Void;
+
+	@:native('glGetFramebufferPixelLocalStorageSizeEXT')
+	static function getFramebufferPixelLocalStorageSizeEXT(target:GLuint):GLsizei;
+
+	@:native('glClearPixelLocalStorageuiEXT')
+	static function clearPixelLocalStorageuiEXT(offset:GLsizei, n:GLsizei, values:RawPointer<GLuint>):Void;
+
+	@:native('glTexPageCommitmentEXT')
+	static function texPageCommitmentEXT(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, commit:GLboolean):Void;
+
+	@:native('glPatchParameteriEXT')
+	static function patchParameteriEXT(pname:GLenum, value:GLint):Void;
+
+	@:native('glSamplerParameterIivEXT')
+	static function samplerParameterIivEXT(sampler:GLuint, pname:GLenum, param:RawPointer<GLint>):Void;
+
+	@:native('glSamplerParameterIuivEXT')
+	static function samplerParameterIuivEXT(sampler:GLuint, pname:GLenum, param:RawPointer<GLuint>):Void;
+
+	@:native('glGetSamplerParameterIivEXT')
+	static function getSamplerParameterIivEXT(sampler:GLuint, pname:GLenum, params:RawPointer<GLint>):Void;
+
+	@:native('glGetSamplerParameterIuivEXT')
+	static function getSamplerParameterIuivEXT(sampler:GLuint, pname:GLenum, params:RawPointer<GLuint>):Void;
+
+	@:native('glTexBufferRangeEXT')
+	static function texBufferRangeEXT(target:GLenum, internalformat:GLenum, buffer:GLuint, offset:GLintptr, size:GLsizeiptr):Void;
+
+	@:native('glTexStorageAttribs2DEXT')
+	static function texStorageAttribs2DEXT(target:GLenum, levels:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei, attrib_list:RawPointer<GLint>):Void;
+
+	@:native('glTexStorageAttribs3DEXT')
+	static function texStorageAttribs3DEXT(target:GLenum, levels:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, attrib_list:RawPointer<GLint>):Void;
+
+	@:native('glTextureViewEXT')
+	static function textureViewEXT(texture:GLuint, target:GLenum, origtexture:GLuint, internalformat:GLenum, minlevel:GLuint, numlevels:GLuint, minlayer:GLuint, numlayers:GLuint):Void;
+
+	@:native('glGetTextureHandleIMG')
+	static function getTextureHandleIMG(texture:GLuint):GLuint64;
+
+	@:native('glGetTextureSamplerHandleIMG')
+	static function getTextureSamplerHandleIMG(texture:GLuint, sampler:GLuint):GLuint64;
+
+	@:native('glUniformHandleui64IMG')
+	static function uniformHandleui64IMG(location:GLint, value:GLuint64):Void;
+
+	@:native('glUniformHandleui64vIMG')
+	static function uniformHandleui64vIMG(location:GLint, count:GLsizei, value:RawPointer<GLuint64>):Void;
+
+	@:native('glProgramUniformHandleui64IMG')
+	static function programUniformHandleui64IMG(program:GLuint, location:GLint, value:GLuint64):Void;
+
+	@:native('glProgramUniformHandleui64vIMG')
+	static function programUniformHandleui64vIMG(program:GLuint, location:GLint, count:GLsizei, values:RawPointer<GLuint64>):Void;
+
+	@:native('glFramebufferTexture2DDownsampleIMG')
+	static function framebufferTexture2DDownsampleIMG(target:GLenum, attachment:GLenum, textarget:GLenum, texture:GLuint, level:GLint, xscale:GLint, yscale:GLint):Void;
+
+	@:native('glFramebufferTextureLayerDownsampleIMG')
+	static function framebufferTextureLayerDownsampleIMG(target:GLenum, attachment:GLenum, texture:GLuint, level:GLint, layer:GLint, xscale:GLint, yscale:GLint):Void;
+
+	@:native('glRenderbufferStorageMultisampleIMG')
+	static function renderbufferStorageMultisampleIMG(target:GLenum, samples:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei):Void;
+
+	@:native('glFramebufferTexture2DMultisampleIMG')
+	static function framebufferTexture2DMultisampleIMG(target:GLenum, attachment:GLenum, textarget:GLenum, texture:GLuint, level:GLint, samples:GLsizei):Void;
+
+	@:native('glCopyBufferSubDataNV')
+	static function copyBufferSubDataNV(readTarget:GLenum, writeTarget:GLenum, readOffset:GLintptr, writeOffset:GLintptr, size:GLsizeiptr):Void;
+
+	@:native('glCoverageMaskNV')
+	static function coverageMaskNV(mask:GLboolean):Void;
+
+	@:native('glCoverageOperationNV')
+	static function coverageOperationNV(operation:GLenum):Void;
+
+	@:native('glDrawBuffersNV')
+	static function drawBuffersNV(n:GLsizei, bufs:RawPointer<GLenum>):Void;
+
+	@:native('glDrawArraysInstancedNV')
+	static function drawArraysInstancedNV(mode:GLenum, first:GLint, count:GLsizei, primcount:GLsizei):Void;
+
+	@:native('glDrawElementsInstancedNV')
+	static function drawElementsInstancedNV(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, primcount:GLsizei):Void;
+
+	@:native('glBlitFramebufferNV')
+	static function blitFramebufferNV(srcX0:GLint, srcY0:GLint, srcX1:GLint, srcY1:GLint, dstX0:GLint, dstY0:GLint, dstX1:GLint, dstY1:GLint, mask:GLbitfield, filter:GLenum):Void;
+
+	@:native('glRenderbufferStorageMultisampleNV')
+	static function renderbufferStorageMultisampleNV(target:GLenum, samples:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei):Void;
+
+	@:native('glVertexAttribDivisorNV')
+	static function vertexAttribDivisorNV(index:GLuint, divisor:GLuint):Void;
+
+	@:native('glUniformMatrix2x3fvNV')
+	static function uniformMatrix2x3fvNV(location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glUniformMatrix3x2fvNV')
+	static function uniformMatrix3x2fvNV(location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glUniformMatrix2x4fvNV')
+	static function uniformMatrix2x4fvNV(location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glUniformMatrix4x2fvNV')
+	static function uniformMatrix4x2fvNV(location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glUniformMatrix3x4fvNV')
+	static function uniformMatrix3x4fvNV(location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glUniformMatrix4x3fvNV')
+	static function uniformMatrix4x3fvNV(location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glPolygonModeNV')
+	static function polygonModeNV(face:GLenum, mode:GLenum):Void;
+
+	@:native('glReadBufferNV')
+	static function readBufferNV(mode:GLenum):Void;
+
+	@:native('glViewportArrayvNV')
+	static function viewportArrayvNV(first:GLuint, count:GLsizei, v:RawPointer<GLfloat>):Void;
+
+	@:native('glViewportIndexedfNV')
+	static function viewportIndexedfNV(index:GLuint, x:GLfloat, y:GLfloat, w:GLfloat, h:GLfloat):Void;
+
+	@:native('glViewportIndexedfvNV')
+	static function viewportIndexedfvNV(index:GLuint, v:RawPointer<GLfloat>):Void;
+
+	@:native('glScissorArrayvNV')
+	static function scissorArrayvNV(first:GLuint, count:GLsizei, v:RawPointer<GLint>):Void;
+
+	@:native('glScissorIndexedNV')
+	static function scissorIndexedNV(index:GLuint, left:GLint, bottom:GLint, width:GLsizei, height:GLsizei):Void;
+
+	@:native('glScissorIndexedvNV')
+	static function scissorIndexedvNV(index:GLuint, v:RawPointer<GLint>):Void;
+
+	@:native('glDepthRangeArrayfvNV')
+	static function depthRangeArrayfvNV(first:GLuint, count:GLsizei, v:RawPointer<GLfloat>):Void;
+
+	@:native('glDepthRangeIndexedfNV')
+	static function depthRangeIndexedfNV(index:GLuint, n:GLfloat, f:GLfloat):Void;
+
+	@:native('glGetFloati_vNV')
+	static function getFloati_vNV(target:GLenum, index:GLuint, data:RawPointer<GLfloat>):Void;
+
+	@:native('glEnableiNV')
+	static function enableiNV(target:GLenum, index:GLuint):Void;
+
+	@:native('glDisableiNV')
+	static function disableiNV(target:GLenum, index:GLuint):Void;
+
+	@:native('glIsEnablediNV')
+	static function isEnablediNV(target:GLenum, index:GLuint):GLboolean;
+
+	@:native('glEGLImageTargetTexture2DOES')
+	static function eGLImageTargetTexture2DOES(target:GLenum, image:GLeglImageOES):Void;
+
+	@:native('glEGLImageTargetRenderbufferStorageOES')
+	static function eGLImageTargetRenderbufferStorageOES(target:GLenum, image:GLeglImageOES):Void;
+
+	@:native('glCopyImageSubDataOES')
+	static function copyImageSubDataOES(srcName:GLuint, srcTarget:GLenum, srcLevel:GLint, srcX:GLint, srcY:GLint, srcZ:GLint, dstName:GLuint, dstTarget:GLenum, dstLevel:GLint, dstX:GLint, dstY:GLint, dstZ:GLint, srcWidth:GLsizei, srcHeight:GLsizei, srcDepth:GLsizei):Void;
+
+	@:native('glEnableiOES')
+	static function enableiOES(target:GLenum, index:GLuint):Void;
+
+	@:native('glDisableiOES')
+	static function disableiOES(target:GLenum, index:GLuint):Void;
+
+	@:native('glBlendEquationiOES')
+	static function blendEquationiOES(buf:GLuint, mode:GLenum):Void;
+
+	@:native('glBlendEquationSeparateiOES')
+	static function blendEquationSeparateiOES(buf:GLuint, modeRGB:GLenum, modeAlpha:GLenum):Void;
+
+	@:native('glBlendFunciOES')
+	static function blendFunciOES(buf:GLuint, src:GLenum, dst:GLenum):Void;
+
+	@:native('glBlendFuncSeparateiOES')
+	static function blendFuncSeparateiOES(buf:GLuint, srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):Void;
+
+	@:native('glColorMaskiOES')
+	static function colorMaskiOES(index:GLuint, r:GLboolean, g:GLboolean, b:GLboolean, a:GLboolean):Void;
+
+	@:native('glIsEnablediOES')
+	static function isEnablediOES(target:GLenum, index:GLuint):GLboolean;
+
+	@:native('glDrawElementsBaseVertexOES')
+	static function drawElementsBaseVertexOES(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, basevertex:GLint):Void;
+
+	@:native('glDrawRangeElementsBaseVertexOES')
+	static function drawRangeElementsBaseVertexOES(mode:GLenum, start:GLuint, end:GLuint, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, basevertex:GLint):Void;
+
+	@:native('glDrawElementsInstancedBaseVertexOES')
+	static function drawElementsInstancedBaseVertexOES(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, instancecount:GLsizei, basevertex:GLint):Void;
+
+	@:native('glFramebufferTextureOES')
+	static function framebufferTextureOES(target:GLenum, attachment:GLenum, texture:GLuint, level:GLint):Void;
+
+	@:native('glGetProgramBinaryOES')
+	static function getProgramBinaryOES(program:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, binaryFormat:RawPointer<GLenum>, binary:RawPointer<cpp.Void>):Void;
+
+	@:native('glProgramBinaryOES')
+	static function programBinaryOES(program:GLuint, binaryFormat:GLenum, binary:RawPointer<cpp.Void>, length:GLint):Void;
+
+	@:native('glMapBufferOES')
+	static function mapBufferOES(target:GLenum, access:GLenum):RawPointer<cpp.Void>;
+
+	@:native('glUnmapBufferOES')
+	static function unmapBufferOES(target:GLenum):GLboolean;
+
+	@:native('glGetBufferPointervOES')
+	static function getBufferPointervOES(target:GLenum, pname:GLenum, params:RawPointer<RawPointer<cpp.Void>>):Void;
+
+	@:native('glPrimitiveBoundingBoxOES')
+	static function primitiveBoundingBoxOES(minX:GLfloat, minY:GLfloat, minZ:GLfloat, minW:GLfloat, maxX:GLfloat, maxY:GLfloat, maxZ:GLfloat, maxW:GLfloat):Void;
+
+	@:native('glMinSampleShadingOES')
+	static function minSampleShadingOES(value:GLfloat):Void;
+
+	@:native('glPatchParameteriOES')
+	static function patchParameteriOES(pname:GLenum, value:GLint):Void;
+
+	@:native('glTexImage3DOES')
+	static function texImage3DOES(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:RawPointer<cpp.Void>):Void;
+
+	@:native('glTexSubImage3DOES')
+	static function texSubImage3DOES(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, pixels:RawPointer<cpp.Void>):Void;
+
+	@:native('glCopyTexSubImage3DOES')
+	static function copyTexSubImage3DOES(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):Void;
+
+	@:native('glCompressedTexImage3DOES')
+	static function compressedTexImage3DOES(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, imageSize:GLsizei, data:RawPointer<cpp.Void>):Void;
+
+	@:native('glCompressedTexSubImage3DOES')
+	static function compressedTexSubImage3DOES(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, imageSize:GLsizei, data:RawPointer<cpp.Void>):Void;
+
+	@:native('glFramebufferTexture3DOES')
+	static function framebufferTexture3DOES(target:GLenum, attachment:GLenum, textarget:GLenum, texture:GLuint, level:GLint, zoffset:GLint):Void;
+
+	@:native('glTexParameterIivOES')
+	static function texParameterIivOES(target:GLenum, pname:GLenum, params:RawPointer<GLint>):Void;
+
+	@:native('glTexParameterIuivOES')
+	static function texParameterIuivOES(target:GLenum, pname:GLenum, params:RawPointer<GLuint>):Void;
+
+	@:native('glGetTexParameterIivOES')
+	static function getTexParameterIivOES(target:GLenum, pname:GLenum, params:RawPointer<GLint>):Void;
+
+	@:native('glGetTexParameterIuivOES')
+	static function getTexParameterIuivOES(target:GLenum, pname:GLenum, params:RawPointer<GLuint>):Void;
+
+	@:native('glSamplerParameterIivOES')
+	static function samplerParameterIivOES(sampler:GLuint, pname:GLenum, param:RawPointer<GLint>):Void;
+
+	@:native('glSamplerParameterIuivOES')
+	static function samplerParameterIuivOES(sampler:GLuint, pname:GLenum, param:RawPointer<GLuint>):Void;
+
+	@:native('glGetSamplerParameterIivOES')
+	static function getSamplerParameterIivOES(sampler:GLuint, pname:GLenum, params:RawPointer<GLint>):Void;
+
+	@:native('glGetSamplerParameterIuivOES')
+	static function getSamplerParameterIuivOES(sampler:GLuint, pname:GLenum, params:RawPointer<GLuint>):Void;
+
+	@:native('glTexBufferOES')
+	static function texBufferOES(target:GLenum, internalformat:GLenum, buffer:GLuint):Void;
+
+	@:native('glTexBufferRangeOES')
+	static function texBufferRangeOES(target:GLenum, internalformat:GLenum, buffer:GLuint, offset:GLintptr, size:GLsizeiptr):Void;
+
+	@:native('glTexStorage3DMultisampleOES')
+	static function texStorage3DMultisampleOES(target:GLenum, samples:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, fixedsamplelocations:GLboolean):Void;
+
+	@:native('glTextureViewOES')
+	static function textureViewOES(texture:GLuint, target:GLenum, origtexture:GLuint, internalformat:GLenum, minlevel:GLuint, numlevels:GLuint, minlayer:GLuint, numlayers:GLuint):Void;
+
+	@:native('glBindVertexArrayOES')
+	static function bindVertexArrayOES(array:GLuint):Void;
+
+	@:native('glDeleteVertexArraysOES')
+	static function deleteVertexArraysOES(n:GLsizei, arrays:RawPointer<GLuint>):Void;
+
+	@:native('glGenVertexArraysOES')
+	static function genVertexArraysOES(n:GLsizei, arrays:RawPointer<GLuint>):Void;
+
+	@:native('glIsVertexArrayOES')
+	static function isVertexArrayOES(array:GLuint):GLboolean;
+
+	@:native('glViewportArrayvOES')
+	static function viewportArrayvOES(first:GLuint, count:GLsizei, v:RawPointer<GLfloat>):Void;
+
+	@:native('glViewportIndexedfOES')
+	static function viewportIndexedfOES(index:GLuint, x:GLfloat, y:GLfloat, w:GLfloat, h:GLfloat):Void;
+
+	@:native('glViewportIndexedfvOES')
+	static function viewportIndexedfvOES(index:GLuint, v:RawPointer<GLfloat>):Void;
+
+	@:native('glScissorArrayvOES')
+	static function scissorArrayvOES(first:GLuint, count:GLsizei, v:RawPointer<GLint>):Void;
+
+	@:native('glScissorIndexedOES')
+	static function scissorIndexedOES(index:GLuint, left:GLint, bottom:GLint, width:GLsizei, height:GLsizei):Void;
+
+	@:native('glScissorIndexedvOES')
+	static function scissorIndexedvOES(index:GLuint, v:RawPointer<GLint>):Void;
+
+	@:native('glDepthRangeArrayfvOES')
+	static function depthRangeArrayfvOES(first:GLuint, count:GLsizei, v:RawPointer<GLfloat>):Void;
+
+	@:native('glDepthRangeIndexedfOES')
+	static function depthRangeIndexedfOES(index:GLuint, n:GLfloat, f:GLfloat):Void;
+
+	@:native('glGetFloati_vOES')
+	static function getFloati_vOES(target:GLenum, index:GLuint, data:RawPointer<GLfloat>):Void;
+
+	@:native('glFramebufferTextureMultisampleMultiviewOVR')
+	static function framebufferTextureMultisampleMultiviewOVR(target:GLenum, attachment:GLenum, texture:GLuint, level:GLint, samples:GLsizei, baseViewIndex:GLint, numViews:GLsizei):Void;
+
+	@:native('glAlphaFuncQCOM')
+	static function alphaFuncQCOM(func:GLenum, ref:GLclampf):Void;
+
+	@:native('glGetDriverControlsQCOM')
+	static function getDriverControlsQCOM(num:RawPointer<GLint>, size:GLsizei, driverControls:RawPointer<GLuint>):Void;
+
+	@:native('glGetDriverControlStringQCOM')
+	static function getDriverControlStringQCOM(driverControl:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, driverControlString:CastGLcharStar):Void;
+
+	@:native('glEnableDriverControlQCOM')
+	static function enableDriverControlQCOM(driverControl:GLuint):Void;
+
+	@:native('glDisableDriverControlQCOM')
+	static function disableDriverControlQCOM(driverControl:GLuint):Void;
+
+	@:native('glExtGetTexturesQCOM')
+	static function extGetTexturesQCOM(textures:RawPointer<GLuint>, maxTextures:GLint, numTextures:RawPointer<GLint>):Void;
+
+	@:native('glExtGetBuffersQCOM')
+	static function extGetBuffersQCOM(buffers:RawPointer<GLuint>, maxBuffers:GLint, numBuffers:RawPointer<GLint>):Void;
+
+	@:native('glExtGetRenderbuffersQCOM')
+	static function extGetRenderbuffersQCOM(renderbuffers:RawPointer<GLuint>, maxRenderbuffers:GLint, numRenderbuffers:RawPointer<GLint>):Void;
+
+	@:native('glExtGetFramebuffersQCOM')
+	static function extGetFramebuffersQCOM(framebuffers:RawPointer<GLuint>, maxFramebuffers:GLint, numFramebuffers:RawPointer<GLint>):Void;
+
+	@:native('glExtGetTexLevelParameterivQCOM')
+	static function extGetTexLevelParameterivQCOM(texture:GLuint, face:GLenum, level:GLint, pname:GLenum, params:RawPointer<GLint>):Void;
+
+	@:native('glExtTexObjectStateOverrideiQCOM')
+	static function extTexObjectStateOverrideiQCOM(target:GLenum, pname:GLenum, param:GLint):Void;
+
+	@:native('glExtGetTexSubImageQCOM')
+	static function extGetTexSubImageQCOM(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, texels:RawPointer<cpp.Void>):Void;
+
+	@:native('glExtGetBufferPointervQCOM')
+	static function extGetBufferPointervQCOM(target:GLenum, params:RawPointer<RawPointer<cpp.Void>>):Void;
+
+	@:native('glExtGetShadersQCOM')
+	static function extGetShadersQCOM(shaders:RawPointer<GLuint>, maxShaders:GLint, numShaders:RawPointer<GLint>):Void;
+
+	@:native('glExtGetProgramsQCOM')
+	static function extGetProgramsQCOM(programs:RawPointer<GLuint>, maxPrograms:GLint, numPrograms:RawPointer<GLint>):Void;
+
+	@:native('glExtIsProgramBinaryQCOM')
+	static function extIsProgramBinaryQCOM(program:GLuint):GLboolean;
+
+	@:native('glExtGetProgramBinarySourceQCOM')
+	static function extGetProgramBinarySourceQCOM(program:GLuint, shadertype:GLenum, source:CastGLcharStar, length:RawPointer<GLint>):Void;
+
+	@:native('glFramebufferFoveationConfigQCOM')
+	static function framebufferFoveationConfigQCOM(framebuffer:GLuint, numLayers:GLuint, focalPointsPerLayer:GLuint, requestedFeatures:GLuint, providedFeatures:RawPointer<GLuint>):Void;
+
+	@:native('glFramebufferFoveationParametersQCOM')
+	static function framebufferFoveationParametersQCOM(framebuffer:GLuint, layer:GLuint, focalPoint:GLuint, focalX:GLfloat, focalY:GLfloat, gainX:GLfloat, gainY:GLfloat, foveaArea:GLfloat):Void;
+
+	@:native('glTexEstimateMotionQCOM')
+	static function texEstimateMotionQCOM(ref:GLuint, target:GLuint, output:GLuint):Void;
+
+	@:native('glTexEstimateMotionRegionsQCOM')
+	static function texEstimateMotionRegionsQCOM(ref:GLuint, target:GLuint, output:GLuint, mask:GLuint):Void;
+
+	@:native('glExtrapolateTex2DQCOM')
+	static function extrapolateTex2DQCOM(src1:GLuint, src2:GLuint, output:GLuint, scaleFactor:GLfloat):Void;
+
+	@:native('glTextureFoveationParametersQCOM')
+	static function textureFoveationParametersQCOM(texture:GLuint, layer:GLuint, focalPoint:GLuint, focalX:GLfloat, focalY:GLfloat, gainX:GLfloat, gainY:GLfloat, foveaArea:GLfloat):Void;
+
+	@:native('glFramebufferFetchBarrierQCOM')
+	static function framebufferFetchBarrierQCOM():Void;
+
+	@:native('glShadingRateQCOM')
+	static function shadingRateQCOM(rate:GLenum):Void;
+
+	@:native('glStartTilingQCOM')
+	static function startTilingQCOM(x:GLuint, y:GLuint, width:GLuint, height:GLuint, preserveMask:GLbitfield):Void;
+
+	@:native('glEndTilingQCOM')
+	static function endTilingQCOM(preserveMask:GLbitfield):Void;
 }
