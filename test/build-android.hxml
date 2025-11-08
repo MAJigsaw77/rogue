@@ -23,3 +23,6 @@
 --cmd cd android-project
 --cmd .\gradlew.bat assembleDebug
 --cmd adb install -r app\build\outputs\apk\debug\app-debug.apk
+--cmd adb shell am start -n org.haxe.rogue/.GameActivity
+--cmd adb logcat -c
+--cmd adb logcat -v brief *:S hidapi:V SDL:V trace:V

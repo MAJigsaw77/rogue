@@ -1,6 +1,5 @@
 package;
 
-import cpp.ConstCharStar;
 import cpp.Pointer;
 import cpp.RawPointer;
 
@@ -179,7 +178,13 @@ class Main
 		SDL.GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 		SDL.GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
-		window = SDL.CreateWindow('Rogue', WINDOW_WIDTH, WINDOW_HEIGHT, untyped SDL.WINDOW_OPENGL | SDL.WINDOW_RESIZABLE);
+		var flags:SDL_WindowFlags = untyped SDL.WINDOW_OPENGL | untyped SDL.WINDOW_RESIZABLE;
+
+		#if android
+		flags = untyped flags | SDL.WINDOW_FULLSCREEN;
+		#end
+
+		window = SDL.CreateWindow('Rogue', WINDOW_WIDTH, WINDOW_HEIGHT, flags);
 
 		if (window == null)
 		{
@@ -220,7 +225,16 @@ class Main
 			GL.enable(GL.MULTISAMPLE_EXT);
 		}
 
-		GL.viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		var w:Int = 0;
+		var h:Int = 0;
+
+		if (!SDL.GetWindowSizeInPixels(window, Pointer.addressOf(w).raw, Pointer.addressOf(h).raw))
+		{
+			w = WINDOW_WIDTH;
+			h = WINDOW_HEIGHT;
+		}
+
+		GL.viewport(0, 0, w, h);
 
 		SDL.GL_SetSwapInterval(0);
 
