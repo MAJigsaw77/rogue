@@ -1,4 +1,5 @@
 lib
 project/obj
+test/android-project
 test/bin
 tools/opengl/gl.xml

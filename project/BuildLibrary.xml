@@ -74,10 +74,16 @@
 
 	</target>
 
+	<!--Tweak Android Linker-->
+
+	<linker id="dll" if="android">
+		<flag value="-Wl,-soname,librogue.so" />
+	</linker>
+
 	<!--Copy the Windows lib (thanks tobil4sk)-->
 
-	<section unless="static_link">
-		<copyFile toolId="dll" name="${PROJECT_NAME}.lib" from="obj/lib" if="windows" />
+	<section if="windows" unless="static_link">
+		<copyFile toolId="dll" name="${PROJECT_NAME}.lib" from="obj/lib" />
 	</section>
 
 </xml>

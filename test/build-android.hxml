@@ -1,0 +1,25 @@
+--resource assets/gl300es/default.frag
+--resource assets/gl300es/default.vert
+
+--class-path source
+
+--define android
+--define ANDROID_SDK=C:\Users\MAJigsaw77\AppData\Local\Android\Sdk
+--define ANDROID_NDK_ROOT=C:\Users\MAJigsaw77\AppData\Local\Android\Sdk\ndk\29.0.13846066
+--define HXCPP_ARM64
+
+--define analyzer-optimize
+
+--library rogue
+
+--main Main
+
+--cpp bin/android
+
+--cmd if not exist android-project\app\src\main\jniLibs mkdir android-project\app\src\main\jniLibs
+--cmd if not exist android-project\app\src\main\jniLibs\arm64-v8a mkdir android-project\app\src\main\jniLibs\arm64-v8a
+--cmd copy ..\lib\Android\librogue-64.so android-project\app\src\main\jniLibs\arm64-v8a\librogue.so
+--cmd copy bin\android\libMain-64.so android-project\app\src\main\jniLibs\arm64-v8a\libMain.so
+--cmd cd android-project
+--cmd .\gradlew.bat assembleDebug
+--cmd adb install -r app\build\outputs\apk\debug\app-debug.apk

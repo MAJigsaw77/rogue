@@ -6420,7 +6420,7 @@ typedef SDL_X11EventHook = Callable<(userdata:RawPointer<cpp.Void>, xevent:RawPo
 typedef SDL_iOSAnimationCallback = Callable<(userdata:RawPointer<cpp.Void>) -> Void>;
 #end
 #if android
-typedef SDL_RequestAndroidPermissionCallback = Callable<(userdata:RawPointer<cpp.Void>, permission:ConstcharStar, granted:Bool) -> Void>;
+typedef SDL_RequestAndroidPermissionCallback = Callable<(userdata:RawPointer<cpp.Void>, permission:ConstCharStar, granted:Bool) -> Void>;
 #end
 
 extern enum abstract SDL_Sandbox(SDL_Sandbox_Impl)
@@ -11977,7 +11977,7 @@ extern class SDL
 	static function IsChromebook():Bool;
 
 	@:native('SDL_IsDeXMode')
-	static function SendAndroidBackButton():Bool;
+	static function IsDeXMode():Bool;
 
 	@:native('SDL_SendAndroidBackButton')
 	static function SendAndroidBackButton():Void;
@@ -12001,7 +12001,7 @@ extern class SDL
 	static function GetAndroidCachePath():ConstCharStar;
 
 	@:native('SDL_RequestAndroidPermission')
-	static function RequestAndroidPermission(permission:ConstcharStar, cb:SDL_RequestAndroidPermissionCallback, userdata:RawPointer<cpp.Void>):Bool;
+	static function RequestAndroidPermission(permission:ConstCharStar, cb:SDL_RequestAndroidPermissionCallback, userdata:RawPointer<cpp.Void>):Bool;
 
 	@:native('SDL_ShowAndroidToast')
 	static function ShowAndroidToast(message:ConstCharStar, duration:Int, gravity:Int, xoffset:Int, yoffset:Int):Bool;
