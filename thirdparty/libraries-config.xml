@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
-	<set name="MOJOAL_DIRECTORY" value="${this_dir}/submodules/mojoal" />
-	<set name="MOJOAL_OVERRIDE_DIRECTORY" value="${this_dir}/override/mojoal" />
-
-	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
-	<set name="GLAD_OVERRIDE_DIRECTORY" value="${this_dir}/override/glad" />
-
 	<set name="SDL_DIRECTORY" value="${this_dir}/submodules/sdl" />
 	<set name="SDL_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl" />
 
@@ -14,4 +8,24 @@
 
 	<set name="SDL_TTF_DIRECTORY" value="${this_dir}/submodules/sdl_ttf" />
 	<set name="SDL_TTF_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf" />
+
+	<section>
+		<set name="SDL_TTF_DEPS_FREETYPE_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/freetype" />
+		<set name="SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf/external/freetype" />
+
+		<set name="SDL_TTF_DEPS_HARFBUZZ_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/harfbuzz" />
+		<set name="SDL_TTF_DEPS_HARFBUZZ_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf/external/harfbuzz" />
+
+		<set name="SDL_TTF_DEPS_PLUTOSVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutosvg" />
+		<set name="SDL_TTF_DEPS_PLUTOSVG_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf/external/plutosvg" />
+
+		<set name="SDL_TTF_DEPS_PLUTOVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutovg" />
+		<set name="SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf/external/plutovg" />
+	</section>
+
+	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
+	<set name="GLAD_OVERRIDE_DIRECTORY" value="${this_dir}/override/glad" />
+
+	<set name="MOJOAL_DIRECTORY" value="${this_dir}/submodules/mojoal" />
+	<set name="MOJOAL_OVERRIDE_DIRECTORY" value="${this_dir}/override/mojoal" />
 </xml>

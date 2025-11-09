@@ -26,6 +26,9 @@
 		<!--SDL_Image Files-->
 		<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl_image-files.xml" />
 
+		<!--SDL_TTF Files-->
+		<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl_ttf-files.xml" />
+
 		<!--Glad Files-->
 		<include name="${PROJECT_THIRDPARTY_DIR}/files/glad-files.xml" />
 
@@ -40,8 +43,20 @@
 		<outdir name="${PROJECT_LIB_DIR}/${BINDIR}" />
 
 		<files id="sdl-files" />
-		<!-- <files id="sdl_image-files" /> -->
+
+		<files id="sdl_image-files" />
+
+		<section>
+			<files id="sdl_ttf-deps-freetype-files" />
+			<files id="sdl_ttf-deps-harfbuzz-files" />
+			<files id="sdl_ttf-deps-plutovg-files" />
+			<files id="sdl_ttf-deps-plutosvg-files" />
+
+			<files id="sdl_ttf-files" />
+		</section>
+
 		<files id="glad-files" />
+
 		<files id="mojoal-files" />
 
 		<section unless="static_link">
@@ -56,6 +71,8 @@
 				<lib name="version.lib" />
 				<lib name="imm32.lib" />
 				<lib name="cfgmgr32.lib" />
+				<lib name="usp10.lib" />
+				<lib name="rpcrt4.lib" />
 			</section>
 
 			<section if="android">

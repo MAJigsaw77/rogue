@@ -2,11 +2,14 @@
 <xml>
 	<section>
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
-
 		<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
 
 		<compilerflag value="-DSDL_MAIN_HANDLED" />
 	</section>
+
+	<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/include" />
+
+	<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
 
 	<section>
 		<compilerflag value="-I${GLAD_DIRECTORY}/include" />

@@ -20,4 +20,4 @@
 --cpp bin/wasm
 --cmd cd bin\wasm
 --cmd start http://localhost:8000/Main.html
---cmd python server.py
+--cmd python -m http.server 8000

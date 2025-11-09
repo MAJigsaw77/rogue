@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<files id="sdl_ttf-files" dir="${SDL_TTF_DIRECTORY}" tags="optim-std">
+		<section>
+			<!-- sdl overrideable include -->
+			<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
+			<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include/build_config" />
+
+			<!-- sdl include -->
+			<compilerflag value="-I${SDL_DIRECTORY}/include" />
+			<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
+
+			<!-- freetype overrideable include -->
+			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/include" />
+
+			<!-- freetype include -->
+			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
+
+			<!-- hurfbuzz overrideable src -->
+			<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_OVERRIDE_DIRECTORY}/src" />
+
+			<!-- hurfbuzz src -->
+			<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
+
+			<!-- plutosvg overrideable source -->
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
+
+			<!-- plutosvg source -->
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
+
+			<!-- plutosvg defines -->
+			<compilerflag value="-DPLUTOSVG_BUILD" />
+
+			<!-- plutovg overrideable include -->
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY}/include" />
+
+			<!-- plutovg include -->
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
+
+			<!-- plutovg defines -->
+			<compilerflag value="-DPLUTOVG_BUILD" />
+		</section>
+
+		<!-- sdl_ttf overrideable include -->
+		<compilerflag value="-I${SDL_TTF_OVERRIDE_DIRECTORY}/include" />
+
+		<!-- sdl_ttf include -->
+		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
+
+
+		<section>
+			<!-- sdl_ttf options -->
+			<compilerflag value="-DTTF_USE_HARFBUZZ" />
+			<compilerflag value="-DTTF_USE_PLUTOSVG" />
+		</section>
+
+		<section>
+			<!-- sdl_ttf overrideable src -->
+			<compilerflag value="-I${SDL_TTF_OVERRIDE_DIRECTORY}/src" />
+
+			<!-- sdl_ttf src -->
+			<compilerflag value="-I${SDL_TTF_DIRECTORY}/src" />
+
+			<file name="src/SDL_gpu_textengine.c" />
+			<file name="src/SDL_hashtable.c" />
+			<file name="src/SDL_hashtable_ttf.c" />
+			<file name="src/SDL_renderer_textengine.c" />
+			<file name="src/SDL_surface_textengine.c" />
+			<file name="src/SDL_ttf.c" />
+		</section>
+	</files>
+
+	<files id="sdl_ttf-deps-freetype-files" dir="${SDL_TTF_DEPS_FREETYPE_DIRECTORY}" tags="optim-std">
+		<!-- hurfbuzz overrideable src -->
+		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_OVERRIDE_DIRECTORY}/src" />
+
+		<!-- hurfbuzz src -->
+		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
+
+		<!-- freetype overrideable include -->
+		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/include" />
+
+		<!-- freetype include -->
+		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
+
+		<!-- freetype defines -->
+		<compilerflag value="-DFT2_BUILD_LIBRARY" />
+
+		<!-- freetype options -->
+		<compilerflag value="-DFT_CONFIG_OPTION_USE_HARFBUZZ" />
+
+		<section>
+			<!-- freetype overrideable src -->
+			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/src" />
+
+			<!-- freetype src -->
+			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/src" />
+
+			<file name="src/autofit/autofit.c" />
+			<file name="src/base/ftbase.c" />
+			<file name="src/base/ftbbox.c" />
+			<file name="src/base/ftbdf.c" />
+			<file name="src/base/ftbitmap.c" />
+			<file name="src/base/ftcid.c" />
+			<file name="src/base/ftdebug.c" unless="windows" />
+			<file name="src/base/ftfstype.c" />
+			<file name="src/base/ftgasp.c" />
+			<file name="src/base/ftglyph.c" />
+			<file name="src/base/ftgxval.c" />
+			<file name="src/base/ftinit.c" />
+			<file name="src/base/ftmm.c" />
+			<file name="src/base/ftotval.c" />
+			<file name="src/base/ftpatent.c" />
+			<file name="src/base/ftpfr.c" />
+			<file name="src/base/ftstroke.c" />
+			<file name="src/base/ftsynth.c" />
+			<file name="src/base/ftsystem.c" if="emscripten || android" />
+			<file name="src/base/fttype1.c" />
+			<file name="src/base/ftwinfnt.c" />
+			<file name="src/bdf/bdf.c" />
+			<file name="src/bzip2/ftbzip2.c" />
+			<file name="src/cache/ftcache.c" />
+			<file name="src/cff/cff.c" />
+			<file name="src/cid/type1cid.c" />
+			<file name="src/gzip/ftgzip.c" />
+			<file name="src/lzw/ftlzw.c" />
+			<file name="src/pcf/pcf.c" />
+			<file name="src/pfr/pfr.c" />
+			<file name="src/psaux/psaux.c" />
+			<file name="src/pshinter/pshinter.c" />
+			<file name="src/psnames/psnames.c" />
+			<file name="src/raster/raster.c" />
+			<file name="src/sdf/sdf.c" />
+			<file name="src/sfnt/sfnt.c" />
+			<file name="src/smooth/smooth.c" />
+			<file name="src/svg/svg.c" />
+			<file name="src/truetype/truetype.c" />
+			<file name="src/type1/type1.c" />
+			<file name="src/type42/type42.c" />
+			<file name="src/winfonts/winfnt.c" />
+
+			<section if="windows">
+				<file name="builds/windows/ftsystem.c" />
+				<file name="builds/windows/ftdebug.c" />
+			</section>
+
+			<file name="builds/unix/ftsystem.c" unless="windows || emscripten || android" />
+		</section>
+	</files>
+
+	<files id="sdl_ttf-deps-harfbuzz-files" dir="${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}" tags="optim-std">
+		<!-- freetype overrideable include -->
+		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/include" />
+
+		<!-- freetype include -->
+		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
+
+		<!-- hurfbuzz overrideable src -->
+		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_OVERRIDE_DIRECTORY}/src" />
+
+		<!-- hurfbuzz src -->
+		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
+
+		<!-- hurfbuzz defines -->
+		<section>
+			<section unless="windows">
+				<compilerflag value="-DHAVE_UNISTD_H" />
+				<compilerflag value="-DHAVE_SYS_MMAN_H" />
+			</section>
+
+			<compilerflag value="-DHAVE_STDBOOL_H" />
+
+			<compilerflag value="-DHAVE_PTHREAD" unless="windows || emscripten" />
+			<compilerflag value="-DHAVE_CORETEXT" if="apple" />
+			<compilerflag value="-DHAVE_FREETYPE" />
+
+			<section if="windows">
+				<compilerflag value="-wd4244" />
+				<compilerflag value="-wd4267" />
+				<compilerflag value="-wd4312" />
+
+				<compilerflag value="-D_CRT_SECURE_NO_WARNINGS" />
+				<compilerflag value="-D_CRT_NONSTDC_NO_WARNINGS" />
+
+				<compilerflag value="-bigobj" />
+
+				<compilerflag value="-DHAVE_GDI" />
+				<compilerflag value="-DHAVE_UNISCRIBE" />
+				<compilerflag value="-DHAVE_DIRECTWRITE" if="HXCPP_M64" />
+			</section>
+
+			<section unless="windows">
+				<!-- TODO: Suprass the warnings from Harfbuzz -->
+			</section>
+		</section>
+
+		<section>
+			<file name="src/graph/gsubgpos-context.cc" />
+
+			<file name="src/hb-aat-layout.cc" />
+			<file name="src/hb-aat-map.cc" />
+			<file name="src/hb-blob.cc" />
+			<file name="src/hb-buffer-serialize.cc" />
+			<file name="src/hb-buffer-verify.cc" />
+			<file name="src/hb-buffer.cc" />
+			<file name="src/hb-cairo-utils.cc" />
+			<file name="src/hb-cairo.cc" />
+			<file name="src/hb-common.cc" />
+			<file name="src/hb-coretext.cc" if="apple" />
+
+			<section if="windows">
+				<file name="src/hb-directwrite.cc" if="HXCPP_M64" />
+			</section>
+
+			<file name="src/hb-draw.cc" />
+			<file name="src/hb-face-builder.cc" />
+			<file name="src/hb-face.cc" />
+			<file name="src/hb-fallback-shape.cc" />
+			<file name="src/hb-font.cc" />
+			<file name="src/hb-ft.cc" />
+			<file name="src/hb-gdi.cc" />
+			<file name="src/hb-glib.cc" />
+			<file name="src/hb-gobject-structs.cc" />
+			<file name="src/hb-icu.cc" />
+			<file name="src/hb-map.cc" />
+			<file name="src/hb-number.cc" />
+			<file name="src/hb-ot-cff1-table.cc" />
+			<file name="src/hb-ot-cff2-table.cc" />
+			<file name="src/hb-ot-color.cc" />
+			<file name="src/hb-ot-face.cc" />
+			<file name="src/hb-ot-font.cc" />
+			<file name="src/hb-ot-layout.cc" />
+			<file name="src/hb-ot-map.cc" />
+			<file name="src/hb-ot-math.cc" />
+			<file name="src/hb-ot-meta.cc" />
+			<file name="src/hb-ot-metrics.cc" />
+			<file name="src/hb-ot-name.cc" />
+			<file name="src/hb-ot-shape-fallback.cc" />
+			<file name="src/hb-ot-shape-normalize.cc" />
+			<file name="src/hb-ot-shape.cc" />
+			<file name="src/hb-ot-shaper-arabic.cc" />
+			<file name="src/hb-ot-shaper-default.cc" />
+			<file name="src/hb-ot-shaper-hangul.cc" />
+			<file name="src/hb-ot-shaper-hebrew.cc" />
+			<file name="src/hb-ot-shaper-indic-table.cc" />
+			<file name="src/hb-ot-shaper-indic.cc" />
+			<file name="src/hb-ot-shaper-khmer.cc" />
+			<file name="src/hb-ot-shaper-myanmar.cc" />
+			<file name="src/hb-ot-shaper-syllabic.cc" />
+			<file name="src/hb-ot-shaper-thai.cc" />
+			<file name="src/hb-ot-shaper-use.cc" />
+			<file name="src/hb-ot-shaper-vowel-constraints.cc" />
+			<file name="src/hb-ot-tag.cc" />
+			<file name="src/hb-ot-var.cc" />
+			<file name="src/hb-outline.cc" />
+			<file name="src/hb-paint-extents.cc" />
+			<file name="src/hb-paint.cc" />
+			<file name="src/hb-set.cc" />
+			<file name="src/hb-shape-plan.cc" />
+			<file name="src/hb-shape.cc" />
+			<file name="src/hb-shaper.cc" />
+			<file name="src/hb-static.cc" />
+			<file name="src/hb-style.cc" />
+			<file name="src/hb-subset-cff-common.cc" />
+			<file name="src/hb-subset-cff1.cc" />
+			<file name="src/hb-subset-cff2.cc" />
+			<file name="src/hb-subset-input.cc" />
+			<file name="src/hb-subset-instancer-iup.cc" />
+			<file name="src/hb-subset-instancer-solver.cc" />
+			<file name="src/hb-subset-plan.cc" />
+			<file name="src/hb-subset-repacker.cc" />
+			<file name="src/hb-subset.cc" />
+			<file name="src/hb-ucd.cc" />
+			<file name="src/hb-unicode.cc" />
+			<file name="src/hb-uniscribe.cc" if="windows" />
+			<file name="src/hb-wasm-api.cc" if="emscripten" />
+			<file name="src/hb-wasm-shape.cc" if="emscripten" />
+		</section>
+	</files>
+
+	<files id="sdl_ttf-deps-plutosvg-files" dir="${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}" tags="optim-std">
+		<section>
+			<!-- freetype overrideable include -->
+			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/include" />
+
+			<!-- freetype include -->
+			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
+
+			<!-- plutovg overrideable include -->
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY}/include" />
+
+			<!-- plutovg include -->
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
+
+			<!-- plutovg defines -->
+			<compilerflag value="-DPLUTOVG_BUILD" />
+		</section>
+	
+		<!-- plutosvg overrideable source -->
+		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
+
+		<!-- plutosvg source -->
+		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
+
+		<!-- plutosvg defines -->
+		<compilerflag value="-DPLUTOSVG_BUILD" />
+
+		<!-- plutosvg options -->
+		<compilerflag value="-DPLUTOSVG_HAS_FREETYPE" />
+
+		<section>
+			<file name="source/plutosvg.c" />
+		</section>
+	</files>
+
+	<files id="sdl_ttf-deps-plutovg-files" dir="${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}" tags="optim-std">
+		<!-- plutovg overrideable include -->
+		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY}/include" />
+
+		<!-- plutovg include -->
+		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
+
+		<!-- plutovg defines -->
+		<compilerflag value="-DPLUTOVG_BUILD" />
+
+		<section>
+			<!-- plutovg overrideable source -->
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY}/src" />
+
+			<!-- plutovg source -->
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/src" />
+
+			<file name="source/plutovg-blend.c" />
+			<file name="source/plutovg-canvas.c" />
+			<file name="source/plutovg-font.c" />
+			<file name="source/plutovg-matrix.c" />
+			<file name="source/plutovg-paint.c" />
+			<file name="source/plutovg-path.c" />
+			<file name="source/plutovg-rasterize.c" />
+			<file name="source/plutovg-surface.c" />
+			<file name="source/plutovg-ft-math.c" />
+			<file name="source/plutovg-ft-raster.c" />
+			<file name="source/plutovg-ft-stroker.c" />
+		</section>
+	</files>
+</xml>

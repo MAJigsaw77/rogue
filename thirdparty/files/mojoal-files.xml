@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
-	<files id="mojoal-files" dir="${MOJOAL_DIRECTORY}">
+	<files id="mojoal-files" dir="${MOJOAL_DIRECTORY}" tags="optim-std">
 		<!-- sdl overrideable include -->
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include/build_config" />

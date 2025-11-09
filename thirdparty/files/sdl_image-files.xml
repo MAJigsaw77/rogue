@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
-	<files id="sdl_image-files" dir="${SDL_IMAGE_DIRECTORY}">
+	<files id="sdl_image-files" dir="${SDL_IMAGE_DIRECTORY}" tags="optim-std">
 		<!-- sdl overrideable include -->
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include/build_config" />
@@ -9,7 +9,7 @@
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
 		<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
 
-		<!-- sdl_image overrideable -->
+		<!-- sdl_image overrideable include -->
 		<compilerflag value="-I${SDL_IMAGE_OVERRIDE_DIRECTORY}/include" />
 
 		<!-- sdl_image include -->
@@ -17,33 +17,28 @@
 
 		<section>
 			<!-- sdl_image defines -->
-			<compilerflag value="-DLOAD_JPG" />
-			<compilerflag value="-DSAVE_JPG" />
-
-			<compilerflag value="-DLOAD_PNG" />
-			<compilerflag value="-DSAVE_PNG" />
-
-			<compilerflag value="-DLOAD_GIF" />
-			<compilerflag value="-DSAVE_GIF" />
-
+			<compilerflag value="-DUSE_STBIMAGE" />
+			<compilerflag value="-DLOAD_ANI" />
 			<compilerflag value="-DLOAD_BMP" />
-			<compilerflag value="-DSAVE_BMP" />
-
-			<compilerflag value="-DLOAD_WEBP" />
-			<compilerflag value="-DSAVE_WEBP" />
-
+			<compilerflag value="-DLOAD_GIF" />
+			<compilerflag value="-DLOAD_JPG" />
+			<compilerflag value="-DLOAD_LBM" />
+			<compilerflag value="-DLOAD_PCX" />
+			<compilerflag value="-DLOAD_PNG" />
+			<compilerflag value="-DLOAD_PNM" />
 			<compilerflag value="-DLOAD_SVG" />
-			<compilerflag value="-DSAVE_SVG" />
-
-			<compilerflag value="-DLOAD_AVIF" />
-			<compilerflag value="-DSAVE_AVIF" />
-
-			<compilerflag value="-DLOAD_TIF" />
-			<compilerflag value="-DSAVE_TIF" />
+			<compilerflag value="-DLOAD_TGA" />
+			<compilerflag value="-DLOAD_XCF" />
+			<compilerflag value="-DLOAD_XPM" />
+			<compilerflag value="-DLOAD_XV" />
+			<compilerflag value="-DLOAD_XXX" />
 		</section>
 
 		<section>
-			<!-- sdl_image include src -->
+			<!-- sdl_image overrideable src -->
+			<compilerflag value="-I${SDL_IMAGE_OVERRIDE_DIRECTORY}/src" />
+
+			<!-- sdl_image src -->
 			<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/src" />
 
 			<file name="src/IMG.c" />
@@ -53,7 +48,6 @@
 			<file name="src/IMG_avif.c" />
 			<file name="src/IMG_bmp.c" />
 			<file name="src/IMG_gif.c" />
-			<file name="src/IMG_ImageIO.m" if="apple" />
 			<file name="src/IMG_jpg.c" />
 			<file name="src/IMG_jxl.c" />
 			<file name="src/IMG_lbm.c" />
@@ -67,7 +61,6 @@
 			<file name="src/IMG_tga.c" />
 			<file name="src/IMG_tif.c" />
 			<file name="src/IMG_webp.c" />
-			<file name="src/IMG_WIC.c" />
 			<file name="src/IMG_xcf.c" />
 			<file name="src/IMG_xpm.c" />
 			<file name="src/IMG_xv.c" />

@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
 	<files id="sdl-files" dir="${SDL_DIRECTORY}">
-		<!-- overrideable include -->
+		<!-- sdl overrideable include -->
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include/build_config" />
 
-		<!-- include -->
+		<!-- sdl include -->
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
 		<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
 
-		<!-- define dll export for windows -->
+		<!-- sdl defines -->
 		<compilerflag value="-DDLL_EXPORT" if="windows" unless="static_link" />
 
 		<section>
-			<!-- include src -->
+			<!-- sdl override src -->
+			<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/src" />
+
+			<!-- sdl src -->
 			<compilerflag value="-I${SDL_DIRECTORY}/src" />
 
 			<!-- src -->
