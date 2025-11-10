@@ -47,6 +47,8 @@
 		<!-- sdl_ttf include -->
 		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
 
+		<!-- sdl_ttf defines -->
+		<compilerflag value="-DDLL_EXPORT" if="windows" unless="static_link" />
 
 		<section>
 			<!-- sdl_ttf options -->
@@ -190,7 +192,7 @@
 			</section>
 
 			<section unless="windows">
-				<!-- TODO: Suprass the warnings from Harfbuzz -->
+				<compilerflag value="-Wno-nontrivial-memcall" />
 			</section>
 		</section>
 
