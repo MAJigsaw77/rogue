@@ -1,12 +1,20 @@
 [submodule "thirdparty/submodules/sdl"]
 	path = thirdparty/submodules/sdl
 	url = https://github.com/libsdl-org/SDL.git
-[submodule "thirdparty/submodules/mojoal"]
-	path = thirdparty/submodules/mojoal
-	url = https://github.com/icculus/mojoAL.git
+	shallow = true
 [submodule "thirdparty/submodules/sdl_image"]
 	path = thirdparty/submodules/sdl_image
 	url = https://github.com/libsdl-org/SDL_image.git
+	shallow = true
 [submodule "thirdparty/submodules/sdl_ttf"]
 	path = thirdparty/submodules/sdl_ttf
 	url = https://github.com/libsdl-org/SDL_ttf.git
+	shallow = true
+[submodule "thirdparty/submodules/soft_oal"]
+	path = thirdparty/submodules/soft_oal
+	url = https://github.com/kcat/openal-soft.git
+	shallow = true
+[submodule "thirdparty/submodules/oboe"]
+	path = thirdparty/submodules/oboe
+	url = https://github.com/google/oboe.git
+	shallow = true
