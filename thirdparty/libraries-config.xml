@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
-	<set name="SDL_DIRECTORY" value="${this_dir}/submodules/sdl" />
+	<!-- Libs Overrideable Directories -->
+
 	<set name="SDL_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl" />
+	<set name="SOFT_OAL_OVERRIDE_DIRECTORY" value="${this_dir}/override/soft_oal" />
 
+	<!-- Libs Directories -->
+
+	<set name="SDL_DIRECTORY" value="${this_dir}/submodules/sdl" />
 	<set name="SDL_IMAGE_DIRECTORY" value="${this_dir}/submodules/sdl_image" />
-	<set name="SDL_IMAGE_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_image" />
-
 	<set name="SDL_TTF_DIRECTORY" value="${this_dir}/submodules/sdl_ttf" />
-	<set name="SDL_TTF_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf" />
 
 	<section>
 		<set name="SDL_TTF_DEPS_FREETYPE_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/freetype" />
-		<set name="SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf/external/freetype" />
-
 		<set name="SDL_TTF_DEPS_HARFBUZZ_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/harfbuzz" />
-		<set name="SDL_TTF_DEPS_HARFBUZZ_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf/external/harfbuzz" />
-
 		<set name="SDL_TTF_DEPS_PLUTOSVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutosvg" />
-		<set name="SDL_TTF_DEPS_PLUTOSVG_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf/external/plutosvg" />
-
 		<set name="SDL_TTF_DEPS_PLUTOVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutovg" />
-		<set name="SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl_ttf/external/plutovg" />
 	</section>
 
 	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
-	<set name="GLAD_OVERRIDE_DIRECTORY" value="${this_dir}/override/glad" />
 
-	<set name="MOJOAL_DIRECTORY" value="${this_dir}/submodules/mojoal" />
-	<set name="MOJOAL_OVERRIDE_DIRECTORY" value="${this_dir}/override/mojoal" />
+	<set name="SOFT_OAL_DIRECTORY" value="${this_dir}/submodules/soft_oal" />
+
+	<section>
+		<set name="SOFT_OAL_DEPS_OBOE_DIRECTORY" value="${this_dir}/submodules/oboe" />
+		<set name="SOFT_OAL_DEPS_FMT_DIRECTORY" value="${this_dir}/submodules/soft_oal/fmt-11.2.0" />
+		<set name="SOFT_OAL_DEPS_GSL_DIRECTORY" value="${this_dir}/submodules/soft_oal/gsl" />
+	</section>
 </xml>

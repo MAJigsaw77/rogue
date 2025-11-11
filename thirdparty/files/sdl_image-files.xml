@@ -9,9 +9,6 @@
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
 		<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
 
-		<!-- sdl_image overrideable include -->
-		<compilerflag value="-I${SDL_IMAGE_OVERRIDE_DIRECTORY}/include" />
-
 		<!-- sdl_image include -->
 		<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/include" />
 
@@ -38,9 +35,6 @@
 		</section>
 
 		<section>
-			<!-- sdl_image overrideable src -->
-			<compilerflag value="-I${SDL_IMAGE_OVERRIDE_DIRECTORY}/src" />
-
 			<!-- sdl_image src -->
 			<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/src" />
 

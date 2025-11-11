@@ -2,11 +2,13 @@
 <xml>
 	<files id="glad-files" dir="${GLAD_DIRECTORY}" tags="optim-std">
 		<!-- glad include -->
-		<compilerflag value="-I${GLAD_OVERRIDE_DIRECTORY}/include" />
 		<compilerflag value="-I${GLAD_DIRECTORY}/include" />
 
-		<compilerflag value="-DGLAD_API_CALL_EXPORT" unless="static_link" />
-		<compilerflag value="-DGLAD_API_CALL_EXPORT_BUILD" unless="static_link" />
+		<!-- glad defines -->
+		<section unless="static_link">
+			<compilerflag value="-DGLAD_API_CALL_EXPORT" />
+			<compilerflag value="-DGLAD_API_CALL_EXPORT_BUILD" />
+		</section>
 
 		<!-- glad src -->
 		<file name="src/gl.c" if="windows || macos || linux" />

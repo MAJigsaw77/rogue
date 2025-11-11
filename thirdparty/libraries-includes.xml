@@ -17,5 +17,16 @@
 		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
 	</section>
 
-	<compilerflag value="-I${MOJOAL_DIRECTORY}" />
+	<section>
+		<compilerflag value="-I${SOFT_OAL_DIRECTORY}/include" />
+
+		<compilerflag value="-DAL_ALEXT_PROTOTYPES" />
+
+		<section unless="static_link">
+			<section if="windows">
+				<compilerflag value="-DALC_API=__declspec(dllimport)" />
+				<compilerflag value="-DAL_API=__declspec(dllimport)" />
+			</section>
+		</section>
+	</section>
 </xml>

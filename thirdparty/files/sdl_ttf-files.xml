@@ -10,20 +10,11 @@
 			<compilerflag value="-I${SDL_DIRECTORY}/include" />
 			<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
 
-			<!-- freetype overrideable include -->
-			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/include" />
-
 			<!-- freetype include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
 
-			<!-- hurfbuzz overrideable src -->
-			<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_OVERRIDE_DIRECTORY}/src" />
-
 			<!-- hurfbuzz src -->
 			<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
-
-			<!-- plutosvg overrideable source -->
-			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
 
 			<!-- plutosvg source -->
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
@@ -31,18 +22,12 @@
 			<!-- plutosvg defines -->
 			<compilerflag value="-DPLUTOSVG_BUILD" />
 
-			<!-- plutovg overrideable include -->
-			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY}/include" />
-
 			<!-- plutovg include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
 
 			<!-- plutovg defines -->
 			<compilerflag value="-DPLUTOVG_BUILD" />
 		</section>
-
-		<!-- sdl_ttf overrideable include -->
-		<compilerflag value="-I${SDL_TTF_OVERRIDE_DIRECTORY}/include" />
 
 		<!-- sdl_ttf include -->
 		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
@@ -57,9 +42,6 @@
 		</section>
 
 		<section>
-			<!-- sdl_ttf overrideable src -->
-			<compilerflag value="-I${SDL_TTF_OVERRIDE_DIRECTORY}/src" />
-
 			<!-- sdl_ttf src -->
 			<compilerflag value="-I${SDL_TTF_DIRECTORY}/src" />
 
@@ -73,14 +55,8 @@
 	</files>
 
 	<files id="sdl_ttf-deps-freetype-files" dir="${SDL_TTF_DEPS_FREETYPE_DIRECTORY}" tags="optim-std">
-		<!-- hurfbuzz overrideable src -->
-		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_OVERRIDE_DIRECTORY}/src" />
-
 		<!-- hurfbuzz src -->
 		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
-
-		<!-- freetype overrideable include -->
-		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/include" />
 
 		<!-- freetype include -->
 		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
@@ -92,9 +68,6 @@
 		<compilerflag value="-DFT_CONFIG_OPTION_USE_HARFBUZZ" />
 
 		<section>
-			<!-- freetype overrideable src -->
-			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/src" />
-
 			<!-- freetype src -->
 			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/src" />
 
@@ -151,14 +124,8 @@
 	</files>
 
 	<files id="sdl_ttf-deps-harfbuzz-files" dir="${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}" tags="optim-std">
-		<!-- freetype overrideable include -->
-		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/include" />
-
 		<!-- freetype include -->
 		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
-
-		<!-- hurfbuzz overrideable src -->
-		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_OVERRIDE_DIRECTORY}/src" />
 
 		<!-- hurfbuzz src -->
 		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
@@ -282,14 +249,8 @@
 
 	<files id="sdl_ttf-deps-plutosvg-files" dir="${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}" tags="optim-std">
 		<section>
-			<!-- freetype overrideable include -->
-			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_OVERRIDE_DIRECTORY}/include" />
-
 			<!-- freetype include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
-
-			<!-- plutovg overrideable include -->
-			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY}/include" />
 
 			<!-- plutovg include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
@@ -316,9 +277,6 @@
 	</files>
 
 	<files id="sdl_ttf-deps-plutovg-files" dir="${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}" tags="optim-std">
-		<!-- plutovg overrideable include -->
-		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY}/include" />
-
 		<!-- plutovg include -->
 		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
 
@@ -326,9 +284,6 @@
 		<compilerflag value="-DPLUTOVG_BUILD" />
 
 		<section>
-			<!-- plutovg overrideable source -->
-			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_OVERRIDE_DIRECTORY}/src" />
-
 			<!-- plutovg source -->
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/src" />
 

@@ -35,9 +35,7 @@
 #define SDL_RENDER_DISABLED 1
 
 /* Add any platform that doesn't build using the configure system. */
-#if defined(SDL_PLATFORM_PRIVATE)
-#include "SDL_build_config_private.h"
-#elif defined(SDL_PLATFORM_WIN32)
+#if defined(SDL_PLATFORM_WIN32)
 #include "SDL_build_config_windows.h"
 #elif defined(SDL_PLATFORM_MACOS)
 #include "SDL_build_config_macos.h"
