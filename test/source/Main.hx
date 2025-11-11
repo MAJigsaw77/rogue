@@ -155,6 +155,16 @@ class Main
 
 	public static function main():Void
 	{
+		// Request a high-resolution timer (1 ms) for more precise delta times
+		// This improves the accuracy of SDL_GetTicks() and FPS measurements,
+		// especially on Windows. Higher resolution may slightly increase CPU usage.
+		SDL.SetHint(SDL.HINT_TIMER_RESOLUTION, "1");
+
+		// Disable alt-tabbing while the window is grabbed (focused/input captured)
+		// Prevents the window from losing input focus when the user presses Alt+Tab,
+		// useful for fullscreen or input-intensive apps like games.
+		SDL.SetHint(SDL.HINT_ALLOW_ALT_TAB_WHILE_GRABBED, "0");
+
 		if (!SDL.Init(SDL.INIT_VIDEO))
 		{
 			Sys.println('SDL initialization failed: ${cast (SDL.GetError(), String)}');
@@ -236,7 +246,7 @@ class Main
 
 		GL.viewport(0, 0, w, h);
 
-		SDL.GL_SetSwapInterval(0);
+		SDL.GL_SetSwapInterval(1);
 
 		#if (android || rpi || emscripten || iphone)
 		final vertexShader:GLuint = createShader(GL.VERTEX_SHADER, window, Resource.getString('assets/gl300es/default.vert'));
@@ -276,14 +286,18 @@ class Main
 
 		GL.bindVertexArray(0);
 
-		#if emscripten
-		emscripten.Emscripten.set_main_loop(cpp.Callable.fromStaticFunction(run), 0, true);
-		#else
-		while (running)
 		{
-			run();
+			lastTime = untyped SDL.GetPerformanceCounter() / untyped SDL.GetPerformanceFrequency();
+
+			#if emscripten
+			emscripten.Emscripten.set_main_loop(cpp.Callable.fromStaticFunction(run), 0, true);
+			#else
+			while (running)
+			{
+				run();
+			}
+			#end
 		}
-		#end
 
 		GL.deleteVertexArrays(1, Pointer.addressOf(vertexArray).raw);
 		GL.deleteBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
@@ -294,9 +308,24 @@ class Main
 		SDL.Quit();
 	}
 
+	static var lastTime:Float = 0;
+	static var deltaTime:Float = 0;
+
+	static var fpsCounter:Int = 0;
+	static var fpsTimer:Float = 0;
+	static var fps:Float = 0;
+
 	static function run():Void
 	{
-		var event:SDL_Event = new SDL_Event();
+		{
+			final startTime:Float = untyped SDL.GetPerformanceCounter() / untyped SDL.GetPerformanceFrequency();
+
+			deltaTime = startTime - lastTime;
+
+			lastTime = startTime;
+		}
+
+		final event:SDL_Event = new SDL_Event();
 
 		while (SDL.PollEvent(RawPointer.addressOf(event)))
 		{
@@ -325,5 +354,22 @@ class Main
 		GL.bindVertexArray(0);
 
 		SDL.GL_SwapWindow(window);
+
+		{
+			fpsCounter++;
+
+			fpsTimer += deltaTime;
+
+			if (fpsTimer >= 1.0)
+			{
+				fps = fpsCounter / fpsTimer;
+
+				Sys.println('FPS: ${Math.fround(fps)} - Frame: ${deltaTime * 1000}ms');
+
+				fpsCounter = 0;
+
+				fpsTimer = 0;
+			}
+		}
 	}
 }
