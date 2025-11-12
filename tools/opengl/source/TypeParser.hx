@@ -73,6 +73,10 @@ class TypeParser
 		{
 			cType = StringTools.trim(cType.substr(7));
 		}
+		else if (StringTools.startsWith(cType, "const struct "))
+		{
+			cType = StringTools.trim(cType.substr(13));
+		}
 
 		var arrayMatch = ~/^(.+?)\s*\[[0-9]*\]$/;
 		var pointerFromArray = 0;

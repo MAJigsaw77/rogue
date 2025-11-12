@@ -3708,6 +3708,9 @@ extern class GL
 	@:native('GL_UNSIGNED_SHORT_8_8_REV_APPLE')
 	static var UNSIGNED_SHORT_8_8_REV_APPLE:GLuint;
 
+	@:native('GL_RGB_RAW_422_APPLE')
+	static var RGB_RAW_422_APPLE:GLuint;
+
 	@:native('GL_SYNC_OBJECT_APPLE')
 	static var SYNC_OBJECT_APPLE:GLuint;
 
@@ -3758,6 +3761,9 @@ extern class GL
 
 	@:native('GL_BGRA_EXT')
 	static var BGRA_EXT:GLuint;
+
+	@:native('GL_BGRA8_EXT')
+	static var BGRA8_EXT:GLuint;
 
 	@:native('GL_TEXTURE_MAX_LEVEL_APPLE')
 	static var TEXTURE_MAX_LEVEL_APPLE:GLuint;
@@ -3869,6 +3875,12 @@ extern class GL
 
 	@:native('GL_MAX_EXT')
 	static var MAX_EXT:GLuint;
+
+	@:native('GL_FUNC_ADD_EXT')
+	static var FUNC_ADD_EXT:GLuint;
+
+	@:native('GL_BLEND_EQUATION_EXT')
+	static var BLEND_EQUATION_EXT:GLuint;
 
 	@:native('GL_MAP_PERSISTENT_BIT_EXT')
 	static var MAP_PERSISTENT_BIT_EXT:GLuint;
@@ -4190,6 +4202,9 @@ extern class GL
 
 	@:native('GL_FRAGMENT_SHADING_RATE_NON_TRIVIAL_COMBINERS_SUPPORTED_EXT')
 	static var FRAGMENT_SHADING_RATE_NON_TRIVIAL_COMBINERS_SUPPORTED_EXT:GLuint;
+
+	@:native('GL_FRAGMENT_SHADING_RATE_PRIMITIVE_RATE_WITH_MULTI_VIEWPORT_SUPPORTED_EXT')
+	static var FRAGMENT_SHADING_RATE_PRIMITIVE_RATE_WITH_MULTI_VIEWPORT_SUPPORTED_EXT:GLuint;
 
 	@:native('GL_GEOMETRY_SHADER_EXT')
 	static var GEOMETRY_SHADER_EXT:GLuint;
@@ -4554,6 +4569,24 @@ extern class GL
 	@:native('GL_TASK_SHADER_BIT_EXT')
 	static var TASK_SHADER_BIT_EXT:GLuint;
 
+	@:native('GL_MESH_SUBROUTINE_EXT')
+	static var MESH_SUBROUTINE_EXT:GLuint;
+
+	@:native('GL_TASK_SUBROUTINE_EXT')
+	static var TASK_SUBROUTINE_EXT:GLuint;
+
+	@:native('GL_MESH_SUBROUTINE_UNIFORM_EXT')
+	static var MESH_SUBROUTINE_UNIFORM_EXT:GLuint;
+
+	@:native('GL_TASK_SUBROUTINE_UNIFORM_EXT')
+	static var TASK_SUBROUTINE_UNIFORM_EXT:GLuint;
+
+	@:native('GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_MESH_SHADER_EXT')
+	static var ATOMIC_COUNTER_BUFFER_REFERENCED_BY_MESH_SHADER_EXT:GLuint;
+
+	@:native('GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TASK_SHADER_EXT')
+	static var ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TASK_SHADER_EXT:GLuint;
+
 	@:native('GL_MULTISAMPLE_EXT')
 	static var MULTISAMPLE_EXT:GLuint;
 
@@ -4727,6 +4760,21 @@ extern class GL
 
 	@:native('GL_ACTIVE_PROGRAM_EXT')
 	static var ACTIVE_PROGRAM_EXT:GLuint;
+
+	@:native('GL_VERTEX_SHADER_BIT_EXT')
+	static var VERTEX_SHADER_BIT_EXT:GLuint;
+
+	@:native('GL_FRAGMENT_SHADER_BIT_EXT')
+	static var FRAGMENT_SHADER_BIT_EXT:GLuint;
+
+	@:native('GL_ALL_SHADER_BITS_EXT')
+	static var ALL_SHADER_BITS_EXT:GLuint;
+
+	@:native('GL_PROGRAM_SEPARABLE_EXT')
+	static var PROGRAM_SEPARABLE_EXT:GLuint;
+
+	@:native('GL_PROGRAM_PIPELINE_BINDING_EXT')
+	static var PROGRAM_PIPELINE_BINDING_EXT:GLuint;
 
 	@:native('GL_FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT')
 	static var FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT:GLuint;
@@ -5151,9 +5199,6 @@ extern class GL
 	@:native('GL_RGB10_EXT')
 	static var RGB10_EXT:GLuint;
 
-	@:native('GL_BGRA8_EXT')
-	static var BGRA8_EXT:GLuint;
-
 	@:native('GL_R32F_EXT')
 	static var R32F_EXT:GLuint;
 
@@ -5448,11 +5493,164 @@ extern class GL
 	@:native('GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH')
 	static var CONTEXT_RELEASE_BEHAVIOR_FLUSH:GLuint;
 
+	@:native('GL_CONTEXT_RELEASE_BEHAVIOR_KHR')
+	static var CONTEXT_RELEASE_BEHAVIOR_KHR:GLuint;
+
+	@:native('GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH_KHR')
+	static var CONTEXT_RELEASE_BEHAVIOR_FLUSH_KHR:GLuint;
+
+	@:native('GL_DEBUG_OUTPUT_SYNCHRONOUS_KHR')
+	static var DEBUG_OUTPUT_SYNCHRONOUS_KHR:GLuint;
+
+	@:native('GL_DEBUG_NEXT_LOGGED_MESSAGE_LENGTH_KHR')
+	static var DEBUG_NEXT_LOGGED_MESSAGE_LENGTH_KHR:GLuint;
+
+	@:native('GL_DEBUG_CALLBACK_FUNCTION_KHR')
+	static var DEBUG_CALLBACK_FUNCTION_KHR:GLuint;
+
+	@:native('GL_DEBUG_CALLBACK_USER_PARAM_KHR')
+	static var DEBUG_CALLBACK_USER_PARAM_KHR:GLuint;
+
+	@:native('GL_DEBUG_SOURCE_API_KHR')
+	static var DEBUG_SOURCE_API_KHR:GLuint;
+
+	@:native('GL_DEBUG_SOURCE_WINDOW_SYSTEM_KHR')
+	static var DEBUG_SOURCE_WINDOW_SYSTEM_KHR:GLuint;
+
+	@:native('GL_DEBUG_SOURCE_SHADER_COMPILER_KHR')
+	static var DEBUG_SOURCE_SHADER_COMPILER_KHR:GLuint;
+
+	@:native('GL_DEBUG_SOURCE_THIRD_PARTY_KHR')
+	static var DEBUG_SOURCE_THIRD_PARTY_KHR:GLuint;
+
+	@:native('GL_DEBUG_SOURCE_APPLICATION_KHR')
+	static var DEBUG_SOURCE_APPLICATION_KHR:GLuint;
+
+	@:native('GL_DEBUG_SOURCE_OTHER_KHR')
+	static var DEBUG_SOURCE_OTHER_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_ERROR_KHR')
+	static var DEBUG_TYPE_ERROR_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_KHR')
+	static var DEBUG_TYPE_DEPRECATED_BEHAVIOR_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_KHR')
+	static var DEBUG_TYPE_UNDEFINED_BEHAVIOR_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_PORTABILITY_KHR')
+	static var DEBUG_TYPE_PORTABILITY_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_PERFORMANCE_KHR')
+	static var DEBUG_TYPE_PERFORMANCE_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_OTHER_KHR')
+	static var DEBUG_TYPE_OTHER_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_MARKER_KHR')
+	static var DEBUG_TYPE_MARKER_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_PUSH_GROUP_KHR')
+	static var DEBUG_TYPE_PUSH_GROUP_KHR:GLuint;
+
+	@:native('GL_DEBUG_TYPE_POP_GROUP_KHR')
+	static var DEBUG_TYPE_POP_GROUP_KHR:GLuint;
+
+	@:native('GL_DEBUG_SEVERITY_NOTIFICATION_KHR')
+	static var DEBUG_SEVERITY_NOTIFICATION_KHR:GLuint;
+
+	@:native('GL_MAX_DEBUG_GROUP_STACK_DEPTH_KHR')
+	static var MAX_DEBUG_GROUP_STACK_DEPTH_KHR:GLuint;
+
+	@:native('GL_DEBUG_GROUP_STACK_DEPTH_KHR')
+	static var DEBUG_GROUP_STACK_DEPTH_KHR:GLuint;
+
+	@:native('GL_BUFFER_KHR')
+	static var BUFFER_KHR:GLuint;
+
+	@:native('GL_SHADER_KHR')
+	static var SHADER_KHR:GLuint;
+
+	@:native('GL_PROGRAM_KHR')
+	static var PROGRAM_KHR:GLuint;
+
+	@:native('GL_VERTEX_ARRAY_KHR')
+	static var VERTEX_ARRAY_KHR:GLuint;
+
+	@:native('GL_QUERY_KHR')
+	static var QUERY_KHR:GLuint;
+
+	@:native('GL_PROGRAM_PIPELINE_KHR')
+	static var PROGRAM_PIPELINE_KHR:GLuint;
+
+	@:native('GL_SAMPLER_KHR')
+	static var SAMPLER_KHR:GLuint;
+
+	@:native('GL_MAX_LABEL_LENGTH_KHR')
+	static var MAX_LABEL_LENGTH_KHR:GLuint;
+
+	@:native('GL_MAX_DEBUG_MESSAGE_LENGTH_KHR')
+	static var MAX_DEBUG_MESSAGE_LENGTH_KHR:GLuint;
+
+	@:native('GL_MAX_DEBUG_LOGGED_MESSAGES_KHR')
+	static var MAX_DEBUG_LOGGED_MESSAGES_KHR:GLuint;
+
+	@:native('GL_DEBUG_LOGGED_MESSAGES_KHR')
+	static var DEBUG_LOGGED_MESSAGES_KHR:GLuint;
+
+	@:native('GL_DEBUG_SEVERITY_HIGH_KHR')
+	static var DEBUG_SEVERITY_HIGH_KHR:GLuint;
+
+	@:native('GL_DEBUG_SEVERITY_MEDIUM_KHR')
+	static var DEBUG_SEVERITY_MEDIUM_KHR:GLuint;
+
+	@:native('GL_DEBUG_SEVERITY_LOW_KHR')
+	static var DEBUG_SEVERITY_LOW_KHR:GLuint;
+
+	@:native('GL_DEBUG_OUTPUT_KHR')
+	static var DEBUG_OUTPUT_KHR:GLuint;
+
+	@:native('GL_CONTEXT_FLAG_DEBUG_BIT_KHR')
+	static var CONTEXT_FLAG_DEBUG_BIT_KHR:GLuint;
+
+	@:native('GL_STACK_OVERFLOW_KHR')
+	static var STACK_OVERFLOW_KHR:GLuint;
+
+	@:native('GL_STACK_UNDERFLOW_KHR')
+	static var STACK_UNDERFLOW_KHR:GLuint;
+
+	@:native('GL_DISPLAY_LIST')
+	static var DISPLAY_LIST:GLuint;
+
 	@:native('GL_CONTEXT_FLAG_NO_ERROR_BIT_KHR')
 	static var CONTEXT_FLAG_NO_ERROR_BIT_KHR:GLuint;
 
 	@:native('GL_CONTEXT_ROBUST_ACCESS')
 	static var CONTEXT_ROBUST_ACCESS:GLuint;
+
+	@:native('GL_CONTEXT_ROBUST_ACCESS_KHR')
+	static var CONTEXT_ROBUST_ACCESS_KHR:GLuint;
+
+	@:native('GL_LOSE_CONTEXT_ON_RESET_KHR')
+	static var LOSE_CONTEXT_ON_RESET_KHR:GLuint;
+
+	@:native('GL_GUILTY_CONTEXT_RESET_KHR')
+	static var GUILTY_CONTEXT_RESET_KHR:GLuint;
+
+	@:native('GL_INNOCENT_CONTEXT_RESET_KHR')
+	static var INNOCENT_CONTEXT_RESET_KHR:GLuint;
+
+	@:native('GL_UNKNOWN_CONTEXT_RESET_KHR')
+	static var UNKNOWN_CONTEXT_RESET_KHR:GLuint;
+
+	@:native('GL_RESET_NOTIFICATION_STRATEGY_KHR')
+	static var RESET_NOTIFICATION_STRATEGY_KHR:GLuint;
+
+	@:native('GL_NO_RESET_NOTIFICATION_KHR')
+	static var NO_RESET_NOTIFICATION_KHR:GLuint;
+
+	@:native('GL_CONTEXT_LOST_KHR')
+	static var CONTEXT_LOST_KHR:GLuint;
 
 	@:native('GL_SUBGROUP_SIZE_KHR')
 	static var SUBGROUP_SIZE_KHR:GLuint;
@@ -6255,6 +6453,24 @@ extern class GL
 	@:native('GL_TASK_SHADER_BIT_NV')
 	static var TASK_SHADER_BIT_NV:GLuint;
 
+	@:native('GL_MESH_SUBROUTINE_NV')
+	static var MESH_SUBROUTINE_NV:GLuint;
+
+	@:native('GL_TASK_SUBROUTINE_NV')
+	static var TASK_SUBROUTINE_NV:GLuint;
+
+	@:native('GL_MESH_SUBROUTINE_UNIFORM_NV')
+	static var MESH_SUBROUTINE_UNIFORM_NV:GLuint;
+
+	@:native('GL_TASK_SUBROUTINE_UNIFORM_NV')
+	static var TASK_SUBROUTINE_UNIFORM_NV:GLuint;
+
+	@:native('GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_MESH_SHADER_NV')
+	static var ATOMIC_COUNTER_BUFFER_REFERENCED_BY_MESH_SHADER_NV:GLuint;
+
+	@:native('GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TASK_SHADER_NV')
+	static var ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TASK_SHADER_NV:GLuint;
+
 	@:native('GL_FLOAT_MAT2x3_NV')
 	static var FLOAT_MAT2x3_NV:GLuint;
 
@@ -6648,6 +6864,123 @@ extern class GL
 	@:native('GL_FONT_HAS_KERNING_BIT_NV')
 	static var FONT_HAS_KERNING_BIT_NV:GLuint;
 
+	@:native('GL_ROUNDED_RECT_NV')
+	static var ROUNDED_RECT_NV:GLuint;
+
+	@:native('GL_RELATIVE_ROUNDED_RECT_NV')
+	static var RELATIVE_ROUNDED_RECT_NV:GLuint;
+
+	@:native('GL_ROUNDED_RECT2_NV')
+	static var ROUNDED_RECT2_NV:GLuint;
+
+	@:native('GL_RELATIVE_ROUNDED_RECT2_NV')
+	static var RELATIVE_ROUNDED_RECT2_NV:GLuint;
+
+	@:native('GL_ROUNDED_RECT4_NV')
+	static var ROUNDED_RECT4_NV:GLuint;
+
+	@:native('GL_RELATIVE_ROUNDED_RECT4_NV')
+	static var RELATIVE_ROUNDED_RECT4_NV:GLuint;
+
+	@:native('GL_ROUNDED_RECT8_NV')
+	static var ROUNDED_RECT8_NV:GLuint;
+
+	@:native('GL_RELATIVE_ROUNDED_RECT8_NV')
+	static var RELATIVE_ROUNDED_RECT8_NV:GLuint;
+
+	@:native('GL_RELATIVE_RECT_NV')
+	static var RELATIVE_RECT_NV:GLuint;
+
+	@:native('GL_FONT_GLYPHS_AVAILABLE_NV')
+	static var FONT_GLYPHS_AVAILABLE_NV:GLuint;
+
+	@:native('GL_FONT_TARGET_UNAVAILABLE_NV')
+	static var FONT_TARGET_UNAVAILABLE_NV:GLuint;
+
+	@:native('GL_FONT_UNAVAILABLE_NV')
+	static var FONT_UNAVAILABLE_NV:GLuint;
+
+	@:native('GL_FONT_UNINTELLIGIBLE_NV')
+	static var FONT_UNINTELLIGIBLE_NV:GLuint;
+
+	@:native('GL_CONIC_CURVE_TO_NV')
+	static var CONIC_CURVE_TO_NV:GLuint;
+
+	@:native('GL_RELATIVE_CONIC_CURVE_TO_NV')
+	static var RELATIVE_CONIC_CURVE_TO_NV:GLuint;
+
+	@:native('GL_FONT_NUM_GLYPH_INDICES_BIT_NV')
+	static var FONT_NUM_GLYPH_INDICES_BIT_NV:GLuint;
+
+	@:native('GL_STANDARD_FONT_FORMAT_NV')
+	static var STANDARD_FONT_FORMAT_NV:GLuint;
+
+	@:native('GL_2_BYTES_NV')
+	static var _2_BYTES_NV:GLuint;
+
+	@:native('GL_3_BYTES_NV')
+	static var _3_BYTES_NV:GLuint;
+
+	@:native('GL_4_BYTES_NV')
+	static var _4_BYTES_NV:GLuint;
+
+	@:native('GL_EYE_LINEAR_NV')
+	static var EYE_LINEAR_NV:GLuint;
+
+	@:native('GL_OBJECT_LINEAR_NV')
+	static var OBJECT_LINEAR_NV:GLuint;
+
+	@:native('GL_CONSTANT_NV')
+	static var CONSTANT_NV:GLuint;
+
+	@:native('GL_PATH_FOG_GEN_MODE_NV')
+	static var PATH_FOG_GEN_MODE_NV:GLuint;
+
+	@:native('GL_PRIMARY_COLOR')
+	static var PRIMARY_COLOR:GLuint;
+
+	@:native('GL_PRIMARY_COLOR_NV')
+	static var PRIMARY_COLOR_NV:GLuint;
+
+	@:native('GL_SECONDARY_COLOR_NV')
+	static var SECONDARY_COLOR_NV:GLuint;
+
+	@:native('GL_PATH_GEN_COLOR_FORMAT_NV')
+	static var PATH_GEN_COLOR_FORMAT_NV:GLuint;
+
+	@:native('GL_PATH_PROJECTION_NV')
+	static var PATH_PROJECTION_NV:GLuint;
+
+	@:native('GL_PATH_MODELVIEW_NV')
+	static var PATH_MODELVIEW_NV:GLuint;
+
+	@:native('GL_PATH_MODELVIEW_STACK_DEPTH_NV')
+	static var PATH_MODELVIEW_STACK_DEPTH_NV:GLuint;
+
+	@:native('GL_PATH_MODELVIEW_MATRIX_NV')
+	static var PATH_MODELVIEW_MATRIX_NV:GLuint;
+
+	@:native('GL_PATH_MAX_MODELVIEW_STACK_DEPTH_NV')
+	static var PATH_MAX_MODELVIEW_STACK_DEPTH_NV:GLuint;
+
+	@:native('GL_PATH_TRANSPOSE_MODELVIEW_MATRIX_NV')
+	static var PATH_TRANSPOSE_MODELVIEW_MATRIX_NV:GLuint;
+
+	@:native('GL_PATH_PROJECTION_STACK_DEPTH_NV')
+	static var PATH_PROJECTION_STACK_DEPTH_NV:GLuint;
+
+	@:native('GL_PATH_PROJECTION_MATRIX_NV')
+	static var PATH_PROJECTION_MATRIX_NV:GLuint;
+
+	@:native('GL_PATH_MAX_PROJECTION_STACK_DEPTH_NV')
+	static var PATH_MAX_PROJECTION_STACK_DEPTH_NV:GLuint;
+
+	@:native('GL_PATH_TRANSPOSE_PROJECTION_MATRIX_NV')
+	static var PATH_TRANSPOSE_PROJECTION_MATRIX_NV:GLuint;
+
+	@:native('GL_FRAGMENT_INPUT_NV')
+	static var FRAGMENT_INPUT_NV:GLuint;
+
 	@:native('GL_SHARED_EDGE_NV')
 	static var SHARED_EDGE_NV:GLuint;
 
@@ -6887,6 +7220,9 @@ extern class GL
 
 	@:native('GL_PACK_SKIP_PIXELS_NV')
 	static var PACK_SKIP_PIXELS_NV:GLuint;
+
+	@:native('GL_SAMPLER_EXTERNAL_OES')
+	static var SAMPLER_EXTERNAL_OES:GLuint;
 
 	@:native('GL_ETC1_RGB8_OES')
 	static var ETC1_RGB8_OES:GLuint;
@@ -8850,6 +9186,9 @@ extern class GL
 	@:native('glEGLImageTargetTexStorageEXT')
 	static function eGLImageTargetTexStorageEXT(target:GLenum, image:GLeglImageOES, attrib_list:RawPointer<GLint>):Void;
 
+	@:native('glEGLImageTargetTextureStorageEXT')
+	static function eGLImageTargetTextureStorageEXT(texture:GLuint, image:GLeglImageOES, attrib_list:RawPointer<GLint>):Void;
+
 	@:native('glDrawArraysInstancedBaseInstanceEXT')
 	static function drawArraysInstancedBaseInstanceEXT(mode:GLenum, first:GLint, count:GLsizei, instancecount:GLsizei, baseinstance:GLuint):Void;
 
@@ -8870,6 +9209,9 @@ extern class GL
 
 	@:native('glGetFragDataIndexEXT')
 	static function getFragDataIndexEXT(program:GLuint, name:CastGLcharStar):GLint;
+
+	@:native('glBlendEquationEXT')
+	static function blendEquationEXT(mode:GLenum):Void;
 
 	@:native('glBufferStorageEXT')
 	static function bufferStorageEXT(target:GLenum, size:GLsizeiptr, data:RawPointer<cpp.Void>, flags:GLbitfield):Void;
@@ -9063,6 +9405,27 @@ extern class GL
 	@:native('glBufferStorageMemEXT')
 	static function bufferStorageMemEXT(target:GLenum, size:GLsizeiptr, memory:GLuint, offset:GLuint64):Void;
 
+	@:native('glTextureStorageMem2DEXT')
+	static function textureStorageMem2DEXT(texture:GLuint, levels:GLsizei, internalFormat:GLenum, width:GLsizei, height:GLsizei, memory:GLuint, offset:GLuint64):Void;
+
+	@:native('glTextureStorageMem2DMultisampleEXT')
+	static function textureStorageMem2DMultisampleEXT(texture:GLuint, samples:GLsizei, internalFormat:GLenum, width:GLsizei, height:GLsizei, fixedSampleLocations:GLboolean, memory:GLuint, offset:GLuint64):Void;
+
+	@:native('glTextureStorageMem3DEXT')
+	static function textureStorageMem3DEXT(texture:GLuint, levels:GLsizei, internalFormat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, memory:GLuint, offset:GLuint64):Void;
+
+	@:native('glTextureStorageMem3DMultisampleEXT')
+	static function textureStorageMem3DMultisampleEXT(texture:GLuint, samples:GLsizei, internalFormat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, fixedSampleLocations:GLboolean, memory:GLuint, offset:GLuint64):Void;
+
+	@:native('glNamedBufferStorageMemEXT')
+	static function namedBufferStorageMemEXT(buffer:GLuint, size:GLsizeiptr, memory:GLuint, offset:GLuint64):Void;
+
+	@:native('glTexStorageMem1DEXT')
+	static function texStorageMem1DEXT(target:GLenum, levels:GLsizei, internalFormat:GLenum, width:GLsizei, memory:GLuint, offset:GLuint64):Void;
+
+	@:native('glTextureStorageMem1DEXT')
+	static function textureStorageMem1DEXT(texture:GLuint, levels:GLsizei, internalFormat:GLenum, width:GLsizei, memory:GLuint, offset:GLuint64):Void;
+
 	@:native('glImportMemoryFdEXT')
 	static function importMemoryFdEXT(memory:GLuint, size:GLuint64, handleType:GLenum, fd:GLint):Void;
 
@@ -9080,6 +9443,9 @@ extern class GL
 
 	@:native('glMultiDrawMeshTasksIndirectEXT')
 	static function multiDrawMeshTasksIndirectEXT(indirect:GLintptr, drawcount:GLsizei, stride:GLsizei):Void;
+
+	@:native('glMultiDrawMeshTasksIndirectCountEXT')
+	static function multiDrawMeshTasksIndirectCountEXT(indirect:GLintptr, drawcount:GLintptr, maxdrawcount:GLsizei, stride:GLsizei):Void;
 
 	@:native('glMultiDrawArraysEXT')
 	static function multiDrawArraysEXT(mode:GLenum, first:RawPointer<GLint>, count:RawPointer<GLsizei>, primcount:GLsizei):Void;
@@ -9168,6 +9534,138 @@ extern class GL
 	@:native('glCreateShaderProgramEXT')
 	static function createShaderProgramEXT(type:GLenum, string:CastGLcharStar):GLuint;
 
+	@:native('glActiveShaderProgramEXT')
+	static function activeShaderProgramEXT(pipeline:GLuint, program:GLuint):Void;
+
+	@:native('glBindProgramPipelineEXT')
+	static function bindProgramPipelineEXT(pipeline:GLuint):Void;
+
+	@:native('glCreateShaderProgramvEXT')
+	static function createShaderProgramvEXT(type:GLenum, count:GLsizei, strings:RawPointer<ConstGLcharStar>):GLuint;
+
+	@:native('glDeleteProgramPipelinesEXT')
+	static function deleteProgramPipelinesEXT(n:GLsizei, pipelines:RawPointer<GLuint>):Void;
+
+	@:native('glGenProgramPipelinesEXT')
+	static function genProgramPipelinesEXT(n:GLsizei, pipelines:RawPointer<GLuint>):Void;
+
+	@:native('glGetProgramPipelineInfoLogEXT')
+	static function getProgramPipelineInfoLogEXT(pipeline:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, infoLog:CastGLcharStar):Void;
+
+	@:native('glGetProgramPipelineivEXT')
+	static function getProgramPipelineivEXT(pipeline:GLuint, pname:GLenum, params:RawPointer<GLint>):Void;
+
+	@:native('glIsProgramPipelineEXT')
+	static function isProgramPipelineEXT(pipeline:GLuint):GLboolean;
+
+	@:native('glProgramParameteriEXT')
+	static function programParameteriEXT(program:GLuint, pname:GLenum, value:GLint):Void;
+
+	@:native('glProgramUniform1fEXT')
+	static function programUniform1fEXT(program:GLuint, location:GLint, v0:GLfloat):Void;
+
+	@:native('glProgramUniform1fvEXT')
+	static function programUniform1fvEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniform1iEXT')
+	static function programUniform1iEXT(program:GLuint, location:GLint, v0:GLint):Void;
+
+	@:native('glProgramUniform1ivEXT')
+	static function programUniform1ivEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLint>):Void;
+
+	@:native('glProgramUniform2fEXT')
+	static function programUniform2fEXT(program:GLuint, location:GLint, v0:GLfloat, v1:GLfloat):Void;
+
+	@:native('glProgramUniform2fvEXT')
+	static function programUniform2fvEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniform2iEXT')
+	static function programUniform2iEXT(program:GLuint, location:GLint, v0:GLint, v1:GLint):Void;
+
+	@:native('glProgramUniform2ivEXT')
+	static function programUniform2ivEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLint>):Void;
+
+	@:native('glProgramUniform3fEXT')
+	static function programUniform3fEXT(program:GLuint, location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat):Void;
+
+	@:native('glProgramUniform3fvEXT')
+	static function programUniform3fvEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniform3iEXT')
+	static function programUniform3iEXT(program:GLuint, location:GLint, v0:GLint, v1:GLint, v2:GLint):Void;
+
+	@:native('glProgramUniform3ivEXT')
+	static function programUniform3ivEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLint>):Void;
+
+	@:native('glProgramUniform4fEXT')
+	static function programUniform4fEXT(program:GLuint, location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat, v3:GLfloat):Void;
+
+	@:native('glProgramUniform4fvEXT')
+	static function programUniform4fvEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniform4iEXT')
+	static function programUniform4iEXT(program:GLuint, location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):Void;
+
+	@:native('glProgramUniform4ivEXT')
+	static function programUniform4ivEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLint>):Void;
+
+	@:native('glProgramUniformMatrix2fvEXT')
+	static function programUniformMatrix2fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniformMatrix3fvEXT')
+	static function programUniformMatrix3fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniformMatrix4fvEXT')
+	static function programUniformMatrix4fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glUseProgramStagesEXT')
+	static function useProgramStagesEXT(pipeline:GLuint, stages:GLbitfield, program:GLuint):Void;
+
+	@:native('glValidateProgramPipelineEXT')
+	static function validateProgramPipelineEXT(pipeline:GLuint):Void;
+
+	@:native('glProgramUniform1uiEXT')
+	static function programUniform1uiEXT(program:GLuint, location:GLint, v0:GLuint):Void;
+
+	@:native('glProgramUniform2uiEXT')
+	static function programUniform2uiEXT(program:GLuint, location:GLint, v0:GLuint, v1:GLuint):Void;
+
+	@:native('glProgramUniform3uiEXT')
+	static function programUniform3uiEXT(program:GLuint, location:GLint, v0:GLuint, v1:GLuint, v2:GLuint):Void;
+
+	@:native('glProgramUniform4uiEXT')
+	static function programUniform4uiEXT(program:GLuint, location:GLint, v0:GLuint, v1:GLuint, v2:GLuint, v3:GLuint):Void;
+
+	@:native('glProgramUniform1uivEXT')
+	static function programUniform1uivEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLuint>):Void;
+
+	@:native('glProgramUniform2uivEXT')
+	static function programUniform2uivEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLuint>):Void;
+
+	@:native('glProgramUniform3uivEXT')
+	static function programUniform3uivEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLuint>):Void;
+
+	@:native('glProgramUniform4uivEXT')
+	static function programUniform4uivEXT(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLuint>):Void;
+
+	@:native('glProgramUniformMatrix2x3fvEXT')
+	static function programUniformMatrix2x3fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniformMatrix3x2fvEXT')
+	static function programUniformMatrix3x2fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniformMatrix2x4fvEXT')
+	static function programUniformMatrix2x4fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniformMatrix4x2fvEXT')
+	static function programUniformMatrix4x2fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniformMatrix3x4fvEXT')
+	static function programUniformMatrix3x4fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
+	@:native('glProgramUniformMatrix4x3fvEXT')
+	static function programUniformMatrix4x3fvEXT(program:GLuint, location:GLint, count:GLsizei, transpose:GLboolean, value:RawPointer<GLfloat>):Void;
+
 	@:native('glFramebufferFetchBarrierEXT')
 	static function framebufferFetchBarrierEXT():Void;
 
@@ -9224,6 +9722,15 @@ extern class GL
 
 	@:native('glTexStorage3DEXT')
 	static function texStorage3DEXT(target:GLenum, levels:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei):Void;
+
+	@:native('glTextureStorage1DEXT')
+	static function textureStorage1DEXT(texture:GLuint, target:GLenum, levels:GLsizei, internalformat:GLenum, width:GLsizei):Void;
+
+	@:native('glTextureStorage2DEXT')
+	static function textureStorage2DEXT(texture:GLuint, target:GLenum, levels:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei):Void;
+
+	@:native('glTextureStorage3DEXT')
+	static function textureStorage3DEXT(texture:GLuint, target:GLenum, levels:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei):Void;
 
 	@:native('glTexStorageAttribs2DEXT')
 	static function texStorageAttribs2DEXT(target:GLenum, levels:GLsizei, internalformat:GLenum, width:GLsizei, height:GLsizei, attrib_list:RawPointer<GLint>):Void;
@@ -9317,6 +9824,54 @@ extern class GL
 
 	@:native('glBlendBarrierKHR')
 	static function blendBarrierKHR():Void;
+
+	@:native('glDebugMessageControlKHR')
+	static function debugMessageControlKHR(source:GLenum, type:GLenum, severity:GLenum, count:GLsizei, ids:RawPointer<GLuint>, enabled:GLboolean):Void;
+
+	@:native('glDebugMessageInsertKHR')
+	static function debugMessageInsertKHR(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, buf:CastGLcharStar):Void;
+
+	@:native('glDebugMessageCallbackKHR')
+	static function debugMessageCallbackKHR(callback:GLDEBUGPROCKHR, userParam:RawPointer<cpp.Void>):Void;
+
+	@:native('glGetDebugMessageLogKHR')
+	static function getDebugMessageLogKHR(count:GLuint, bufSize:GLsizei, sources:RawPointer<GLenum>, types:RawPointer<GLenum>, ids:RawPointer<GLuint>, severities:RawPointer<GLenum>, lengths:RawPointer<GLsizei>, messageLog:CastGLcharStar):GLuint;
+
+	@:native('glPushDebugGroupKHR')
+	static function pushDebugGroupKHR(source:GLenum, id:GLuint, length:GLsizei, message:CastGLcharStar):Void;
+
+	@:native('glPopDebugGroupKHR')
+	static function popDebugGroupKHR():Void;
+
+	@:native('glObjectLabelKHR')
+	static function objectLabelKHR(identifier:GLenum, name:GLuint, length:GLsizei, label:CastGLcharStar):Void;
+
+	@:native('glGetObjectLabelKHR')
+	static function getObjectLabelKHR(identifier:GLenum, name:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, label:CastGLcharStar):Void;
+
+	@:native('glObjectPtrLabelKHR')
+	static function objectPtrLabelKHR(ptr:RawPointer<cpp.Void>, length:GLsizei, label:CastGLcharStar):Void;
+
+	@:native('glGetObjectPtrLabelKHR')
+	static function getObjectPtrLabelKHR(ptr:RawPointer<cpp.Void>, bufSize:GLsizei, length:RawPointer<GLsizei>, label:CastGLcharStar):Void;
+
+	@:native('glGetPointervKHR')
+	static function getPointervKHR(pname:GLenum, params:RawPointer<RawPointer<cpp.Void>>):Void;
+
+	@:native('glGetGraphicsResetStatusKHR')
+	static function getGraphicsResetStatusKHR():GLenum;
+
+	@:native('glReadnPixelsKHR')
+	static function readnPixelsKHR(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, bufSize:GLsizei, data:RawPointer<cpp.Void>):Void;
+
+	@:native('glGetnUniformfvKHR')
+	static function getnUniformfvKHR(program:GLuint, location:GLint, bufSize:GLsizei, params:RawPointer<GLfloat>):Void;
+
+	@:native('glGetnUniformivKHR')
+	static function getnUniformivKHR(program:GLuint, location:GLint, bufSize:GLsizei, params:RawPointer<GLint>):Void;
+
+	@:native('glGetnUniformuivKHR')
+	static function getnUniformuivKHR(program:GLuint, location:GLint, bufSize:GLsizei, params:RawPointer<GLuint>):Void;
 
 	@:native('glMaxShaderCompilerThreadsKHR')
 	static function maxShaderCompilerThreadsKHR(count:GLuint):Void;
@@ -9510,6 +10065,54 @@ extern class GL
 	@:native('glGetUniformi64vNV')
 	static function getUniformi64vNV(program:GLuint, location:GLint, params:RawPointer<GLint64EXT>):Void;
 
+	@:native('glProgramUniform1i64NV')
+	static function programUniform1i64NV(program:GLuint, location:GLint, x:GLint64EXT):Void;
+
+	@:native('glProgramUniform2i64NV')
+	static function programUniform2i64NV(program:GLuint, location:GLint, x:GLint64EXT, y:GLint64EXT):Void;
+
+	@:native('glProgramUniform3i64NV')
+	static function programUniform3i64NV(program:GLuint, location:GLint, x:GLint64EXT, y:GLint64EXT, z:GLint64EXT):Void;
+
+	@:native('glProgramUniform4i64NV')
+	static function programUniform4i64NV(program:GLuint, location:GLint, x:GLint64EXT, y:GLint64EXT, z:GLint64EXT, w:GLint64EXT):Void;
+
+	@:native('glProgramUniform1i64vNV')
+	static function programUniform1i64vNV(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLint64EXT>):Void;
+
+	@:native('glProgramUniform2i64vNV')
+	static function programUniform2i64vNV(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLint64EXT>):Void;
+
+	@:native('glProgramUniform3i64vNV')
+	static function programUniform3i64vNV(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLint64EXT>):Void;
+
+	@:native('glProgramUniform4i64vNV')
+	static function programUniform4i64vNV(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLint64EXT>):Void;
+
+	@:native('glProgramUniform1ui64NV')
+	static function programUniform1ui64NV(program:GLuint, location:GLint, x:GLuint64EXT):Void;
+
+	@:native('glProgramUniform2ui64NV')
+	static function programUniform2ui64NV(program:GLuint, location:GLint, x:GLuint64EXT, y:GLuint64EXT):Void;
+
+	@:native('glProgramUniform3ui64NV')
+	static function programUniform3ui64NV(program:GLuint, location:GLint, x:GLuint64EXT, y:GLuint64EXT, z:GLuint64EXT):Void;
+
+	@:native('glProgramUniform4ui64NV')
+	static function programUniform4ui64NV(program:GLuint, location:GLint, x:GLuint64EXT, y:GLuint64EXT, z:GLuint64EXT, w:GLuint64EXT):Void;
+
+	@:native('glProgramUniform1ui64vNV')
+	static function programUniform1ui64vNV(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLuint64EXT>):Void;
+
+	@:native('glProgramUniform2ui64vNV')
+	static function programUniform2ui64vNV(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLuint64EXT>):Void;
+
+	@:native('glProgramUniform3ui64vNV')
+	static function programUniform3ui64vNV(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLuint64EXT>):Void;
+
+	@:native('glProgramUniform4ui64vNV')
+	static function programUniform4ui64vNV(program:GLuint, location:GLint, count:GLsizei, value:RawPointer<GLuint64EXT>):Void;
+
 	@:native('glVertexAttribDivisorNV')
 	static function vertexAttribDivisorNV(index:GLuint, divisor:GLuint):Void;
 
@@ -9528,11 +10131,23 @@ extern class GL
 	@:native('glBufferAttachMemoryNV')
 	static function bufferAttachMemoryNV(target:GLenum, memory:GLuint, offset:GLuint64):Void;
 
+	@:native('glTextureAttachMemoryNV')
+	static function textureAttachMemoryNV(texture:GLuint, memory:GLuint, offset:GLuint64):Void;
+
+	@:native('glNamedBufferAttachMemoryNV')
+	static function namedBufferAttachMemoryNV(buffer:GLuint, memory:GLuint, offset:GLuint64):Void;
+
 	@:native('glBufferPageCommitmentMemNV')
 	static function bufferPageCommitmentMemNV(target:GLenum, offset:GLintptr, size:GLsizeiptr, memory:GLuint, memOffset:GLuint64, commit:GLboolean):Void;
 
 	@:native('glTexPageCommitmentMemNV')
 	static function texPageCommitmentMemNV(target:GLenum, layer:GLint, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, memory:GLuint, offset:GLuint64, commit:GLboolean):Void;
+
+	@:native('glNamedBufferPageCommitmentMemNV')
+	static function namedBufferPageCommitmentMemNV(buffer:GLuint, offset:GLintptr, size:GLsizeiptr, memory:GLuint, memOffset:GLuint64, commit:GLboolean):Void;
+
+	@:native('glTexturePageCommitmentMemNV')
+	static function texturePageCommitmentMemNV(texture:GLuint, layer:GLint, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, memory:GLuint, offset:GLuint64, commit:GLboolean):Void;
 
 	@:native('glDrawMeshTasksNV')
 	static function drawMeshTasksNV(first:GLuint, count:GLuint):Void;
@@ -9689,6 +10304,129 @@ extern class GL
 
 	@:native('glPointAlongPathNV')
 	static function pointAlongPathNV(path:GLuint, startSegment:GLsizei, numSegments:GLsizei, distance:GLfloat, x:RawPointer<GLfloat>, y:RawPointer<GLfloat>, tangentX:RawPointer<GLfloat>, tangentY:RawPointer<GLfloat>):GLboolean;
+
+	@:native('glMatrixLoad3x2fNV')
+	static function matrixLoad3x2fNV(matrixMode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixLoad3x3fNV')
+	static function matrixLoad3x3fNV(matrixMode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixLoadTranspose3x3fNV')
+	static function matrixLoadTranspose3x3fNV(matrixMode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixMult3x2fNV')
+	static function matrixMult3x2fNV(matrixMode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixMult3x3fNV')
+	static function matrixMult3x3fNV(matrixMode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixMultTranspose3x3fNV')
+	static function matrixMultTranspose3x3fNV(matrixMode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glStencilThenCoverFillPathNV')
+	static function stencilThenCoverFillPathNV(path:GLuint, fillMode:GLenum, mask:GLuint, coverMode:GLenum):Void;
+
+	@:native('glStencilThenCoverStrokePathNV')
+	static function stencilThenCoverStrokePathNV(path:GLuint, reference:GLint, mask:GLuint, coverMode:GLenum):Void;
+
+	@:native('glStencilThenCoverFillPathInstancedNV')
+	static function stencilThenCoverFillPathInstancedNV(numPaths:GLsizei, pathNameType:GLenum, paths:RawPointer<cpp.Void>, pathBase:GLuint, fillMode:GLenum, mask:GLuint, coverMode:GLenum, transformType:GLenum, transformValues:RawPointer<GLfloat>):Void;
+
+	@:native('glStencilThenCoverStrokePathInstancedNV')
+	static function stencilThenCoverStrokePathInstancedNV(numPaths:GLsizei, pathNameType:GLenum, paths:RawPointer<cpp.Void>, pathBase:GLuint, reference:GLint, mask:GLuint, coverMode:GLenum, transformType:GLenum, transformValues:RawPointer<GLfloat>):Void;
+
+	@:native('glPathGlyphIndexRangeNV')
+	static function pathGlyphIndexRangeNV(fontTarget:GLenum, fontName:RawPointer<cpp.Void>, fontStyle:GLbitfield, pathParameterTemplate:GLuint, emScale:GLfloat, baseAndCount:RawPointer<GLuint>):GLenum;
+
+	@:native('glPathGlyphIndexArrayNV')
+	static function pathGlyphIndexArrayNV(firstPathName:GLuint, fontTarget:GLenum, fontName:RawPointer<cpp.Void>, fontStyle:GLbitfield, firstGlyphIndex:GLuint, numGlyphs:GLsizei, pathParameterTemplate:GLuint, emScale:GLfloat):GLenum;
+
+	@:native('glPathMemoryGlyphIndexArrayNV')
+	static function pathMemoryGlyphIndexArrayNV(firstPathName:GLuint, fontTarget:GLenum, fontSize:GLsizeiptr, fontData:RawPointer<cpp.Void>, faceIndex:GLsizei, firstGlyphIndex:GLuint, numGlyphs:GLsizei, pathParameterTemplate:GLuint, emScale:GLfloat):GLenum;
+
+	@:native('glProgramPathFragmentInputGenNV')
+	static function programPathFragmentInputGenNV(program:GLuint, location:GLint, genMode:GLenum, components:GLint, coeffs:RawPointer<GLfloat>):Void;
+
+	@:native('glGetProgramResourcefvNV')
+	static function getProgramResourcefvNV(program:GLuint, programInterface:GLenum, index:GLuint, propCount:GLsizei, props:RawPointer<GLenum>, count:GLsizei, length:RawPointer<GLsizei>, params:RawPointer<GLfloat>):Void;
+
+	@:native('glPathColorGenNV')
+	static function pathColorGenNV(color:GLenum, genMode:GLenum, colorFormat:GLenum, coeffs:RawPointer<GLfloat>):Void;
+
+	@:native('glPathTexGenNV')
+	static function pathTexGenNV(texCoordSet:GLenum, genMode:GLenum, components:GLint, coeffs:RawPointer<GLfloat>):Void;
+
+	@:native('glPathFogGenNV')
+	static function pathFogGenNV(genMode:GLenum):Void;
+
+	@:native('glGetPathColorGenivNV')
+	static function getPathColorGenivNV(color:GLenum, pname:GLenum, value:RawPointer<GLint>):Void;
+
+	@:native('glGetPathColorGenfvNV')
+	static function getPathColorGenfvNV(color:GLenum, pname:GLenum, value:RawPointer<GLfloat>):Void;
+
+	@:native('glGetPathTexGenivNV')
+	static function getPathTexGenivNV(texCoordSet:GLenum, pname:GLenum, value:RawPointer<GLint>):Void;
+
+	@:native('glGetPathTexGenfvNV')
+	static function getPathTexGenfvNV(texCoordSet:GLenum, pname:GLenum, value:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixFrustumEXT')
+	static function matrixFrustumEXT(mode:GLenum, left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):Void;
+
+	@:native('glMatrixLoadIdentityEXT')
+	static function matrixLoadIdentityEXT(mode:GLenum):Void;
+
+	@:native('glMatrixLoadTransposefEXT')
+	static function matrixLoadTransposefEXT(mode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixLoadTransposedEXT')
+	static function matrixLoadTransposedEXT(mode:GLenum, m:RawPointer<GLdouble>):Void;
+
+	@:native('glMatrixLoadfEXT')
+	static function matrixLoadfEXT(mode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixLoaddEXT')
+	static function matrixLoaddEXT(mode:GLenum, m:RawPointer<GLdouble>):Void;
+
+	@:native('glMatrixMultTransposefEXT')
+	static function matrixMultTransposefEXT(mode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixMultTransposedEXT')
+	static function matrixMultTransposedEXT(mode:GLenum, m:RawPointer<GLdouble>):Void;
+
+	@:native('glMatrixMultfEXT')
+	static function matrixMultfEXT(mode:GLenum, m:RawPointer<GLfloat>):Void;
+
+	@:native('glMatrixMultdEXT')
+	static function matrixMultdEXT(mode:GLenum, m:RawPointer<GLdouble>):Void;
+
+	@:native('glMatrixOrthoEXT')
+	static function matrixOrthoEXT(mode:GLenum, left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):Void;
+
+	@:native('glMatrixPopEXT')
+	static function matrixPopEXT(mode:GLenum):Void;
+
+	@:native('glMatrixPushEXT')
+	static function matrixPushEXT(mode:GLenum):Void;
+
+	@:native('glMatrixRotatefEXT')
+	static function matrixRotatefEXT(mode:GLenum, angle:GLfloat, x:GLfloat, y:GLfloat, z:GLfloat):Void;
+
+	@:native('glMatrixRotatedEXT')
+	static function matrixRotatedEXT(mode:GLenum, angle:GLdouble, x:GLdouble, y:GLdouble, z:GLdouble):Void;
+
+	@:native('glMatrixScalefEXT')
+	static function matrixScalefEXT(mode:GLenum, x:GLfloat, y:GLfloat, z:GLfloat):Void;
+
+	@:native('glMatrixScaledEXT')
+	static function matrixScaledEXT(mode:GLenum, x:GLdouble, y:GLdouble, z:GLdouble):Void;
+
+	@:native('glMatrixTranslatefEXT')
+	static function matrixTranslatefEXT(mode:GLenum, x:GLfloat, y:GLfloat, z:GLfloat):Void;
+
+	@:native('glMatrixTranslatedEXT')
+	static function matrixTranslatedEXT(mode:GLenum, x:GLdouble, y:GLdouble, z:GLdouble):Void;
 
 	@:native('glPolygonModeNV')
 	static function polygonModeNV(face:GLenum, mode:GLenum):Void;
@@ -9938,6 +10676,9 @@ extern class GL
 
 	@:native('glFramebufferTextureMultiviewOVR')
 	static function framebufferTextureMultiviewOVR(target:GLenum, attachment:GLenum, texture:GLuint, level:GLint, baseViewIndex:GLint, numViews:GLsizei):Void;
+
+	@:native('glNamedFramebufferTextureMultiviewOVR')
+	static function namedFramebufferTextureMultiviewOVR(framebuffer:GLuint, attachment:GLenum, texture:GLuint, level:GLint, baseViewIndex:GLint, numViews:GLsizei):Void;
 
 	@:native('glFramebufferTextureMultisampleMultiviewOVR')
 	static function framebufferTextureMultisampleMultiviewOVR(target:GLenum, attachment:GLenum, texture:GLuint, level:GLint, samples:GLsizei, baseViewIndex:GLint, numViews:GLsizei):Void;

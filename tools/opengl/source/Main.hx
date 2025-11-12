@@ -160,20 +160,20 @@ class Main
 					continue;
 			}
 
-			if (extensionVal.hasNode.require)
+			for (requireVal in extensionVal.nodes.require)
 			{
-				if (extensionVal.node.require.hasNode.resolve('enum'))
+				if (requireVal.hasNode.resolve('enum'))
 				{
-					for (enumVal in extensionVal.node.require.nodes.resolve('enum'))
+					for (enumVal in requireVal.nodes.resolve('enum'))
 					{
 						if (!GL_ENUMS_TO_BE_ADDED.contains(enumVal.att.name))
 							GL_ENUMS_TO_BE_ADDED.push(enumVal.att.name);
 					}
 				}
 
-				if (extensionVal.node.require.hasNode.command)
+				if (requireVal.hasNode.command)
 				{
-					for (commandVal in extensionVal.node.require.nodes.command)
+					for (commandVal in requireVal.nodes.command)
 					{
 						if (!GL_COMMANDS_TO_BE_ADDED.contains(commandVal.att.name))
 							GL_COMMANDS_TO_BE_ADDED.push(commandVal.att.name);
@@ -475,8 +475,11 @@ class Main
 		return (first >= "0".code && first <= "9".code) ? '_$str' : str;
 	}
 
-	static function doPrettyHaxeFunctionName(str:String, length:Int = 2):String
+	static function doPrettyHaxeFunctionName(str:String, ?ignore:String, length:Int = 2):String
 	{
+		if (ignore != null && str.startsWith(ignore))
+			return str;
+
 		final removeGL:String = str.substr(length, str.length);
 
 		return removeGL.charAt(0).toLowerCase() + removeGL.substr(1);
