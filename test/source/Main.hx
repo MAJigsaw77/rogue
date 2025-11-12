@@ -6,6 +6,8 @@ import cpp.RawPointer;
 import haxe.Resource;
 
 import rogue.internal.externs.sdl.SDL;
+import rogue.internal.externs.soft_oal.AL;
+import rogue.internal.externs.soft_oal.ALC;
 #if (android || rpi || emscripten || iphone)
 import rogue.internal.externs.glad.opengles2.GL;
 import rogue.internal.externs.glad.opengles2.Glad;
@@ -153,8 +155,87 @@ class Main
 		return null;
 	}
 
+	static function doOpenALStuff():Void
+	{
+		final device:RawPointer<ALCdevice> = ALC.openDevice(null);
+
+		if (device == null)
+		{
+			Sys.println('Failed to open OpenAL device.');
+			return;
+		}
+
+		final context:RawPointer<ALCcontext> = ALC.createContext(device, null);
+
+		if (context == null)
+		{
+			Sys.println('Failed to create OpenAL context.');
+			ALC.closeDevice(device);
+			return;
+		}
+
+		ALC.makeContextCurrent(context);
+
+		final alVendor:String = AL.getString(AL.VENDOR);
+		final alVersion:String = AL.getString(AL.VERSION);
+		final alRenderer:String = AL.getString(AL.RENDERER);
+		final alExtensions:String = AL.getString(AL.EXTENSIONS);
+
+		final alcDefaultDevice:String = ALC.getString(null, ALC.DEFAULT_DEVICE_SPECIFIER);
+		final alcCaptureDevice:String = ALC.getString(null, ALC.CAPTURE_DEFAULT_DEVICE_SPECIFIER);
+		final alcExtensions:String = ALC.getString(device, ALC.EXTENSIONS);
+
+		Sys.println('OpenAL Soft AL Information:');
+		Sys.println('========================');
+		Sys.println('Vendor:     $alVendor');
+		Sys.println('Version:    $alVersion');
+		Sys.println('Renderer:   $alRenderer');
+		Sys.println('Default Device:         $alcDefaultDevice');
+		Sys.println('Default Capture Device: $alcCaptureDevice');
+
+		Sys.println('AL Extensions:');
+		Sys.println('${alExtensions.split(' ').join('\n')}');
+
+		Sys.println('ALC Extensions:');
+		Sys.println('${alcExtensions.split(' ').join('\n')}');
+
+		if (ALC.isExtensionPresent(null, 'ALC_ENUMERATION_EXT') == ALC.TRUE)
+		{
+			final devices:ConstALCcharStar = ALC.getString(device, ALC.ALL_DEVICES_SPECIFIER);
+
+			Sys.println('Available Devices:');
+
+untyped __cpp__('
+			while (devices && *devices)
+			{
+				printf("- %s\\n", devices);
+				devices += strlen(devices) + 1;
+			}');
+		}
+    
+    // // List all available devices (if enumeration is supported)
+    // if (alcIsExtensionPresent(NULL, "ALC_ENUMERATION_EXT") == AL_TRUE) {
+    //     const ALCchar *devices = alcGetString(NULL, ALC_DEVICE_SPECIFIER);
+    //     printf("\nAvailable Devices:\n");
+    //     printf("==================\n");
+        
+    //     // Devices are null-separated, double-null terminated
+    //     while (*devices != '\0') {
+    //         printf("  - %s\n", devices);
+    //         devices += strlen(devices) + 1;
+    //     }
+    // }
+    
+		// Clean up
+		ALC.makeContextCurrent(null);
+		ALC.destroyContext(context);
+		ALC.closeDevice(device);
+	}
+
 	public static function main():Void
 	{
+		doOpenALStuff();
+
 		// Request a high-resolution timer (1 ms) for more precise delta times
 		// This improves the accuracy of SDL_GetTicks() and FPS measurements,
 		// especially on Windows. Higher resolution may slightly increase CPU usage.
