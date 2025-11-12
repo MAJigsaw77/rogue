@@ -116,7 +116,7 @@
 
 				<!-- alc/backends -->
 
-				<file name="alc/backends/oboe.cpp" if="android" />
+				<file name="alc/backends/opensl.cpp" if="android" />
 				<file name="alc/backends/coreaudio.cpp" if="apple" />
 
 				<file name="alc/backends/base.cpp" />
@@ -218,100 +218,6 @@
 						<file name="core/mixer/mixer_sse41.cpp" />
 					</section>
 				</section>
-			</section>
-		</section>
-	</files>
-
-	<files id="soft_oal-deps-oboe-files" dir="${SOFT_OAL_DEPS_OBOE_DIRECTORY}" tags="optim-std" if="android">
-		<!-- oboe include -->
-		<compilerflag value="-I${SOFT_OAL_DEPS_OBOE_DIRECTORY}/include" />
-
-		<!-- oboe src -->
-		<compilerflag value="-I${SOFT_OAL_DEPS_OBOE_DIRECTORY}/src" />
-
-		<section>
-			<section>
-				<!-- src/aaudio -->
-				<file name="src/aaudio/AAudioLoader.cpp" />
-				<file name="src/aaudio/AudioStreamAAudio.cpp" />
-			</section>
-
-			<section>
-				<!-- src/common -->
-				<file name="src/common/AdpfWrapper.cpp" />
-				<file name="src/common/AudioSourceCaller.cpp" />
-				<file name="src/common/AudioStream.cpp" />
-				<file name="src/common/AudioStreamBuilder.cpp" />
-				<file name="src/common/DataConversionFlowGraph.cpp" />
-				<file name="src/common/FilterAudioStream.cpp" />
-				<file name="src/common/FixedBlockAdapter.cpp" />
-				<file name="src/common/FixedBlockReader.cpp" />
-				<file name="src/common/FixedBlockWriter.cpp" />
-				<file name="src/common/LatencyTuner.cpp" />
-				<file name="src/common/OboeExtensions.cpp" />
-				<file name="src/common/QuirksManager.cpp" />
-				<file name="src/common/SourceFloatCaller.cpp" />
-				<file name="src/common/SourceI16Caller.cpp" />
-				<file name="src/common/SourceI24Caller.cpp" />
-				<file name="src/common/SourceI32Caller.cpp" />
-				<file name="src/common/StabilizedCallback.cpp" />
-				<file name="src/common/Trace.cpp" />
-				<file name="src/common/Utilities.cpp" />
-				<file name="src/common/Version.cpp" />
-			</section>
-
-			<section>
-				<!-- src/fifo -->
-				<file name="src/fifo/FifoBuffer.cpp" />
-				<file name="src/fifo/FifoController.cpp" />
-				<file name="src/fifo/FifoControllerBase.cpp" />
-				<file name="src/fifo/FifoControllerIndirect.cpp" />
-			</section>
-
-			<section>
-				<!-- src/flowgraph -->
-				<file name="src/flowgraph/ChannelCountConverter.cpp" />
-				<file name="src/flowgraph/ClipToRange.cpp" />
-				<file name="src/flowgraph/FlowGraphNode.cpp" />
-				<file name="src/flowgraph/Limiter.cpp" />
-				<file name="src/flowgraph/ManyToMultiConverter.cpp" />
-				<file name="src/flowgraph/MonoBlend.cpp" />
-				<file name="src/flowgraph/MonoToMultiConverter.cpp" />
-				<file name="src/flowgraph/MultiToManyConverter.cpp" />
-				<file name="src/flowgraph/MultiToMonoConverter.cpp" />
-				<file name="src/flowgraph/RampLinear.cpp" />
-				<file name="src/flowgraph/SampleRateConverter.cpp" />
-				<file name="src/flowgraph/SinkFloat.cpp" />
-				<file name="src/flowgraph/SinkI16.cpp" />
-				<file name="src/flowgraph/SinkI24.cpp" />
-				<file name="src/flowgraph/SinkI32.cpp" />
-				<file name="src/flowgraph/SinkI8_24.cpp" />
-				<file name="src/flowgraph/SourceFloat.cpp" />
-				<file name="src/flowgraph/SourceI16.cpp" />
-				<file name="src/flowgraph/SourceI24.cpp" />
-				<file name="src/flowgraph/SourceI32.cpp" />
-				<file name="src/flowgraph/SourceI8_24.cpp" />
-
-				<!-- src/flowgraph/resampler -->
-				<file name="src/flowgraph/resampler/IntegerRatio.cpp" />
-				<file name="src/flowgraph/resampler/LinearResampler.cpp" />
-				<file name="src/flowgraph/resampler/MultiChannelResampler.cpp" />
-				<file name="src/flowgraph/resampler/PolyphaseResampler.cpp" />
-				<file name="src/flowgraph/resampler/PolyphaseResamplerMono.cpp" />
-				<file name="src/flowgraph/resampler/PolyphaseResamplerStereo.cpp" />
-				<file name="src/flowgraph/resampler/SincResampler.cpp" />
-				<file name="src/flowgraph/resampler/SincResamplerStereo.cpp" />
-			</section>
-
-			<section>
-				<!-- src/opensles -->
-				<file name="src/opensles/AudioInputStreamOpenSLES.cpp" />
-				<file name="src/opensles/AudioOutputStreamOpenSLES.cpp" />
-				<file name="src/opensles/AudioStreamBuffered.cpp" />
-				<file name="src/opensles/AudioStreamOpenSLES.cpp" />
-				<file name="src/opensles/EngineOpenSLES.cpp" />
-				<file name="src/opensles/OpenSLESUtilities.cpp" />
-				<file name="src/opensles/OutputMixerOpenSLES.cpp" />
 			</section>
 		</section>
 	</files>

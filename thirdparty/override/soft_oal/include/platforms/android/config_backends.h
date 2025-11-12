@@ -24,9 +24,9 @@
 
 #define HAVE_COREAUDIO 0
 
-#define HAVE_OPENSL 0
+#define HAVE_OPENSL 1
 
-#define HAVE_OBOE 1
+#define HAVE_OBOE 0
 
 #define HAVE_WAVE 1
 

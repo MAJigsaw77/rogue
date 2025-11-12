@@ -61,8 +61,6 @@
 		<files id="glad-files" />
 
 		<section>
-			<files id="soft_oal-deps-oboe-files" if="android" />
-
 			<files id="soft_oal-deps-fmt-files" />
 
 			<files id="soft_oal-files" />
