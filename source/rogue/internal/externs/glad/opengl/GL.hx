@@ -18424,43 +18424,43 @@ extern class GL
 	static function createVertexArrays(n:GLsizei, arrays:RawPointer<GLuint>):Void;
 
 	@:native('glDisableVertexArrayAttrib')
-	static function disableVertexArrayAttrib(vertexArraybj:GLuint, index:GLuint):Void;
+	static function disableVertexArrayAttrib(vaobj:GLuint, index:GLuint):Void;
 
 	@:native('glEnableVertexArrayAttrib')
-	static function enableVertexArrayAttrib(vertexArraybj:GLuint, index:GLuint):Void;
+	static function enableVertexArrayAttrib(vaobj:GLuint, index:GLuint):Void;
 
 	@:native('glVertexArrayElementBuffer')
-	static function vertexArrayElementBuffer(vertexArraybj:GLuint, buffer:GLuint):Void;
+	static function vertexArrayElementBuffer(vaobj:GLuint, buffer:GLuint):Void;
 
 	@:native('glVertexArrayVertexBuffer')
-	static function vertexArrayVertexBuffer(vertexArraybj:GLuint, bindingindex:GLuint, buffer:GLuint, offset:GLintptr, stride:GLsizei):Void;
+	static function vertexArrayVertexBuffer(vaobj:GLuint, bindingindex:GLuint, buffer:GLuint, offset:GLintptr, stride:GLsizei):Void;
 
 	@:native('glVertexArrayVertexBuffers')
-	static function vertexArrayVertexBuffers(vertexArraybj:GLuint, first:GLuint, count:GLsizei, buffers:RawPointer<GLuint>, offsets:RawPointer<GLintptr>, strides:RawPointer<GLsizei>):Void;
+	static function vertexArrayVertexBuffers(vaobj:GLuint, first:GLuint, count:GLsizei, buffers:RawPointer<GLuint>, offsets:RawPointer<GLintptr>, strides:RawPointer<GLsizei>):Void;
 
 	@:native('glVertexArrayAttribBinding')
-	static function vertexArrayAttribBinding(vertexArraybj:GLuint, attribindex:GLuint, bindingindex:GLuint):Void;
+	static function vertexArrayAttribBinding(vaobj:GLuint, attribindex:GLuint, bindingindex:GLuint):Void;
 
 	@:native('glVertexArrayAttribFormat')
-	static function vertexArrayAttribFormat(vertexArraybj:GLuint, attribindex:GLuint, size:GLint, type:GLenum, normalized:GLboolean, relativeoffset:GLuint):Void;
+	static function vertexArrayAttribFormat(vaobj:GLuint, attribindex:GLuint, size:GLint, type:GLenum, normalized:GLboolean, relativeoffset:GLuint):Void;
 
 	@:native('glVertexArrayAttribIFormat')
-	static function vertexArrayAttribIFormat(vertexArraybj:GLuint, attribindex:GLuint, size:GLint, type:GLenum, relativeoffset:GLuint):Void;
+	static function vertexArrayAttribIFormat(vaobj:GLuint, attribindex:GLuint, size:GLint, type:GLenum, relativeoffset:GLuint):Void;
 
 	@:native('glVertexArrayAttribLFormat')
-	static function vertexArrayAttribLFormat(vertexArraybj:GLuint, attribindex:GLuint, size:GLint, type:GLenum, relativeoffset:GLuint):Void;
+	static function vertexArrayAttribLFormat(vaobj:GLuint, attribindex:GLuint, size:GLint, type:GLenum, relativeoffset:GLuint):Void;
 
 	@:native('glVertexArrayBindingDivisor')
-	static function vertexArrayBindingDivisor(vertexArraybj:GLuint, bindingindex:GLuint, divisor:GLuint):Void;
+	static function vertexArrayBindingDivisor(vaobj:GLuint, bindingindex:GLuint, divisor:GLuint):Void;
 
 	@:native('glGetVertexArrayiv')
-	static function getVertexArrayiv(vertexArraybj:GLuint, pname:GLenum, param:RawPointer<GLint>):Void;
+	static function getVertexArrayiv(vaobj:GLuint, pname:GLenum, param:RawPointer<GLint>):Void;
 
 	@:native('glGetVertexArrayIndexediv')
-	static function getVertexArrayIndexediv(vertexArraybj:GLuint, index:GLuint, pname:GLenum, param:RawPointer<GLint>):Void;
+	static function getVertexArrayIndexediv(vaobj:GLuint, index:GLuint, pname:GLenum, param:RawPointer<GLint>):Void;
 
 	@:native('glGetVertexArrayIndexed64iv')
-	static function getVertexArrayIndexed64iv(vertexArraybj:GLuint, index:GLuint, pname:GLenum, param:RawPointer<GLint64>):Void;
+	static function getVertexArrayIndexed64iv(vaobj:GLuint, index:GLuint, pname:GLenum, param:RawPointer<GLint64>):Void;
 
 	@:native('glCreateSamplers')
 	static function createSamplers(n:GLsizei, samplers:RawPointer<GLuint>):Void;

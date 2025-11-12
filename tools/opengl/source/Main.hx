@@ -96,6 +96,12 @@ class Main
 
 	static function generateOpenGLExterns(access:Access, platform:String):Void
 	{
+		GL_COMMANDS = [];
+		GL_ENUMS = [];
+
+		GL_COMMANDS_TO_BE_ADDED = [];
+		GL_ENUMS_TO_BE_ADDED = [];
+
 		GL_FILE = [];
 
 		for (enumsVal in access.nodes.enums)
@@ -469,9 +475,9 @@ class Main
 		return (first >= "0".code && first <= "9".code) ? '_$str' : str;
 	}
 
-	static function doPrettyHaxeFunctionName(str:String):String
+	static function doPrettyHaxeFunctionName(str:String, length:Int = 2):String
 	{
-		final removeGL:String = str.substr(2, str.length);
+		final removeGL:String = str.substr(length, str.length);
 
 		return removeGL.charAt(0).toLowerCase() + removeGL.substr(1);
 	}
