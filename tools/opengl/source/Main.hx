@@ -282,7 +282,7 @@ class Main
 		for (enumName in GL_ENUMS_TO_BE_ADDED)
 		{
 			addNative(enumName, 1);
-			addLine('static var ${fixStartWithNumberHaxeCrap(enumName.split('GL_')[1])}:${!enumName.startsWith('GL_TIMEOUT_IGNORED') ? 'GLuint' : 'GLuint64'};',
+			addLine('static var ${fixStartWithNumberHaxeCrap(enumName.substring(enumName.indexOf('_') + 1))}:${!enumName.startsWith('GL_TIMEOUT_IGNORED') ? 'GLuint' : 'GLuint64'};',
 				1);
 			addLine('');
 		}
@@ -475,13 +475,15 @@ class Main
 		return (first >= "0".code && first <= "9".code) ? '_$str' : str;
 	}
 
-	static function doPrettyHaxeFunctionName(str:String, ?ignore:String, length:Int = 2):String
+	static function doPrettyHaxeFunctionName(str:String):String
 	{
-		if (ignore != null && str.startsWith(ignore))
+		final regex:EReg = ~/^[^A-Z]+/;
+
+		final pretty:String = regex.match(str) ? str.substr(regex.matchedPos().len) : str;
+
+		if (str == pretty)
 			return str;
 
-		final removeGL:String = str.substr(length, str.length);
-
-		return removeGL.charAt(0).toLowerCase() + removeGL.substr(1);
+		return pretty.charAt(0).toLowerCase() + pretty.substr(1);
 	}
 }

@@ -47,7 +47,7 @@ class TypeParser
 		if (info.base.startsWith('GLchar') && info.pointerDepth > 0)
 		{
 			index = 1;
-			baseType = info.constLevels[0] ? 'Const${info.base}Star' : 'Cast${info.base}Star';
+			baseType = info.constTo ? 'Const${info.base}Star' : 'Cast${info.base}Star';
 		}
 
 		for (i in index...info.pointerDepth)

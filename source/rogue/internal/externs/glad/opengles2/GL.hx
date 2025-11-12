@@ -8026,7 +8026,7 @@ extern class GL
 	static function attachShader(program:GLuint, shader:GLuint):Void;
 
 	@:native('glBindAttribLocation')
-	static function bindAttribLocation(program:GLuint, index:GLuint, name:CastGLcharStar):Void;
+	static function bindAttribLocation(program:GLuint, index:GLuint, name:ConstGLcharStar):Void;
 
 	@:native('glBindBuffer')
 	static function bindBuffer(target:GLenum, buffer:GLuint):Void;
@@ -8191,7 +8191,7 @@ extern class GL
 	static function getAttachedShaders(program:GLuint, maxCount:GLsizei, count:RawPointer<GLsizei>, shaders:RawPointer<GLuint>):Void;
 
 	@:native('glGetAttribLocation')
-	static function getAttribLocation(program:GLuint, name:CastGLcharStar):GLint;
+	static function getAttribLocation(program:GLuint, name:ConstGLcharStar):GLint;
 
 	@:native('glGetBooleanv')
 	static function getBooleanv(pname:GLenum, data:RawPointer<GLboolean>):Void;
@@ -8248,7 +8248,7 @@ extern class GL
 	static function getUniformiv(program:GLuint, location:GLint, params:RawPointer<GLint>):Void;
 
 	@:native('glGetUniformLocation')
-	static function getUniformLocation(program:GLuint, name:CastGLcharStar):GLint;
+	static function getUniformLocation(program:GLuint, name:ConstGLcharStar):GLint;
 
 	@:native('glGetVertexAttribfv')
 	static function getVertexAttribfv(index:GLuint, pname:GLenum, params:RawPointer<GLfloat>):Void;
@@ -8587,7 +8587,7 @@ extern class GL
 	static function getUniformuiv(program:GLuint, location:GLint, params:RawPointer<GLuint>):Void;
 
 	@:native('glGetFragDataLocation')
-	static function getFragDataLocation(program:GLuint, name:CastGLcharStar):GLint;
+	static function getFragDataLocation(program:GLuint, name:ConstGLcharStar):GLint;
 
 	@:native('glUniform1ui')
 	static function uniform1ui(location:GLint, v0:GLuint):Void;
@@ -8638,7 +8638,7 @@ extern class GL
 	static function getActiveUniformsiv(program:GLuint, uniformCount:GLsizei, uniformIndices:RawPointer<GLuint>, pname:GLenum, params:RawPointer<GLint>):Void;
 
 	@:native('glGetUniformBlockIndex')
-	static function getUniformBlockIndex(program:GLuint, uniformBlockName:CastGLcharStar):GLuint;
+	static function getUniformBlockIndex(program:GLuint, uniformBlockName:ConstGLcharStar):GLuint;
 
 	@:native('glGetActiveUniformBlockiv')
 	static function getActiveUniformBlockiv(program:GLuint, uniformBlockIndex:GLuint, pname:GLenum, params:RawPointer<GLint>):Void;
@@ -8779,7 +8779,7 @@ extern class GL
 	static function getProgramInterfaceiv(program:GLuint, programInterface:GLenum, pname:GLenum, params:RawPointer<GLint>):Void;
 
 	@:native('glGetProgramResourceIndex')
-	static function getProgramResourceIndex(program:GLuint, programInterface:GLenum, name:CastGLcharStar):GLuint;
+	static function getProgramResourceIndex(program:GLuint, programInterface:GLenum, name:ConstGLcharStar):GLuint;
 
 	@:native('glGetProgramResourceName')
 	static function getProgramResourceName(program:GLuint, programInterface:GLenum, index:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, name:CastGLcharStar):Void;
@@ -8788,7 +8788,7 @@ extern class GL
 	static function getProgramResourceiv(program:GLuint, programInterface:GLenum, index:GLuint, propCount:GLsizei, props:RawPointer<GLenum>, count:GLsizei, length:RawPointer<GLsizei>, params:RawPointer<GLint>):Void;
 
 	@:native('glGetProgramResourceLocation')
-	static function getProgramResourceLocation(program:GLuint, programInterface:GLenum, name:CastGLcharStar):GLint;
+	static function getProgramResourceLocation(program:GLuint, programInterface:GLenum, name:ConstGLcharStar):GLint;
 
 	@:native('glUseProgramStages')
 	static function useProgramStages(pipeline:GLuint, stages:GLbitfield, program:GLuint):Void;
@@ -8971,7 +8971,7 @@ extern class GL
 	static function debugMessageControl(source:GLenum, type:GLenum, severity:GLenum, count:GLsizei, ids:RawPointer<GLuint>, enabled:GLboolean):Void;
 
 	@:native('glDebugMessageInsert')
-	static function debugMessageInsert(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, buf:CastGLcharStar):Void;
+	static function debugMessageInsert(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, buf:ConstGLcharStar):Void;
 
 	@:native('glDebugMessageCallback')
 	static function debugMessageCallback(callback:GLDEBUGPROC, userParam:RawPointer<cpp.Void>):Void;
@@ -8980,19 +8980,19 @@ extern class GL
 	static function getDebugMessageLog(count:GLuint, bufSize:GLsizei, sources:RawPointer<GLenum>, types:RawPointer<GLenum>, ids:RawPointer<GLuint>, severities:RawPointer<GLenum>, lengths:RawPointer<GLsizei>, messageLog:CastGLcharStar):GLuint;
 
 	@:native('glPushDebugGroup')
-	static function pushDebugGroup(source:GLenum, id:GLuint, length:GLsizei, message:CastGLcharStar):Void;
+	static function pushDebugGroup(source:GLenum, id:GLuint, length:GLsizei, message:ConstGLcharStar):Void;
 
 	@:native('glPopDebugGroup')
 	static function popDebugGroup():Void;
 
 	@:native('glObjectLabel')
-	static function objectLabel(identifier:GLenum, name:GLuint, length:GLsizei, label:CastGLcharStar):Void;
+	static function objectLabel(identifier:GLenum, name:GLuint, length:GLsizei, label:ConstGLcharStar):Void;
 
 	@:native('glGetObjectLabel')
 	static function getObjectLabel(identifier:GLenum, name:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, label:CastGLcharStar):Void;
 
 	@:native('glObjectPtrLabel')
-	static function objectPtrLabel(ptr:RawPointer<cpp.Void>, length:GLsizei, label:CastGLcharStar):Void;
+	static function objectPtrLabel(ptr:RawPointer<cpp.Void>, length:GLsizei, label:ConstGLcharStar):Void;
 
 	@:native('glGetObjectPtrLabel')
 	static function getObjectPtrLabel(ptr:RawPointer<cpp.Void>, bufSize:GLsizei, length:RawPointer<GLsizei>, label:CastGLcharStar):Void;
@@ -9199,16 +9199,16 @@ extern class GL
 	static function drawElementsInstancedBaseVertexBaseInstanceEXT(mode:GLenum, count:GLsizei, type:GLenum, indices:RawPointer<cpp.Void>, instancecount:GLsizei, basevertex:GLint, baseinstance:GLuint):Void;
 
 	@:native('glBindFragDataLocationIndexedEXT')
-	static function bindFragDataLocationIndexedEXT(program:GLuint, colorNumber:GLuint, index:GLuint, name:CastGLcharStar):Void;
+	static function bindFragDataLocationIndexedEXT(program:GLuint, colorNumber:GLuint, index:GLuint, name:ConstGLcharStar):Void;
 
 	@:native('glBindFragDataLocationEXT')
-	static function bindFragDataLocationEXT(program:GLuint, color:GLuint, name:CastGLcharStar):Void;
+	static function bindFragDataLocationEXT(program:GLuint, color:GLuint, name:ConstGLcharStar):Void;
 
 	@:native('glGetProgramResourceLocationIndexEXT')
-	static function getProgramResourceLocationIndexEXT(program:GLuint, programInterface:GLenum, name:CastGLcharStar):GLint;
+	static function getProgramResourceLocationIndexEXT(program:GLuint, programInterface:GLenum, name:ConstGLcharStar):GLint;
 
 	@:native('glGetFragDataIndexEXT')
-	static function getFragDataIndexEXT(program:GLuint, name:CastGLcharStar):GLint;
+	static function getFragDataIndexEXT(program:GLuint, name:ConstGLcharStar):GLint;
 
 	@:native('glBlendEquationEXT')
 	static function blendEquationEXT(mode:GLenum):Void;
@@ -9229,16 +9229,16 @@ extern class GL
 	static function copyImageSubDataEXT(srcName:GLuint, srcTarget:GLenum, srcLevel:GLint, srcX:GLint, srcY:GLint, srcZ:GLint, dstName:GLuint, dstTarget:GLenum, dstLevel:GLint, dstX:GLint, dstY:GLint, dstZ:GLint, srcWidth:GLsizei, srcHeight:GLsizei, srcDepth:GLsizei):Void;
 
 	@:native('glLabelObjectEXT')
-	static function labelObjectEXT(type:GLenum, object:GLuint, length:GLsizei, label:CastGLcharStar):Void;
+	static function labelObjectEXT(type:GLenum, object:GLuint, length:GLsizei, label:ConstGLcharStar):Void;
 
 	@:native('glGetObjectLabelEXT')
 	static function getObjectLabelEXT(type:GLenum, object:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, label:CastGLcharStar):Void;
 
 	@:native('glInsertEventMarkerEXT')
-	static function insertEventMarkerEXT(length:GLsizei, marker:CastGLcharStar):Void;
+	static function insertEventMarkerEXT(length:GLsizei, marker:ConstGLcharStar):Void;
 
 	@:native('glPushGroupMarkerEXT')
-	static function pushGroupMarkerEXT(length:GLsizei, marker:CastGLcharStar):Void;
+	static function pushGroupMarkerEXT(length:GLsizei, marker:ConstGLcharStar):Void;
 
 	@:native('glPopGroupMarkerEXT')
 	static function popGroupMarkerEXT():Void;
@@ -9532,7 +9532,7 @@ extern class GL
 	static function activeProgramEXT(program:GLuint):Void;
 
 	@:native('glCreateShaderProgramEXT')
-	static function createShaderProgramEXT(type:GLenum, string:CastGLcharStar):GLuint;
+	static function createShaderProgramEXT(type:GLenum, string:ConstGLcharStar):GLuint;
 
 	@:native('glActiveShaderProgramEXT')
 	static function activeShaderProgramEXT(pipeline:GLuint, program:GLuint):Void;
@@ -9829,7 +9829,7 @@ extern class GL
 	static function debugMessageControlKHR(source:GLenum, type:GLenum, severity:GLenum, count:GLsizei, ids:RawPointer<GLuint>, enabled:GLboolean):Void;
 
 	@:native('glDebugMessageInsertKHR')
-	static function debugMessageInsertKHR(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, buf:CastGLcharStar):Void;
+	static function debugMessageInsertKHR(source:GLenum, type:GLenum, id:GLuint, severity:GLenum, length:GLsizei, buf:ConstGLcharStar):Void;
 
 	@:native('glDebugMessageCallbackKHR')
 	static function debugMessageCallbackKHR(callback:GLDEBUGPROCKHR, userParam:RawPointer<cpp.Void>):Void;
@@ -9838,19 +9838,19 @@ extern class GL
 	static function getDebugMessageLogKHR(count:GLuint, bufSize:GLsizei, sources:RawPointer<GLenum>, types:RawPointer<GLenum>, ids:RawPointer<GLuint>, severities:RawPointer<GLenum>, lengths:RawPointer<GLsizei>, messageLog:CastGLcharStar):GLuint;
 
 	@:native('glPushDebugGroupKHR')
-	static function pushDebugGroupKHR(source:GLenum, id:GLuint, length:GLsizei, message:CastGLcharStar):Void;
+	static function pushDebugGroupKHR(source:GLenum, id:GLuint, length:GLsizei, message:ConstGLcharStar):Void;
 
 	@:native('glPopDebugGroupKHR')
 	static function popDebugGroupKHR():Void;
 
 	@:native('glObjectLabelKHR')
-	static function objectLabelKHR(identifier:GLenum, name:GLuint, length:GLsizei, label:CastGLcharStar):Void;
+	static function objectLabelKHR(identifier:GLenum, name:GLuint, length:GLsizei, label:ConstGLcharStar):Void;
 
 	@:native('glGetObjectLabelKHR')
 	static function getObjectLabelKHR(identifier:GLenum, name:GLuint, bufSize:GLsizei, length:RawPointer<GLsizei>, label:CastGLcharStar):Void;
 
 	@:native('glObjectPtrLabelKHR')
-	static function objectPtrLabelKHR(ptr:RawPointer<cpp.Void>, length:GLsizei, label:CastGLcharStar):Void;
+	static function objectPtrLabelKHR(ptr:RawPointer<cpp.Void>, length:GLsizei, label:ConstGLcharStar):Void;
 
 	@:native('glGetObjectPtrLabelKHR')
 	static function getObjectPtrLabelKHR(ptr:RawPointer<cpp.Void>, bufSize:GLsizei, length:RawPointer<GLsizei>, label:CastGLcharStar):Void;
@@ -9964,7 +9964,7 @@ extern class GL
 	static function drawVkImageNV(vkImage:GLuint64, sampler:GLuint, x0:GLfloat, y0:GLfloat, x1:GLfloat, y1:GLfloat, z:GLfloat, s0:GLfloat, t0:GLfloat, s1:GLfloat, t1:GLfloat):Void;
 
 	@:native('glGetVkProcAddrNV')
-	static function getVkProcAddrNV(name:CastGLcharStar):GLVULKANPROCNV;
+	static function getVkProcAddrNV(name:ConstGLcharStar):GLVULKANPROCNV;
 
 	@:native('glWaitVkSemaphoreNV')
 	static function waitVkSemaphoreNV(vkSemaphore:GLuint64):Void;

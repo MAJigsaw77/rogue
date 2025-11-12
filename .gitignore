@@ -1,5 +1,13 @@
+# Dont include the libs folder.
 lib
+
+# Dont include the obj folder.
 project/obj
+
+# Dont include the export.
 test/android-project
 test/bin
+
+# Dont include the downloaded xml registries.
+tools/openal/al.xml
 tools/opengl/gl.xml
