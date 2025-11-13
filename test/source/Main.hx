@@ -203,30 +203,25 @@ class Main
 		{
 			final devices:ConstALCcharStar = ALC.getString(device, ALC.ALL_DEVICES_SPECIFIER);
 
+			final devicesArray:Array<String> = [];
+
+			{
+				final dev:String = devices;
+
+				while (untyped __cpp__('(*{0}.__s) != \'\\0\'', dev))
+				{
+					devicesArray.push(dev);
+
+					untyped __cpp__('{0}.__s += strlen({0}) + 1', dev);
+				}
+			}
+
 			Sys.println('Available Devices:');
 
-untyped __cpp__('
-			while (devices && *devices)
-			{
-				printf("- %s\\n", devices);
-				devices += strlen(devices) + 1;
-			}');
+			for (device in devicesArray)
+				Sys.println(' - $device');
 		}
-    
-    // // List all available devices (if enumeration is supported)
-    // if (alcIsExtensionPresent(NULL, "ALC_ENUMERATION_EXT") == AL_TRUE) {
-    //     const ALCchar *devices = alcGetString(NULL, ALC_DEVICE_SPECIFIER);
-    //     printf("\nAvailable Devices:\n");
-    //     printf("==================\n");
-        
-    //     // Devices are null-separated, double-null terminated
-    //     while (*devices != '\0') {
-    //         printf("  - %s\n", devices);
-    //         devices += strlen(devices) + 1;
-    //     }
-    // }
-    
-		// Clean up
+
 		ALC.makeContextCurrent(null);
 		ALC.destroyContext(context);
 		ALC.closeDevice(device);
