@@ -90,7 +90,6 @@ class Main
 
 		generateOpenALExterns(AL_ACCESS, 'al');
 		generateOpenALExterns(AL_ACCESS, 'alc');
-		// generateOpenALExterns(AL_ACCESS, 'alext');
 	}
 
 	static function generateOpenALExterns(access:Access, namespace:String):Void
@@ -113,52 +112,64 @@ class Main
 			}
 		}
 
-		if (namespace != 'alext')
+		for (featureVal in access.nodes.feature)
 		{
-			for (featureVal in access.nodes.feature)
+			if (featureVal.has.api && featureVal.att.api == namespace)
 			{
-				if (featureVal.has.api && featureVal.att.api == namespace)
+				for (requireVal in featureVal.nodes.require)
 				{
-					for (requireVal in featureVal.nodes.require)
+					for (enumVal in requireVal.nodes.resolve('enum'))
 					{
-						for (enumVal in requireVal.nodes.resolve('enum'))
-						{
-							if (!AL_ENUMS_TO_BE_ADDED.contains(enumVal.att.name))
-								AL_ENUMS_TO_BE_ADDED.push(enumVal.att.name);
-						}
+						if (!AL_ENUMS_TO_BE_ADDED.contains(enumVal.att.name))
+							AL_ENUMS_TO_BE_ADDED.push(enumVal.att.name);
+					}
 
-						for (commandVal in requireVal.nodes.command)
-						{
-							if (!AL_COMMANDS_TO_BE_ADDED.contains(commandVal.att.name))
-								AL_COMMANDS_TO_BE_ADDED.push(commandVal.att.name);
-						}
+					for (commandVal in requireVal.nodes.command)
+					{
+						if (!AL_COMMANDS_TO_BE_ADDED.contains(commandVal.att.name))
+							AL_COMMANDS_TO_BE_ADDED.push(commandVal.att.name);
 					}
 				}
 			}
 		}
 
-		if (namespace == 'alext')
+		for (extensionVal in access.node.extensions.nodes.extension)
 		{
-			for (extensionVal in access.node.extensions.nodes.extension)
-			{
-				for (requireVal in extensionVal.nodes.require)
-				{
-					if (requireVal.hasNode.resolve('enum'))
-					{
-						for (enumVal in requireVal.nodes.resolve('enum'))
-						{
-							if (!AL_ENUMS_TO_BE_ADDED.contains(enumVal.att.name))
-								AL_ENUMS_TO_BE_ADDED.push(enumVal.att.name);
-						}
-					}
+			var supportedVers:Array<String> = extensionVal.att.supported.split('|');
 
-					if (requireVal.hasNode.command)
+			{
+				var usesNamespace:Bool = false;
+
+				for (supportedVer in supportedVers)
+				{
+					if (supportedVer == namespace)
+						usesNamespace = true;
+				}
+
+				if (!usesNamespace)
+					continue;
+			}
+
+			for (requireVal in extensionVal.nodes.require)
+			{
+				if (requireVal.has.api && requireVal.att.api != namespace)
+					continue;
+
+				if (requireVal.hasNode.resolve('enum'))
+				{
+					for (enumVal in requireVal.nodes.resolve('enum'))
 					{
-						for (commandVal in requireVal.nodes.command)
-						{
-							if (!AL_COMMANDS_TO_BE_ADDED.contains(commandVal.att.name))
-								AL_COMMANDS_TO_BE_ADDED.push(commandVal.att.name);
-						}
+						if (!AL_ENUMS_TO_BE_ADDED.contains(enumVal.att.name))
+							AL_ENUMS_TO_BE_ADDED.push(enumVal.att.name);
+					}
+				}
+
+				if (requireVal.hasNode.command)
+				{
+					for (commandVal in requireVal.nodes.command)
+					{
+						if (!AL_COMMANDS_TO_BE_ADDED.contains(commandVal.att.name))
+							AL_COMMANDS_TO_BE_ADDED.push(commandVal.att.name);
 					}
 				}
 			}
@@ -167,111 +178,112 @@ class Main
 		addLine('package rogue.internal.externs.soft_oal;');
 		addLine('');
 		addLine('import cpp.Callable;');
-		addLine('import cpp.UInt64;');
-		addLine('import cpp.Int64;');
-		addLine('import cpp.UInt32;');
-		addLine('import cpp.UInt16;');
-		addLine('import cpp.Int16;');
-		addLine('import cpp.UInt8;');
-		addLine('import cpp.Int8;');
-		addLine('import cpp.RawPointer;');
-		addLine('import cpp.RawConstPointer;');
 		addLine('import cpp.Char;');
+		addLine('import cpp.Int16;');
+		addLine('import cpp.Int64;');
+		addLine('import cpp.Int8;');
+		addLine('import cpp.RawConstPointer;');
+		addLine('import cpp.RawPointer;');
 		addLine('import cpp.SizeT;');
+		addLine('import cpp.UInt16;');
+		addLine('import cpp.UInt32;');
+		addLine('import cpp.UInt64;');
+		addLine('import cpp.UInt8;');
 		addLine('');
 
-		if (namespace != 'alext')
+		if (namespace == 'al')
+			addLine('import rogue.internal.externs.soft_oal.ALC;');
+		else if (namespace == 'alc')
+			addLine('import rogue.internal.externs.soft_oal.AL;');
+
+		addLine('');
+
+		for (typesVal in access.nodes.types)
 		{
-			for (typesVal in access.nodes.types)
+			if (typesVal.has.namespace && typesVal.att.namespace == namespace.toUpperCase())
 			{
-				if (typesVal.has.namespace && typesVal.att.namespace == namespace.toUpperCase())
+				for (typeVal in typesVal.nodes.type)
 				{
-					for (typeVal in typesVal.nodes.type)
+					if (typeVal.att.category != 'basetype' && typeVal.att.category != 'define' && typeVal.att.category != 'funcpointer')
+						continue;
+
+					final name:Null<String> = getTypedefName(typeVal);
+
+					final type:Null<String> = AL_EXTERNS_TO_FROM.get(name);
+
+					if (type != null)
 					{
-						if (typeVal.att.category != 'basetype' && typeVal.att.category != 'define' && typeVal.att.category != 'funcpointer')
-							continue;
-
-						final name:Null<String> = getTypedefName(typeVal);
-
-						final type:Null<String> = AL_EXTERNS_TO_FROM.get(name);
-
-						if (type != null)
+						if (type.startsWith('Callable'))
 						{
-							if (type.startsWith('Callable'))
+							addLine('typedef $name = $type;');
+							addLine('');
+						}
+						else if (name.startsWith('_') || type == NO_TYPE_EXTERN)
+						{
+							addLine('@:include(\'AL/$namespace.h\')');
+							addLine('@:native(\'$name\')');
+							emptyClass(type == NO_TYPE_EXTERN ? name : type);
+						}
+						else
+						{
+							addLine('@:include(\'AL/$namespace.h\')');
+							addLine('@:native(\'$name\')');
+							addLine('@:scalar');
+							addLine('@:coreType');
+							addLine('@:notNull');
+							addLine('extern abstract $name from $type to $type');
+							addLine('{');
+							addLine('static inline function size():SizeT', 1);
+							addLine('{', 1);
+							addLine('return untyped __cpp__(\'sizeof($name)\');', 2);
+							addLine('}', 1);
+							addLine('}');
+							addLine('');
+
+							if (name == 'ALchar' || name == 'ALCchar')
 							{
-								addLine('typedef $name = $type;');
-								addLine('');
-							}
-							else if (name.startsWith('_') || type == NO_TYPE_EXTERN)
-							{
-								addLine('@:include(\'AL/$namespace.h\')');
-								addLine('@:native(\'$name\')');
-								emptyClass(type == NO_TYPE_EXTERN ? name : type);
-							}
-							else
-							{
-								addLine('@:include(\'AL/$namespace.h\')');
-								addLine('@:native(\'$name\')');
-								addLine('@:scalar');
-								addLine('@:coreType');
-								addLine('@:notNull');
-								addLine('extern abstract $name from $type to $type');
+								addLine('extern abstract Const${name}Star(RawConstPointer<${name}>) to (RawConstPointer<${name}>)');
 								addLine('{');
-								addLine('static inline function size():SizeT', 1);
-								addLine('{', 1);
-								addLine('return untyped __cpp__(\'sizeof($name)\');', 2);
-								addLine('}', 1);
+								addLine('inline function new(s:String)', 1);
+								addLine('this = untyped s.__s;', 2);
+								addLine('');
+								addLine('@:from', 1);
+								addLine('static public inline function fromString(s:String):Const${name}Star', 1);
+								addLine('return new Const${name}Star(s);', 2);
+								addLine('');
+								addLine('@:to extern public inline function toString():String', 1);
+								addLine('return new String(untyped this);', 2);
+								addLine('');
+								addLine('@:to extern public inline function toPointer():RawConstPointer<${name}>', 1);
+								addLine('return this;', 2);
 								addLine('}');
 								addLine('');
 
-								if (name == 'ALchar' || name == 'ALCchar')
-								{
-									addLine('extern abstract Const${name}Star(RawConstPointer<${name}>) to (RawConstPointer<${name}>)');
-									addLine('{');
-									addLine('inline function new(s:String)', 1);
-									addLine('this = untyped s.__s;', 2);
-									addLine('');
-									addLine('@:from', 1);
-									addLine('static public inline function fromString(s:String):Const${name}Star', 1);
-									addLine('return new Const${name}Star(s);', 2);
-									addLine('');
-									addLine('@:to extern public inline function toString():String', 1);
-									addLine('return new String(untyped this);', 2);
-									addLine('');
-									addLine('@:to extern public inline function toPointer():RawConstPointer<${name}>', 1);
-									addLine('return this;', 2);
-									addLine('}');
-									addLine('');
-
-									addLine('extern abstract Cast${name}Star(RawPointer<${name}>) to (RawPointer<${name}>)');
-									addLine('{');
-									addLine('inline function new(s:String)', 1);
-									addLine('this = cast untyped s.__s;', 2);
-									addLine('');
-									addLine('@:from', 1);
-									addLine('static public inline function fromString(s:String):Cast${name}Star', 1);
-									addLine('return new Cast${name}Star(s);', 2);
-									addLine('');
-									addLine('@:to extern public inline function toPointer():RawPointer<${name}>', 1);
-									addLine('return this;', 2);
-									addLine('}');
-									addLine('');
-								}
+								addLine('extern abstract Cast${name}Star(RawPointer<${name}>) to (RawPointer<${name}>)');
+								addLine('{');
+								addLine('inline function new(s:String)', 1);
+								addLine('this = cast untyped s.__s;', 2);
+								addLine('');
+								addLine('@:from', 1);
+								addLine('static public inline function fromString(s:String):Cast${name}Star', 1);
+								addLine('return new Cast${name}Star(s);', 2);
+								addLine('');
+								addLine('@:to extern public inline function toPointer():RawPointer<${name}>', 1);
+								addLine('return this;', 2);
+								addLine('}');
+								addLine('');
 							}
 						}
 					}
 				}
 			}
 		}
-		else
-		{
-			addLine('import rogue.internal.externs.soft_oal.AL;');
-			addLine('import rogue.internal.externs.soft_oal.ALC;');
-			addLine('');
-		}
 
 		addLine('@:include(\'AL/$namespace.h\')');
-		startWritingToClass(namespace == 'alext' ? 'ALExt' : namespace.toUpperCase());
+
+		addLine('@:include(\'AL/alext.h\')');
+
+		startWritingToClass(namespace.toUpperCase());
 
 		for (enumName in AL_ENUMS_TO_BE_ADDED)
 		{
@@ -297,7 +309,7 @@ class Main
 
 		endWritingToClass();
 
-		File.saveContent('../../source/rogue/internal/externs/soft_oal/${namespace == 'alext' ? 'ALExt' : namespace.toUpperCase()}.hx', AL_FILE.join('\n'));
+		File.saveContent('../../source/rogue/internal/externs/soft_oal/${namespace.toUpperCase()}.hx', AL_FILE.join('\n'));
 
 		AL_COMMANDS = [];
 		AL_ENUMS = [];
