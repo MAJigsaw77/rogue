@@ -1,11 +1,9 @@
-#include <SDL3/SDL_platform_defines.h>
-
-#if defined(SDL_PLATFORM_WIN32)
+#if defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
 	#include "platforms/windows/config.h"
-#elif defined(SDL_PLATFORM_APPLE)
+#elif defined(__APPLE__) || defined(__MACH__)
 	#include "platforms/apple/config.h"
-#elif defined(SDL_PLATFORM_ANDROID)
+#elif defined(__ANDROID__)
 	#include "platforms/android/config.h"
-#elif defined(SDL_PLATFORM_EMSCRIPTEN)
+#elif defined(__EMSCRIPTEN__)
 	#include "platforms/emscripten/config.h"
 #endif

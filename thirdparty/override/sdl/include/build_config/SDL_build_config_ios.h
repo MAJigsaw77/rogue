@@ -134,27 +134,24 @@
 #define HAVE_SYSCTLBYNAME 1
 #define HAVE_O_CLOEXEC 1
 
-/* enable iPhone version of Core Audio driver */
-#define SDL_AUDIO_DRIVER_COREAUDIO 1
-/* Enable the dummy audio driver (src/audio/dummy/\*.c) */
+/* Enable audio driver */
 #define SDL_AUDIO_DRIVER_DUMMY 1
 
-/* Enable the stub haptic driver (src/haptic/dummy/\*.c) */
+/* Enable haptic driver */
 #define SDL_HAPTIC_DUMMY 1
 
 /* Enable joystick support */
-/* Only enable HIDAPI support if you want to support Steam Controllers on iOS and tvOS */
-/*#define SDL_JOYSTICK_HIDAPI 1*/
 #define SDL_JOYSTICK_MFI 1
 #define SDL_JOYSTICK_VIRTUAL 1
+#define SDL_JOYSTICK_HIDAPI 1
 
 /* Enable various process implementations */
 #define SDL_PROCESS_DUMMY 1
 
+/* Enable various sensor drivers */
 #ifdef SDL_PLATFORM_TVOS
 #define SDL_SENSOR_DUMMY 1
 #else
-/* Enable the CoreMotion sensor driver */
 #define SDL_SENSOR_COREMOTION 1
 #endif
 
@@ -181,21 +178,22 @@
 /* Enable system power support */
 #define SDL_POWER_UIKIT 1
 
-/* enable iPhone keyboard support */
+/* Enable iPhone keyboard support */
 #define SDL_IPHONE_KEYBOARD 1
 
-/* enable iOS extended launch screen */
+/* Enable iOS extended launch screen */
 #define SDL_IPHONE_LAUNCHSCREEN 1
 
-/* enable filesystem support */
+/* Enable filesystem support */
 #define SDL_FILESYSTEM_COCOA 1
+
+/* Enable system FSops support */
 #define SDL_FSOPS_POSIX 1
 
-/* enable camera support */
+/* Enable camera support */
 #if !defined(SDL_PLATFORM_TVOS) && !defined(SDL_PLATFORM_VISIONOS)
 #define SDL_CAMERA_DRIVER_COREMEDIA 1
 #endif
-
 #define SDL_CAMERA_DRIVER_DUMMY 1
 
 /* Enable dialog subsystem */

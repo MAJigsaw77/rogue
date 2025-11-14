@@ -216,43 +216,38 @@ typedef unsigned int uintptr_t;
 #endif
 
 /* Enable various audio drivers */
-#if defined(HAVE_MMDEVICEAPI_H) && defined(HAVE_AUDIOCLIENT_H)
-#define SDL_AUDIO_DRIVER_WASAPI 1
-#endif
-#define SDL_AUDIO_DRIVER_DSOUND 1
-#define SDL_AUDIO_DRIVER_DISK 1
 #define SDL_AUDIO_DRIVER_DUMMY 1
 
-/* Enable various input drivers */
+/* Enable haptic driver */
+#define SDL_HAPTIC_DINPUT 1
+
+/* Enable joystick support */
 #define SDL_JOYSTICK_DINPUT 1
+
 #ifdef HAVE_GAMEINPUT_H
 #define SDL_JOYSTICK_GAMEINPUT 1
 #endif
+
 #define SDL_JOYSTICK_HIDAPI 1
 #define SDL_JOYSTICK_RAWINPUT 1
 #define SDL_JOYSTICK_VIRTUAL 1
+
 #ifdef HAVE_WINDOWS_GAMING_INPUT_H
 #define SDL_JOYSTICK_WGI 1
 #endif
+
 #define SDL_JOYSTICK_XINPUT 1
-#define SDL_HAPTIC_DINPUT 1
 
 /* Enable various process implementations */
 #define SDL_PROCESS_WINDOWS 1
 
 /* Enable the sensor driver */
-#ifdef HAVE_SENSORSAPI_H
 #define SDL_SENSOR_WINDOWS 1
-#else
-#define SDL_SENSOR_DUMMY 1
-#endif
 
 /* Enable various shared object loading systems */
 #define SDL_LOADSO_WINDOWS 1
 
 /* Enable various threading systems */
-#define SDL_THREAD_GENERIC_COND_SUFFIX 1
-#define SDL_THREAD_GENERIC_RWLOCK_SUFFIX 1
 #define SDL_THREAD_WINDOWS 1
 
 /* Enable RTC system */
@@ -262,21 +257,21 @@ typedef unsigned int uintptr_t;
 #define SDL_TIMER_WINDOWS 1
 
 /* Enable various video drivers */
-#define SDL_VIDEO_DRIVER_DUMMY 1
 #define SDL_VIDEO_DRIVER_OFFSCREEN 1
 #define SDL_VIDEO_DRIVER_WINDOWS 1
+#define SDL_VIDEO_DRIVER_DUMMY 1
 
 /* Enable OpenGL support */
 #define SDL_VIDEO_OPENGL 1
 #define SDL_VIDEO_OPENGL_WGL 1
-#define SDL_VIDEO_OPENGL_ES2 1
-#define SDL_VIDEO_OPENGL_EGL 1
 
 /* Enable system power support */
 #define SDL_POWER_WINDOWS 1
 
 /* Enable filesystem support */
 #define SDL_FILESYSTEM_WINDOWS 1
+
+/* Enable system FSops support */
 #define SDL_FSOPS_WINDOWS 1
 
 /* Enable the camera driver */

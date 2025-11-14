@@ -140,29 +140,28 @@
 #define HAVE_SYSCONF 1
 #define HAVE_CLOCK_GETTIME 1
 
-/* Enable various audio drivers */
-#ifndef SDL_AUDIO_DISABLED
-#define SDL_AUDIO_DRIVER_OPENSLES 1
-#define SDL_AUDIO_DRIVER_AAUDIO 1
-#endif /* SDL_AUDIO_DISABLED */
+/* Enable nl_langinfo and high-res file times on version 26 and higher. */
+#if __ANDROID_API__ >= 26
+#define HAVE_NL_LANGINFO 1
+#define HAVE_ST_MTIM 1
+#endif
 
-/* Enable various input drivers */
-#ifndef SDL_JOYSTICK_DISABLED
+/* Enable various audio drivers */
+#define SDL_AUDIO_DRIVER_DUMMY 1
+
+/* Enable haptic driver */
+#define SDL_HAPTIC_ANDROID 1
+
+/* Enable joystick support */
 #define SDL_JOYSTICK_ANDROID 1
 #define SDL_JOYSTICK_HIDAPI 1
 #define SDL_JOYSTICK_VIRTUAL 1
-#endif /* SDL_JOYSTICK_DISABLED */
-#ifndef SDL_HAPTIC_DISABLED
-#define SDL_HAPTIC_ANDROID 1
-#endif /* SDL_HAPTIC_DISABLED */
 
-/* Enable the stub process support */
+/* Enable process support */
 #define SDL_PROCESS_DUMMY 1
 
 /* Enable sensor driver */
-#ifndef SDL_SENSOR_DISABLED
 #define SDL_SENSOR_ANDROID 1
-#endif /* SDL_SENSOR_DISABLED */
 
 /* Enable various shared object loading systems */
 #define SDL_LOADSO_DLOPEN 1
@@ -189,20 +188,15 @@
 
 /* Enable the filesystem driver */
 #define SDL_FILESYSTEM_ANDROID 1
+
+/* Enable system FSops support */
 #define SDL_FSOPS_POSIX 1
 
 /* Enable the camera driver */
-#ifndef SDL_CAMERA_DISABLED
 #define SDL_CAMERA_DRIVER_ANDROID 1
-#endif /* SDL_CAMERA_DISABLED */
+#define SDL_CAMERA_DRIVER_DUMMY 1
 
 /* Enable tray subsystem */
 #define SDL_TRAY_DUMMY 1
-
-/* Enable nl_langinfo and high-res file times on version 26 and higher. */
-#if __ANDROID_API__ >= 26
-#define HAVE_NL_LANGINFO 1
-#define HAVE_ST_MTIM 1
-#endif
 
 #endif /* SDL_build_config_android_h_ */

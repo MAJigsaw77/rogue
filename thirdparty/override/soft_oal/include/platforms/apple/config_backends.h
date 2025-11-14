@@ -30,6 +30,6 @@
 
 #define HAVE_WAVE 1
 
-#define HAVE_SDL3 1
+#define HAVE_SDL3 0
 
 #define HAVE_SDL2 0

@@ -14,7 +14,7 @@
 #endif
 
 /* Define to 1 if we have ARM Neon CPU extensions, else 0 */
-#if defined(_M_ARM64) || defined(__aarch64__) || defined(__arm__) || defined(__ARM_ARCH_7__)
+#if defined(_M_ARM64) || defined(__aarch64__)
     #define HAVE_NEON 1
 #else
     #define HAVE_NEON 0

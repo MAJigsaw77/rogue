@@ -44,7 +44,6 @@
 #define HAVE_STRING_H 1
 #define HAVE_SYS_TYPES_H 1
 #define HAVE_WCHAR_H 1
-/* #undef HAVE_PTHREAD_NP_H */
 
 /* C library functions */
 #define HAVE_DLOPEN 1
@@ -157,29 +156,23 @@
 #define HAVE_ICONV 1
 #define HAVE_POLL 1
 #define HAVE__EXIT 1
-
 #define HAVE_O_CLOEXEC 1
 
-/* SDL internal assertion support */
-#ifdef SDL_DEFAULT_ASSERT_LEVEL_CONFIGURED
-#define SDL_DEFAULT_ASSERT_LEVEL 
-#endif
-
 /* Enable various audio drivers */
-#define SDL_AUDIO_DRIVER_DISK 1
 #define SDL_AUDIO_DRIVER_DUMMY 1
-#define SDL_AUDIO_DRIVER_EMSCRIPTEN 1
 
-/* Enable various input drivers */
+/* Enable haptic driver */
+#define SDL_HAPTIC_DUMMY 1
+
+/* Enable joystick support */
 #define SDL_JOYSTICK_EMSCRIPTEN 1
 #define SDL_JOYSTICK_VIRTUAL 1
-#define SDL_HAPTIC_DUMMY 1
 
 /* Enable various process implementations */
 #define SDL_PROCESS_DUMMY 1
 
 /* Enable various sensor drivers */
-#define SDL_SENSOR_DUMMY 1
+#define SDL_SENSOR_EMSCRIPTEN 1
 
 /* Enable various shared object loading systems */
 #define SDL_LOADSO_DLOPEN 1
@@ -194,9 +187,9 @@
 #define SDL_TIMER_UNIX 1
 
 /* Enable various video drivers */
-#define SDL_VIDEO_DRIVER_DUMMY 1
 #define SDL_VIDEO_DRIVER_EMSCRIPTEN 1
 #define SDL_VIDEO_DRIVER_OFFSCREEN 1
+#define SDL_VIDEO_DRIVER_DUMMY 1
 
 /* Enable OpenGL support */
 #define SDL_VIDEO_OPENGL_ES2 1
@@ -212,11 +205,11 @@
 #define SDL_FSOPS_POSIX 1
 
 /* Enable camera subsystem */
-#define SDL_CAMERA_DRIVER_DUMMY 1
 #define SDL_CAMERA_DRIVER_EMSCRIPTEN 1
+#define SDL_CAMERA_DRIVER_DUMMY 1
 
-/* Whether SDL_DYNAMIC_API needs dlopen */
-#define DYNAPI_NEEDS_DLOPEN 1
+/* Enable tray subsystem */
+#define SDL_TRAY_DUMMY 1
 
 /* Configure use of intrinsics */
 #define SDL_DISABLE_SSE 1

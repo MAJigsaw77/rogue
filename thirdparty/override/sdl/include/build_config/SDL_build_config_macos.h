@@ -150,15 +150,15 @@
 #define HAVE_GCC_ATOMICS 1
 
 /* Enable various audio drivers */
-#define SDL_AUDIO_DRIVER_COREAUDIO 1
-#define SDL_AUDIO_DRIVER_DISK 1
 #define SDL_AUDIO_DRIVER_DUMMY 1
 
-/* Enable various input drivers */
+/* Enable haptic driver */
+#define SDL_HAPTIC_IOKIT 1
+
+/* Enable joystick support */
 #define SDL_JOYSTICK_HIDAPI 1
 #define SDL_JOYSTICK_IOKIT 1
 #define SDL_JOYSTICK_VIRTUAL 1
-#define SDL_HAPTIC_IOKIT 1
 
 /* The MFI controller support requires ARC Objective C runtime */
 #if MAC_OS_X_VERSION_MIN_REQUIRED >= 1080 && !defined(__i386__)
@@ -168,7 +168,7 @@
 /* Enable various process implementations */
 #define SDL_PROCESS_POSIX 1
 
-/* Enable the dummy sensor driver */
+/* Enable sensor driver */
 #define SDL_SENSOR_DUMMY 1
 
 /* Enable various shared object loading systems */
@@ -191,25 +191,19 @@
 
 /* Enable OpenGL support */
 #define SDL_VIDEO_OPENGL 1
-#define SDL_VIDEO_OPENGL_ES2 1
-#define SDL_VIDEO_OPENGL_EGL 1
 #define SDL_VIDEO_OPENGL_CGL 1
-#define SDL_VIDEO_OPENGL_GLX 1
 
 /* Enable system power support */
 #define SDL_POWER_MACOSX 1
 
-/* enable filesystem support */
-#define SDL_FILESYSTEM_COCOA 1
+/* Enable filesystem support */
+#define SDL_FILESYSTEM_COCOA 
+
+/* Enable system FSops support */
 #define SDL_FSOPS_POSIX 1
 
-/* enable camera support */
+/* Enable camera support */
 #define SDL_CAMERA_DRIVER_COREMEDIA 1
 #define SDL_CAMERA_DRIVER_DUMMY 1
-
-/* Enable assembly routines */
-#ifdef __ppc__
-#define SDL_ALTIVEC_BLITTERS 1
-#endif
 
 #endif /* SDL_build_config_macos_h_ */

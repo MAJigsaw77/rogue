@@ -2,19 +2,6 @@
 <xml>
 	<files id="soft_oal-files" dir="${SOFT_OAL_DIRECTORY}" tags="optim-std">
 		<section>
-			<!-- sdl overrideable include -->
-			<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
-			<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include/build_config" />
-
-			<!-- sdl include -->
-			<compilerflag value="-I${SDL_DIRECTORY}/include" />
-			<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
-
-			<section if="android">
-				<!-- oboe include -->
-				<compilerflag value="-I${SOFT_OAL_DEPS_OBOE_DIRECTORY}/include" />
-			</section>
-
 			<!-- fmt-11.2.0 include -->
 			<compilerflag value="-I${SOFT_OAL_DEPS_FMT_DIRECTORY}/include" />
 
@@ -137,7 +124,6 @@
 				</section>
 
 				<file name="alc/backends/wave.cpp" />
-				<file name="alc/backends/sdl3.cpp" />
 
 				<!-- alc/effects -->
 				<file name="alc/effects/autowah.cpp" />
@@ -207,7 +193,7 @@
 					<!-- core/mixer -->
 					<file name="core/mixer/mixer_c.cpp" />
 
-					<section if="HXCPP_ARM64 || HXCPP_ARMV7">
+					<section if="HXCPP_ARM64">
 						<file name="core/mixer/mixer_neon.cpp" />
 					</section>
 
