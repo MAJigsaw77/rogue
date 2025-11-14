@@ -5,10 +5,8 @@
 		<compilerflag value="-I${GLAD_DIRECTORY}/include" />
 
 		<!-- glad defines -->
-		<section unless="static_link">
-			<compilerflag value="-DGLAD_API_CALL_EXPORT" />
-			<compilerflag value="-DGLAD_API_CALL_EXPORT_BUILD" />
-		</section>
+		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
+		<compilerflag value="-DGLAD_API_CALL_EXPORT_BUILD" />
 
 		<!-- glad src -->
 		<file name="src/gl.c" if="windows || macos || linux" />

@@ -33,7 +33,7 @@
 		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
 
 		<!-- sdl_ttf defines -->
-		<compilerflag value="-DDLL_EXPORT" if="windows" unless="static_link" />
+		<compilerflag value="-DDLL_EXPORT" if="windows" />
 
 		<section>
 			<!-- sdl_ttf options -->

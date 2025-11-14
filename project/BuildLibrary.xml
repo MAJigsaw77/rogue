@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xml>
+	<!-- 
+		Static linking policy for Rogue:
+		- WebAssembly (Emscripten) targets: MUST use static_link
+		- All other targets: MUST NOT use static_link
+	-->
+
+	<error value="Static linking should only be used for WebAssembly targets" if="static_link" unless="emscripten" />
+
+	<error value="WebAssembly targets require static linking" if="emscripten" unless="static_link" />
+
 	<!--HXCPP Defines-->
 
 	<set name="HXCPP_CPP20" value="1" />
@@ -66,7 +76,7 @@
 			<files id="soft_oal-files" />
 		</section>
 
-		<section unless="static_link">
+		<section>
 			<section if="windows">
 				<lib name="advapi32.lib" />
 				<lib name="avrt.lib" />
@@ -107,7 +117,7 @@
 
 	<!--Copy the Windows lib (thanks tobil4sk)-->
 
-	<section if="windows" unless="static_link">
+	<section if="windows">
 		<copyFile toolId="dll" name="${PROJECT_NAME}.lib" from="obj/lib" />
 	</section>
 

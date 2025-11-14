@@ -23,16 +23,14 @@
 		<section>
 			<compilerflag value="-DAL_ALEXT_PROTOTYPES" />
 
-			<section unless="static_link">
-				<section if="windows">
-					<compilerflag value="-DALC_API=__declspec(dllexport)" />
-					<compilerflag value="-DAL_API=__declspec(dllexport)" />
-				</section>
+			<section if="windows">
+				<compilerflag value="-DALC_API=__declspec(dllexport)" />
+				<compilerflag value="-DAL_API=__declspec(dllexport)" />
+			</section>
 
-				<section unless="windows">
-					<compilerflag value="-DALC_API=__attribute__((visibility(&quot;default&quot;)))" />
-					<compilerflag value="-DAL_API=__attribute__((visibility(&quot;default&quot;)))" />
-				</section>
+			<section unless="windows">
+				<compilerflag value="-DALC_API=__attribute__((visibility(&quot;default&quot;)))" />
+				<compilerflag value="-DAL_API=__attribute__((visibility(&quot;default&quot;)))" />
 			</section>
 		</section>
 
