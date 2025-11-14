@@ -11,6 +11,5 @@
 		<!-- glad src -->
 		<file name="src/gl.c" if="windows || macos || linux" />
 		<file name="src/gles2.c" if="android || rpi || emscripten || iphone" />
-		<file name="src/egl.c" if="android || rpi" />
 	</files>
 </xml>

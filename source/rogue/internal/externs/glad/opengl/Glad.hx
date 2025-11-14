@@ -28,10 +28,4 @@ extern class Glad
 
 	@:native('gladLoadGL')
 	static function loadGL(load:GLADloadfunc):Int;
-
-	@:native('gladLoaderLoadGL')
-	static function loaderLoadGL():Int;
-
-	@:native('gladLoaderUnloadGL')
-	static function loaderUnloadGL():Void;
 }
