@@ -6,8 +6,15 @@ import cpp.RawPointer;
 import haxe.Resource;
 
 import rogue.internal.externs.sdl.SDL;
-import rogue.internal.externs.soft_oal.AL;
-import rogue.internal.externs.soft_oal.ALC;
+
+#if emscripten
+import rogue.internal.externs.openal.emscripten.AL;
+import rogue.internal.externs.openal.emscripten.ALC;
+#else
+import rogue.internal.externs.openal.soft_oal.AL;
+import rogue.internal.externs.openal.soft_oal.ALC;
+#end
+
 #if (android || rpi || emscripten || iphone)
 import rogue.internal.externs.glad.opengles2.GL;
 import rogue.internal.externs.glad.opengles2.Glad;
@@ -440,7 +447,7 @@ class Main
 			{
 				fps = fpsCounter / fpsTimer;
 
-				Sys.println('FPS: ${Math.fround(fps)} - Frame: ${deltaTime * 1000}ms');
+				// Sys.println('FPS: ${Math.fround(fps)} - Frame: ${deltaTime * 1000}ms');
 
 				fpsCounter = 0;
 

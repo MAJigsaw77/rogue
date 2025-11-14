@@ -3,7 +3,7 @@
 
 --class-path source
 
---cpp bin/cpp
+--cpp bin/windows
 
 --define analyzer-optimize
 
@@ -11,5 +11,5 @@
 
 --main Main
 
---cmd cd bin\cpp
+--cmd cd bin\windows
 --cmd Main.exe

@@ -1,4 +1,4 @@
-package rogue.internal.externs.soft_oal;
+package rogue.internal.externs.openal.soft_oal;
 
 import cpp.Callable;
 import cpp.Char;
@@ -13,7 +13,7 @@ import cpp.UInt32;
 import cpp.UInt64;
 import cpp.UInt8;
 
-import rogue.internal.externs.soft_oal.AL;
+import rogue.internal.externs.openal.soft_oal.AL;
 
 @:include('AL/alc.h')
 @:native('ALCdevice')

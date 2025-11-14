@@ -60,7 +60,7 @@
 
 		<files id="glad-files" />
 
-		<section>
+		<section unless="emscripten">
 			<files id="soft_oal-deps-fmt-files" />
 
 			<files id="soft_oal-files" />
