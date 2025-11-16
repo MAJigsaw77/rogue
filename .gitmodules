@@ -18,3 +18,7 @@
 	path = thirdparty/submodules/dr_libs
 	url = https://github.com/mackron/dr_libs
 	shallow = true
+[submodule "thirdparty/submodules/oboe"]
+	path = thirdparty/submodules/oboe
+	url = https://github.com/google/oboe.git
+	shallow = true

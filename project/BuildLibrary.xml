@@ -80,6 +80,8 @@
 		<files id="dr_libs-files" />
 
 		<section unless="emscripten">
+			<files id="soft_oal-deps-oboe-files" if="android" />
+
 			<files id="soft_oal-deps-fmt-files" />
 
 			<files id="soft_oal-files" />
@@ -104,7 +106,6 @@
 
 			<section if="android">
 				<lib name="-lGLESv2" />
-				<lib name="-lOpenSLES" />
 				<lib name="-landroid" />
 			</section>
 		</section>
