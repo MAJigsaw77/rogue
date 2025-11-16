@@ -14,3 +14,7 @@
 	path = thirdparty/submodules/soft_oal
 	url = https://github.com/kcat/openal-soft.git
 	shallow = true
+[submodule "thirdparty/submodules/dr_libs"]
+	path = thirdparty/submodules/dr_libs
+	url = https://github.com/mackron/dr_libs
+	shallow = true
