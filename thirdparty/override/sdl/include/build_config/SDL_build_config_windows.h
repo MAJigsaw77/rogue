@@ -135,6 +135,9 @@
 #define HAVE_WINDOWS_GAMING_INPUT_H 1
 #define HAVE_XINPUT_H 1
 
+/* Enable various audio drivers */
+#define SDL_AUDIO_DRIVER_DUMMY 1
+
 /* Enable haptic driver */
 #define SDL_HAPTIC_DINPUT 1
 

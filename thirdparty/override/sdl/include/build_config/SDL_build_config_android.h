@@ -141,6 +141,9 @@
 #define HAVE_ST_MTIM 1
 #endif
 
+/* Enable various audio drivers */
+#define SDL_AUDIO_DRIVER_DUMMY 1
+
 /* Enable haptic driver */
 #define SDL_HAPTIC_ANDROID 1
 
