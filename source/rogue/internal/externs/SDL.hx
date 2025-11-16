@@ -227,14 +227,14 @@ extern class SDL_CameraSpec
 
 extern enum abstract SDL_CameraPosition(SDL_CameraPosition_Impl)
 {
-	@:native('SDL_BLENDOPERATION_ADD')
-	var SDL_BLENDOPERATION_ADD;
+	@:native('SDL_CAMERA_POSITION_UNKNOWN')
+	var SDL_CAMERA_POSITION_UNKNOWN;
 
-	@:native('SDL_BLENDOPERATION_SUBTRACT')
-	var SDL_BLENDOPERATION_SUBTRACT;
+	@:native('SDL_CAMERA_POSITION_FRONT_FACING')
+	var SDL_CAMERA_POSITION_FRONT_FACING;
 
-	@:native('SDL_BLENDOPERATION_REV_SUBTRACT')
-	var SDL_BLENDOPERATION_REV_SUBTRACT;
+	@:native('SDL_CAMERA_POSITION_BACK_FACING')
+	var SDL_CAMERA_POSITION_BACK_FACING;
 
 	@:from
 	static public inline function fromInt(i:Int):SDL_CameraPosition
