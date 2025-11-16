@@ -1,3 +1,5 @@
+# Project Settings
+
 --resource assets/gl330core/default.frag
 --resource assets/gl330core/default.vert
 

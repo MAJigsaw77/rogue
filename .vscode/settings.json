@@ -1,5 +1,5 @@
 {
     "haxe.configurations": [
-        [ "--cwd", "test", "build.hxml" ]
+        [ "--cwd", "test", "build-windows.hxml" ]
     ]
 }

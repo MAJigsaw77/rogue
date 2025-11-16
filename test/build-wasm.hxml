@@ -1,3 +1,5 @@
+# Project Settings
+
 --resource assets/gl300es/default.frag
 --resource assets/gl300es/default.vert
 

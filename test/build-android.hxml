@@ -1,3 +1,5 @@
+# Project Settings
+
 --resource assets/gl300es/default.frag
 --resource assets/gl300es/default.vert
 
@@ -6,7 +8,6 @@
 --define android
 --define ANDROID_SDK=C:\Users\MAJigsaw77\AppData\Local\Android\Sdk
 --define ANDROID_NDK_ROOT=C:\Users\MAJigsaw77\AppData\Local\Android\Sdk\ndk\29.0.13846066
---define HXCPP_ARM64
 
 --define analyzer-optimize
 
@@ -16,13 +17,49 @@
 
 --cpp bin/android
 
---cmd if not exist android-project\app\src\main\jniLibs mkdir android-project\app\src\main\jniLibs
+# Compile each Android architecture
+
+--each
+
+# Compile ARM64
+--define HXCPP_ARM64
+
+# Create the architecture's directory
 --cmd if not exist android-project\app\src\main\jniLibs\arm64-v8a mkdir android-project\app\src\main\jniLibs\arm64-v8a
+
+# Copy the libs
 --cmd copy ..\lib\Android\librogue-64.so android-project\app\src\main\jniLibs\arm64-v8a\librogue.so
 --cmd copy bin\android\libMain-64.so android-project\app\src\main\jniLibs\arm64-v8a\libMain.so
+
+--next
+
+# Compile ARMV7
+--define HXCPP_ARMV7
+
+# Create the architecture's directory
+--cmd if not exist android-project\app\src\main\jniLibs\armeabi-v7a mkdir android-project\app\src\main\jniLibs\armeabi-v7a
+
+# Copy the libs
+--cmd copy ..\lib\Android\librogue-v7.so android-project\app\src\main\jniLibs\armeabi-v7a\librogue.so
+--cmd copy bin\android\libMain-v7.so android-project\app\src\main\jniLibs\armeabi-v7a\libMain.so
+
+# Enter the android-project.
 --cmd cd android-project
---cmd .\gradlew.bat assembleDebug
+
+# Run gradle
+--cmd .\gradlew.bat assembleDebug --console=rich --configuration-cache
+
+# Install the app
+
 --cmd adb install -r app\build\outputs\apk\debug\app-debug.apk
+
+# Start the app
+
 --cmd adb shell am start -n org.haxe.rogue/.GameActivity
---cmd adb logcat -c
---cmd adb logcat -v brief *:S hidapi:V SDL:V trace:V
+
+# Use logcat for debugging
+
+# --cmd adb logcat -c
+# --cmd adb logcat -v brief *:S hidapi:V SDL:V trace:V
+# --cmd adb logcat -v brief *:S SDL:V trace:V
+# --cmd adb logcat -v brief *:S trace:V
