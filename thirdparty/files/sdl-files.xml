@@ -539,9 +539,9 @@
 				<file name="src/thread/SDL_thread.c" />
 
 				<!-- src/thread/generic -->
-				<file name="src/thread/generic/SDL_syscond.c" if="emscripten" />
+				<file name="src/thread/generic/SDL_syscond.c" if="emscripten || windows" />
 				<file name="src/thread/generic/SDL_sysmutex.c" if="emscripten" />
-				<file name="src/thread/generic/SDL_sysrwlock.c" if="emscripten" />
+				<file name="src/thread/generic/SDL_sysrwlock.c" if="emscripten || windows" />
 				<file name="src/thread/generic/SDL_syssem.c" if="emscripten" />
 				<file name="src/thread/generic/SDL_systhread.c" if="emscripten" />
 				<file name="src/thread/generic/SDL_systls.c" if="emscripten" />

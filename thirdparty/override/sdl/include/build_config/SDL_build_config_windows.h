@@ -78,6 +78,7 @@
 #define HAVE_ISINF_FLOAT_MACRO 1
 #define HAVE_ISNAN 1
 #define HAVE_ISNAN_FLOAT_MACRO 1
+#define HAVE_LIBC 1
 #define HAVE_LIMITS_H 1
 #define HAVE_LOG 1
 #define HAVE_LOG10 1
@@ -159,6 +160,8 @@
 #define SDL_LOADSO_WINDOWS 1
 
 /* Enable various threading systems */
+#define SDL_THREAD_GENERIC_COND_SUFFIX 1
+#define SDL_THREAD_GENERIC_RWLOCK_SUFFIX 1
 #define SDL_THREAD_WINDOWS 1
 
 /* Enable RTC system */
