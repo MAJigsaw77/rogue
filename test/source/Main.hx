@@ -1,12 +1,13 @@
 package;
 
+import cpp.UInt64;
+import cpp.UInt32;
 import cpp.Pointer;
 import cpp.RawPointer;
 
 import haxe.Resource;
 
-import rogue.internal.externs.sdl.SDL;
-
+import rogue.internal.externs.SDL;
 #if emscripten
 import rogue.internal.externs.openal.emscripten.AL;
 import rogue.internal.externs.openal.emscripten.ALC;
@@ -14,7 +15,6 @@ import rogue.internal.externs.openal.emscripten.ALC;
 import rogue.internal.externs.openal.soft_oal.AL;
 import rogue.internal.externs.openal.soft_oal.ALC;
 #end
-
 #if (android || rpi || emscripten || iphone)
 import rogue.internal.externs.opengl.gles2.GL;
 import rogue.internal.externs.opengl.gles2.Glad;
@@ -23,7 +23,62 @@ import rogue.internal.externs.opengl.gl.GL;
 import rogue.internal.externs.opengl.gl.Glad;
 #end
 
+@:include('dr_wav.h')
+@:native('drwav_int16')
+@:scalar
+@:coreType
+@:notNull
+extern abstract DrWav_Int16 from cpp.Int16 to cpp.Int16 {}
+
+@:include('dr_wav.h')
+@:native('drwav_uint32')
+@:scalar
+@:coreType
+@:notNull
+extern abstract DrWav_UInt32 from cpp.UInt32 to cpp.UInt32 {}
+
+@:include('dr_wav.h')
+@:native('drwav_uint64')
+@:scalar
+@:coreType
+@:notNull
+extern abstract DrWav_UInt64 from cpp.UInt64 to cpp.UInt64 {}
+
+@:cppNamespaceCode('
+size_t drwav_sdl_read(void* userData, void* buffer, size_t bytesToRead)
+{
+    return SDL_ReadIO((SDL_IOStream*)userData, buffer, bytesToRead);
+}
+
+drwav_bool32 drwav_sdl_seek(void* userData, int offset, drwav_seek_origin origin)
+{
+    SDL_IOWhence whence;
+
+    switch (origin)
+	{
+        case DRWAV_SEEK_SET:
+			whence = SDL_IO_SEEK_SET;
+			break;
+        case DRWAV_SEEK_CUR:
+			whence = SDL_IO_SEEK_CUR;
+			break;
+        case DRWAV_SEEK_END:
+			whence = SDL_IO_SEEK_END;
+			break;
+    }
+
+    Sint64 result = SDL_SeekIO((SDL_IOStream*)userData, offset, whence);
+    return (result >= 0) ? DRWAV_TRUE : DRWAV_FALSE;
+}
+
+drwav_bool32 drwav_sdl_tell(void* userData, drwav_int64* pCursor)
+{
+    (*pCursor) = SDL_TellIO((SDL_IOStream*)userData);
+
+    return DRWAV_TRUE;
+}')
 @:buildXml("<include name=\"${haxelib:rogue}/project/IncludeLibrary.xml\" />")
+@:headerInclude('dr_wav.h')
 class Main
 {
 	static final WINDOW_WIDTH:Int = 1280;
@@ -37,6 +92,9 @@ class Main
 	static var shaderProgram:GLuint = 0;
 	static var vertexArray:GLuint = 0;
 	static var vertexBufferObject:GLuint = 0;
+
+	static var alBuffer:ALuint = 0;
+	static var alSource:ALuint = 0;
 
 	static var running:Bool = true;
 
@@ -59,21 +117,21 @@ class Main
 		return false;
 	}
 
-	static function createVertexArray():GLuint
+	static function createGLVertexArray():GLuint
 	{
 		var vertexArray:GLuint = 0;
 		GL.genVertexArrays(1, Pointer.addressOf(vertexArray).raw);
 		return vertexArray;
 	}
 
-	static function createBuffer():GLuint
+	static function createGLBuffer():GLuint
 	{
 		var vertexBufferObject:GLuint = 0;
 		GL.genBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		return vertexBufferObject;
 	}
 
-	static function createProgram(vertexShader:GLuint, fragmentShader:GLuint, window:RawPointer<SDL_Window>):GLuint
+	static function createGLProgram(vertexShader:GLuint, fragmentShader:GLuint, window:RawPointer<SDL_Window>):GLuint
 	{
 		var shaderProgram:GLuint = GL.createProgram();
 
@@ -100,7 +158,7 @@ class Main
 		return shaderProgram;
 	}
 
-	static function createShader(type:GLenum, window:RawPointer<SDL_Window>, source:ConstGLcharStar):GLuint
+	static function createGLShader(type:GLenum, window:RawPointer<SDL_Window>, source:ConstGLcharStar):GLuint
 	{
 		var shader:GLuint = GL.createShader(type);
 
@@ -162,82 +220,22 @@ class Main
 		return null;
 	}
 
-	static function doOpenALStuff():Void
+	static function createALSource():ALuint
 	{
-		final device:RawPointer<ALCdevice> = ALC.openDevice(null);
+		var source:ALuint = 0;
+		AL.genSources(1, Pointer.addressOf(source).raw);
+		return source;
+	}
 
-		if (device == null)
-		{
-			Sys.println('Failed to open OpenAL device.');
-			return;
-		}
-
-		final context:RawPointer<ALCcontext> = ALC.createContext(device, null);
-
-		if (context == null)
-		{
-			Sys.println('Failed to create OpenAL context.');
-			ALC.closeDevice(device);
-			return;
-		}
-
-		ALC.makeContextCurrent(context);
-
-		final alVendor:String = AL.getString(AL.VENDOR);
-		final alVersion:String = AL.getString(AL.VERSION);
-		final alRenderer:String = AL.getString(AL.RENDERER);
-		final alExtensions:String = AL.getString(AL.EXTENSIONS);
-
-		final alcDefaultDevice:String = ALC.getString(null, ALC.DEFAULT_DEVICE_SPECIFIER);
-		final alcCaptureDevice:String = ALC.getString(null, ALC.CAPTURE_DEFAULT_DEVICE_SPECIFIER);
-		final alcExtensions:String = ALC.getString(device, ALC.EXTENSIONS);
-
-		Sys.println('OpenAL Soft AL Information:');
-		Sys.println('========================');
-		Sys.println('Vendor:     $alVendor');
-		Sys.println('Version:    $alVersion');
-		Sys.println('Renderer:   $alRenderer');
-		Sys.println('Default Device:         $alcDefaultDevice');
-		Sys.println('Default Capture Device: $alcCaptureDevice');
-
-		Sys.println('AL Extensions:');
-		Sys.println('${alExtensions.split(' ').join('\n')}');
-
-		Sys.println('ALC Extensions:');
-		Sys.println('${alcExtensions.split(' ').join('\n')}');
-
-		if (ALC.isExtensionPresent(null, 'ALC_ENUMERATION_EXT') == ALC.TRUE)
-		{
-			final devices:ConstALCcharStar = ALC.getString(device, ALC.ALL_DEVICES_SPECIFIER);
-
-			final devicesArray:Array<String> = [];
-
-			{
-				final dev:String = devices;
-
-				while (untyped __cpp__('(*{0}.__s) != \'\\0\'', dev))
-				{
-					devicesArray.push(dev);
-
-					untyped __cpp__('{0}.__s += strlen({0}) + 1', dev);
-				}
-			}
-
-			Sys.println('Available Devices:');
-
-			for (device in devicesArray)
-				Sys.println(' - $device');
-		}
-
-		ALC.makeContextCurrent(null);
-		ALC.destroyContext(context);
-		ALC.closeDevice(device);
+	static function createALBuffer():ALuint
+	{
+		var buffer:ALuint = 0;
+		AL.genBuffers(1, Pointer.addressOf(buffer).raw);
+		return buffer;
 	}
 
 	public static function main():Void
 	{
-		doOpenALStuff();
-
 		// Request a high-resolution timer (1 ms) for more precise delta times
 		// This improves the accuracy of SDL_GetTicks() and FPS measurements,
 		// especially on Windows. Higher resolution may slightly increase CPU usage.
@@ -339,9 +337,10 @@ class Main
 		final fragmentShaderSource:String = Resource.getString('assets/gl330core/default.frag');
 		#end
 
-		shaderProgram = createProgram(createShader(GL.VERTEX_SHADER, window, vertexShaderSource), createShader(GL.FRAGMENT_SHADER, window, fragmentShaderSource), window);
-		vertexArray = createVertexArray();
-		vertexBufferObject = createBuffer();
+		shaderProgram = createGLProgram(createGLShader(GL.VERTEX_SHADER, window, vertexShaderSource),
+			createGLShader(GL.FRAGMENT_SHADER, window, fragmentShaderSource), window);
+		vertexArray = createGLVertexArray();
+		vertexBufferObject = createGLBuffer();
 
 		GL.bindVertexArray(vertexArray);
 
@@ -369,6 +368,54 @@ class Main
 
 		GL.bindVertexArray(0);
 
+		final device:RawPointer<ALCdevice> = ALC.openDevice(null);
+
+		if (device == null)
+		{
+			Sys.println('Failed to open OpenAL device.');
+			return;
+		}
+
+		final context:RawPointer<ALCcontext> = ALC.createContext(device, null);
+
+		if (context == null)
+		{
+			Sys.println('Failed to create OpenAL context.');
+			ALC.closeDevice(device);
+			return;
+		}
+
+		ALC.makeContextCurrent(context);
+
+		alBuffer = createALBuffer();
+
+		{
+			var channels:UInt32 = 0;
+			var sampleRate:UInt32 = 0;
+			var totalFrames:DrWav_UInt64 = 0;
+
+			final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('IRIS OUT.wav', 'rb');
+
+			final data:RawPointer<DrWav_Int16> = untyped drwav_open_and_read_pcm_frames_s16(drwav_sdl_read, drwav_sdl_seek, drwav_sdl_tell, io, Pointer.addressOf(channels).raw, Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
+
+			SDL.CloseIO(io);
+
+			if (data == null)
+				Sys.println('Failed to read WAV data.');
+			else
+			{
+				AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO16 : AL.FORMAT_STEREO16, untyped data, untyped totalFrames * channels * ALshort.size(), sampleRate);
+
+				untyped drwav_free(data, NULL);
+			}
+		}
+
+		alSource = createALSource();
+
+		AL.sourcei(alSource, AL.BUFFER, alBuffer);
+
+		AL.sourcePlay(alSource);
+
 		{
 			#if emscripten
 			emscripten.Emscripten.set_main_loop(cpp.Callable.fromStaticFunction(run), 0, true);
@@ -383,6 +430,10 @@ class Main
 		GL.deleteVertexArrays(1, Pointer.addressOf(vertexArray).raw);
 		GL.deleteBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		GL.deleteProgram(shaderProgram);
+
+		ALC.makeContextCurrent(null);
+		ALC.destroyContext(context);
+		ALC.closeDevice(device);
 
 		SDL.GL_DestroyContext(glContext);
 		SDL.DestroyWindow(window);
