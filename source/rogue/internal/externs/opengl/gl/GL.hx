@@ -1,4 +1,4 @@
-package rogue.internal.externs.glad.opengl;
+package rogue.internal.externs.opengl.gl;
 
 import cpp.Callable;
 import cpp.Char;
@@ -263,7 +263,7 @@ extern abstract ConstGLcharStar(RawConstPointer<GLchar>) to (RawConstPointer<GLc
 		return this;
 }
 
-extern abstract CastGLcharStar(RawPointer<GLchar>) to (RawPointer<GLchar>)
+abstract CastGLcharStar(RawPointer<GLchar>) to (RawPointer<GLchar>)
 {
 	inline function new(s:String)
 		this = cast untyped s.__s;
@@ -305,7 +305,7 @@ extern abstract ConstGLcharARBStar(RawConstPointer<GLcharARB>) to (RawConstPoint
 		return this;
 }
 
-extern abstract CastGLcharARBStar(RawPointer<GLcharARB>) to (RawPointer<GLcharARB>)
+abstract CastGLcharARBStar(RawPointer<GLcharARB>) to (RawPointer<GLcharARB>)
 {
 	inline function new(s:String)
 		this = cast untyped s.__s;

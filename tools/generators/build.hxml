@@ -1,4 +1,4 @@
 --interp
---class-path source
 --define analyzer-optimize
+--class-path source
 --main Main

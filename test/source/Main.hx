@@ -16,11 +16,11 @@ import rogue.internal.externs.openal.soft_oal.ALC;
 #end
 
 #if (android || rpi || emscripten || iphone)
-import rogue.internal.externs.glad.opengles2.GL;
-import rogue.internal.externs.glad.opengles2.Glad;
+import rogue.internal.externs.opengl.gles2.GL;
+import rogue.internal.externs.opengl.gles2.Glad;
 #else
-import rogue.internal.externs.glad.opengl.GL;
-import rogue.internal.externs.glad.opengl.Glad;
+import rogue.internal.externs.opengl.gl.GL;
+import rogue.internal.externs.opengl.gl.Glad;
 #end
 
 @:buildXml("<include name=\"${haxelib:rogue}/project/IncludeLibrary.xml\" />")

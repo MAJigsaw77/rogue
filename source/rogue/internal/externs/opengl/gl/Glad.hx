@@ -1,4 +1,4 @@
-package rogue.internal.externs.glad.opengles2;
+package rogue.internal.externs.opengl.gl;
 
 import cpp.Callable;
 import cpp.ConstCharStar;
@@ -8,7 +8,7 @@ typedef GLADapiproc = Callable<Void->Void>;
 typedef GLADloadfunc = Callable<(name:ConstCharStar) -> GLADapiproc>;
 typedef GLADuserptrloadfunc = Callable<(voidptr:RawPointer<cpp.Void>, name:ConstCharStar) -> GLADapiproc>;
 
-@:include('glad/gles2.h')
+@:include('glad/gl.h')
 extern class Glad
 {
 	@:native('GLAD_MAKE_VERSION')
@@ -23,9 +23,9 @@ extern class Glad
 	@:native('GLAD_GENERATOR_VERSION')
 	static var GENERATOR_VERSION:ConstCharStar;
 
-	@:native('gladLoadGLES2UserPtr')
-	static function loadGLES2UserPtr(load:GLADuserptrloadfunc, userptr:RawPointer<cpp.Void>):Int;
+	@:native('gladLoadGLUserPtr')
+	static function loadGLUserPtr(load:GLADuserptrloadfunc, userptr:RawPointer<cpp.Void>):Int;
 
-	@:native('gladLoadGLES2')
-	static function loadGLES2(load:GLADloadfunc):Int;
+	@:native('gladLoadGL')
+	static function loadGL(load:GLADloadfunc):Int;
 }

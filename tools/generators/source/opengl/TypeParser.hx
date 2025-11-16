@@ -1,4 +1,4 @@
-package;
+package opengl;
 
 using StringTools;
 

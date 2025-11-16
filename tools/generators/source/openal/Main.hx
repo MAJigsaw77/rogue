@@ -1,4 +1,4 @@
-package;
+package openal;
 
 import haxe.io.Bytes;
 
@@ -82,11 +82,13 @@ class Main
 
 	static var AL_FILE:Array<String> = [];
 
-	public static function main():Void
+	public static function run():Void
 	{
-		if (FileSystem.exists('al.xml'))
+		Sys.println('Generating `openal` externs from registry...');
+
+		if (FileSystem.exists('registries/al.xml'))
 		{
-			AL_CONTENT = Xml.parse(File.getContent('al.xml')).firstElement();
+			AL_CONTENT = Xml.parse(File.getContent('registries/al.xml')).firstElement();
 		}
 		else
 		{
@@ -103,6 +105,8 @@ class Main
 
 		generateOpenALExterns(AL_ACCESS, 'al', 'emscripten');
 		generateOpenALExterns(AL_ACCESS, 'alc', 'emscripten');
+
+		Sys.println('Finished generating `openal` externs.');
 	}
 
 	static function generateOpenALExterns(access:Access, namespace:String, folder:String):Void
@@ -325,7 +329,7 @@ class Main
 
 		endWritingToClass();
 
-		File.saveContent('../../../source/rogue/internal/externs/openal/$folder/${namespace.toUpperCase()}.hx', AL_FILE.join('\n'));
+		File.saveContent('../../source/rogue/internal/externs/openal/$folder/${namespace.toUpperCase()}.hx', AL_FILE.join('\n'));
 
 		AL_COMMANDS = [];
 		AL_ENUMS = [];
@@ -390,7 +394,10 @@ class Main
 	{
 		Sys.println('Fetched `al.xml`.');
 
-		File.saveContent('al.xml', data.toString());
+		if (!FileSystem.exists('registries'))
+			FileSystem.createDirectory('registries');
+
+		File.saveContent('registries/al.xml', data.toString());
 
 		AL_CONTENT = Xml.parse(data.toString()).firstElement();
 

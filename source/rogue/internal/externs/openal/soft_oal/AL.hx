@@ -57,7 +57,7 @@ extern abstract ConstALcharStar(RawConstPointer<ALchar>) to (RawConstPointer<ALc
 		return this;
 }
 
-extern abstract CastALcharStar(RawPointer<ALchar>) to (RawPointer<ALchar>)
+abstract CastALcharStar(RawPointer<ALchar>) to (RawPointer<ALchar>)
 {
 	inline function new(s:String)
 		this = cast untyped s.__s;

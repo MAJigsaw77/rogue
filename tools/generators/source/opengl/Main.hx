@@ -1,4 +1,4 @@
-package;
+package opengl;
 
 import haxe.io.Bytes;
 
@@ -74,11 +74,13 @@ class Main
 
 	static var GL_FILE:Array<String> = [];
 
-	public static function main():Void
+	public static function run():Void
 	{
-		if (FileSystem.exists('gl.xml'))
+		Sys.println('Generating `opengl` externs from registry...');
+
+		if (FileSystem.exists('registries/gl.xml'))
 		{
-			GL_CONTENT = Xml.parse(File.getContent('gl.xml')).firstElement();
+			GL_CONTENT = Xml.parse(File.getContent('registries/gl.xml')).firstElement();
 		}
 		else
 		{
@@ -92,6 +94,8 @@ class Main
 
 		generateOpenGLExterns(GL_ACCESS, 'gl');
 		generateOpenGLExterns(GL_ACCESS, 'gles2');
+
+		Sys.println('Finished generating `opengl` externs.');
 	}
 
 	static function generateOpenGLExterns(access:Access, platform:String):Void
@@ -182,7 +186,7 @@ class Main
 			}
 		}
 
-		addLine('package rogue.internal.externs.glad.open$platform;');
+		addLine('package rogue.internal.externs.opengl.$platform;');
 		addLine('');
 		addLine('import cpp.Callable;');
 		addLine('import cpp.Char;');
@@ -298,7 +302,7 @@ class Main
 
 		endWritingToClass();
 
-		File.saveContent('../../../source/rogue/internal/externs/glad/open$platform/GL.hx', GL_FILE.join('\n'));
+		File.saveContent('../../source/rogue/internal/externs/opengl/$platform/GL.hx', GL_FILE.join('\n'));
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -355,7 +359,10 @@ class Main
 	{
 		Sys.println('Fetched `gl.xml`.');
 
-		File.saveContent('gl.xml', data.toString());
+		if (!FileSystem.exists('registries'))
+			FileSystem.createDirectory('registries');
+
+		File.saveContent('registries/gl.xml', data.toString());
 
 		GL_CONTENT = Xml.parse(data.toString()).firstElement();
 
