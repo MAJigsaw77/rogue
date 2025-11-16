@@ -119,79 +119,6 @@ extern class SDL_AtomicU32
 	var value:UInt32;
 }
 
-extern enum abstract SDL_AudioFormat(SDL_AudioFormat_Impl)
-{
-	@:native('SDL_AUDIO_UNKNOWN')
-	var SDL_AUDIO_UNKNOWN;
-
-	@:native('SDL_AUDIO_U8')
-	var SDL_AUDIO_U8;
-
-	@:native('SDL_AUDIO_S8')
-	var SDL_AUDIO_S8;
-
-	@:native('SDL_AUDIO_S16LE')
-	var SDL_AUDIO_S16LE;
-
-	@:native('SDL_AUDIO_S16BE')
-	var SDL_AUDIO_S16BE;
-
-	@:native('SDL_AUDIO_S32LE')
-	var SDL_AUDIO_S32LE;
-
-	@:native('SDL_AUDIO_S32BE')
-	var SDL_AUDIO_S32BE;
-
-	@:native('SDL_AUDIO_F32LE')
-	var SDL_AUDIO_F32LE;
-
-	@:native('SDL_AUDIO_F32BE')
-	var SDL_AUDIO_F32BE;
-
-	@:native('SDL_AUDIO_S16')
-	var SDL_AUDIO_S16;
-
-	@:native('SDL_AUDIO_S32')
-	var SDL_AUDIO_S32;
-
-	@:native('SDL_AUDIO_F32')
-	var SDL_AUDIO_F32;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_AudioFormat
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL_audio.h')
-@:native('SDL_AudioFormat')
-private extern class SDL_AudioFormat_Impl {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_AudioDeviceID')
-@:scalar
-@:coreType
-@:notNull
-extern abstract SDL_AudioDeviceID from UInt32 to UInt32 {}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_AudioSpec')
-extern class SDL_AudioSpec
-{
-	function new():Void;
-
-	var format:SDL_AudioFormat;
-	var channels:Int;
-	var freq:Int;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_AudioStream')
-extern class SDL_AudioStream {}
-
 @:include('SDL3/SDL.h')
 @:native('SDL_BlendMode')
 @:scalar
@@ -413,6 +340,9 @@ extern enum abstract SDL_EventType(SDL_EventType_Impl)
 	@:native('SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED')
 	var SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED;
 
+	@:native('SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED')
+	var SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED;
+
 	@:native('SDL_EVENT_DISPLAY_FIRST')
 	var SDL_EVENT_DISPLAY_FIRST;
 
@@ -524,6 +454,12 @@ extern enum abstract SDL_EventType(SDL_EventType_Impl)
 	@:native('SDL_EVENT_TEXT_EDITING_CANDIDATES')
 	var SDL_EVENT_TEXT_EDITING_CANDIDATES;
 
+	@:native('SDL_EVENT_SCREEN_KEYBOARD_SHOWN')
+	var SDL_EVENT_SCREEN_KEYBOARD_SHOWN;
+
+	@:native('SDL_EVENT_SCREEN_KEYBOARD_HIDDEN')
+	var SDL_EVENT_SCREEN_KEYBOARD_HIDDEN;
+
 	@:native('SDL_EVENT_MOUSE_MOTION')
 	var SDL_EVENT_MOUSE_MOTION;
 
@@ -617,6 +553,15 @@ extern enum abstract SDL_EventType(SDL_EventType_Impl)
 	@:native('SDL_EVENT_FINGER_CANCELED')
 	var SDL_EVENT_FINGER_CANCELED;
 
+	@:native('SDL_EVENT_PINCH_BEGIN')
+	var SDL_EVENT_PINCH_BEGIN;
+
+	@:native('SDL_EVENT_PINCH_UPDATE')
+	var SDL_EVENT_PINCH_UPDATE;
+
+	@:native('SDL_EVENT_PINCH_END')
+	var SDL_EVENT_PINCH_END;
+
 	@:native('SDL_EVENT_CLIPBOARD_UPDATE')
 	var SDL_EVENT_CLIPBOARD_UPDATE;
 
@@ -682,15 +627,6 @@ extern enum abstract SDL_EventType(SDL_EventType_Impl)
 
 	@:native('SDL_EVENT_CAMERA_DEVICE_DENIED')
 	var SDL_EVENT_CAMERA_DEVICE_DENIED;
-
-	@:native('SDL_EVENT_RENDER_TARGETS_RESET')
-	var SDL_EVENT_RENDER_TARGETS_RESET;
-
-	@:native('SDL_EVENT_RENDER_DEVICE_RESET')
-	var SDL_EVENT_RENDER_DEVICE_RESET;
-
-	@:native('SDL_EVENT_RENDER_DEVICE_LOST')
-	var SDL_EVENT_RENDER_DEVICE_LOST;
 
 	@:native('SDL_EVENT_PRIVATE0')
 	var SDL_EVENT_PRIVATE0;
@@ -1109,23 +1045,6 @@ extern class SDL_GamepadSensorEvent
 
 @:include('SDL3/SDL.h')
 @:structAccess
-@:native('SDL_AudioDeviceEvent')
-extern class SDL_AudioDeviceEvent
-{
-	function new():Void;
-
-	var type:SDL_EventType;
-	var reserved:UInt32;
-	var timestamp:UInt64;
-	var which:SDL_AudioDeviceID;
-	var recording:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-	var padding3:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
 @:native('SDL_CameraDeviceEvent')
 extern class SDL_CameraDeviceEvent
 {
@@ -1135,19 +1054,6 @@ extern class SDL_CameraDeviceEvent
 	var reserved:UInt32;
 	var timestamp:UInt64;
 	var which:SDL_CameraID;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_RenderEvent')
-extern class SDL_RenderEvent
-{
-	function new():Void;
-
-	var type:SDL_EventType;
-	var reserved:UInt32;
-	var timestamp:UInt64;
-	var windowID:SDL_WindowID;
 }
 
 @:include('SDL3/SDL.h')
@@ -1167,6 +1073,21 @@ extern class SDL_TouchFingerEvent
 	var dx:Single;
 	var dy:Single;
 	var pressure:Single;
+	var windowID:SDL_WindowID;
+}
+
+
+@:include('SDL3/SDL.h')
+@:structAccess
+@:native('SDL_PinchFingerEvent')
+extern class SDL_PinchFingerEvent
+{
+	function new():Void;
+
+	var type:SDL_EventType;
+	var reserved:UInt32;
+	var timestamp:UInt64;
+	var scale:Single;
 	var windowID:SDL_WindowID;
 }
 
@@ -1364,18 +1285,17 @@ extern class SDL_Event
 	var gbutton:SDL_GamepadButtonEvent;
 	var gtouchpad:SDL_GamepadTouchpadEvent;
 	var gsensor:SDL_GamepadSensorEvent;
-	var adevice:SDL_AudioDeviceEvent;
 	var cdevice:SDL_CameraDeviceEvent;
 	var sensor:SDL_SensorEvent;
 	var quit:SDL_QuitEvent;
 	var user:SDL_UserEvent;
 	var tfinger:SDL_TouchFingerEvent;
+	var pinch:SDL_PinchFingerEvent;
 	var pproximity:SDL_PenProximityEvent;
 	var ptouch:SDL_PenTouchEvent;
 	var pmotion:SDL_PenMotionEvent;
 	var pbutton:SDL_PenButtonEvent;
 	var paxis:SDL_PenAxisEvent;
-	var render:SDL_RenderEvent;
 	var drop:SDL_DropEvent;
 	var clipboard:SDL_ClipboardEvent;
 	var padding:RawPointer<UInt8>;
@@ -1855,1654 +1775,6 @@ extern class SDL_GamepadBinding_Output_Axis
 	var axis:SDL_GamepadAxis;
 	var axis_min:Int;
 	var axis_max:Int;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUDevice')
-extern class SDL_GPUDevice {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUBuffer')
-extern class SDL_GPUBuffer {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUTransferBuffer')
-extern class SDL_GPUTransferBuffer {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUTexture')
-extern class SDL_GPUTexture {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUSampler')
-extern class SDL_GPUSampler {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUShader')
-extern class SDL_GPUShader {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUComputePipeline')
-extern class SDL_GPUComputePipeline {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUGraphicsPipeline')
-extern class SDL_GPUGraphicsPipeline {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUCommandBuffer')
-extern class SDL_GPUCommandBuffer {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPURenderPass')
-extern class SDL_GPURenderPass {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUComputePass')
-extern class SDL_GPUComputePass {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUCopyPass')
-extern class SDL_GPUCopyPass {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUFence')
-extern class SDL_GPUFence {}
-
-extern enum abstract SDL_GPUPrimitiveType(SDL_GPUPrimitiveType_Impl)
-{
-	@:native("SDL_GPU_PRIMITIVETYPE_TRIANGLELIST")
-	var SDL_GPU_PRIMITIVETYPE_TRIANGLELIST;
-
-	@:native("SDL_GPU_PRIMITIVETYPE_TRIANGLESTRIP")
-	var SDL_GPU_PRIMITIVETYPE_TRIANGLESTRIP;
-
-	@:native("SDL_GPU_PRIMITIVETYPE_LINELIST")
-	var SDL_GPU_PRIMITIVETYPE_LINELIST;
-
-	@:native("SDL_GPU_PRIMITIVETYPE_LINESTRIP")
-	var SDL_GPU_PRIMITIVETYPE_LINESTRIP;
-
-	@:native("SDL_GPU_PRIMITIVETYPE_POINTLIST")
-	var SDL_GPU_PRIMITIVETYPE_POINTLIST;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUPrimitiveType
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include("SDL3/SDL.h")
-@:native("SDL_GPUPrimitiveType")
-private extern class SDL_GPUPrimitiveType_Impl {}
-
-extern enum abstract SDL_GPULoadOp(SDL_GPULoadOp_Impl)
-{
-	@:native("SDL_GPU_LOADOP_LOAD")
-	var SDL_GPU_LOADOP_LOAD;
-
-	@:native("SDL_GPU_LOADOP_CLEAR")
-	var SDL_GPU_LOADOP_CLEAR;
-
-	@:native("SDL_GPU_LOADOP_DONT_CARE")
-	var SDL_GPU_LOADOP_DONT_CARE;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPULoadOp
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include("SDL3/SDL.h")
-@:native("SDL_GPULoadOp")
-private extern class SDL_GPULoadOp_Impl {}
-
-extern enum abstract SDL_GPUStoreOp(SDL_GPUStoreOp_Impl)
-{
-	@:native("SDL_GPU_STOREOP_STORE")
-	var SDL_GPU_STOREOP_STORE;
-
-	@:native("SDL_GPU_STOREOP_DONT_CARE")
-	var SDL_GPU_STOREOP_DONT_CARE;
-
-	@:native("SDL_GPU_STOREOP_RESOLVE")
-	var SDL_GPU_STOREOP_RESOLVE;
-
-	@:native("SDL_GPU_STOREOP_RESOLVE_AND_STORE")
-	var SDL_GPU_STOREOP_RESOLVE_AND_STORE;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUStoreOp
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include("SDL3/SDL.h")
-@:native("SDL_GPUStoreOp")
-private extern class SDL_GPUStoreOp_Impl {}
-
-extern enum abstract SDL_GPUIndexElementSize(SDL_GPUIndexElementSize_Impl)
-{
-	@:native("SDL_GPU_INDEXELEMENTSIZE_16BIT")
-	var SDL_GPU_INDEXELEMENTSIZE_16BIT;
-
-	@:native("SDL_GPU_INDEXELEMENTSIZE_32BIT")
-	var SDL_GPU_INDEXELEMENTSIZE_32BIT;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUIndexElementSize
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include("SDL3/SDL.h")
-@:native("SDL_GPUIndexElementSize")
-private extern class SDL_GPUIndexElementSize_Impl {}
-
-extern enum abstract SDL_GPUTextureFormat(SDL_GPUTextureFormat_Impl)
-{
-	@:native('SDL_GPU_TEXTUREFORMAT_INVALID')
-	var SDL_GPU_TEXTUREFORMAT_INVALID;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_A8_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_A8_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_R8_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_R8G8_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_R16_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_R16G16_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R10G10B10A2_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_R10G10B10A2_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_B5G6R5_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_B5G6R5_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_B5G5R5A1_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_B5G5R5A1_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_B4G4R4A4_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_B4G4R4A4_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC4_R_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_BC4_R_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC5_RG_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_BC5_RG_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC6H_RGB_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_BC6H_RGB_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC6H_RGB_UFLOAT')
-	var SDL_GPU_TEXTUREFORMAT_BC6H_RGB_UFLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8_SNORM')
-	var SDL_GPU_TEXTUREFORMAT_R8_SNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8_SNORM')
-	var SDL_GPU_TEXTUREFORMAT_R8G8_SNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8B8A8_SNORM')
-	var SDL_GPU_TEXTUREFORMAT_R8G8B8A8_SNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16_SNORM')
-	var SDL_GPU_TEXTUREFORMAT_R16_SNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16_SNORM')
-	var SDL_GPU_TEXTUREFORMAT_R16G16_SNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16B16A16_SNORM')
-	var SDL_GPU_TEXTUREFORMAT_R16G16B16A16_SNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_R16_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_R16G16_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16B16A16_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_R16G16B16A16_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_R32_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32G32_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_R32G32_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32G32B32A32_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_R32G32B32A32_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R11G11B10_UFLOAT')
-	var SDL_GPU_TEXTUREFORMAT_R11G11B10_UFLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R8_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R8G8_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R16_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R16G16_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R32_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32G32_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R32G32_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32G32B32A32_UINT')
-	var SDL_GPU_TEXTUREFORMAT_R32G32B32A32_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8_INT')
-	var SDL_GPU_TEXTUREFORMAT_R8_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8_INT')
-	var SDL_GPU_TEXTUREFORMAT_R8G8_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8B8A8_INT')
-	var SDL_GPU_TEXTUREFORMAT_R8G8B8A8_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16_INT')
-	var SDL_GPU_TEXTUREFORMAT_R16_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16_INT')
-	var SDL_GPU_TEXTUREFORMAT_R16G16_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R16G16B16A16_INT')
-	var SDL_GPU_TEXTUREFORMAT_R16G16B16A16_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32_INT')
-	var SDL_GPU_TEXTUREFORMAT_R32_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32G32_INT')
-	var SDL_GPU_TEXTUREFORMAT_R32G32_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R32G32B32A32_INT')
-	var SDL_GPU_TEXTUREFORMAT_R32G32B32A32_INT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_D16_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_D16_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_D24_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_D24_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_D32_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_D32_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_D24_UNORM_S8_UINT')
-	var SDL_GPU_TEXTUREFORMAT_D24_UNORM_S8_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_D32_FLOAT_S8_UINT')
-	var SDL_GPU_TEXTUREFORMAT_D32_FLOAT_S8_UINT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM_SRGB')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM_SRGB;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_4x4_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_4x4_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_5x4_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_5x4_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_5x5_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_5x5_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_6x5_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_6x5_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_6x6_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_6x6_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x5_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x5_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x6_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x6_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_8x8_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_8x8_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x5_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x5_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x6_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x6_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x8_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x8_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_10x10_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_10x10_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_12x10_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_12x10_FLOAT;
-
-	@:native('SDL_GPU_TEXTUREFORMAT_ASTC_12x12_FLOAT')
-	var SDL_GPU_TEXTUREFORMAT_ASTC_12x12_FLOAT;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUTextureFormat
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUTextureFormat')
-private extern class SDL_GPUTextureFormat_Impl {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUTextureUsageFlags')
-@:scalar
-@:coreType
-@:notNull
-extern abstract SDL_GPUTextureUsageFlags from UInt32 to UInt32 {}
-
-extern enum abstract SDL_GPUTextureType(SDL_GPUTextureType_Impl)
-{
-	@:native('SDL_GPU_TEXTURETYPE_2D')
-	var SDL_GPU_TEXTURETYPE_2D;
-
-	@:native('SDL_GPU_TEXTURETYPE_2D_ARRAY')
-	var SDL_GPU_TEXTURETYPE_2D_ARRAY;
-
-	@:native('SDL_GPU_TEXTURETYPE_3D')
-	var SDL_GPU_TEXTURETYPE_3D;
-
-	@:native('SDL_GPU_TEXTURETYPE_CUBE')
-	var SDL_GPU_TEXTURETYPE_CUBE;
-
-	@:native('SDL_GPU_TEXTURETYPE_CUBE_ARRAY')
-	var SDL_GPU_TEXTURETYPE_CUBE_ARRAY;
-
-	@:from
-	static inline function fromInt(i:Int):SDL_GPUTextureType
-		return cast i;
-
-	@:to extern inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUTextureType')
-private extern class SDL_GPUTextureType_Impl {}
-
-extern enum abstract SDL_GPUSampleCount(SDL_GPUSampleCount_Impl)
-{
-	@:native('SDL_GPU_SAMPLECOUNT_1')
-	var SDL_GPU_SAMPLECOUNT_1;
-
-	@:native('SDL_GPU_SAMPLECOUNT_2')
-	var SDL_GPU_SAMPLECOUNT_2;
-
-	@:native('SDL_GPU_SAMPLECOUNT_4')
-	var SDL_GPU_SAMPLECOUNT_4;
-
-	@:native('SDL_GPU_SAMPLECOUNT_8')
-	var SDL_GPU_SAMPLECOUNT_8;
-
-	@:from
-	static inline function fromInt(i:Int):SDL_GPUSampleCount
-		return cast i;
-
-	@:to extern inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUSampleCount')
-private extern class SDL_GPUSampleCount_Impl {}
-
-extern enum abstract SDL_GPUCubeMapFace(SDL_GPUCubeMapFace_Impl)
-{
-	@:native('SDL_GPU_CUBEMAPFACE_POSITIVEX')
-	var SDL_GPU_CUBEMAPFACE_POSITIVEX;
-
-	@:native('SDL_GPU_CUBEMAPFACE_NEGATIVEX')
-	var SDL_GPU_CUBEMAPFACE_NEGATIVEX;
-
-	@:native('SDL_GPU_CUBEMAPFACE_POSITIVEY')
-	var SDL_GPU_CUBEMAPFACE_POSITIVEY;
-
-	@:native('SDL_GPU_CUBEMAPFACE_NEGATIVEY')
-	var SDL_GPU_CUBEMAPFACE_NEGATIVEY;
-
-	@:native('SDL_GPU_CUBEMAPFACE_POSITIVEZ')
-	var SDL_GPU_CUBEMAPFACE_POSITIVEZ;
-
-	@:native('SDL_GPU_CUBEMAPFACE_NEGATIVEZ')
-	var SDL_GPU_CUBEMAPFACE_NEGATIVEZ;
-
-	@:from
-	static inline function fromInt(i:Int):SDL_GPUCubeMapFace
-		return cast i;
-
-	@:to extern inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUCubeMapFace')
-private extern class SDL_GPUCubeMapFace_Impl {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUBufferUsageFlags')
-@:scalar
-@:coreType
-@:notNull
-extern abstract SDL_GPUBufferUsageFlags from UInt32 to UInt32 {}
-
-extern enum abstract SDL_GPUTransferBufferUsage(SDL_GPUTransferBufferUsage_Impl)
-{
-	@:native('SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD')
-	var SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD;
-
-	@:native('SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD')
-	var SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD;
-
-	@:from
-	static inline function fromInt(i:Int):SDL_GPUTransferBufferUsage
-		return cast i;
-
-	@:to extern inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUTransferBufferUsage')
-private extern class SDL_GPUTransferBufferUsage_Impl {}
-
-extern enum abstract SDL_GPUShaderStage(SDL_GPUShaderStage_Impl)
-{
-	@:native('SDL_GPU_SHADERSTAGE_VERTEX')
-	var SDL_GPU_SHADERSTAGE_VERTEX;
-
-	@:native('SDL_GPU_SHADERSTAGE_FRAGMENT')
-	var SDL_GPU_SHADERSTAGE_FRAGMENT;
-
-	@:from
-	static inline function fromInt(i:Int):SDL_GPUShaderStage
-		return cast i;
-
-	@:to extern inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUShaderStage')
-private extern class SDL_GPUShaderStage_Impl {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUShaderFormat')
-@:scalar
-@:coreType
-@:notNull
-extern abstract SDL_GPUShaderFormat from UInt32 to UInt32 {}
-
-extern enum abstract SDL_GPUVertexElementFormat(SDL_GPUVertexElementFormat_Impl)
-{
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_INVALID')
-	var SDL_GPU_VERTEXELEMENTFORMAT_INVALID;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_INT')
-	var SDL_GPU_VERTEXELEMENTFORMAT_INT;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_INT2')
-	var SDL_GPU_VERTEXELEMENTFORMAT_INT2;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_INT3')
-	var SDL_GPU_VERTEXELEMENTFORMAT_INT3;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_INT4')
-	var SDL_GPU_VERTEXELEMENTFORMAT_INT4;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_UINT')
-	var SDL_GPU_VERTEXELEMENTFORMAT_UINT;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_UINT2')
-	var SDL_GPU_VERTEXELEMENTFORMAT_UINT2;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_UINT3')
-	var SDL_GPU_VERTEXELEMENTFORMAT_UINT3;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_UINT4')
-	var SDL_GPU_VERTEXELEMENTFORMAT_UINT4;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_FLOAT')
-	var SDL_GPU_VERTEXELEMENTFORMAT_FLOAT;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_FLOAT2')
-	var SDL_GPU_VERTEXELEMENTFORMAT_FLOAT2;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3')
-	var SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_FLOAT4')
-	var SDL_GPU_VERTEXELEMENTFORMAT_FLOAT4;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_BYTE2')
-	var SDL_GPU_VERTEXELEMENTFORMAT_BYTE2;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_BYTE4')
-	var SDL_GPU_VERTEXELEMENTFORMAT_BYTE4;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_UBYTE2')
-	var SDL_GPU_VERTEXELEMENTFORMAT_UBYTE2;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_UBYTE4')
-	var SDL_GPU_VERTEXELEMENTFORMAT_UBYTE4;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_BYTE2_NORM')
-	var SDL_GPU_VERTEXELEMENTFORMAT_BYTE2_NORM;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_BYTE4_NORM')
-	var SDL_GPU_VERTEXELEMENTFORMAT_BYTE4_NORM;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_UBYTE2_NORM')
-	var SDL_GPU_VERTEXELEMENTFORMAT_UBYTE2_NORM;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_UBYTE4_NORM')
-	var SDL_GPU_VERTEXELEMENTFORMAT_UBYTE4_NORM;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_SHORT2')
-	var SDL_GPU_VERTEXELEMENTFORMAT_SHORT2;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_SHORT4')
-	var SDL_GPU_VERTEXELEMENTFORMAT_SHORT4;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_USHORT2')
-	var SDL_GPU_VERTEXELEMENTFORMAT_USHORT2;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_USHORT4')
-	var SDL_GPU_VERTEXELEMENTFORMAT_USHORT4;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_SHORT2_NORM')
-	var SDL_GPU_VERTEXELEMENTFORMAT_SHORT2_NORM;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_SHORT4_NORM')
-	var SDL_GPU_VERTEXELEMENTFORMAT_SHORT4_NORM;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_USHORT2_NORM')
-	var SDL_GPU_VERTEXELEMENTFORMAT_USHORT2_NORM;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_USHORT4_NORM')
-	var SDL_GPU_VERTEXELEMENTFORMAT_USHORT4_NORM;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_HALF2')
-	var SDL_GPU_VERTEXELEMENTFORMAT_HALF2;
-
-	@:native('SDL_GPU_VERTEXELEMENTFORMAT_HALF4')
-	var SDL_GPU_VERTEXELEMENTFORMAT_HALF4;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUVertexElementFormat
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUVertexElementFormat')
-private extern class SDL_GPUVertexElementFormat_Impl {}
-
-extern enum abstract SDL_GPUVertexInputRate(SDL_GPUVertexInputRate_Impl)
-{
-	@:native('SDL_GPU_VERTEXINPUTRATE_VERTEX')
-	var SDL_GPU_VERTEXINPUTRATE_VERTEX;
-
-	@:native('SDL_GPU_VERTEXINPUTRATE_INSTANCE')
-	var SDL_GPU_VERTEXINPUTRATE_INSTANCE;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUVertexInputRate
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUVertexInputRate')
-private extern class SDL_GPUVertexInputRate_Impl {}
-
-extern enum abstract SDL_GPUFillMode(SDL_GPUFillMode_Impl)
-{
-	@:native('SDL_GPU_FILLMODE_FILL')
-	var SDL_GPU_FILLMODE_FILL;
-
-	@:native('SDL_GPU_FILLMODE_LINE')
-	var SDL_GPU_FILLMODE_LINE;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUFillMode
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUFillMode')
-private extern class SDL_GPUFillMode_Impl {}
-
-extern enum abstract SDL_GPUCullMode(SDL_GPUCullMode_Impl)
-{
-	@:native('SDL_GPU_CULLMODE_NONE')
-	var SDL_GPU_CULLMODE_NONE;
-
-	@:native('SDL_GPU_CULLMODE_FRONT')
-	var SDL_GPU_CULLMODE_FRONT;
-
-	@:native('SDL_GPU_CULLMODE_BACK')
-	var SDL_GPU_CULLMODE_BACK;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUCullMode
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUCullMode')
-private extern class SDL_GPUCullMode_Impl {}
-
-extern enum abstract SDL_GPUFrontFace(SDL_GPUFrontFace_Impl)
-{
-	@:native('SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE')
-	var SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE;
-
-	@:native('SDL_GPU_FRONTFACE_CLOCKWISE')
-	var SDL_GPU_FRONTFACE_CLOCKWISE;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUFrontFace
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUFrontFace')
-private extern class SDL_GPUFrontFace_Impl {}
-
-extern enum abstract SDL_GPUCompareOp(SDL_GPUCompareOp_Impl)
-{
-	@:native('SDL_GPU_COMPAREOP_INVALID')
-	var SDL_GPU_COMPAREOP_INVALID;
-
-	@:native('SDL_GPU_COMPAREOP_NEVER')
-	var SDL_GPU_COMPAREOP_NEVER;
-
-	@:native('SDL_GPU_COMPAREOP_LESS')
-	var SDL_GPU_COMPAREOP_LESS;
-
-	@:native('SDL_GPU_COMPAREOP_EQUAL')
-	var SDL_GPU_COMPAREOP_EQUAL;
-
-	@:native('SDL_GPU_COMPAREOP_LESS_OR_EQUAL')
-	var SDL_GPU_COMPAREOP_LESS_OR_EQUAL;
-
-	@:native('SDL_GPU_COMPAREOP_GREATER')
-	var SDL_GPU_COMPAREOP_GREATER;
-
-	@:native('SDL_GPU_COMPAREOP_NOT_EQUAL')
-	var SDL_GPU_COMPAREOP_NOT_EQUAL;
-
-	@:native('SDL_GPU_COMPAREOP_GREATER_OR_EQUAL')
-	var SDL_GPU_COMPAREOP_GREATER_OR_EQUAL;
-
-	@:native('SDL_GPU_COMPAREOP_ALWAYS')
-	var SDL_GPU_COMPAREOP_ALWAYS;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUCompareOp
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUCompareOp')
-private extern class SDL_GPUCompareOp_Impl {}
-
-extern enum abstract SDL_GPUStencilOp(SDL_GPUStencilOp_Impl)
-{
-	@:native('SDL_GPU_STENCILOP_INVALID')
-	var SDL_GPU_STENCILOP_INVALID;
-
-	@:native('SDL_GPU_STENCILOP_KEEP')
-	var SDL_GPU_STENCILOP_KEEP;
-
-	@:native('SDL_GPU_STENCILOP_ZERO')
-	var SDL_GPU_STENCILOP_ZERO;
-
-	@:native('SDL_GPU_STENCILOP_REPLACE')
-	var SDL_GPU_STENCILOP_REPLACE;
-
-	@:native('SDL_GPU_STENCILOP_INCREMENT_AND_CLAMP')
-	var SDL_GPU_STENCILOP_INCREMENT_AND_CLAMP;
-
-	@:native('SDL_GPU_STENCILOP_DECREMENT_AND_CLAMP')
-	var SDL_GPU_STENCILOP_DECREMENT_AND_CLAMP;
-
-	@:native('SDL_GPU_STENCILOP_INVERT')
-	var SDL_GPU_STENCILOP_INVERT;
-
-	@:native('SDL_GPU_STENCILOP_INCREMENT_AND_WRAP')
-	var SDL_GPU_STENCILOP_INCREMENT_AND_WRAP;
-
-	@:native('SDL_GPU_STENCILOP_DECREMENT_AND_WRAP')
-	var SDL_GPU_STENCILOP_DECREMENT_AND_WRAP;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUStencilOp
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUStencilOp')
-private extern class SDL_GPUStencilOp_Impl {}
-
-extern enum abstract SDL_GPUBlendOp(SDL_GPUBlendOp_Impl)
-{
-	@:native('SDL_GPU_BLENDOP_INVALID')
-	var SDL_GPU_BLENDOP_INVALID;
-
-	@:native('SDL_GPU_BLENDOP_ADD')
-	var SDL_GPU_BLENDOP_ADD;
-
-	@:native('SDL_GPU_BLENDOP_SUBTRACT')
-	var SDL_GPU_BLENDOP_SUBTRACT;
-
-	@:native('SDL_GPU_BLENDOP_REVERSE_SUBTRACT')
-	var SDL_GPU_BLENDOP_REVERSE_SUBTRACT;
-
-	@:native('SDL_GPU_BLENDOP_MIN')
-	var SDL_GPU_BLENDOP_MIN;
-
-	@:native('SDL_GPU_BLENDOP_MAX')
-	var SDL_GPU_BLENDOP_MAX;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUBlendOp
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUBlendOp')
-private extern class SDL_GPUBlendOp_Impl {}
-
-extern enum abstract SDL_GPUBlendFactor(SDL_GPUBlendFactor_Impl)
-{
-	@:native('SDL_GPU_BLENDFACTOR_INVALID')
-	var SDL_GPU_BLENDFACTOR_INVALID;
-
-	@:native('SDL_GPU_BLENDFACTOR_ZERO')
-	var SDL_GPU_BLENDFACTOR_ZERO;
-
-	@:native('SDL_GPU_BLENDFACTOR_ONE')
-	var SDL_GPU_BLENDFACTOR_ONE;
-
-	@:native('SDL_GPU_BLENDFACTOR_SRC_COLOR')
-	var SDL_GPU_BLENDFACTOR_SRC_COLOR;
-
-	@:native('SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_COLOR')
-	var SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_COLOR;
-
-	@:native('SDL_GPU_BLENDFACTOR_DST_COLOR')
-	var SDL_GPU_BLENDFACTOR_DST_COLOR;
-
-	@:native('SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_COLOR')
-	var SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_COLOR;
-
-	@:native('SDL_GPU_BLENDFACTOR_SRC_ALPHA')
-	var SDL_GPU_BLENDFACTOR_SRC_ALPHA;
-
-	@:native('SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_ALPHA')
-	var SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_ALPHA;
-
-	@:native('SDL_GPU_BLENDFACTOR_DST_ALPHA')
-	var SDL_GPU_BLENDFACTOR_DST_ALPHA;
-
-	@:native('SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_ALPHA')
-	var SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_ALPHA;
-
-	@:native('SDL_GPU_BLENDFACTOR_CONSTANT_COLOR')
-	var SDL_GPU_BLENDFACTOR_CONSTANT_COLOR;
-
-	@:native('SDL_GPU_BLENDFACTOR_ONE_MINUS_CONSTANT_COLOR')
-	var SDL_GPU_BLENDFACTOR_ONE_MINUS_CONSTANT_COLOR;
-
-	@:native('SDL_GPU_BLENDFACTOR_SRC_ALPHA_SATURATE')
-	var SDL_GPU_BLENDFACTOR_SRC_ALPHA_SATURATE;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUBlendFactor
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUBlendFactor')
-private extern class SDL_GPUBlendFactor_Impl {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUColorComponentFlags')
-@:scalar
-@:coreType
-@:notNull
-extern abstract SDL_GPUColorComponentFlags from UInt8 to UInt8 {}
-
-extern enum abstract SDL_GPUFilter(SDL_GPUFilter_Impl)
-{
-	@:native('SDL_GPU_FILTER_NEAREST')
-	var SDL_GPU_FILTER_NEAREST;
-
-	@:native('SDL_GPU_FILTER_LINEAR')
-	var SDL_GPU_FILTER_LINEAR;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUFilter
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUFilter')
-private extern class SDL_GPUFilter_Impl {}
-
-extern enum abstract SDL_GPUSamplerMipmapMode(SDL_GPUSamplerMipmapMode_Impl)
-{
-	@:native('SDL_GPU_SAMPLERMIPMAPMODE_NEAREST')
-	var SDL_GPU_SAMPLERMIPMAPMODE_NEAREST;
-
-	@:native('SDL_GPU_SAMPLERMIPMAPMODE_LINEAR')
-	var SDL_GPU_SAMPLERMIPMAPMODE_LINEAR;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUSamplerMipmapMode
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUSamplerMipmapMode')
-private extern class SDL_GPUSamplerMipmapMode_Impl {}
-
-extern enum abstract SDL_GPUSamplerAddressMode(SDL_GPUSamplerAddressMode_Impl)
-{
-	@:native('SDL_GPU_SAMPLERADDRESSMODE_REPEAT')
-	var SDL_GPU_SAMPLERADDRESSMODE_REPEAT;
-
-	@:native('SDL_GPU_SAMPLERADDRESSMODE_MIRRORED_REPEAT')
-	var SDL_GPU_SAMPLERADDRESSMODE_MIRRORED_REPEAT;
-
-	@:native('SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE')
-	var SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUSamplerAddressMode
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUSamplerAddressMode')
-private extern class SDL_GPUSamplerAddressMode_Impl {}
-
-extern enum abstract SDL_GPUPresentMode(SDL_GPUPresentMode_Impl)
-{
-	@:native('SDL_GPU_PRESENTMODE_VSYNC')
-	var SDL_GPU_PRESENTMODE_VSYNC;
-
-	@:native('SDL_GPU_PRESENTMODE_IMMEDIATE')
-	var SDL_GPU_PRESENTMODE_IMMEDIATE;
-
-	@:native('SDL_GPU_PRESENTMODE_MAILBOX')
-	var SDL_GPU_PRESENTMODE_MAILBOX;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUPresentMode
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUPresentMode')
-private extern class SDL_GPUPresentMode_Impl {}
-
-extern enum abstract SDL_GPUSwapchainComposition(SDL_GPUSwapchainComposition_Impl)
-{
-	@:native('SDL_GPU_SWAPCHAINCOMPOSITION_SDR')
-	var SDL_GPU_SWAPCHAINCOMPOSITION_SDR;
-
-	@:native('SDL_GPU_SWAPCHAINCOMPOSITION_SDR_LINEAR')
-	var SDL_GPU_SWAPCHAINCOMPOSITION_SDR_LINEAR;
-
-	@:native('SDL_GPU_SWAPCHAINCOMPOSITION_HDR_EXTENDED_LINEAR')
-	var SDL_GPU_SWAPCHAINCOMPOSITION_HDR_EXTENDED_LINEAR;
-
-	@:native('SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2084')
-	var SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2084;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_GPUSwapchainComposition
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_GPUSwapchainComposition')
-private extern class SDL_GPUSwapchainComposition_Impl {}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUViewport')
-extern class SDL_GPUViewport
-{
-	function new():Void;
-
-	var x:Single;
-	var y:Single;
-	var w:Single;
-	var h:Single;
-	var min_depth:Single;
-	var max_depth:Single;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUTextureTransferInfo')
-extern class SDL_GPUTextureTransferInfo
-{
-	function new():Void;
-
-	var transfer_buffer:RawPointer<SDL_GPUTransferBuffer>;
-	var offset:UInt32;
-	var pixels_per_row:UInt32;
-	var rows_per_layer:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUTransferBufferLocation')
-extern class SDL_GPUTransferBufferLocation
-{
-	function new():Void;
-
-	var transfer_buffer:RawPointer<SDL_GPUTransferBuffer>;
-	var offset:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUTextureLocation')
-extern class SDL_GPUTextureLocation
-{
-	function new():Void;
-
-	var texture:RawPointer<SDL_GPUTexture>;
-	var mip_level:UInt32;
-	var layer:UInt32;
-	var x:UInt32;
-	var y:UInt32;
-	var z:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUTextureRegion')
-extern class SDL_GPUTextureRegion
-{
-	function new():Void;
-
-	var texture:RawPointer<SDL_GPUTexture>;
-	var mip_level:UInt32;
-	var layer:UInt32;
-	var x:UInt32;
-	var y:UInt32;
-	var z:UInt32;
-	var w:UInt32;
-	var h:UInt32;
-	var d:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUBlitRegion')
-extern class SDL_GPUBlitRegion
-{
-	function new():Void;
-
-	var texture:RawPointer<SDL_GPUTexture>;
-	var mip_level:UInt32;
-	var layer_or_depth_plane:UInt32;
-	var x:UInt32;
-	var y:UInt32;
-	var w:UInt32;
-	var h:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUBufferLocation')
-extern class SDL_GPUBufferLocation
-{
-	function new():Void;
-
-	var buffer:RawPointer<SDL_GPUBuffer>;
-	var offset:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUBufferRegion')
-extern class SDL_GPUBufferRegion
-{
-	function new():Void;
-
-	var buffer:RawPointer<SDL_GPUBuffer>;
-	var offset:UInt32;
-	var size:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUIndirectDrawCommand')
-extern class SDL_GPUIndirectDrawCommand
-{
-	function new():Void;
-
-	var num_vertices:UInt32;
-	var num_instances:UInt32;
-	var first_vertex:UInt32;
-	var first_instance:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUIndexedIndirectDrawCommand')
-extern class SDL_GPUIndexedIndirectDrawCommand
-{
-	function new():Void;
-
-	var num_indices:UInt32;
-	var num_instances:UInt32;
-	var first_index:UInt32;
-	var vertex_offset:Int32;
-	var first_instance:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUIndirectDispatchCommand')
-extern class SDL_GPUIndirectDispatchCommand
-{
-	function new():Void;
-
-	var groupcount_x:UInt32;
-	var groupcount_y:UInt32;
-	var groupcount_z:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUSamplerCreateInfo')
-extern class SDL_GPUSamplerCreateInfo
-{
-	function new():Void;
-
-	var min_filter:SDL_GPUFilter;
-	var mag_filter:SDL_GPUFilter;
-	var mipmap_mode:SDL_GPUSamplerMipmapMode;
-	var address_mode_u:SDL_GPUSamplerAddressMode;
-	var address_mode_v:SDL_GPUSamplerAddressMode;
-	var address_mode_w:SDL_GPUSamplerAddressMode;
-	var mip_lod_bias:Single;
-	var max_anisotropy:Single;
-	var compare_op:SDL_GPUCompareOp;
-	var min_lod:Single;
-	var max_lod:Single;
-	var enable_anisotropy:Bool;
-	var enable_compare:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-	var props:SDL_PropertiesID;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUVertexBufferDescription')
-extern class SDL_GPUVertexBufferDescription
-{
-	function new():Void;
-
-	var slot:UInt32;
-	var pitch:UInt32;
-	var input_rate:SDL_GPUVertexInputRate;
-	var instance_step_rate:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUVertexAttribute')
-extern class SDL_GPUVertexAttribute
-{
-	function new():Void;
-
-	var location:UInt32;
-	var buffer_slot:UInt32;
-	var format:SDL_GPUVertexElementFormat;
-	var offset:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUVertexInputState')
-extern class SDL_GPUVertexInputState
-{
-	function new():Void;
-
-	var vertex_buffer_descriptions:RawConstPointer<SDL_GPUVertexBufferDescription>;
-	var num_vertex_buffers:UInt32;
-	var vertex_attributes:RawConstPointer<SDL_GPUVertexAttribute>;
-	var num_vertex_attributes:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUStencilOpState')
-extern class SDL_GPUStencilOpState
-{
-	function new():Void;
-
-	var fail_op:SDL_GPUStencilOp;
-	var pass_op:SDL_GPUStencilOp;
-	var depth_fail_op:SDL_GPUStencilOp;
-	var compare_op:SDL_GPUCompareOp;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUColorTargetBlendState')
-extern class SDL_GPUColorTargetBlendState
-{
-	function new():Void;
-
-	var src_color_blendfactor:SDL_GPUBlendFactor;
-	var dst_color_blendfactor:SDL_GPUBlendFactor;
-	var color_blend_op:SDL_GPUBlendOp;
-	var src_alpha_blendfactor:SDL_GPUBlendFactor;
-	var dst_alpha_blendfactor:SDL_GPUBlendFactor;
-	var alpha_blend_op:SDL_GPUBlendOp;
-	var color_write_mask:SDL_GPUColorComponentFlags;
-	var enable_blend:Bool;
-	var enable_color_write_mask:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUShaderCreateInfo')
-extern class SDL_GPUShaderCreateInfo
-{
-	function new():Void;
-
-	var code_size:SizeT;
-	var code:RawConstPointer<UInt8>;
-	var entrypoint:ConstCharStar;
-	var format:SDL_GPUShaderFormat;
-	var stage:SDL_GPUShaderStage;
-	var num_samplers:UInt32;
-	var num_storage_textures:UInt32;
-	var num_storage_buffers:UInt32;
-	var num_uniform_buffers:UInt32;
-	var props:SDL_PropertiesID;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUTextureCreateInfo')
-extern class SDL_GPUTextureCreateInfo
-{
-	function new():Void;
-
-	var type:SDL_GPUTextureType;
-	var format:SDL_GPUTextureFormat;
-	var usage:SDL_GPUTextureUsageFlags;
-	var width:UInt32;
-	var height:UInt32;
-	var layer_count_or_depth:UInt32;
-	var num_levels:UInt32;
-	var sample_count:SDL_GPUSampleCount;
-	var props:SDL_PropertiesID;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUBufferCreateInfo')
-extern class SDL_GPUBufferCreateInfo
-{
-	function new():Void;
-
-	var usage:SDL_GPUBufferUsageFlags;
-	var size:UInt32;
-	var props:SDL_PropertiesID;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUTransferBufferCreateInfo')
-extern class SDL_GPUTransferBufferCreateInfo
-{
-	function new():Void;
-
-	var usage:SDL_GPUTransferBufferUsage;
-	var size:UInt32;
-	var props:SDL_PropertiesID;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPURasterizerState')
-extern class SDL_GPURasterizerState
-{
-	function new():Void;
-
-	var fill_mode:SDL_GPUFillMode;
-	var cull_mode:SDL_GPUCullMode;
-	var front_face:SDL_GPUFrontFace;
-	var depth_bias_constant_factor:Single;
-	var depth_bias_clamp:Single;
-	var depth_bias_slope_factor:Single;
-	var enable_depth_bias:Bool;
-	var enable_depth_clip:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUMultisampleState')
-extern class SDL_GPUMultisampleState
-{
-	function new():Void;
-
-	var sample_count:SDL_GPUSampleCount;
-	var sample_mask:UInt32;
-	var enable_mask:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-	var padding3:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUDepthStencilState')
-extern class SDL_GPUDepthStencilState
-{
-	function new():Void;
-
-	var compare_op:SDL_GPUCompareOp;
-	var back_stencil_state:SDL_GPUStencilOpState;
-	var front_stencil_state:SDL_GPUStencilOpState;
-	var compare_mask:UInt8;
-	var write_mask:UInt8;
-	var enable_depth_test:Bool;
-	var enable_depth_write:Bool;
-	var enable_stencil_test:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-	var padding3:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUColorTargetDescription')
-extern class SDL_GPUColorTargetDescription
-{
-	function new():Void;
-
-	var format:SDL_GPUTextureFormat;
-	var blend_state:SDL_GPUColorTargetBlendState;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUGraphicsPipelineTargetInfo')
-extern class SDL_GPUGraphicsPipelineTargetInfo
-{
-	function new():Void;
-
-	var color_target_descriptions:RawConstPointer<SDL_GPUColorTargetDescription>;
-	var num_color_targets:UInt32;
-	var depth_stencil_format:SDL_GPUTextureFormat;
-	var has_depth_stencil_target:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-	var padding3:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUGraphicsPipelineCreateInfo')
-extern class SDL_GPUGraphicsPipelineCreateInfo
-{
-	function new():Void;
-
-	var vertex_shader:RawPointer<SDL_GPUShader>;
-	var fragment_shader:RawPointer<SDL_GPUShader>;
-	var vertex_input_state:SDL_GPUVertexInputState;
-	var primitive_type:SDL_GPUPrimitiveType;
-	var rasterizer_state:SDL_GPURasterizerState;
-	var multisample_state:SDL_GPUMultisampleState;
-	var depth_stencil_state:SDL_GPUDepthStencilState;
-	var target_info:SDL_GPUGraphicsPipelineTargetInfo;
-	var props:SDL_PropertiesID;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUComputePipelineCreateInfo')
-extern class SDL_GPUComputePipelineCreateInfo
-{
-	function new():Void;
-
-	var code_size:SizeT;
-	var code:RawConstPointer<UInt8>;
-	var entrypoint:ConstCharStar;
-	var format:SDL_GPUShaderFormat;
-	var num_samplers:UInt32;
-	var num_readonly_storage_textures:UInt32;
-	var num_readonly_storage_buffers:UInt32;
-	var num_readwrite_storage_textures:UInt32;
-	var num_readwrite_storage_buffers:UInt32;
-	var num_uniform_buffers:UInt32;
-	var threadcount_x:UInt32;
-	var threadcount_y:UInt32;
-	var threadcount_z:UInt32;
-	var props:SDL_PropertiesID;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUColorTargetInfo')
-extern class SDL_GPUColorTargetInfo
-{
-	function new():Void;
-
-	var texture:RawPointer<SDL_GPUTexture>;
-	var mip_level:UInt32;
-	var layer_or_depth_plane:UInt32;
-	var clear_color:SDL_FColor;
-	var load_op:SDL_GPULoadOp;
-	var store_op:SDL_GPUStoreOp;
-	var resolve_texture:RawPointer<SDL_GPUTexture>;
-	var resolve_mip_level:UInt32;
-	var resolve_layer:UInt32;
-	var cycle:Bool;
-	var cycle_resolve_texture:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUDepthStencilTargetInfo')
-extern class SDL_GPUDepthStencilTargetInfo
-{
-	function new():Void;
-
-	var texture:RawPointer<SDL_GPUTexture>;
-	var clear_depth:Float;
-	var load_op:SDL_GPULoadOp;
-	var store_op:SDL_GPUStoreOp;
-	var stencil_load_op:SDL_GPULoadOp;
-	var stencil_store_op:SDL_GPUStoreOp;
-	var cycle:Bool;
-	var clear_stencil:UInt8;
-	var padding1:UInt8;
-	var padding2:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUBlitInfo')
-extern class SDL_GPUBlitInfo
-{
-	function new():Void;
-
-	var source:SDL_GPUBlitRegion;
-	var destination:SDL_GPUBlitRegion;
-	var load_op:SDL_GPULoadOp;
-	var clear_color:SDL_FColor;
-	var flip_mode:SDL_FlipMode;
-	var filter:SDL_GPUFilter;
-	var cycle:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-	var padding3:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUBufferBinding')
-extern class SDL_GPUBufferBinding
-{
-	function new():Void;
-
-	var buffer:RawPointer<SDL_GPUBuffer>;
-	var offset:UInt32;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUTextureSamplerBinding')
-extern class SDL_GPUTextureSamplerBinding
-{
-	function new():Void;
-
-	var texture:RawPointer<SDL_GPUTexture>;
-	var sampler:RawPointer<SDL_GPUSampler>;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUStorageBufferReadWriteBinding')
-extern class SDL_GPUStorageBufferReadWriteBinding
-{
-	function new():Void;
-
-	var buffer:RawPointer<SDL_GPUBuffer>;
-	var cycle:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-	var padding3:UInt8;
-}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_GPUStorageTextureReadWriteBinding')
-extern class SDL_GPUStorageTextureReadWriteBinding
-{
-	function new():Void;
-
-	var texture:RawPointer<SDL_GPUTexture>;
-	var mip_level:UInt32;
-	var layer:UInt32;
-	var cycle:Bool;
-	var padding1:UInt8;
-	var padding2:UInt8;
-	var padding3:UInt8;
 }
 
 @:include('SDL3/SDL.h')
@@ -4104,17 +2376,11 @@ extern enum abstract SDL_LogCategory(SDL_LogCategory_Impl)
 	@:native('SDL_LOG_CATEGORY_VIDEO')
 	var SDL_LOG_CATEGORY_VIDEO;
 
-	@:native('SDL_LOG_CATEGORY_RENDER')
-	var SDL_LOG_CATEGORY_RENDER;
-
 	@:native('SDL_LOG_CATEGORY_INPUT')
 	var SDL_LOG_CATEGORY_INPUT;
 
 	@:native('SDL_LOG_CATEGORY_TEST')
 	var SDL_LOG_CATEGORY_TEST;
-
-	@:native('SDL_LOG_CATEGORY_GPU')
-	var SDL_LOG_CATEGORY_GPU;
 
 	@:native('SDL_LOG_CATEGORY_RESERVED2')
 	var SDL_LOG_CATEGORY_RESERVED2;
@@ -4406,6 +2672,17 @@ extern enum abstract SDL_MouseWheelDirection(SDL_MouseWheelDirection_Impl)
 private extern class SDL_MouseWheelDirection_Impl {}
 
 @:include('SDL3/SDL.h')
+@:structAccess
+@:native('SDL_CursorFrameInfo')
+extern class SDL_CursorFrameInfo
+{
+	function new():Void;
+
+	var surface:RawPointer<SDL_Surface>;
+	var duration:UInt32;
+}
+
+@:include('SDL3/SDL.h')
 @:native('SDL_MouseButtonFlags')
 @:scalar
 @:coreType
@@ -4517,6 +2794,32 @@ extern enum abstract SDL_PenAxis(SDL_PenAxis_Impl)
 @:include('SDL3/SDL.h')
 @:native('SDL_PenAxis')
 private extern class SDL_PenAxis_Impl {}
+
+extern enum abstract SDL_PenDeviceType(SDL_PenDeviceType_Impl)
+{
+	@:native('SDL_PEN_DEVICE_TYPE_INVALID')
+	var SDL_PEN_DEVICE_TYPE_INVALID;
+
+	@:native('SDL_PEN_DEVICE_TYPE_UNKNOWN')
+	var SDL_PEN_DEVICE_TYPE_UNKNOWN;
+
+	@:native('SDL_PEN_DEVICE_TYPE_DIRECT')
+	var SDL_PEN_DEVICE_TYPE_DIRECT;
+
+	@:native('SDL_PEN_DEVICE_TYPE_INDIRECT')
+	var SDL_PEN_DEVICE_TYPE_INDIRECT;
+
+	@:from
+	static public inline function fromInt(i:Int):SDL_PenDeviceType
+		return cast i;
+
+	@:to extern public inline function toInt():Int
+		return untyped this;
+}
+
+@:include('SDL3/SDL.h')
+@:native('SDL_PenDeviceType')
+private extern class SDL_PenDeviceType_Impl {}
 
 extern enum abstract SDL_PixelType(SDL_PixelType_Impl)
 {
@@ -5478,53 +3781,6 @@ extern enum abstract SDL_TextureAccess(SDL_TextureAccess_Impl)
 @:include('SDL3/SDL.h')
 @:native('SDL_TextureAccess')
 private extern class SDL_TextureAccess_Impl {}
-
-extern enum abstract SDL_RendererLogicalPresentation(SDL_RendererLogicalPresentation_Impl)
-{
-	@:native('SDL_LOGICAL_PRESENTATION_DISABLED')
-	var SDL_LOGICAL_PRESENTATION_DISABLED;
-
-	@:native('SDL_LOGICAL_PRESENTATION_STRETCH')
-	var SDL_LOGICAL_PRESENTATION_STRETCH;
-
-	@:native('SDL_LOGICAL_PRESENTATION_LETTERBOX')
-	var SDL_LOGICAL_PRESENTATION_LETTERBOX;
-
-	@:native('SDL_LOGICAL_PRESENTATION_OVERSCAN')
-	var SDL_LOGICAL_PRESENTATION_OVERSCAN;
-
-	@:native('SDL_LOGICAL_PRESENTATION_INTEGER_SCALE')
-	var SDL_LOGICAL_PRESENTATION_INTEGER_SCALE;
-
-	@:from
-	static public inline function fromInt(i:Int):SDL_RendererLogicalPresentation
-		return cast i;
-
-	@:to
-	extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_RendererLogicalPresentation')
-private extern class SDL_RendererLogicalPresentation_Impl {}
-
-@:include('SDL3/SDL.h')
-@:native('SDL_Renderer')
-extern class SDL_Renderer {}
-
-@:include('SDL3/SDL.h')
-@:structAccess
-@:native('SDL_Texture')
-extern class SDL_Texture
-{
-	function new():Void;
-
-	var format:SDL_PixelFormat;
-	var w:Int;
-	var h:Int;
-	var refcount:Int;
-}
 
 extern enum abstract SDL_Scancode(SDL_Scancode_Impl)
 {
@@ -7059,175 +5315,6 @@ extern class SDL
 	@:native('SDL_GetAtomicPointer')
 	static function GetAtomicPointer(a:RawPointer<RawPointer<cpp.Void>>):RawPointer<cpp.Void>;
 
-	// SDL_audio.h
-	@:native('SDL_GetNumAudioDrivers')
-	static function GetNumAudioDrivers():Int;
-
-	@:native('SDL_GetAudioDriver')
-	static function GetAudioDriver(index:Int):ConstCharStar;
-
-	@:native('SDL_GetCurrentAudioDriver')
-	static function GetCurrentAudioDriver():ConstCharStar;
-
-	@:native('SDL_GetAudioPlaybackDevices')
-	static function GetAudioPlaybackDevices(count:RawPointer<Int>):RawPointer<SDL_AudioDeviceID>;
-
-	@:native('SDL_GetAudioRecordingDevices')
-	static function GetAudioRecordingDevices(count:RawPointer<Int>):RawPointer<SDL_AudioDeviceID>;
-
-	@:native('SDL_GetAudioDeviceName')
-	static function GetAudioDeviceName(devid:SDL_AudioDeviceID):ConstCharStar;
-
-	@:native('SDL_GetAudioDeviceFormat')
-	static function GetAudioDeviceFormat(devid:SDL_AudioDeviceID, spec:RawPointer<SDL_AudioSpec>, sampleFrames:RawPointer<Int>):Bool;
-
-	@:native('SDL_GetAudioDeviceChannelMap')
-	static function GetAudioDeviceChannelMap(devid:SDL_AudioDeviceID, count:RawPointer<Int>):RawPointer<Int>;
-
-	@:native('SDL_OpenAudioDevice')
-	static function OpenAudioDevice(devid:SDL_AudioDeviceID, spec:RawPointer<SDL_AudioSpec>):SDL_AudioDeviceID;
-
-	@:native('SDL_IsAudioDevicePhysical')
-	static function IsAudioDevicePhysical(devid:SDL_AudioDeviceID):Bool;
-
-	@:native('SDL_IsAudioDevicePlayback')
-	static function IsAudioDevicePlayback(devid:SDL_AudioDeviceID):Bool;
-
-	@:native('SDL_PauseAudioDevice')
-	static function PauseAudioDevice(devid:SDL_AudioDeviceID):Bool;
-
-	@:native('SDL_ResumeAudioDevice')
-	static function ResumeAudioDevice(devid:SDL_AudioDeviceID):Bool;
-
-	@:native('SDL_AudioDevicePaused')
-	static function AudioDevicePaused(devid:SDL_AudioDeviceID):Bool;
-
-	@:native('SDL_GetAudioDeviceGain')
-	static function GetAudioDeviceGain(devid:SDL_AudioDeviceID):Single;
-
-	@:native('SDL_SetAudioDeviceGain')
-	static function SetAudioDeviceGain(devid:SDL_AudioDeviceID, gain:Single):Bool;
-
-	@:native('SDL_CloseAudioDevice')
-	static function CloseAudioDevice(devid:SDL_AudioDeviceID):Void;
-
-	@:native('SDL_BindAudioStreams')
-	static function BindAudioStreams(devid:SDL_AudioDeviceID, streams:RawPointer<RawPointer<SDL_AudioStream>>, numStreams:Int):Bool;
-
-	@:native('SDL_BindAudioStream')
-	static function BindAudioStream(devid:SDL_AudioDeviceID, stream:RawPointer<SDL_AudioStream>):Bool;
-
-	@:native('SDL_UnbindAudioStreams')
-	static function UnbindAudioStreams(streams:RawPointer<RawPointer<SDL_AudioStream>>, numStreams:Int):Void;
-
-	@:native('SDL_UnbindAudioStream')
-	static function UnbindAudioStream(stream:RawPointer<SDL_AudioStream>):Void;
-
-	@:native('SDL_GetAudioStreamDevice')
-	static function GetAudioStreamDevice(stream:RawPointer<SDL_AudioStream>):SDL_AudioDeviceID;
-
-	@:native('SDL_CreateAudioStream')
-	static function CreateAudioStream(srcSpec:RawPointer<SDL_AudioSpec>, dstSpec:RawPointer<SDL_AudioSpec>):RawPointer<SDL_AudioStream>;
-
-	@:native('SDL_GetAudioStreamProperties')
-	static function GetAudioStreamProperties(stream:RawPointer<SDL_AudioStream>):SDL_PropertiesID;
-
-	@:native('SDL_GetAudioStreamFormat')
-	static function GetAudioStreamFormat(stream:RawPointer<SDL_AudioStream>, srcSpec:RawPointer<SDL_AudioSpec>, dstSpec:RawPointer<SDL_AudioSpec>):Bool;
-
-	@:native('SDL_SetAudioStreamFormat')
-	static function SetAudioStreamFormat(stream:RawPointer<SDL_AudioStream>, srcSpec:RawPointer<SDL_AudioSpec>, dstSpec:RawPointer<SDL_AudioSpec>):Bool;
-
-	@:native('SDL_GetAudioStreamFrequencyRatio')
-	static function GetAudioStreamFrequencyRatio(stream:RawPointer<SDL_AudioStream>):Single;
-
-	@:native('SDL_SetAudioStreamFrequencyRatio')
-	static function SetAudioStreamFrequencyRatio(stream:RawPointer<SDL_AudioStream>, ratio:Single):Bool;
-
-	@:native('SDL_GetAudioStreamGain')
-	static function GetAudioStreamGain(stream:RawPointer<SDL_AudioStream>):Single;
-
-	@:native('SDL_SetAudioStreamGain')
-	static function SetAudioStreamGain(stream:RawPointer<SDL_AudioStream>, gain:Single):Bool;
-
-	@:native('SDL_GetAudioStreamInputChannelMap')
-	static function GetAudioStreamInputChannelMap(stream:RawPointer<SDL_AudioStream>, count:RawPointer<Int>):RawPointer<Int>;
-
-	@:native('SDL_GetAudioStreamOutputChannelMap')
-	static function GetAudioStreamOutputChannelMap(stream:RawPointer<SDL_AudioStream>, count:RawPointer<Int>):RawPointer<Int>;
-
-	@:native('SDL_SetAudioStreamInputChannelMap')
-	static function SetAudioStreamInputChannelMap(stream:RawPointer<SDL_AudioStream>, chmap:RawPointer<Int>, count:Int):Bool;
-
-	@:native('SDL_SetAudioStreamOutputChannelMap')
-	static function SetAudioStreamOutputChannelMap(stream:RawPointer<SDL_AudioStream>, chmap:RawPointer<Int>, count:Int):Bool;
-
-	@:native('SDL_PutAudioStreamData')
-	static function PutAudioStreamData(stream:RawPointer<SDL_AudioStream>, buf:RawPointer<cpp.Void>, len:Int):Bool;
-
-	@:native('SDL_GetAudioStreamData')
-	static function GetAudioStreamData(stream:RawPointer<SDL_AudioStream>, buf:RawPointer<cpp.Void>, len:Int):Int;
-
-	@:native('SDL_GetAudioStreamAvailable')
-	static function GetAudioStreamAvailable(stream:RawPointer<SDL_AudioStream>):Int;
-
-	@:native('SDL_GetAudioStreamQueued')
-	static function GetAudioStreamQueued(stream:RawPointer<SDL_AudioStream>):Int;
-
-	@:native('SDL_FlushAudioStream')
-	static function FlushAudioStream(stream:RawPointer<SDL_AudioStream>):Bool;
-
-	@:native('SDL_ClearAudioStream')
-	static function ClearAudioStream(stream:RawPointer<SDL_AudioStream>):Bool;
-
-	@:native('SDL_PauseAudioStreamDevice')
-	static function PauseAudioStreamDevice(stream:RawPointer<SDL_AudioStream>):Bool;
-
-	@:native('SDL_ResumeAudioStreamDevice')
-	static function ResumeAudioStreamDevice(stream:RawPointer<SDL_AudioStream>):Bool;
-
-	@:native('SDL_AudioStreamDevicePaused')
-	static function AudioStreamDevicePaused(stream:RawPointer<SDL_AudioStream>):Bool;
-
-	@:native('SDL_LockAudioStream')
-	static function LockAudioStream(stream:RawPointer<SDL_AudioStream>):Bool;
-
-	@:native('SDL_UnlockAudioStream')
-	static function UnlockAudioStream(stream:RawPointer<SDL_AudioStream>):Bool;
-
-	@:native('SDL_SetAudioStreamGetCallback')
-	static function SetAudioStreamGetCallback(stream:RawPointer<SDL_AudioStream>, callback:RawPointer<cpp.Void>, userdata:RawPointer<cpp.Void>):Bool;
-
-	@:native('SDL_SetAudioStreamPutCallback')
-	static function SetAudioStreamPutCallback(stream:RawPointer<SDL_AudioStream>, callback:RawPointer<cpp.Void>, userdata:RawPointer<cpp.Void>):Bool;
-
-	@:native('SDL_DestroyAudioStream')
-	static function DestroyAudioStream(stream:RawPointer<SDL_AudioStream>):Void;
-
-	@:native('SDL_OpenAudioDeviceStream')
-	static function OpenAudioDeviceStream(devid:SDL_AudioDeviceID, spec:RawPointer<SDL_AudioSpec>, callback:RawPointer<cpp.Void>,
-		userdata:RawPointer<cpp.Void>):RawPointer<SDL_AudioStream>;
-
-	@:native('SDL_LoadWAV_IO')
-	static function LoadWAV_IO(src:RawPointer<SDL_IOStream>, closeio:Bool, spec:RawPointer<SDL_AudioSpec>, audioBuf:RawPointer<RawPointer<UInt8>>,
-		audioLen:RawPointer<UInt32>):Bool;
-
-	@:native('SDL_LoadWAV')
-	static function LoadWAV(path:ConstCharStar, spec:RawPointer<SDL_AudioSpec>, audioBuf:RawPointer<RawPointer<UInt8>>, audioLen:RawPointer<UInt32>):Bool;
-
-	@:native('SDL_MixAudio')
-	static function MixAudio(dst:RawPointer<UInt8>, src:RawPointer<UInt8>, format:SDL_AudioFormat, len:UInt32, volume:Single):Bool;
-
-	@:native('SDL_ConvertAudioSamples')
-	static function ConvertAudioSamples(srcSpec:RawPointer<SDL_AudioSpec>, srcData:RawPointer<UInt8>, srcLen:Int, dstSpec:RawPointer<SDL_AudioSpec>,
-		dstData:RawPointer<RawPointer<UInt8>>, dstLen:RawPointer<Int>):Bool;
-
-	@:native('SDL_GetAudioFormatName')
-	static function GetAudioFormatName(format:SDL_AudioFormat):ConstCharStar;
-
-	@:native('SDL_GetSilenceValueForFormat')
-	static function GetSilenceValueForFormat(format:SDL_AudioFormat):Int;
-
 	// SDL_bits.h
 	@:native('SDL_MostSignificantBitIndex32')
 	static function SDL_MostSignificantBitIndex32(x:UInt32):Int;
@@ -7402,6 +5489,9 @@ extern class SDL
 
 	@:native('SDL_GetSIMDAlignment')
 	static function GetSIMDAlignment():Int;
+
+	@:native('SDL_GetSystemPageSize')
+	static function GetSystemPageSize():Int;
 
 	// SDL_dialog.h
 	@:native('SDL_ShowOpenFileDialog')
@@ -7787,457 +5877,6 @@ extern class SDL
 	@:native('SDL_GetGamepadAppleSFSymbolsNameForAxis')
 	static function GetGamepadAppleSFSymbolsNameForAxis(gamepad:RawPointer<SDL_Gamepad>, axis:SDL_GamepadAxis):ConstCharStar;
 
-	// SDL_gpu.h
-	@:native('SDL_GPU_TEXTUREUSAGE_SAMPLER')
-	static var TEXTUREUSAGE_SAMPLER:UInt32;
-
-	@:native('SDL_GPU_TEXTUREUSAGE_COLOR_TARGET')
-	static var TEXTUREUSAGE_COLOR_TARGET:UInt32;
-
-	@:native('SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET')
-	static var TEXTUREUSAGE_DEPTH_STENCIL_TARGET:UInt32;
-
-	@:native('SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ')
-	static var TEXTUREUSAGE_GRAPHICS_STORAGE_READ:UInt32;
-
-	@:native('SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ')
-	static var TEXTUREUSAGE_COMPUTE_STORAGE_READ:UInt32;
-
-	@:native('SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_WRITE')
-	static var TEXTUREUSAGE_COMPUTE_STORAGE_WRITE:UInt32;
-
-	@:native('SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE')
-	static var TEXTUREUSAGE_COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE:UInt32;
-
-	@:native('SDL_GPU_BUFFERUSAGE_VERTEX')
-	static var BUFFERUSAGE_VERTEX:UInt32;
-
-	@:native('SDL_GPU_BUFFERUSAGE_INDEX')
-	static var BUFFERUSAGE_INDEX:UInt32;
-
-	@:native('SDL_GPU_BUFFERUSAGE_INDIRECT')
-	static var BUFFERUSAGE_INDIRECT:UInt32;
-
-	@:native('SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ')
-	static var BUFFERUSAGE_GRAPHICS_STORAGE_READ:UInt32;
-
-	@:native('SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ')
-	static var BUFFERUSAGE_COMPUTE_STORAGE_READ:UInt32;
-
-	@:native('SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_WRITE')
-	static var BUFFERUSAGE_COMPUTE_STORAGE_WRITE:UInt32;
-
-	@:native('SDL_GPU_SHADERFORMAT_INVALID')
-	static var SHADERFORMAT_INVALID:UInt32;
-
-	@:native('SDL_GPU_SHADERFORMAT_PRIVATE')
-	static var SHADERFORMAT_PRIVATE:UInt32;
-
-	@:native('SDL_GPU_SHADERFORMAT_SPIRV')
-	static var SHADERFORMAT_SPIRV:UInt32;
-
-	@:native('SDL_GPU_SHADERFORMAT_DXBC')
-	static var SHADERFORMAT_DXBC:UInt32;
-
-	@:native('SDL_GPU_SHADERFORMAT_DXIL')
-	static var SHADERFORMAT_DXIL:UInt32;
-
-	@:native('SDL_GPU_SHADERFORMAT_MSL')
-	static var SHADERFORMAT_MSL:UInt32;
-
-	@:native('SDL_GPU_SHADERFORMAT_METALLIB')
-	static var SHADERFORMAT_METALLIB:UInt32;
-
-	@:native('SDL_GPU_COLORCOMPONENT_R')
-	static var COLORCOMPONENT_R:UInt32;
-
-	@:native('SDL_GPU_COLORCOMPONENT_G')
-	static var COLORCOMPONENT_G:UInt32;
-
-	@:native('SDL_GPU_COLORCOMPONENT_B')
-	static var COLORCOMPONENT_B:UInt32;
-
-	@:native('SDL_GPU_COLORCOMPONENT_A')
-	static var COLORCOMPONENT_A:UInt32;
-
-	@:native('SDL_GPUSupportsShaderFormats')
-	static function GPUSupportsShaderFormats(format_flags:SDL_GPUShaderFormat, name:ConstCharStar):Bool;
-
-	@:native('SDL_GPUSupportsProperties')
-	static function GPUSupportsProperties(props:SDL_PropertiesID):Bool;
-
-	@:native('SDL_CreateGPUDevice')
-	static function CreateGPUDevice(format_flags:SDL_GPUShaderFormat, debug_mode:Bool, name:ConstCharStar):RawPointer<SDL_GPUDevice>;
-
-	@:native('SDL_CreateGPUDeviceWithProperties')
-	static function CreateGPUDeviceWithProperties(props:SDL_PropertiesID):RawPointer<SDL_GPUDevice>;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN')
-	static var PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN')
-	static var PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING')
-	static var PROP_GPU_DEVICE_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN')
-	static var PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN')
-	static var PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN')
-	static var PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN')
-	static var PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN')
-	static var PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN')
-	static var PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING')
-	static var PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_DestroyGPUDevice')
-	static function DestroyGPUDevice(device:RawPointer<SDL_GPUDevice>):Void;
-
-	@:native('SDL_GetNumGPUDrivers')
-	static function GetNumGPUDrivers():Int;
-
-	@:native('SDL_GetGPUDriver')
-	static function GetGPUDriver(index:Int):ConstCharStar;
-
-	@:native('SDL_GetGPUDeviceDriver')
-	static function GetGPUDeviceDriver(device:RawPointer<SDL_GPUDevice>):ConstCharStar;
-
-	@:native('SDL_GetGPUShaderFormats')
-	static function GetGPUShaderFormats(device:RawPointer<SDL_GPUDevice>):SDL_GPUShaderFormat;
-
-	@:native('SDL_CreateGPUComputePipeline')
-	static function CreateGPUComputePipeline(device:RawPointer<SDL_GPUDevice>,
-		createinfo:RawConstPointer<SDL_GPUComputePipelineCreateInfo>):RawPointer<SDL_GPUComputePipeline>;
-
-	@:native('SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING')
-	static var PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_CreateGPUGraphicsPipeline')
-	static function CreateGPUGraphicsPipeline(device:RawPointer<SDL_GPUDevice>,
-		createinfo:RawConstPointer<SDL_GPUGraphicsPipelineCreateInfo>):RawPointer<SDL_GPUGraphicsPipeline>;
-
-	@:native('SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING')
-	static var PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_CreateGPUSampler')
-	static function CreateGPUSampler(device:RawPointer<SDL_GPUDevice>, createinfo:RawConstPointer<SDL_GPUSamplerCreateInfo>):RawPointer<SDL_GPUSampler>;
-
-	@:native('SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING')
-	static var PROP_GPU_SAMPLER_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_CreateGPUShader')
-	static function CreateGPUShader(device:RawPointer<SDL_GPUDevice>, createinfo:RawConstPointer<SDL_GPUShaderCreateInfo>):RawPointer<SDL_GPUShader>;
-
-	@:native('SDL_PROP_GPU_SHADER_CREATE_NAME_STRING')
-	static var PROP_GPU_SHADER_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_CreateGPUTexture')
-	static function CreateGPUTexture(device:RawPointer<SDL_GPUDevice>, createinfo:RawConstPointer<SDL_GPUTextureCreateInfo>):RawPointer<SDL_GPUTexture>;
-
-	@:native('SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT')
-	static var PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT')
-	static var PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT')
-	static var PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT')
-	static var PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT')
-	static var PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8')
-	static var PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8:ConstCharStar;
-
-	@:native('SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING')
-	static var PROP_GPU_TEXTURE_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_CreateGPUBuffer')
-	static function CreateGPUBuffer(device:RawPointer<SDL_GPUDevice>, createinfo:RawConstPointer<SDL_GPUBufferCreateInfo>):RawPointer<SDL_GPUBuffer>;
-
-	@:native('SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING')
-	static var PROP_GPU_BUFFER_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_CreateGPUTransferBuffer')
-	static function CreateGPUTransferBuffer(device:RawPointer<SDL_GPUDevice>,
-		createinfo:RawConstPointer<SDL_GPUTransferBufferCreateInfo>):RawPointer<SDL_GPUTransferBuffer>;
-
-	@:native('SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING')
-	static var PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native('SDL_SetGPUBufferName')
-	static function SetGPUBufferName(device:RawPointer<SDL_GPUDevice>, buffer:RawPointer<SDL_GPUBuffer>, text:ConstCharStar):Void;
-
-	@:native('SDL_SetGPUTextureName')
-	static function SetGPUTextureName(device:RawPointer<SDL_GPUDevice>, texture:RawPointer<SDL_GPUTexture>, text:ConstCharStar):Void;
-
-	@:native('SDL_InsertGPUDebugLabel')
-	static function InsertGPUDebugLabel(command_buffer:RawPointer<SDL_GPUCommandBuffer>, text:ConstCharStar):Void;
-
-	@:native('SDL_PushGPUDebugGroup')
-	static function PushGPUDebugGroup(command_buffer:RawPointer<SDL_GPUCommandBuffer>, name:ConstCharStar):Void;
-
-	@:native('SDL_PopGPUDebugGroup')
-	static function PopGPUDebugGroup(command_buffer:RawPointer<SDL_GPUCommandBuffer>):Void;
-
-	@:native('SDL_ReleaseGPUTexture')
-	static function ReleaseGPUTexture(device:RawPointer<SDL_GPUDevice>, texture:RawPointer<SDL_GPUTexture>):Void;
-
-	@:native('SDL_ReleaseGPUSampler')
-	static function ReleaseGPUSampler(device:RawPointer<SDL_GPUDevice>, sampler:RawPointer<SDL_GPUSampler>):Void;
-
-	@:native('SDL_ReleaseGPUBuffer')
-	static function ReleaseGPUBuffer(device:RawPointer<SDL_GPUDevice>, buffer:RawPointer<SDL_GPUBuffer>):Void;
-
-	@:native('SDL_ReleaseGPUTransferBuffer')
-	static function ReleaseGPUTransferBuffer(device:RawPointer<SDL_GPUDevice>, transfer_buffer:RawPointer<SDL_GPUTransferBuffer>):Void;
-
-	@:native('SDL_ReleaseGPUComputePipeline')
-	static function ReleaseGPUComputePipeline(device:RawPointer<SDL_GPUDevice>, compute_pipeline:RawPointer<SDL_GPUComputePipeline>):Void;
-
-	@:native('SDL_ReleaseGPUShader')
-	static function ReleaseGPUShader(device:RawPointer<SDL_GPUDevice>, shader:RawPointer<SDL_GPUShader>):Void;
-
-	@:native('SDL_ReleaseGPUGraphicsPipeline')
-	static function ReleaseGPUGraphicsPipeline(device:RawPointer<SDL_GPUDevice>, graphics_pipeline:RawPointer<SDL_GPUGraphicsPipeline>):Void;
-
-	@:native('SDL_AcquireGPUCommandBuffer')
-	static function AcquireGPUCommandBuffer(device:RawPointer<SDL_GPUDevice>):RawPointer<SDL_GPUCommandBuffer>;
-
-	@:native('SDL_PushGPUVertexUniformData')
-	static function PushGPUVertexUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:RawConstPointer<cpp.Void>, length:UInt32):Void;
-
-	@:native('SDL_PushGPUFragmentUniformData')
-	static function PushGPUFragmentUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:RawConstPointer<cpp.Void>, length:UInt32):Void;
-
-	@:native('SDL_PushGPUComputeUniformData')
-	static function PushGPUComputeUniformData(command_buffer:RawPointer<SDL_GPUCommandBuffer>, slot_index:UInt32, data:RawConstPointer<cpp.Void>, length:UInt32):Void;
-
-	@:native('SDL_BeginGPURenderPass')
-	static function BeginGPURenderPass(command_buffer:RawPointer<SDL_GPUCommandBuffer>, color_target_infos:RawConstPointer<SDL_GPUColorTargetInfo>,
-		num_color_targets:UInt32, depth_stencil_target_info:RawConstPointer<SDL_GPUDepthStencilTargetInfo>):RawPointer<SDL_GPURenderPass>;
-
-	@:native('SDL_BindGPUGraphicsPipeline')
-	static function BindGPUGraphicsPipeline(render_pass:RawPointer<SDL_GPURenderPass>, graphics_pipeline:RawPointer<SDL_GPUGraphicsPipeline>):Void;
-
-	@:native('SDL_SetGPUViewport')
-	static function SetGPUViewport(render_pass:RawPointer<SDL_GPURenderPass>, viewport:RawConstPointer<SDL_GPUViewport>):Void;
-
-	@:native('SDL_SetGPUScissor')
-	static function SetGPUScissor(render_pass:RawPointer<SDL_GPURenderPass>, scissor:RawConstPointer<SDL_Rect>):Void;
-
-	@:native('SDL_SetGPUBlendConstants')
-	static function SetGPUBlendConstants(render_pass:RawPointer<SDL_GPURenderPass>, blend_constants:SDL_FColor):Void;
-
-	@:native('SDL_SetGPUStencilReference')
-	static function SetGPUStencilReference(render_pass:RawPointer<SDL_GPURenderPass>, reference:UInt8):Void;
-
-	@:native('SDL_BindGPUVertexBuffers')
-	static function BindGPUVertexBuffers(render_pass:RawPointer<SDL_GPURenderPass>, first_slot:UInt32, bindings:RawConstPointer<SDL_GPUBufferBinding>,
-		num_bindings:UInt32):Void;
-
-	@:native('SDL_BindGPUIndexBuffer')
-	static function BindGPUIndexBuffer(render_pass:RawPointer<SDL_GPURenderPass>, binding:RawConstPointer<SDL_GPUBufferBinding>,
-		index_element_size:SDL_GPUIndexElementSize):Void;
-
-	@:native('SDL_BindGPUVertexSamplers')
-	static function BindGPUVertexSamplers(render_pass:RawPointer<SDL_GPURenderPass>, first_slot:UInt32,
-		texture_sampler_bindings:RawConstPointer<SDL_GPUTextureSamplerBinding>, num_bindings:UInt32):Void;
-
-	@:native('SDL_BindGPUVertexStorageTextures')
-	static function BindGPUVertexStorageTextures(render_pass:RawPointer<SDL_GPURenderPass>, first_slot:UInt32,
-		storage_textures:RawPointer<RawPointer<SDL_GPUTexture>>, num_bindings:UInt32):Void;
-
-	@:native('SDL_BindGPUVertexStorageBuffers')
-	static function BindGPUVertexStorageBuffers(render_pass:RawPointer<SDL_GPURenderPass>, first_slot:UInt32,
-		storage_buffers:RawPointer<RawPointer<SDL_GPUBuffer>>, num_bindings:UInt32):Void;
-
-	@:native('SDL_BindGPUFragmentSamplers')
-	static function BindGPUFragmentSamplers(render_pass:RawPointer<SDL_GPURenderPass>, first_slot:UInt32,
-		texture_sampler_bindings:RawConstPointer<SDL_GPUTextureSamplerBinding>, num_bindings:UInt32):Void;
-
-	@:native('SDL_BindGPUFragmentStorageTextures')
-	static function BindGPUFragmentStorageTextures(render_pass:RawPointer<SDL_GPURenderPass>, first_slot:UInt32,
-		storage_textures:RawPointer<RawPointer<SDL_GPUTexture>>, num_bindings:UInt32):Void;
-
-	@:native('SDL_BindGPUFragmentStorageBuffers')
-	static function BindGPUFragmentStorageBuffers(render_pass:RawPointer<SDL_GPURenderPass>, first_slot:UInt32,
-		storage_buffers:RawPointer<RawPointer<SDL_GPUBuffer>>, num_bindings:UInt32):Void;
-
-	@:native('SDL_DrawGPUIndexedPrimitives')
-	static function DrawGPUIndexedPrimitives(render_pass:RawPointer<SDL_GPURenderPass>, num_indices:UInt32, num_instances:UInt32, first_index:UInt32,
-		vertex_offset:Int32, first_instance:UInt32):Void;
-
-	@:native('SDL_DrawGPUPrimitives')
-	static function DrawGPUPrimitives(render_pass:RawPointer<SDL_GPURenderPass>, num_vertices:UInt32, num_instances:UInt32, first_vertex:UInt32,
-		first_instance:UInt32):Void;
-
-	@:native('SDL_DrawGPUPrimitivesIndirect')
-	static function DrawGPUPrimitivesIndirect(render_pass:RawPointer<SDL_GPURenderPass>, buffer:RawPointer<SDL_GPUBuffer>, offset:UInt32,
-		draw_count:UInt32):Void;
-
-	@:native('SDL_DrawGPUIndexedPrimitivesIndirect')
-	static function DrawGPUIndexedPrimitivesIndirect(render_pass:RawPointer<SDL_GPURenderPass>, buffer:RawPointer<SDL_GPUBuffer>, offset:UInt32,
-		draw_count:UInt32):Void;
-
-	@:native('SDL_EndGPURenderPass')
-	static function EndGPURenderPass(render_pass:RawPointer<SDL_GPURenderPass>):Void;
-
-	@:native('SDL_BeginGPUComputePass')
-	static function BeginGPUComputePass(command_buffer:RawPointer<SDL_GPUCommandBuffer>,
-		storage_texture_bindings:RawConstPointer<SDL_GPUStorageTextureReadWriteBinding>, num_storage_texture_bindings:UInt32,
-		storage_buffer_bindings:RawConstPointer<SDL_GPUStorageBufferReadWriteBinding>, num_storage_buffer_bindings:UInt32):RawPointer<SDL_GPUComputePass>;
-
-	@:native('SDL_BindGPUComputePipeline')
-	static function BindGPUComputePipeline(compute_pass:RawPointer<SDL_GPUComputePass>, compute_pipeline:RawPointer<SDL_GPUComputePipeline>):Void;
-
-	@:native('SDL_BindGPUComputeSamplers')
-	static function BindGPUComputeSamplers(compute_pass:RawPointer<SDL_GPUComputePass>, first_slot:UInt32,
-		texture_sampler_bindings:RawConstPointer<SDL_GPUTextureSamplerBinding>, num_bindings:UInt32):Void;
-
-	@:native('SDL_BindGPUComputeStorageTextures')
-	static function BindGPUComputeStorageTextures(compute_pass:RawPointer<SDL_GPUComputePass>, first_slot:UInt32,
-		storage_textures:RawPointer<RawPointer<SDL_GPUTexture>>, num_bindings:UInt32):Void;
-
-	@:native('SDL_BindGPUComputeStorageBuffers')
-	static function BindGPUComputeStorageBuffers(compute_pass:RawPointer<SDL_GPUComputePass>, first_slot:UInt32,
-		storage_buffers:RawPointer<RawPointer<SDL_GPUBuffer>>, num_bindings:UInt32):Void;
-
-	@:native('SDL_DispatchGPUCompute')
-	static function DispatchGPUCompute(compute_pass:RawPointer<SDL_GPUComputePass>, groupcount_x:UInt32, groupcount_y:UInt32, groupcount_z:UInt32):Void;
-
-	@:native('SDL_DispatchGPUComputeIndirect')
-	static function DispatchGPUComputeIndirect(compute_pass:RawPointer<SDL_GPUComputePass>, buffer:RawPointer<SDL_GPUBuffer>, offset:UInt32):Void;
-
-	@:native('SDL_EndGPUComputePass')
-	static function EndGPUComputePass(compute_pass:RawPointer<SDL_GPUComputePass>):Void;
-
-	@:native('SDL_MapGPUTransferBuffer')
-	static function MapGPUTransferBuffer(device:RawPointer<SDL_GPUDevice>, transfer_buffer:RawPointer<SDL_GPUTransferBuffer>, cycle:Bool):RawPointer<cpp.Void>;
-
-	@:native('SDL_UnmapGPUTransferBuffer')
-	static function UnmapGPUTransferBuffer(device:RawPointer<SDL_GPUDevice>, transfer_buffer:RawPointer<SDL_GPUTransferBuffer>):Void;
-
-	@:native('SDL_BeginGPUCopyPass')
-	static function BeginGPUCopyPass(command_buffer:RawPointer<SDL_GPUCommandBuffer>):RawPointer<SDL_GPUCopyPass>;
-
-	@:native('SDL_UploadToGPUTexture')
-	static function UploadToGPUTexture(copy_pass:RawPointer<SDL_GPUCopyPass>, source:RawConstPointer<SDL_GPUTextureTransferInfo>,
-		destination:RawConstPointer<SDL_GPUTextureRegion>, cycle:Bool):Void;
-
-	@:native('SDL_UploadToGPUBuffer')
-	static function UploadToGPUBuffer(copy_pass:RawPointer<SDL_GPUCopyPass>, source:RawConstPointer<SDL_GPUTransferBufferLocation>,
-		destination:RawConstPointer<SDL_GPUBufferRegion>, cycle:Bool):Void;
-
-	@:native('SDL_CopyGPUTextureToTexture')
-	static function CopyGPUTextureToTexture(copy_pass:RawPointer<SDL_GPUCopyPass>, source:RawConstPointer<SDL_GPUTextureLocation>,
-		destination:RawConstPointer<SDL_GPUTextureLocation>, w:UInt32, h:UInt32, d:UInt32, cycle:Bool):Void;
-
-	@:native('SDL_CopyGPUBufferToBuffer')
-	static function CopyGPUBufferToBuffer(copy_pass:RawPointer<SDL_GPUCopyPass>, source:RawConstPointer<SDL_GPUBufferLocation>,
-		destination:RawConstPointer<SDL_GPUBufferLocation>, size:UInt32, cycle:Bool):Void;
-
-	@:native('SDL_DownloadFromGPUTexture')
-	static function DownloadFromGPUTexture(copy_pass:RawPointer<SDL_GPUCopyPass>, source:RawConstPointer<SDL_GPUTextureRegion>,
-		destination:RawConstPointer<SDL_GPUTextureTransferInfo>):Void;
-
-	@:native('SDL_DownloadFromGPUBuffer')
-	static function DownloadFromGPUBuffer(copy_pass:RawPointer<SDL_GPUCopyPass>, source:RawConstPointer<SDL_GPUBufferRegion>,
-		destination:RawConstPointer<SDL_GPUTransferBufferLocation>):Void;
-
-	@:native('SDL_EndGPUCopyPass')
-	static function EndGPUCopyPass(copy_pass:RawPointer<SDL_GPUCopyPass>):Void;
-
-	@:native('SDL_GenerateMipmapsForGPUTexture')
-	static function GenerateMipmapsForGPUTexture(command_buffer:RawPointer<SDL_GPUCommandBuffer>, texture:RawPointer<SDL_GPUTexture>):Void;
-
-	@:native('SDL_BlitGPUTexture')
-	static function BlitGPUTexture(command_buffer:RawPointer<SDL_GPUCommandBuffer>, info:RawConstPointer<SDL_GPUBlitInfo>):Void;
-
-	@:native('SDL_WindowSupportsGPUSwapchainComposition')
-	static function WindowSupportsGPUSwapchainComposition(device:RawPointer<SDL_GPUDevice>, window:RawPointer<SDL_Window>,
-		swapchain_composition:SDL_GPUSwapchainComposition):Bool;
-
-	@:native('SDL_WindowSupportsGPUPresentMode')
-	static function WindowSupportsGPUPresentMode(device:RawPointer<SDL_GPUDevice>, window:RawPointer<SDL_Window>, present_mode:SDL_GPUPresentMode):Bool;
-
-	@:native('SDL_ClaimWindowForGPUDevice')
-	static function ClaimWindowForGPUDevice(device:RawPointer<SDL_GPUDevice>, window:RawPointer<SDL_Window>):Bool;
-
-	@:native('SDL_ReleaseWindowFromGPUDevice')
-	static function ReleaseWindowFromGPUDevice(device:RawPointer<SDL_GPUDevice>, window:RawPointer<SDL_Window>):Void;
-
-	// Add to your SDL.hx extern class
-	@:native('SDL_SetGPUSwapchainParameters')
-	static function SetGPUSwapchainParameters(device:RawPointer<SDL_GPUDevice>, window:RawPointer<SDL_Window>,
-		swapchain_composition:SDL_GPUSwapchainComposition, present_mode:SDL_GPUPresentMode):Bool;
-
-	@:native('SDL_SetGPUAllowedFramesInFlight')
-	static function SetGPUAllowedFramesInFlight(device:RawPointer<SDL_GPUDevice>, allowed_frames_in_flight:UInt32):Bool;
-
-	@:native('SDL_GetGPUSwapchainTextureFormat')
-	static function GetGPUSwapchainTextureFormat(device:RawPointer<SDL_GPUDevice>, window:RawPointer<SDL_Window>):SDL_GPUTextureFormat;
-
-	@:native('SDL_AcquireGPUSwapchainTexture')
-	static function AcquireGPUSwapchainTexture(command_buffer:RawPointer<SDL_GPUCommandBuffer>, window:RawPointer<SDL_Window>,
-		swapchain_texture:RawPointer<RawPointer<SDL_GPUTexture>>, swapchain_texture_width:RawPointer<UInt32>, swapchain_texture_height:RawPointer<UInt32>):Bool;
-
-	@:native('SDL_WaitForGPUSwapchain')
-	static function WaitForGPUSwapchain(device:RawPointer<SDL_GPUDevice>, window:RawPointer<SDL_Window>):Bool;
-
-	@:native('SDL_WaitAndAcquireGPUSwapchainTexture')
-	static function WaitAndAcquireGPUSwapchainTexture(command_buffer:RawPointer<SDL_GPUCommandBuffer>, window:RawPointer<SDL_Window>,
-		swapchain_texture:RawPointer<RawPointer<SDL_GPUTexture>>, swapchain_texture_width:RawPointer<UInt32>, swapchain_texture_height:RawPointer<UInt32>):Bool;
-
-	@:native('SDL_SubmitGPUCommandBuffer')
-	static function SubmitGPUCommandBuffer(command_buffer:RawPointer<SDL_GPUCommandBuffer>):Bool;
-
-	@:native('SDL_SubmitGPUCommandBufferAndAcquireFence')
-	static function SubmitGPUCommandBufferAndAcquireFence(command_buffer:RawPointer<SDL_GPUCommandBuffer>):RawPointer<SDL_GPUFence>;
-
-	@:native('SDL_CancelGPUCommandBuffer')
-	static function CancelGPUCommandBuffer(command_buffer:RawPointer<SDL_GPUCommandBuffer>):Bool;
-
-	@:native('SDL_WaitForGPUIdle')
-	static function WaitForGPUIdle(device:RawPointer<SDL_GPUDevice>):Bool;
-
-	@:native('SDL_WaitForGPUFences')
-	static function WaitForGPUFences(device:RawPointer<SDL_GPUDevice>, wait_all:Bool, fences:RawPointer<RawPointer<SDL_GPUFence>>, num_fences:UInt32):Bool;
-
-	@:native('SDL_QueryGPUFence')
-	static function QueryGPUFence(device:RawPointer<SDL_GPUDevice>, fence:RawPointer<SDL_GPUFence>):Bool;
-
-	@:native('SDL_ReleaseGPUFence')
-	static function ReleaseGPUFence(device:RawPointer<SDL_GPUDevice>, fence:RawPointer<SDL_GPUFence>):Void;
-
-	@:native('SDL_GPUTextureFormatTexelBlockSize')
-	static function GPUTextureFormatTexelBlockSize(format:SDL_GPUTextureFormat):UInt32;
-
-	@:native('SDL_GPUTextureSupportsFormat')
-	static function GPUTextureSupportsFormat(device:RawPointer<SDL_GPUDevice>, format:SDL_GPUTextureFormat, type:SDL_GPUTextureType,
-		usage:SDL_GPUTextureUsageFlags):Bool;
-
-	@:native('SDL_GPUTextureSupportsSampleCount')
-	static function GPUTextureSupportsSampleCount(device:RawPointer<SDL_GPUDevice>, format:SDL_GPUTextureFormat, sample_count:SDL_GPUSampleCount):Bool;
-
-	@:native('SDL_CalculateGPUTextureFormatSize')
-	static function CalculateGPUTextureFormatSize(format:SDL_GPUTextureFormat, width:UInt32, height:UInt32, depth_or_layer_count:UInt32):UInt32;
-
 	// SDL_guid.h
 	@:native('SDL_GUIDToString')
 	static function GUIDToString(guid:SDL_GUID, pszGUID:CastCharStar, cbGUID:Int):Void;
@@ -8537,6 +6176,9 @@ extern class SDL
 	@:native('SDL_HINT_AUDIO_DEVICE_STREAM_ROLE')
 	static var HINT_AUDIO_DEVICE_STREAM_ROLE:ConstCharStar;
 
+	@:native('SDL_HINT_AUDIO_DEVICE_RAW_STREAM')
+	static var HINT_AUDIO_DEVICE_RAW_STREAM:ConstCharStar;
+
 	@:native('SDL_HINT_AUDIO_DISK_INPUT_FILE')
 	static var HINT_AUDIO_DISK_INPUT_FILE:ConstCharStar;
 
@@ -8594,6 +6236,9 @@ extern class SDL
 	@:native('SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT')
 	static var HINT_EMSCRIPTEN_KEYBOARD_ELEMENT:ConstCharStar;
 
+	@:native('SDL_HINT_EMSCRIPTEN_FILL_DOCUMENT')
+	static var HINT_EMSCRIPTEN_FILL_DOCUMENT:ConstCharStar;
+
 	@:native('SDL_HINT_ENABLE_SCREEN_KEYBOARD')
 	static var HINT_ENABLE_SCREEN_KEYBOARD:ConstCharStar;
 
@@ -8650,9 +6295,6 @@ extern class SDL
 
 	@:native('SDL_HINT_HIDAPI_UDEV')
 	static var HINT_HIDAPI_UDEV:ConstCharStar;
-
-	@:native('SDL_HINT_GPU_DRIVER')
-	static var HINT_GPU_DRIVER:ConstCharStar;
 
 	@:native('SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS')
 	static var HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS:ConstCharStar;
@@ -8957,12 +6599,6 @@ extern class SDL
 	@:native('SDL_HINT_RENDER_VULKAN_DEBUG')
 	static var HINT_RENDER_VULKAN_DEBUG:ConstCharStar;
 
-	@:native('SDL_HINT_RENDER_GPU_DEBUG')
-	static var HINT_RENDER_GPU_DEBUG:ConstCharStar;
-
-	@:native('SDL_HINT_RENDER_GPU_LOW_POWER')
-	static var HINT_RENDER_GPU_LOW_POWER:ConstCharStar;
-
 	@:native('SDL_HINT_RENDER_DRIVER')
 	static var HINT_RENDER_DRIVER:ConstCharStar;
 
@@ -9043,6 +6679,9 @@ extern class SDL
 
 	@:native('SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY')
 	static var HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY:ConstCharStar;
+
+	@:native('SDL_HINT_VIDEO_METAL_AUTO_RESIZE_DRAWABLE')
+	static var HINT_VIDEO_METAL_AUTO_RESIZE_DRAWABLE:ConstCharStar;
 
 	@:native('SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS')
 	static var HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS:ConstCharStar;
@@ -9160,6 +6799,9 @@ extern class SDL
 
 	@:native('SDL_HINT_WINDOWS_RAW_KEYBOARD')
 	static var HINT_WINDOWS_RAW_KEYBOARD:ConstCharStar;
+
+	@:native('SDL_HINT_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS')
+	static var HINT_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS:ConstCharStar;
 
 	@:native('SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL')
 	static var HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL:ConstCharStar;
@@ -10782,6 +8424,9 @@ extern class SDL
 	@:native('SDL_CreateColorCursor')
 	public static function CreateColorCursor(surface:RawPointer<SDL_Surface>, hot_x:Int, hot_y:Int):RawPointer<SDL_Cursor>;
 
+	@:native('SDL_CreateAnimatedCursor')
+	public static function CreateAnimatedCursor(frames:RawPointer<SDL_CursorFrameInfo>, frame_count:Int, hot_x:Int, hot_y:Int):RawPointer<SDL_Cursor>;
+
 	@:native('SDL_CreateSystemCursor')
 	public static function CreateSystemCursor(id:SDL_SystemCursor):RawPointer<SDL_Cursor>;
 
@@ -10913,6 +8558,9 @@ extern class SDL
 	@:native('SDL_PEN_INPUT_ERASER_TIP')
 	static var PEN_INPUT_ERASER_TIP:UInt32;
 
+	@:native('SDL_GetPenDeviceType')
+	static function GetPenDeviceType(instance_id:SDL_PenID):SDL_PenDeviceType;
+
 	// SDL_pixels.h
 	@:native('SDL_ALPHA_OPAQUE')
 	static var ALPHA_OPAQUE:UInt8;
@@ -10971,6 +8619,9 @@ extern class SDL
 	static function GetPowerInfo(seconds:RawPointer<Int>, percent:RawPointer<Int>):SDL_PowerState;
 
 	// SDL_properties.h
+	@:native('SDL_PROP_NAME_STRING')
+	static var PROP_NAME_STRING:ConstCharStar;
+
 	@:native('SDL_GetGlobalProperties')
 	static function GetGlobalProperties():SDL_PropertiesID;
 
@@ -11091,541 +8742,6 @@ extern class SDL
 	@:native('SDL_GetRectAndLineIntersectionFloat')
 	static function GetRectAndLineIntersectionFloat(rect:RawConstPointer<SDL_FRect>, X1:RawPointer<Single>, Y1:RawPointer<Single>, X2:RawPointer<Single>,
 		Y2:RawPointer<Single>):Bool;
-
-	// SDL_render.h
-	@:native('SDL_SOFTWARE_RENDERER')
-	static var SOFTWARE_RENDERER:ConstCharStar;
-
-	@:native('SDL_GetNumRenderDrivers')
-	static function GetNumRenderDrivers():Int;
-
-	@:native('SDL_GetRenderDriver')
-	static function GetRenderDriver(index:Int):ConstCharStar;
-
-	@:native('SDL_CreateWindowAndRenderer')
-	static function CreateWindowAndRenderer(title:ConstCharStar, width:Int, height:Int, window_flags:SDL_WindowFlags,
-		window:RawPointer<RawPointer<SDL_Window>>, renderer:RawPointer<RawPointer<SDL_Renderer>>):Bool;
-
-	@:native('SDL_CreateRenderer')
-	static function CreateRenderer(window:RawPointer<SDL_Window>, name:ConstCharStar):RawPointer<SDL_Renderer>;
-
-	@:native('SDL_CreateRendererWithProperties')
-	static function CreateRendererWithProperties(props:SDL_PropertiesID):RawPointer<SDL_Renderer>;
-
-	@:native("SDL_PROP_RENDERER_CREATE_NAME_STRING")
-	static var PROP_RENDERER_CREATE_NAME_STRING:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_WINDOW_POINTER")
-	static var PROP_RENDERER_CREATE_WINDOW_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_SURFACE_POINTER")
-	static var PROP_RENDERER_CREATE_SURFACE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER")
-	static var PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER")
-	static var PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER")
-	static var PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER")
-	static var PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER")
-	static var PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER")
-	static var PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER")
-	static var PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER")
-	static var PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER:ConstCharStar;
-
-	@:native('SDL_CreateSoftwareRenderer')
-	static function CreateSoftwareRenderer(surface:RawPointer<SDL_Surface>):RawPointer<SDL_Renderer>;
-
-	@:native('SDL_GetRenderer')
-	static function GetRenderer(window:RawPointer<SDL_Window>):RawPointer<SDL_Renderer>;
-
-	@:native('SDL_GetRenderWindow')
-	static function GetRenderWindow(renderer:RawPointer<SDL_Renderer>):RawPointer<SDL_Window>;
-
-	@:native('SDL_GetRendererName')
-	static function GetRendererName(renderer:RawPointer<SDL_Renderer>):ConstCharStar;
-
-	@:native('SDL_GetRendererProperties')
-	static function GetRendererProperties(renderer:RawPointer<SDL_Renderer>):SDL_PropertiesID;
-
-	@:native("SDL_PROP_RENDERER_NAME_STRING")
-	static var PROP_RENDERER_NAME_STRING:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_WINDOW_POINTER")
-	static var PROP_RENDERER_WINDOW_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_SURFACE_POINTER")
-	static var PROP_RENDERER_SURFACE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_VSYNC_NUMBER")
-	static var PROP_RENDERER_VSYNC_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER")
-	static var PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER")
-	static var PROP_RENDERER_TEXTURE_FORMATS_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER")
-	static var PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN")
-	static var PROP_RENDERER_HDR_ENABLED_BOOLEAN:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT")
-	static var PROP_RENDERER_SDR_WHITE_POINT_FLOAT:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT")
-	static var PROP_RENDERER_HDR_HEADROOM_FLOAT:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_D3D9_DEVICE_POINTER")
-	static var PROP_RENDERER_D3D9_DEVICE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_D3D11_DEVICE_POINTER")
-	static var PROP_RENDERER_D3D11_DEVICE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER")
-	static var PROP_RENDERER_D3D11_SWAPCHAIN_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_D3D12_DEVICE_POINTER")
-	static var PROP_RENDERER_D3D12_DEVICE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER")
-	static var PROP_RENDERER_D3D12_SWAPCHAIN_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER")
-	static var PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER")
-	static var PROP_RENDERER_VULKAN_INSTANCE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER")
-	static var PROP_RENDERER_VULKAN_SURFACE_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER")
-	static var PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER")
-	static var PROP_RENDERER_VULKAN_DEVICE_POINTER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER")
-	static var PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER")
-	static var PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER")
-	static var PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER:ConstCharStar;
-
-	@:native("SDL_PROP_RENDERER_GPU_DEVICE_POINTER")
-	static var PROP_RENDERER_GPU_DEVICE_POINTER:ConstCharStar;
-
-	@:native('SDL_GetRenderOutputSize')
-	static function GetRenderOutputSize(renderer:RawPointer<SDL_Renderer>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
-
-	@:native('SDL_GetCurrentRenderOutputSize')
-	static function GetCurrentRenderOutputSize(renderer:RawPointer<SDL_Renderer>, w:RawPointer<Int>, h:RawPointer<Int>):Bool;
-
-	@:native('SDL_CreateTexture')
-	static function CreateTexture(renderer:RawPointer<SDL_Renderer>, format:SDL_PixelFormat, access:SDL_TextureAccess, w:Int, h:Int):RawPointer<SDL_Texture>;
-
-	@:native('SDL_CreateTextureFromSurface')
-	static function CreateTextureFromSurface(renderer:RawPointer<SDL_Renderer>, surface:RawPointer<SDL_Surface>):RawPointer<SDL_Texture>;
-
-	@:native('SDL_CreateTextureWithProperties')
-	static function CreateTextureWithProperties(renderer:RawPointer<SDL_Renderer>, props:SDL_PropertiesID):RawPointer<SDL_Texture>;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER')
-	static var PROP_TEXTURE_CREATE_COLORSPACE_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER')
-	static var PROP_TEXTURE_CREATE_FORMAT_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER')
-	static var PROP_TEXTURE_CREATE_ACCESS_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER')
-	static var PROP_TEXTURE_CREATE_WIDTH_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER')
-	static var PROP_TEXTURE_CREATE_HEIGHT_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT')
-	static var PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT')
-	static var PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER')
-	static var PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER')
-	static var PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER')
-	static var PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER')
-	static var PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER')
-	static var PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER')
-	static var PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER')
-	static var PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER')
-	static var PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER')
-	static var PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER')
-	static var PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER')
-	static var PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER')
-	static var PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER')
-	static var PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER')
-	static var PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER')
-	static var PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER')
-	static var PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER:ConstCharStar;
-
-	@:native('SDL_GetTextureProperties')
-	static function GetTextureProperties(texture:RawPointer<SDL_Texture>):SDL_PropertiesID;
-
-	@:native('SDL_PROP_TEXTURE_COLORSPACE_NUMBER')
-	static var PROP_TEXTURE_COLORSPACE_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_FORMAT_NUMBER')
-	static var PROP_TEXTURE_FORMAT_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_ACCESS_NUMBER')
-	static var PROP_TEXTURE_ACCESS_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_WIDTH_NUMBER')
-	static var PROP_TEXTURE_WIDTH_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_HEIGHT_NUMBER')
-	static var PROP_TEXTURE_HEIGHT_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT')
-	static var PROP_TEXTURE_SDR_WHITE_POINT_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT')
-	static var PROP_TEXTURE_HDR_HEADROOM_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER')
-	static var PROP_TEXTURE_D3D11_TEXTURE_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER')
-	static var PROP_TEXTURE_D3D11_TEXTURE_U_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER')
-	static var PROP_TEXTURE_D3D11_TEXTURE_V_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER')
-	static var PROP_TEXTURE_D3D12_TEXTURE_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER')
-	static var PROP_TEXTURE_D3D12_TEXTURE_U_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER')
-	static var PROP_TEXTURE_D3D12_TEXTURE_V_POINTER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER')
-	static var PROP_TEXTURE_OPENGL_TEXTURE_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER')
-	static var PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER')
-	static var PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER')
-	static var PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER')
-	static var PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT')
-	static var PROP_TEXTURE_OPENGL_TEX_W_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT')
-	static var PROP_TEXTURE_OPENGL_TEX_H_FLOAT:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER')
-	static var PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER')
-	static var PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER')
-	static var PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER')
-	static var PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER')
-	static var PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER:ConstCharStar;
-
-	@:native('SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER')
-	static var PROP_TEXTURE_VULKAN_TEXTURE_NUMBER:ConstCharStar;
-
-	@:native('SDL_GetRendererFromTexture')
-	static function GetRendererFromTexture(texture:RawPointer<SDL_Texture>):RawPointer<SDL_Renderer>;
-
-	@:native('SDL_GetTextureSize')
-	static function GetTextureSize(texture:RawPointer<SDL_Texture>, w:RawPointer<Single>, h:RawPointer<Single>):Bool;
-
-	@:native('SDL_SetTextureColorMod')
-	static function SetTextureColorMod(texture:RawPointer<SDL_Texture>, r:UInt8, g:UInt8, b:UInt8):Bool;
-
-	@:native('SDL_SetTextureColorModFloat')
-	static function SetTextureColorModFloat(texture:RawPointer<SDL_Texture>, r:Single, g:Single, b:Single):Bool;
-
-	@:native('SDL_GetTextureColorMod')
-	static function GetTextureColorMod(texture:RawPointer<SDL_Texture>, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>):Bool;
-
-	@:native('SDL_GetTextureColorModFloat')
-	static function GetTextureColorModFloat(texture:RawPointer<SDL_Texture>, r:RawPointer<Single>, g:RawPointer<Single>, b:RawPointer<Single>):Bool;
-
-	@:native('SDL_SetTextureAlphaMod')
-	static function SetTextureAlphaMod(texture:RawPointer<SDL_Texture>, alpha:UInt8):Bool;
-
-	@:native('SDL_SetTextureAlphaModFloat')
-	static function SetTextureAlphaModFloat(texture:RawPointer<SDL_Texture>, alpha:Single):Bool;
-
-	@:native('SDL_GetTextureAlphaMod')
-	static function GetTextureAlphaMod(texture:RawPointer<SDL_Texture>, alpha:RawPointer<UInt8>):Bool;
-
-	@:native('SDL_GetTextureAlphaModFloat')
-	static function GetTextureAlphaModFloat(texture:RawPointer<SDL_Texture>, alpha:RawPointer<Single>):Bool;
-
-	@:native('SDL_SetTextureBlendMode')
-	static function SetTextureBlendMode(texture:RawPointer<SDL_Texture>, blendMode:SDL_BlendMode):Bool;
-
-	@:native('SDL_GetTextureBlendMode')
-	static function GetTextureBlendMode(texture:RawPointer<SDL_Texture>, blendMode:RawPointer<SDL_BlendMode>):Bool;
-
-	@:native('SDL_SetTextureScaleMode')
-	static function SetTextureScaleMode(texture:RawPointer<SDL_Texture>, scaleMode:SDL_ScaleMode):Bool;
-
-	@:native('SDL_GetTextureScaleMode')
-	static function GetTextureScaleMode(texture:RawPointer<SDL_Texture>, scaleMode:RawPointer<SDL_ScaleMode>):Bool;
-
-	@:native('SDL_UpdateTexture')
-	static function UpdateTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, pixels:RawConstPointer<cpp.Void>, pitch:Int):Bool;
-
-	@:native('SDL_UpdateYUVTexture')
-	static function UpdateYUVTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, Yplane:RawConstPointer<UInt8>, Ypitch:Int,
-		Uplane:RawConstPointer<UInt8>, Upitch:Int, Vplane:RawConstPointer<UInt8>, Vpitch:Int):Bool;
-
-	@:native('SDL_UpdateNVTexture')
-	static function UpdateNVTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, Yplane:RawConstPointer<UInt8>, Ypitch:Int,
-		UVplane:RawConstPointer<UInt8>, UVpitch:Int):Bool;
-
-	@:native('SDL_LockTexture')
-	static function LockTexture(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, pixels:RawPointer<RawPointer<cpp.Void>>, pitch:RawPointer<Int>):Bool;
-
-	@:native('SDL_LockTextureToSurface')
-	static function LockTextureToSurface(texture:RawPointer<SDL_Texture>, rect:RawConstPointer<SDL_Rect>, surface:RawPointer<RawPointer<SDL_Surface>>):Bool;
-
-	@:native('SDL_UnlockTexture')
-	static function UnlockTexture(texture:RawPointer<SDL_Texture>):Void;
-
-	@:native('SDL_SetRenderTarget')
-	static function SetRenderTarget(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>):Bool;
-
-	@:native('SDL_GetRenderTarget')
-	static function GetRenderTarget(renderer:RawPointer<SDL_Renderer>):RawPointer<SDL_Texture>;
-
-	@:native('SDL_SetRenderLogicalPresentation')
-	static function SetRenderLogicalPresentation(renderer:RawPointer<SDL_Renderer>, w:Int, h:Int, mode:SDL_RendererLogicalPresentation):Bool;
-
-	@:native('SDL_GetRenderLogicalPresentation')
-	static function GetRenderLogicalPresentation(renderer:RawPointer<SDL_Renderer>, w:RawPointer<Int>, h:RawPointer<Int>,
-		mode:RawPointer<SDL_RendererLogicalPresentation>):Bool;
-
-	@:native('SDL_GetRenderLogicalPresentationRect')
-	static function GetRenderLogicalPresentationRect(renderer:RawPointer<SDL_Renderer>, rect:RawPointer<SDL_FRect>):Bool;
-
-	@:native('SDL_RenderCoordinatesFromWindow')
-	static function RenderCoordinatesFromWindow(renderer:RawPointer<SDL_Renderer>, window_x:Single, window_y:Single, x:RawPointer<Single>, y:RawPointer<Single>):Bool;
-
-	@:native('SDL_RenderCoordinatesToWindow')
-	static function RenderCoordinatesToWindow(renderer:RawPointer<SDL_Renderer>, x:Single, y:Single, window_x:RawPointer<Single>, window_y:RawPointer<Single>):Bool;
-
-	@:native('SDL_ConvertEventToRenderCoordinates')
-	static function ConvertEventToRenderCoordinates(renderer:RawPointer<SDL_Renderer>, event:RawPointer<SDL_Event>):Bool;
-
-	@:native('SDL_SetRenderViewport')
-	static function SetRenderViewport(renderer:RawPointer<SDL_Renderer>, rect:RawConstPointer<SDL_Rect>):Bool;
-
-	@:native('SDL_GetRenderViewport')
-	static function GetRenderViewport(renderer:RawPointer<SDL_Renderer>, rect:RawPointer<SDL_Rect>):Bool;
-
-	@:native('SDL_RenderViewportSet')
-	static function RenderViewportSet(renderer:RawPointer<SDL_Renderer>):Bool;
-
-	@:native('SDL_GetRenderSafeArea')
-	static function GetRenderSafeArea(renderer:RawPointer<SDL_Renderer>, rect:RawPointer<SDL_Rect>):Bool;
-
-	@:native('SDL_SetRenderClipRect')
-	static function SetRenderClipRect(renderer:RawPointer<SDL_Renderer>, rect:RawConstPointer<SDL_Rect>):Bool;
-
-	@:native('SDL_GetRenderClipRect')
-	static function GetRenderClipRect(renderer:RawPointer<SDL_Renderer>, rect:RawPointer<SDL_Rect>):Bool;
-
-	@:native('SDL_RenderClipEnabled')
-	static function RenderClipEnabled(renderer:RawPointer<SDL_Renderer>):Bool;
-
-	@:native('SDL_SetRenderScale')
-	static function SetRenderScale(renderer:RawPointer<SDL_Renderer>, scaleX:Single, scaleY:Single):Bool;
-
-	@:native('SDL_GetRenderScale')
-	static function GetRenderScale(renderer:RawPointer<SDL_Renderer>, scaleX:RawPointer<Single>, scaleY:RawPointer<Single>):Bool;
-
-	@:native('SDL_SetRenderDrawColor')
-	static function SetRenderDrawColor(renderer:RawPointer<SDL_Renderer>, r:UInt8, g:UInt8, b:UInt8, a:UInt8):Bool;
-
-	@:native('SDL_SetRenderDrawColorFloat')
-	static function SetRenderDrawColorFloat(renderer:RawPointer<SDL_Renderer>, r:Single, g:Single, b:Single, a:Single):Bool;
-
-	@:native('SDL_GetRenderDrawColor')
-	static function GetRenderDrawColor(renderer:RawPointer<SDL_Renderer>, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>, a:RawPointer<UInt8>):Bool;
-
-	@:native('SDL_GetRenderDrawColorFloat')
-	static function GetRenderDrawColorFloat(renderer:RawPointer<SDL_Renderer>, r:RawPointer<Single>, g:RawPointer<Single>, b:RawPointer<Single>, a:RawPointer<Single>):Bool;
-
-	@:native('SDL_SetRenderColorScale')
-	static function SetRenderColorScale(renderer:RawPointer<SDL_Renderer>, scale:Single):Bool;
-
-	@:native('SDL_GetRenderColorScale')
-	static function GetRenderColorScale(renderer:RawPointer<SDL_Renderer>, scale:RawPointer<Single>):Bool;
-
-	@:native('SDL_SetRenderDrawBlendMode')
-	static function SetRenderDrawBlendMode(renderer:RawPointer<SDL_Renderer>, blendMode:SDL_BlendMode):Bool;
-
-	@:native('SDL_GetRenderDrawBlendMode')
-	static function GetRenderDrawBlendMode(renderer:RawPointer<SDL_Renderer>, blendMode:RawPointer<SDL_BlendMode>):Bool;
-
-	@:native('SDL_RenderClear')
-	static function RenderClear(renderer:RawPointer<SDL_Renderer>):Bool;
-
-	@:native('SDL_RenderPoint')
-	static function RenderPoint(renderer:RawPointer<SDL_Renderer>, x:Single, y:Single):Bool;
-
-	@:native('SDL_RenderPoints')
-	static function RenderPoints(renderer:RawPointer<SDL_Renderer>, points:RawConstPointer<SDL_FPoint>, count:Int):Bool;
-
-	@:native('SDL_RenderLine')
-	static function RenderLine(renderer:RawPointer<SDL_Renderer>, x1:Single, y1:Single, x2:Single, y2:Single):Bool;
-
-	@:native('SDL_RenderLines')
-	static function RenderLines(renderer:RawPointer<SDL_Renderer>, points:RawConstPointer<SDL_FPoint>, count:Int):Bool;
-
-	@:native('SDL_RenderRect')
-	static function RenderRect(renderer:RawPointer<SDL_Renderer>, rect:RawConstPointer<SDL_FRect>):Bool;
-
-	@:native('SDL_RenderRects')
-	static function RenderRects(renderer:RawPointer<SDL_Renderer>, rects:RawConstPointer<SDL_FRect>, count:Int):Bool;
-
-	@:native('SDL_RenderFillRect')
-	static function RenderFillRect(renderer:RawPointer<SDL_Renderer>, rect:RawConstPointer<SDL_FRect>):Bool;
-
-	@:native('SDL_RenderFillRects')
-	static function RenderFillRects(renderer:RawPointer<SDL_Renderer>, rects:RawConstPointer<SDL_FRect>, count:Int):Bool;
-
-	@:native('SDL_RenderTexture')
-	static function RenderTexture(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, srcrect:RawConstPointer<SDL_FRect>,
-		dstrect:RawConstPointer<SDL_FRect>):Bool;
-
-	@:native('SDL_RenderTextureRotated')
-	static function RenderTextureRotated(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, srcrect:RawConstPointer<SDL_FRect>,
-		dstrect:RawConstPointer<SDL_FRect>, angle:Float, center:RawConstPointer<SDL_FPoint>, flip:SDL_FlipMode):Bool;
-
-	@:native('SDL_RenderTextureAffine')
-	static function RenderTextureAffine(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, srcrect:RawConstPointer<SDL_FRect>,
-		origin:RawConstPointer<SDL_FPoint>, right:RawConstPointer<SDL_FPoint>, down:RawConstPointer<SDL_FPoint>):Bool;
-
-	@:native('SDL_RenderTextureTiled')
-	static function RenderTextureTiled(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, srcrect:RawConstPointer<SDL_FRect>, scale:Single,
-		dstrect:RawConstPointer<SDL_FRect>):Bool;
-
-	@:native('SDL_RenderTexture9Grid')
-	static function RenderTexture9Grid(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, srcrect:RawConstPointer<SDL_FRect>,
-		left_width:Single, right_width:Single, top_height:Single, bottom_height:Single, scale:Single, dstrect:RawConstPointer<SDL_FRect>):Bool;
-
-	@:native('SDL_RenderGeometry')
-	static function RenderGeometry(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, vertices:RawConstPointer<SDL_Vertex>, num_vertices:Int,
-		indices:RawConstPointer<Int32>, num_indices:Int):Bool;
-
-	@:native('SDL_RenderGeometryRaw')
-	static function RenderGeometryRaw(renderer:RawPointer<SDL_Renderer>, texture:RawPointer<SDL_Texture>, xy:RawConstPointer<Single>, xy_stride:Int,
-		color:RawConstPointer<SDL_FColor>, color_stride:Int, uv:RawConstPointer<Single>, uv_stride:Int, num_vertices:Int, indices:RawConstPointer<cpp.Void>,
-		num_indices:Int, size_indices:Int):Bool;
-
-	@:native('SDL_RenderReadPixels')
-	static function RenderReadPixels(renderer:RawPointer<SDL_Renderer>, rect:RawConstPointer<SDL_Rect>):RawPointer<SDL_Surface>;
-
-	@:native('SDL_RenderPresent')
-	static function RenderPresent(renderer:RawPointer<SDL_Renderer>):Bool;
-
-	@:native('SDL_DestroyTexture')
-	static function DestroyTexture(texture:RawPointer<SDL_Texture>):Void;
-
-	@:native('SDL_DestroyRenderer')
-	static function DestroyRenderer(renderer:RawPointer<SDL_Renderer>):Void;
-
-	@:native('SDL_FlushRenderer')
-	static function FlushRenderer(renderer:RawPointer<SDL_Renderer>):Bool;
-
-	@:native('SDL_SetRenderVSync')
-	static function SetRenderVSync(renderer:RawPointer<SDL_Renderer>, vsync:Int):Bool;
-
-	@:native("SDL_RENDERER_VSYNC_DISABLED")
-	static var RENDERER_VSYNC_DISABLED:Int;
-
-	@:native("SDL_RENDERER_VSYNC_ADAPTIVE")
-	static var RENDERER_VSYNC_ADAPTIVE:Int;
-
-	@:native('SDL_GetRenderVSync')
-	static function GetRenderVSync(renderer:RawPointer<SDL_Renderer>, vsync:RawPointer<Int>):Bool;
-
-	@:native("SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE")
-	static var DEBUG_TEXT_FONT_CHARACTER_SIZE:Int;
-
-	@:native('SDL_RenderDebugText')
-	static function RenderDebugText(renderer:RawPointer<SDL_Renderer>, x:Single, y:Single, str:ConstCharStar):Bool;
-
-	@:native('SDL_RenderDebugTextFormat')
-	static function RenderDebugTextFormat(renderer:RawPointer<SDL_Renderer>, x:Single, y:Single, fmt:ConstCharStar, args:Rest<VarArg>):Bool;
 
 	// SDL_sensor.h
 	@:native('SDL_GetSensors')
@@ -11797,6 +8913,12 @@ extern class SDL
 	@:native('SDL_UnlockSurface')
 	static function UnlockSurface(surface:RawPointer<SDL_Surface>):Void;
 
+	@:native('SDL_LoadSurface_IO')
+	static function LoadSurface_IO(src:RawPointer<SDL_IOStream>, closeio:Bool):RawPointer<SDL_Surface>;
+
+	@:native('SDL_LoadSurface')
+	static function LoadSurface(file:ConstCharStar):RawPointer<SDL_Surface>;
+
 	@:native('SDL_LoadBMP_IO')
 	static function LoadBMP_IO(src:RawPointer<SDL_IOStream>, closeio:Bool):RawPointer<SDL_Surface>;
 
@@ -11808,6 +8930,18 @@ extern class SDL
 
 	@:native('SDL_SaveBMP')
 	static function SaveBMP(surface:RawPointer<SDL_Surface>, file:ConstCharStar):Bool;
+
+	@:native('SDL_LoadPNG_IO')
+	static function LoadPNG_IO(src:RawPointer<SDL_IOStream>, closeio:Bool):RawPointer<SDL_Surface>;
+
+	@:native('SDL_LoadPNG')
+	static function LoadPNG(file:ConstCharStar):RawPointer<SDL_Surface>;
+
+	@:native('SDL_SavePNG_IO')
+	static function SavePNG_IO(surface:RawPointer<SDL_Surface>, dst:RawPointer<SDL_IOStream>, closeio:Bool):Bool;
+
+	@:native('SDL_SavePNG')
+	static function SavePNG(surface:RawPointer<SDL_Surface>, file:ConstCharStar):Bool;
 
 	@:native('SDL_SetSurfaceRLE')
 	static function SetSurfaceRLE(surface:RawPointer<SDL_Surface>, enabled:Bool):Bool;
@@ -11850,6 +8984,9 @@ extern class SDL
 
 	@:native('SDL_FlipSurface')
 	static function FlipSurface(surface:RawPointer<SDL_Surface>, flip:SDL_FlipMode):Bool;
+
+	@:native('SDL_RotateSurface')
+	static function RotateSurface(surface:RawPointer<SDL_Surface>, angle:Single):Bool;
 
 	@:native('SDL_DuplicateSurface')
 	static function DuplicateSurface(surface:RawPointer<SDL_Surface>):RawPointer<SDL_Surface>;
@@ -12550,6 +9687,15 @@ extern class SDL
 	@:native('SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER')
 	static var PROP_WINDOW_CREATE_X11_WINDOW_NUMBER:ConstCharStar;
 
+	@:native('SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_CANVAS_ID_STRING')
+	static var PROP_WINDOW_CREATE_EMSCRIPTEN_CANVAS_ID_STRING:ConstCharStar;
+
+	@:native('SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_FILL_DOCUMENT_BOOLEAN')
+	static var PROP_WINDOW_CREATE_EMSCRIPTEN_FILL_DOCUMENT_BOOLEAN:ConstCharStar;
+
+	@:native('SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING')
+	static var PROP_WINDOW_CREATE_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING:ConstCharStar;
+
 	@:native('SDL_GetWindowID')
 	static function GetWindowID(window:RawPointer<SDL_Window>):SDL_WindowID;
 
@@ -12666,6 +9812,15 @@ extern class SDL
 
 	@:native('SDL_PROP_WINDOW_X11_WINDOW_NUMBER')
 	static var PROP_WINDOW_X11_WINDOW_NUMBER:ConstCharStar;
+
+	@:native('SDL_PROP_WINDOW_EMSCRIPTEN_CANVAS_ID_STRING')
+	static var PROP_WINDOW_EMSCRIPTEN_CANVAS_ID_STRING:ConstCharStar;
+
+	@:native('SDL_PROP_WINDOW_EMSCRIPTEN_FILL_DOCUMENT_BOOLEAN')
+	static var PROP_WINDOW_EMSCRIPTEN_FILL_DOCUMENT_BOOLEAN:ConstCharStar;
+
+	@:native('SDL_PROP_WINDOW_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING')
+	static var PROP_WINDOW_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING:ConstCharStar;
 
 	@:native('SDL_GetWindowFlags')
 	static function GetWindowFlags(window:RawPointer<SDL_Window>):SDL_WindowFlags;

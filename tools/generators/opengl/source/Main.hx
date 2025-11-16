@@ -258,7 +258,7 @@ class Main
 						addLine('}');
 						addLine('');
 
-						addLine('extern abstract Cast${name}Star(RawPointer<${name}>) to (RawPointer<${name}>)');
+						addLine('abstract Cast${name}Star(RawPointer<${name}>) to (RawPointer<${name}>)');
 						addLine('{');
 						addLine('inline function new(s:String)', 1);
 						addLine('this = cast untyped s.__s;', 2);

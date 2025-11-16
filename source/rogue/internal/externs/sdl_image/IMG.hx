@@ -37,16 +37,6 @@ extern class IMG
 	@:native('IMG_LoadTyped_IO')
 	static function LoadTyped_IO(src:RawPointer<SDL_IOStream>, closeio:Bool, type:ConstCharStar):RawPointer<SDL_Surface>;
 
-	@:native('IMG_LoadTexture')
-	static function LoadTexture(renderer:RawPointer<SDL_Renderer>, file:ConstCharStar):RawPointer<SDL_Texture>;
-
-	@:native('IMG_LoadTexture_IO')
-	static function LoadTexture_IO(renderer:RawPointer<SDL_Renderer>, src:RawPointer<SDL_IOStream>, closeio:Bool):RawPointer<SDL_Texture>;
-
-	@:native('IMG_LoadTextureTyped_IO')
-	static function LoadTextureTyped_IO(renderer:RawPointer<SDL_Renderer>, src:RawPointer<SDL_IOStream>, closeio:Bool,
-		type:ConstCharStar):RawPointer<SDL_Texture>;
-
 	@:native('IMG_isAVIF')
 	static function isAVIF(src:RawPointer<SDL_IOStream>):Bool;
 

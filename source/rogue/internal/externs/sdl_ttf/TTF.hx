@@ -156,46 +156,6 @@ extern class TTF_Text
 }
 
 @:include('SDL3_ttf/SDL_ttf.h')
-@:structAccess
-@:native('TTF_GPUAtlasDrawSequence')
-extern class TTF_GPUAtlasDrawSequence
-{
-	function new():Void;
-
-	var atlas_texture:RawPointer<SDL_GPUTexture>;
-	var xy:Int;
-	var uv:Int;
-	var num_vertices:Int;
-	var indices:RawPointer<Int>;
-	var num_indices:Int;
-	var image_type:TTF_ImageType;
-	var next:RawPointer<TTF_GPUAtlasDrawSequence>;
-}
-
-extern enum abstract TTF_GPUTextEngineWinding(TTF_GPUTextEngineWinding_Impl)
-{
-	@:native('TTF_GPU_TEXTENGINE_WINDING_INVALID')
-	var TTF_GPU_TEXTENGINE_WINDING_INVALID;
-
-	@:native('TTF_GPU_TEXTENGINE_WINDING_CLOCKWISE')
-	var TTF_GPU_TEXTENGINE_WINDING_CLOCKWISE;
-
-	@:native('TTF_GPU_TEXTENGINE_WINDING_COUNTER_CLOCKWISE')
-	var TTF_GPU_TEXTENGINE_WINDING_COUNTER_CLOCKWISE;
-
-	@:from
-	static public inline function fromInt(i:Int):TTF_GPUTextEngineWinding
-		return cast i;
-
-	@:to extern public inline function toInt():Int
-		return untyped this;
-}
-
-@:include('SDL3_ttf/SDL_ttf.h')
-@:native('TTF_GPUTextEngineWinding')
-private extern class TTF_GPUTextEngineWinding_Impl {}
-
-@:include('SDL3_ttf/SDL_ttf.h')
 @:native('TTF_SubStringFlags')
 @:scalar
 @:coreType
@@ -521,48 +481,6 @@ extern class TTF
 
 	@:native('TTF_DestroySurfaceTextEngine')
 	static function DestroySurfaceTextEngine(engine:RawPointer<TTF_TextEngine>):Void;
-
-	@:native('TTF_CreateRendererTextEngine')
-	static function CreateRendererTextEngine(renderer:RawPointer<SDL_Renderer>):RawPointer<TTF_TextEngine>;
-
-	@:native('TTF_CreateRendererTextEngineWithProperties')
-	static function CreateRendererTextEngineWithProperties(props:SDL_PropertiesID):RawPointer<TTF_TextEngine>;
-
-	@:native('TTF_PROP_RENDERER_TEXT_ENGINE_RENDERER')
-	static var PROP_RENDERER_TEXT_ENGINE_RENDERER:ConstCharStar;
-
-	@:native('TTF_PROP_RENDERER_TEXT_ENGINE_ATLAS_TEXTURE_SIZE')
-	static var PROP_RENDERER_TEXT_ENGINE_ATLAS_TEXTURE_SIZE:ConstCharStar;
-
-	@:native('TTF_DrawRendererText')
-	static function DrawRendererText(text:RawPointer<TTF_Text>, x:Single, y:Single):Bool;
-
-	@:native('TTF_DestroyRendererTextEngine')
-	static function DestroyRendererTextEngine(engine:RawPointer<TTF_TextEngine>):Void;
-
-	@:native('TTF_CreateGPUTextEngine')
-	static function CreateGPUTextEngine(device:RawPointer<SDL_GPUDevice>):RawPointer<TTF_TextEngine>;
-
-	@:native('TTF_CreateGPUTextEngineWithProperties')
-	static function CreateGPUTextEngineWithProperties(props:SDL_PropertiesID):RawPointer<TTF_TextEngine>;
-
-	@:native("TTF_PROP_GPU_TEXT_ENGINE_DEVICE")
-	static var PROP_GPU_TEXT_ENGINE_DEVICE:ConstCharStar;
-
-	@:native("TTF_PROP_GPU_TEXT_ENGINE_ATLAS_TEXTURE_SIZE")
-	static var PROP_GPU_TEXT_ENGINE_ATLAS_TEXTURE_SIZE:ConstCharStar;
-
-	@:native('TTF_GetGPUTextDrawData')
-	static function GetGPUTextDrawData(text:RawPointer<TTF_Text>):RawPointer<TTF_GPUAtlasDrawSequence>;
-
-	@:native('TTF_DestroyGPUTextEngine')
-	static function DestroyGPUTextEngine(engine:RawPointer<TTF_TextEngine>):Void;
-
-	@:native('TTF_SetGPUTextEngineWinding')
-	static function SetGPUTextEngineWinding(engine:RawPointer<TTF_TextEngine>, winding:TTF_GPUTextEngineWinding):Void;
-
-	@:native('TTF_GetGPUTextEngineWinding')
-	static function GetGPUTextEngineWinding(engine:RawPointer<TTF_TextEngine>):TTF_GPUTextEngineWinding;
 
 	@:native('TTF_CreateText')
 	static function CreateText(engine:RawPointer<TTF_TextEngine>, font:RawPointer<TTF_Font>, text:ConstCharStar, length:SizeT):RawPointer<TTF_Text>;
