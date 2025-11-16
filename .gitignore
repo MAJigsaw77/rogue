@@ -9,5 +9,5 @@ test/android-project
 test/bin
 
 # Dont include the downloaded xml registries.
-tools/openal/al.xml
-tools/opengl/gl.xml
+tools/generators/openal/al.xml
+tools/generators/opengl/gl.xml
