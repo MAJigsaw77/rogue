@@ -161,9 +161,6 @@
 #define HAVE_WCSSTR 1
 #define HAVE_WCSTOL 1
 
-/* Enable various audio drivers */
-#define SDL_AUDIO_DRIVER_DUMMY 1
-
 /* Enable haptic driver */
 #define SDL_HAPTIC_DUMMY 1
 

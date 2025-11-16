@@ -31,6 +31,7 @@
  */
 
 /* Allow disabling of major subsystems */
+#define SDL_AUDIO_DISABLED 1
 #define SDL_GPU_DISABLED 1
 #define SDL_RENDER_DISABLED 1
 

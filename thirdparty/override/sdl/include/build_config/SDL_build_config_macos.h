@@ -136,9 +136,6 @@
 #define HAVE_VSSCANF 1
 #define HAVE_WCHAR_H 1
 
-/* Enable various audio drivers */
-#define SDL_AUDIO_DRIVER_DUMMY 1
-
 /* Enable haptic driver */
 #define SDL_HAPTIC_IOKIT 1
 
