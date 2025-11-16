@@ -1,4 +1,4 @@
-package rogue.internal.externs.sdl;
+package rogue.internal.externs;
 
 import cpp.Callable;
 import cpp.CastCharStar;
