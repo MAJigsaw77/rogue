@@ -13,9 +13,6 @@
 		<compilerflag value="-DDLL_EXPORT" if="windows" />
 
 		<section>
-			<!-- sdl override src -->
-			<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/src" />
-
 			<!-- sdl src -->
 			<compilerflag value="-I${SDL_DIRECTORY}/src" />
 

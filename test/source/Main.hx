@@ -296,6 +296,8 @@ class Main
 			return;
 		}
 
+		SDL.GL_SetSwapInterval(1);
+
 		#if (android || rpi || emscripten || iphone)
 		final version:Int = Glad.loadGLES2(cast SDL.GL_GetProcAddress);
 		#else
@@ -329,17 +331,15 @@ class Main
 
 		GL.viewport(0, 0, w, h);
 
-		SDL.GL_SetSwapInterval(1);
-
 		#if (android || rpi || emscripten || iphone)
-		final vertexShader:GLuint = createShader(GL.VERTEX_SHADER, window, Resource.getString('assets/gl300es/default.vert'));
-		final fragmentShader:GLuint = createShader(GL.FRAGMENT_SHADER, window, Resource.getString('assets/gl300es/default.frag'));
+		final vertexShaderSource:String = Resource.getString('assets/gl300es/default.vert');
+		final fragmentShaderSource:String = Resource.getString('assets/gl300es/default.frag');
 		#else
-		final vertexShader:GLuint = createShader(GL.VERTEX_SHADER, window, Resource.getString('assets/gl330core/default.vert'));
-		final fragmentShader:GLuint = createShader(GL.FRAGMENT_SHADER, window, Resource.getString('assets/gl330core/default.frag'));
+		final vertexShaderSource:String = Resource.getString('assets/gl330core/default.vert');
+		final fragmentShaderSource:String = Resource.getString('assets/gl330core/default.frag');
 		#end
 
-		shaderProgram = createProgram(vertexShader, fragmentShader, window);
+		shaderProgram = createProgram(createShader(GL.VERTEX_SHADER, window, vertexShaderSource), createShader(GL.FRAGMENT_SHADER, window, fragmentShaderSource), window);
 		vertexArray = createVertexArray();
 		vertexBufferObject = createBuffer();
 
@@ -370,8 +370,6 @@ class Main
 		GL.bindVertexArray(0);
 
 		{
-			lastTime = untyped SDL.GetPerformanceCounter() / untyped SDL.GetPerformanceFrequency();
-
 			#if emscripten
 			emscripten.Emscripten.set_main_loop(cpp.Callable.fromStaticFunction(run), 0, true);
 			#else
@@ -391,23 +389,8 @@ class Main
 		SDL.Quit();
 	}
 
-	static var lastTime:Float = 0;
-	static var deltaTime:Float = 0;
-
-	static var fpsCounter:Int = 0;
-	static var fpsTimer:Float = 0;
-	static var fps:Float = 0;
-
 	static function run():Void
 	{
-		{
-			final startTime:Float = untyped SDL.GetPerformanceCounter() / untyped SDL.GetPerformanceFrequency();
-
-			deltaTime = startTime - lastTime;
-
-			lastTime = startTime;
-		}
-
 		final event:SDL_Event = new SDL_Event();
 
 		while (SDL.PollEvent(RawPointer.addressOf(event)))
@@ -437,22 +420,5 @@ class Main
 		GL.bindVertexArray(0);
 
 		SDL.GL_SwapWindow(window);
-
-		{
-			fpsCounter++;
-
-			fpsTimer += deltaTime;
-
-			if (fpsTimer >= 1.0)
-			{
-				fps = fpsCounter / fpsTimer;
-
-				// Sys.println('FPS: ${Math.fround(fps)} - Frame: ${deltaTime * 1000}ms');
-
-				fpsCounter = 0;
-
-				fpsTimer = 0;
-			}
-		}
 	}
 }

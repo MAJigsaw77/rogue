@@ -17,6 +17,14 @@
 		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
 	</section>
 
+	<section>
+		<compilerflag value="-I${DR_LIBS_DIRECTORY}" />
+
+		<compilerflag value="-DDRMP3_DLL" unless="emscripten" />
+		<compilerflag value="-DDRWAV_DLL" unless="emscripten" />
+		<compilerflag value="-DDRFLAC_DLL" unless="emscripten" />
+	</section>
+
 	<section unless="emscripten">
 		<compilerflag value="-I${SOFT_OAL_DIRECTORY}/include" />
 

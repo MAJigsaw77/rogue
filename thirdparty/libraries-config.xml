@@ -3,6 +3,7 @@
 	<!-- Libs Overrideable Directories -->
 
 	<set name="SDL_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl" />
+	<set name="DR_LIBS_OVERRIDE_DIRECTORY" value="${this_dir}/override/dr_libs" />
 	<set name="SOFT_OAL_OVERRIDE_DIRECTORY" value="${this_dir}/override/soft_oal" />
 
 	<!-- Libs Directories -->
@@ -19,6 +20,8 @@
 	</section>
 
 	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
+
+	<set name="DR_LIBS_DIRECTORY" value="${this_dir}/submodules/dr_libs" />
 
 	<set name="SOFT_OAL_DIRECTORY" value="${this_dir}/submodules/soft_oal" />
 

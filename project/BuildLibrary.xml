@@ -33,6 +33,9 @@
 		<!--Libraries Config-->
 		<include name="${PROJECT_THIRDPARTY_DIR}/libraries-config.xml" />
 
+		<!--Dr_Libs Files-->
+		<include name="${PROJECT_THIRDPARTY_DIR}/files/dr_libs-files.xml" />
+
 		<!--Glad Files-->
 		<include name="${PROJECT_THIRDPARTY_DIR}/files/glad-files.xml" />
 
@@ -73,6 +76,8 @@
 		</section>
 
 		<files id="glad-files" />
+
+		<files id="dr_libs-files" />
 
 		<section unless="emscripten">
 			<files id="soft_oal-deps-fmt-files" />
