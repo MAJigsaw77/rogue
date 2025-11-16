@@ -325,7 +325,7 @@ class Main
 
 		endWritingToClass();
 
-		File.saveContent('../../source/rogue/internal/externs/openal/$folder/${namespace.toUpperCase()}.hx', AL_FILE.join('\n'));
+		File.saveContent('../../../source/rogue/internal/externs/openal/$folder/${namespace.toUpperCase()}.hx', AL_FILE.join('\n'));
 
 		AL_COMMANDS = [];
 		AL_ENUMS = [];

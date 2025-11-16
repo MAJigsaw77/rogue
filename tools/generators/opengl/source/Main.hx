@@ -298,7 +298,7 @@ class Main
 
 		endWritingToClass();
 
-		File.saveContent('../../source/rogue/internal/externs/glad/open$platform/GL.hx', GL_FILE.join('\n'));
+		File.saveContent('../../../source/rogue/internal/externs/glad/open$platform/GL.hx', GL_FILE.join('\n'));
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
