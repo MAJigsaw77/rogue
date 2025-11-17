@@ -10,6 +10,9 @@ class Main
 		// Run OpenAL Generator Main.hx
 		OpenALMain.run();
 
+		// Empty line
+		Sys.println('');
+
 		// Run OpenGL Generator Main.hx
 		OpenGLMain.run();
 	}
