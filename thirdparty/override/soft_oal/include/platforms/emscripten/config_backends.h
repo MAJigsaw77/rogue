@@ -28,7 +28,7 @@
 
 #define HAVE_OBOE 0
 
-#define HAVE_WAVE 1
+#define HAVE_WAVE 0
 
 #define HAVE_SDL3 1
 

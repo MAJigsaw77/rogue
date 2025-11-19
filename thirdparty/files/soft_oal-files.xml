@@ -105,14 +105,11 @@
 				<!-- alc/backends -->
 				<section if="android">
 					<file name="alc/backends/oboe.cpp" />
-					<file name="alc/backends/opensl.cpp" />
 				</section>
 
-				<file name="alc/backends/coreaudio.cpp" if="apple" />
-
-				<file name="alc/backends/base.cpp" />
-				<file name="alc/backends/loopback.cpp" />
-				<file name="alc/backends/null.cpp" />
+				<section if="apple">
+					<file name="alc/backends/coreaudio.cpp" />
+				</section>
 
 				<!-- <file name="alc/backends/alsa.cpp" /> -->
 				<!-- <file name="alc/backends/jack.cpp" /> -->
@@ -127,7 +124,9 @@
 					<file name="alc/backends/winmm.cpp" />
 				</section>
 
-				<file name="alc/backends/wave.cpp" />
+				<file name="alc/backends/base.cpp" />
+				<file name="alc/backends/loopback.cpp" />
+				<file name="alc/backends/null.cpp" />
 
 				<!-- alc/effects -->
 				<file name="alc/effects/autowah.cpp" />
