@@ -15,6 +15,8 @@
 --define HXCPP_LINK_MEMORY_GROWTH
 --define HXCPP_LINK_NO_EXCEPTIONS
 
+--define ROGUE_WEB_RESOURCES_PATH=assets
+
 --library rogue
 
 --main Main

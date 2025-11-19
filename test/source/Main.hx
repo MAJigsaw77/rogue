@@ -371,9 +371,9 @@ class Main
 			var sampleRate:UInt32 = 0;
 			var totalFrames:DrWAV_UInt64 = 0;
 
-			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('Through The Fire And Flames.wav', 'rb');
-			final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('Chxxai.wav', 'rb');
-			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('IRIS OUT.wav', 'rb');
+			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Through The Fire And Flames.wav', 'rb');
+			final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Chxxai.wav', 'rb');
+			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/IRIS OUT.wav', 'rb');
 
 			final data:RawPointer<Single> = DrWAV.open_and_read_pcm_frames_f32(Callable.fromStaticFunction(drwav_read),
 				Callable.fromStaticFunction(drwav_seek), Callable.fromStaticFunction(drwav_tell), untyped io, Pointer.addressOf(channels).raw,
