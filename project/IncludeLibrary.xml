@@ -60,7 +60,12 @@
 
 		<flag value="-s" />
 		<flag value="MAX_WEBGL_VERSION=2" />
-    </linker>
+
+		<section if="ROGUE_WEB_RESOURCES_PATH">
+			<flag value="--preload-file" />
+			<flag value="${ROGUE_WEB_RESOURCES_PATH}" />
+		</section>
+	</linker>
 
 	<!--Copy Libraries-->
 
