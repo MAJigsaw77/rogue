@@ -27,36 +27,35 @@
 	<!--XML Includes-->
 
 	<section>
-		<!--HXCPP Build Tool Common-->
-		<include name="${HXCPP}/build-tool/BuildCommon.xml" />
-
 		<!--Libraries Config-->
 		<include name="${PROJECT_THIRDPARTY_DIR}/libraries-config.xml" />
 
-		<!--Dr_Libs Files-->
-		<include name="${PROJECT_THIRDPARTY_DIR}/files/dr_libs-files.xml" />
+		<section>
+			<!--Dr_Libs Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/dr_libs-files.xml" />
 
-		<!--Glad Files-->
-		<include name="${PROJECT_THIRDPARTY_DIR}/files/glad-files.xml" />
+			<!--Glad Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/glad-files.xml" />
 
-		<!--SDL Files-->
-		<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl-files.xml" />
+			<!--SDL Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl-files.xml" />
 
-		<!--SDL_Image Files-->
-		<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl_image-files.xml" />
+			<!--SDL_Image Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl_image-files.xml" />
 
-		<!--SDL_TTF Files-->
-		<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl_ttf-files.xml" />
+			<!--SDL_TTF Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl_ttf-files.xml" />
 
-		<!--Soft OpenAL Files-->
-		<include name="${PROJECT_THIRDPARTY_DIR}/files/soft_oal-files.xml" />
+			<!--Soft OpenAL Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/soft_oal-files.xml" />
+		</section>
 	</section>
 
 	<!--Project Target-->
 
 	<target id="${PROJECT_NAME}" output="${LIBPREFIX}${PROJECT_NAME}${HX_TARGET_SUFFIX}" tool="linker" toolid="${STD_MODULE_LINK}">
 
-		<!--TODO: Remove this whenn https://github.com/HaxeFoundation/hxcpp/pull/1266 is merged-->
+		<!--TODO: Remove this when https://github.com/HaxeFoundation/hxcpp/pull/1266 is merged-->
 
 		<ext value=".so" if="android" />
 
