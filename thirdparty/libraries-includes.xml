@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
 	<section>
+		<!-- Includes -->
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
-		<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
+		<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/include" />
+		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
 
-		<compilerflag value="-DSDL_MAIN_HANDLED" />
-	</section>
-
-	<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/include" />
-
-	<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
-
-	<section>
 		<compilerflag value="-I${GLAD_DIRECTORY}/include" />
 
-		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
+		<compilerflag value="-I${DR_LIBS_DIRECTORY}" />
+
+		<compilerflag value="-I${SOFT_OAL_DIRECTORY}/include" unless="emscripten" />
 	</section>
 
 	<section>
-		<compilerflag value="-I${DR_LIBS_DIRECTORY}" />
+		<!-- Defines -->
+		<compilerflag value="-DSDL_MAIN_HANDLED" />
 
-		<compilerflag value="-DDRMP3_DLL" unless="emscripten" />
-		<compilerflag value="-DDRWAV_DLL" unless="emscripten" />
-		<compilerflag value="-DDRFLAC_DLL" unless="emscripten" />
-	</section>
+		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
 
-	<section unless="emscripten">
-		<compilerflag value="-I${SOFT_OAL_DIRECTORY}/include" />
+		<section unless="emscripten">
+			<compilerflag value="-DDRMP3_DLL" />
+			<compilerflag value="-DDRWAV_DLL" />
+			<compilerflag value="-DDRFLAC_DLL" />
 
-		<compilerflag value="-DAL_ALEXT_PROTOTYPES" />
+			<compilerflag value="-DAL_ALEXT_PROTOTYPES" />
 
-		<section unless="static_link">
 			<section if="windows">
 				<compilerflag value="-DALC_API=__declspec(dllimport)" />
 				<compilerflag value="-DAL_API=__declspec(dllimport)" />

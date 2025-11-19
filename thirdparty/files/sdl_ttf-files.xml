@@ -2,13 +2,8 @@
 <xml>
 	<files id="sdl_ttf-files" dir="${SDL_TTF_DIRECTORY}" tags="optim-std">
 		<section>
-			<!-- sdl overrideable include -->
-			<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
-			<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include/build_config" />
-
 			<!-- sdl include -->
 			<compilerflag value="-I${SDL_DIRECTORY}/include" />
-			<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
 
 			<!-- freetype include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
@@ -259,9 +254,6 @@
 			<compilerflag value="-DPLUTOVG_BUILD" />
 		</section>
 	
-		<!-- plutosvg overrideable source -->
-		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
-
 		<!-- plutosvg source -->
 		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
 

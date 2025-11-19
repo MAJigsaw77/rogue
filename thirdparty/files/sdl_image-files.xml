@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
 	<files id="sdl_image-files" dir="${SDL_IMAGE_DIRECTORY}" tags="optim-std">
-		<!-- sdl overrideable include -->
-		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
-		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include/build_config" />
-
 		<!-- sdl include -->
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
-		<compilerflag value="-I${SDL_DIRECTORY}/include/build_config" />
 
 		<!-- sdl_image include -->
 		<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/include" />
