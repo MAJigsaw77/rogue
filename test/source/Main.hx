@@ -1,5 +1,7 @@
 package;
 
+import cpp.Callable;
+import cpp.SizeT;
 import cpp.UInt64;
 import cpp.UInt32;
 import cpp.Pointer;
@@ -8,6 +10,9 @@ import cpp.RawPointer;
 import haxe.Resource;
 
 import rogue.internal.externs.SDL;
+import rogue.internal.externs.dr_libs.DrFLAC;
+import rogue.internal.externs.dr_libs.DrMP3;
+import rogue.internal.externs.dr_libs.DrWAV;
 #if emscripten
 import rogue.internal.externs.openal.emscripten.AL;
 import rogue.internal.externs.openal.emscripten.ALC;
@@ -23,62 +28,7 @@ import rogue.internal.externs.opengl.gl.GL;
 import rogue.internal.externs.opengl.gl.Glad;
 #end
 
-@:include('dr_wav.h')
-@:native('drwav_int16')
-@:scalar
-@:coreType
-@:notNull
-extern abstract DrWav_Int16 from cpp.Int16 to cpp.Int16 {}
-
-@:include('dr_wav.h')
-@:native('drwav_uint32')
-@:scalar
-@:coreType
-@:notNull
-extern abstract DrWav_UInt32 from cpp.UInt32 to cpp.UInt32 {}
-
-@:include('dr_wav.h')
-@:native('drwav_uint64')
-@:scalar
-@:coreType
-@:notNull
-extern abstract DrWav_UInt64 from cpp.UInt64 to cpp.UInt64 {}
-
-@:cppNamespaceCode('
-size_t drwav_sdl_read(void* userData, void* buffer, size_t bytesToRead)
-{
-    return SDL_ReadIO((SDL_IOStream*)userData, buffer, bytesToRead);
-}
-
-drwav_bool32 drwav_sdl_seek(void* userData, int offset, drwav_seek_origin origin)
-{
-    SDL_IOWhence whence;
-
-    switch (origin)
-	{
-        case DRWAV_SEEK_SET:
-			whence = SDL_IO_SEEK_SET;
-			break;
-        case DRWAV_SEEK_CUR:
-			whence = SDL_IO_SEEK_CUR;
-			break;
-        case DRWAV_SEEK_END:
-			whence = SDL_IO_SEEK_END;
-			break;
-    }
-
-    Sint64 result = SDL_SeekIO((SDL_IOStream*)userData, offset, whence);
-    return (result >= 0) ? DRWAV_TRUE : DRWAV_FALSE;
-}
-
-drwav_bool32 drwav_sdl_tell(void* userData, drwav_int64* pCursor)
-{
-    (*pCursor) = SDL_TellIO((SDL_IOStream*)userData);
-
-    return DRWAV_TRUE;
-}')
 @:buildXml("<include name=\"${haxelib:rogue}/project/IncludeLibrary.xml\" />")
-@:headerInclude('dr_wav.h')
 class Main
 {
 	static final WINDOW_WIDTH:Int = 1280;
@@ -234,6 +184,30 @@ class Main
 		return buffer;
 	}
 
+	static function getCurrentSeconds(source:ALuint):Float
+	{
+		var secOffset:ALfloat = 0;
+
+		AL.getSourcef(source, AL.SEC_OFFSET, Pointer.addressOf(secOffset).raw);
+
+		return secOffset;
+	}
+
+	static function getTotalSeconds(buffer:ALuint):Float
+	{
+		var frequency:ALint = 0;
+		var size:ALint = 0;
+		var channels:ALint = 0;
+		var bits:ALint = 0;
+
+		AL.getBufferi(buffer, AL.FREQUENCY, Pointer.addressOf(frequency).raw);
+		AL.getBufferi(buffer, AL.SIZE, Pointer.addressOf(size).raw);
+		AL.getBufferi(buffer, AL.CHANNELS, Pointer.addressOf(channels).raw);
+		AL.getBufferi(buffer, AL.BITS, Pointer.addressOf(bits).raw);
+
+		return ((size / ((bits / 8.0) * channels)) / frequency);
+	}
+
 	public static function main():Void
 	{
 		// Request a high-resolution timer (1 ms) for more precise delta times
@@ -368,6 +342,9 @@ class Main
 
 		GL.bindVertexArray(0);
 
+		Sys.putEnv('ALSOFT_LOGLEVEL', '3');
+		Sys.putEnv('ALSOFT_LOGFILE', 'al_log.txt');
+
 		final device:RawPointer<ALCdevice> = ALC.openDevice(null);
 
 		if (device == null)
@@ -392,11 +369,15 @@ class Main
 		{
 			var channels:UInt32 = 0;
 			var sampleRate:UInt32 = 0;
-			var totalFrames:DrWav_UInt64 = 0;
+			var totalFrames:DrWAV_UInt64 = 0;
 
-			final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('IRIS OUT.wav', 'rb');
+			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('Through The Fire And Flames.wav', 'rb');
+			final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('Chxxai.wav', 'rb');
+			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('IRIS OUT.wav', 'rb');
 
-			final data:RawPointer<DrWav_Int16> = untyped drwav_open_and_read_pcm_frames_s16(drwav_sdl_read, drwav_sdl_seek, drwav_sdl_tell, io, Pointer.addressOf(channels).raw, Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
+			final data:RawPointer<Single> = DrWAV.open_and_read_pcm_frames_f32(Callable.fromStaticFunction(drwav_read),
+				Callable.fromStaticFunction(drwav_seek), Callable.fromStaticFunction(drwav_tell), untyped io, Pointer.addressOf(channels).raw,
+				Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
 
 			SDL.CloseIO(io);
 
@@ -404,15 +385,17 @@ class Main
 				Sys.println('Failed to read WAV data.');
 			else
 			{
-				AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO16 : AL.FORMAT_STEREO16, untyped data, untyped totalFrames * channels * ALshort.size(), sampleRate);
+				AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped data,
+					untyped totalFrames * channels * ALfloat.size(), sampleRate);
 
-				untyped drwav_free(data, NULL);
+				DrWAV.free(untyped data, null);
 			}
 		}
 
 		alSource = createALSource();
 
 		AL.sourcei(alSource, AL.BUFFER, alBuffer);
+		AL.sourcei(alSource, AL.LOOPING, AL.TRUE);
 
 		AL.sourcePlay(alSource);
 
@@ -430,6 +413,10 @@ class Main
 		GL.deleteVertexArrays(1, Pointer.addressOf(vertexArray).raw);
 		GL.deleteBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		GL.deleteProgram(shaderProgram);
+
+		AL.sourceStop(alSource);
+		AL.deleteSources(1, Pointer.addressOf(alSource).raw);
+		AL.deleteBuffers(1, Pointer.addressOf(alBuffer).raw);
 
 		ALC.makeContextCurrent(null);
 		ALC.destroyContext(context);
@@ -463,6 +450,8 @@ class Main
 			}
 		}
 
+		Sys.println('Current: ${getCurrentSeconds(alSource)} seconds / Total: ${getTotalSeconds(alBuffer)} seconds');
+
 		GL.clearColor(0.1, 0.1, 0.1, 1.0);
 		GL.clear(GL.COLOR_BUFFER_BIT);
 
@@ -471,5 +460,36 @@ class Main
 		GL.bindVertexArray(0);
 
 		SDL.GL_SwapWindow(window);
+	}
+
+	static function drwav_read(pUserData:RawPointer<cpp.Void>, pBufferOut:RawPointer<cpp.Void>, bytesToRead:SizeT):SizeT
+	{
+		return SDL.ReadIO(cast pUserData, pBufferOut, bytesToRead);
+	}
+
+	static function drwav_seek(pUserData:RawPointer<cpp.Void>, offset:Int, origin:DrWAV_Seek_Origin):DrWAV_Bool32
+	{
+		var whence:SDL_IOWhence = 0;
+
+		switch (origin)
+		{
+			case origin if (origin == DRWAV_SEEK_SET):
+				whence = SDL_IO_SEEK_SET;
+			case origin if (origin == DRWAV_SEEK_CUR):
+				whence = SDL_IO_SEEK_CUR;
+			case origin if (origin == DRWAV_SEEK_END):
+				whence = SDL_IO_SEEK_END;
+		}
+
+		return untyped __cpp__('{0} >= {1}', SDL.SeekIO(cast pUserData, offset, whence), 0) ? DrWAV.TRUE : DrWAV.FALSE;
+	}
+
+	static function drwav_tell(pUserData:RawPointer<cpp.Void>, pCursor:RawPointer<DrWAV_Int64>):DrWAV_Bool32
+	{
+		final cursor:DrWAV_Int64 = SDL.TellIO(cast pUserData);
+
+		pCursor[0] = cursor;
+
+		return untyped __cpp__('{0} >= {1}', cursor, 0) ? DrWAV.TRUE : DrWAV.FALSE;
 	}
 }
