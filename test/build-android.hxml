@@ -25,11 +25,11 @@
 --define HXCPP_ARM64
 
 # Create the architecture's directory
---cmd if not exist android-project\app\src\main\jniLibs\arm64-v8a mkdir android-project\app\src\main\jniLibs\arm64-v8a
+--cmd if not exist android-project\app\src\main\jniLibs\arm64-v8a mkdir android-project\app\src\main\jniLibs\arm64-v8a >nul 2>&1
 
 # Copy the libs
---cmd copy ..\lib\Android\librogue-64.so android-project\app\src\main\jniLibs\arm64-v8a\librogue.so
---cmd copy bin\android\libMain-64.so android-project\app\src\main\jniLibs\arm64-v8a\libMain.so
+--cmd copy ..\lib\Android\librogue-64.so android-project\app\src\main\jniLibs\arm64-v8a\librogue.so >nul 2>&1
+--cmd copy bin\android\libMain-64.so android-project\app\src\main\jniLibs\arm64-v8a\libMain.so >nul 2>&1
 
 --next
 
@@ -37,11 +37,15 @@
 --define HXCPP_ARMV7
 
 # Create the architecture's directory
---cmd if not exist android-project\app\src\main\jniLibs\armeabi-v7a mkdir android-project\app\src\main\jniLibs\armeabi-v7a
+--cmd if not exist android-project\app\src\main\jniLibs\armeabi-v7a mkdir android-project\app\src\main\jniLibs\armeabi-v7a >nul 2>&1
 
 # Copy the libs
---cmd copy ..\lib\Android\librogue-v7.so android-project\app\src\main\jniLibs\armeabi-v7a\librogue.so
---cmd copy bin\android\libMain-v7.so android-project\app\src\main\jniLibs\armeabi-v7a\libMain.so
+--cmd copy ..\lib\Android\librogue-v7.so android-project\app\src\main\jniLibs\armeabi-v7a\librogue.so >nul 2>&1
+--cmd copy bin\android\libMain-v7.so android-project\app\src\main\jniLibs\armeabi-v7a\libMain.so >nul 2>&1
+
+# Copy the Java Files from SDL.
+--cmd rmdir /s /q android-project\app\src\main\java\org\libsdl\app
+--cmd xcopy ..\thirdparty\submodules\sdl\android-project\app\src\main\java\org\libsdl\app android-project\app\src\main\java\org\libsdl\app /E /I /Y >nul 2>&1
 
 # Enter the android-project.
 --cmd cd android-project
@@ -60,6 +64,7 @@
 # Use logcat for debugging
 
 # --cmd adb logcat -c
-# --cmd adb logcat -v brief *:S hidapi:V SDL:V trace:V
-# --cmd adb logcat -v brief *:S SDL:V trace:V
-# --cmd adb logcat -v brief *:S trace:V
+# --cmd for /f %i in ('adb shell pidof -s org.haxe.rogue') do adb logcat --pid=%i
+# --cmd for /f %i in ('adb shell pidof -s org.haxe.rogue') do adb logcat --pid=%i -v brief *:S hidapi:V SDL:V trace:V
+# --cmd for /f %i in ('adb shell pidof -s org.haxe.rogue') do adb logcat --pid=%i -v brief *:S SDL:V trace:V
+# --cmd for /f %i in ('adb shell pidof -s org.haxe.rogue') do adb logcat --pid=%i -v brief *:S trace:V
