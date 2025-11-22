@@ -2,7 +2,6 @@ package;
 
 import cpp.Callable;
 import cpp.SizeT;
-import cpp.UInt64;
 import cpp.UInt32;
 import cpp.Pointer;
 import cpp.RawPointer;
@@ -45,6 +44,8 @@ class Main
 
 	static var alBuffer:ALuint = 0;
 	static var alSource:ALuint = 0;
+
+	static var gamepad:RawPointer<SDL_Gamepad> = null;
 
 	static var running:Bool = true;
 
@@ -220,7 +221,7 @@ class Main
 		// useful for fullscreen or input-intensive apps like games.
 		SDL.SetHint(SDL.HINT_ALLOW_ALT_TAB_WHILE_GRABBED, "0");
 
-		if (!SDL.Init(SDL.INIT_VIDEO))
+		if (!SDL.Init(SDL.INIT_VIDEO | SDL.INIT_GAMEPAD | SDL.INIT_HAPTIC))
 		{
 			Sys.println('SDL initialization failed: ${cast (SDL.GetError(), String)}');
 			return;
@@ -342,9 +343,6 @@ class Main
 
 		GL.bindVertexArray(0);
 
-		Sys.putEnv('ALSOFT_LOGLEVEL', '3');
-		Sys.putEnv('ALSOFT_LOGFILE', 'al_log.txt');
-
 		final device:RawPointer<ALCdevice> = ALC.openDevice(null);
 
 		if (device == null)
@@ -444,6 +442,20 @@ class Main
 					running = false;
 				}
 			}
+			else if (event.type == SDL_EVENT_GAMEPAD_ADDED)
+			{
+				if (gamepad == null)
+					gamepad = SDL.OpenGamepad(event.gdevice.which);
+			}
+			else if (event.type == SDL_EVENT_GAMEPAD_REMOVED)
+			{
+				if (gamepad != null)
+				{
+					SDL.CloseGamepad(gamepad);
+
+					gamepad = null;
+				}
+			}
 			else if (event.type == SDL_EVENT_WINDOW_RESIZED)
 			{
 				GL.viewport(0, 0, event.window.data1, event.window.data2);
@@ -451,6 +463,13 @@ class Main
 		}
 
 		Sys.println('Current: ${getCurrentSeconds(alSource)} seconds / Total: ${getTotalSeconds(alBuffer)} seconds');
+
+		if (gamepad != null && SDL.GamepadConnected(gamepad))
+		{
+			SDL.RumbleGamepad(gamepad, Math.floor(65535 * 0.5), Math.floor(65535 * 0.5), 500);
+
+			SDL.SetGamepadLED(gamepad, 255, 0, 0);
+		}
 
 		GL.clearColor(0.1, 0.1, 0.1, 1.0);
 		GL.clear(GL.COLOR_BUFFER_BIT);
