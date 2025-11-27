@@ -1,5 +1,9 @@
 package;
 
+import cpp.UInt64;
+
+import haxe.display.JsonModuleTypes.JsonUnop;
+
 import cpp.Callable;
 import cpp.SizeT;
 import cpp.UInt32;
@@ -44,8 +48,6 @@ class Main
 
 	static var alBuffer:ALuint = 0;
 	static var alSource:ALuint = 0;
-
-	static var gamepad:RawPointer<SDL_Gamepad> = null;
 
 	static var running:Bool = true;
 
@@ -269,7 +271,7 @@ class Main
 			return;
 		}
 
-		SDL.GL_SetSwapInterval(1);
+		// SDL.GL_SetSwapInterval(1);
 
 		#if (android || rpi || emscripten || iphone)
 		final version:Int = Glad.loadGLES2(cast SDL.GL_GetProcAddress);
@@ -288,10 +290,14 @@ class Main
 			return;
 		}
 
+		#if (android || rpi || emscripten || iphone)
 		if (isExtensionSupported('GL_EXT_multisample'))
 		{
 			GL.enable(GL.MULTISAMPLE_EXT);
 		}
+		#else
+		GL.enable(GL.MULTISAMPLE);
+		#end
 
 		var w:Int = 0;
 		var h:Int = 0;
@@ -370,8 +376,8 @@ class Main
 			var totalFrames:DrWAV_UInt64 = 0;
 
 			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Through The Fire And Flames.wav', 'rb');
-			final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Chxxai.wav', 'rb');
-			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/IRIS OUT.wav', 'rb');
+			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Chxxai.wav', 'rb');
+			final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/IRIS OUT.wav', 'rb');
 
 			final data:RawPointer<Single> = DrWAV.open_and_read_pcm_frames_f32(Callable.fromStaticFunction(drwav_read),
 				Callable.fromStaticFunction(drwav_seek), Callable.fromStaticFunction(drwav_tell), untyped io, Pointer.addressOf(channels).raw,
@@ -425,8 +431,24 @@ class Main
 		SDL.Quit();
 	}
 
+	static var lastTime:UInt64 = 0;
+	static var deltaTime:Float = 0;
+
+	static var times:Array<Float> = [];
+	static var timeAccumulator:Float = 0;
+
+	static var targetFrameTime:UInt64 = Math.round(1000000000.0 / 120.0);
+
 	static function run():Void
 	{
+		{
+			final currentTime:UInt64 = SDL.GetTicksNS();
+
+			deltaTime = untyped (currentTime - lastTime) / 1000000.0;
+
+			lastTime = currentTime;
+		}
+
 		final event:SDL_Event = new SDL_Event();
 
 		while (SDL.PollEvent(RawPointer.addressOf(event)))
@@ -442,44 +464,52 @@ class Main
 					running = false;
 				}
 			}
-			else if (event.type == SDL_EVENT_GAMEPAD_ADDED)
-			{
-				if (gamepad == null)
-					gamepad = SDL.OpenGamepad(event.gdevice.which);
-			}
-			else if (event.type == SDL_EVENT_GAMEPAD_REMOVED)
-			{
-				if (gamepad != null)
-				{
-					SDL.CloseGamepad(gamepad);
-
-					gamepad = null;
-				}
-			}
 			else if (event.type == SDL_EVENT_WINDOW_RESIZED)
 			{
 				GL.viewport(0, 0, event.window.data1, event.window.data2);
 			}
 		}
 
-		Sys.println('Current: ${getCurrentSeconds(alSource)} seconds / Total: ${getTotalSeconds(alBuffer)} seconds');
-
-		if (gamepad != null && SDL.GamepadConnected(gamepad))
 		{
-			SDL.RumbleGamepad(gamepad, Math.floor(65535 * 0.5), Math.floor(65535 * 0.5), 500);
+			// Update
 
-			SDL.SetGamepadLED(gamepad, 255, 0, 0);
+			times.push(deltaTime);
+
+			{
+				timeAccumulator += deltaTime;
+
+				while (timeAccumulator > 1000.0 && times.length > 1)
+				{
+					timeAccumulator -= times.shift();
+				}
+			}
+
+			// Sys.println('FPS: ${Math.fround(times.length / (timeAccumulator / 1000.0))} - Frame: ${deltaTime}ms');
 		}
 
-		GL.clearColor(0.1, 0.1, 0.1, 1.0);
-		GL.clear(GL.COLOR_BUFFER_BIT);
+		{
+			// Render
 
-		GL.bindVertexArray(vertexArray);
-		GL.drawArrays(GL.TRIANGLES, 0, 3);
-		GL.bindVertexArray(0);
+			GL.clearColor(0.1, 0.1, 0.1, 1.0);
+			GL.clear(GL.COLOR_BUFFER_BIT);
+
+			GL.bindVertexArray(vertexArray);
+			GL.drawArrays(GL.TRIANGLES, 0, 3);
+			GL.bindVertexArray(0);
+		}
 
 		SDL.GL_SwapWindow(window);
+
+		if (untyped __cpp__('{0} > {1}', targetFrameTime, 0))
+		{
+			final currentTime:UInt64 = untyped SDL.GetTicksNS() - lastTime;
+
+			if (untyped __cpp__('{0} < {1}', currentTime, targetFrameTime))
+				SDL.DelayPrecise(untyped targetFrameTime - currentTime);
+		}
 	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	static function drwav_read(pUserData:RawPointer<cpp.Void>, pBufferOut:RawPointer<cpp.Void>, bytesToRead:SizeT):SizeT
 	{
