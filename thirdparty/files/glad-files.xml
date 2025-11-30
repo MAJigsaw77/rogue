@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
 	<files id="glad-files" dir="${GLAD_DIRECTORY}" tags="optim-std">
-		<!-- glad include -->
 		<compilerflag value="-I${GLAD_DIRECTORY}/include" />
 
-		<!-- glad defines -->
 		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
 		<compilerflag value="-DGLAD_API_CALL_EXPORT_BUILD" />
 
-		<!-- glad src -->
 		<file name="src/gl.c" if="windows || macos || linux" />
 		<file name="src/gles2.c" if="android || rpi || emscripten || iphone" />
 	</files>

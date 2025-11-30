@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
 	<files id="sdl_image-files" dir="${SDL_IMAGE_DIRECTORY}" tags="optim-std">
-		<!-- sdl include -->
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
 
-		<!-- sdl_image include -->
 		<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/include" />
 
-		<!-- sdl_image defines -->
 		<compilerflag value="-DDLL_EXPORT" if="windows" />
 
 		<section>
-			<!-- sdl_image options -->
 			<compilerflag value="-DUSE_STBIMAGE" />
 			<compilerflag value="-DLOAD_ANI" />
 			<compilerflag value="-DLOAD_BMP" />
@@ -30,7 +26,6 @@
 		</section>
 
 		<section>
-			<!-- sdl_image src -->
 			<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/src" />
 
 			<file name="src/IMG.c" />

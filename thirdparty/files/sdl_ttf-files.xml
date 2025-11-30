@@ -2,42 +2,28 @@
 <xml>
 	<files id="sdl_ttf-files" dir="${SDL_TTF_DIRECTORY}" tags="optim-std">
 		<section>
-			<!-- sdl include -->
 			<compilerflag value="-I${SDL_DIRECTORY}/include" />
-
-			<!-- freetype include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
-
-			<!-- hurfbuzz src -->
 			<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
-
-			<!-- plutosvg source -->
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
-
-			<!-- plutosvg defines -->
-			<compilerflag value="-DPLUTOSVG_BUILD" />
-
-			<!-- plutovg include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
+		</section>
 
-			<!-- plutovg defines -->
+		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
+
+		<section>
+			<compilerflag value="-DPLUTOSVG_BUILD" />
 			<compilerflag value="-DPLUTOVG_BUILD" />
 		</section>
 
-		<!-- sdl_ttf include -->
-		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
-
-		<!-- sdl_ttf defines -->
 		<compilerflag value="-DDLL_EXPORT" if="windows" />
 
 		<section>
-			<!-- sdl_ttf options -->
 			<compilerflag value="-DTTF_USE_HARFBUZZ" />
 			<compilerflag value="-DTTF_USE_PLUTOSVG" />
 		</section>
 
 		<section>
-			<!-- sdl_ttf src -->
 			<compilerflag value="-I${SDL_TTF_DIRECTORY}/src" />
 
 			<file name="src/SDL_gpu_textengine.c" />
@@ -50,20 +36,14 @@
 	</files>
 
 	<files id="sdl_ttf-deps-freetype-files" dir="${SDL_TTF_DEPS_FREETYPE_DIRECTORY}" tags="optim-std">
-		<!-- hurfbuzz src -->
 		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
-
-		<!-- freetype include -->
 		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
 
-		<!-- freetype defines -->
 		<compilerflag value="-DFT2_BUILD_LIBRARY" />
 
-		<!-- freetype options -->
 		<compilerflag value="-DFT_CONFIG_OPTION_USE_HARFBUZZ" />
 
 		<section>
-			<!-- freetype src -->
 			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/src" />
 
 			<file name="src/autofit/autofit.c" />
@@ -119,13 +99,9 @@
 	</files>
 
 	<files id="sdl_ttf-deps-harfbuzz-files" dir="${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}" tags="optim-std">
-		<!-- freetype include -->
 		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
-
-		<!-- hurfbuzz src -->
 		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
 
-		<!-- hurfbuzz defines -->
 		<section>
 			<section unless="windows">
 				<compilerflag value="-DHAVE_UNISTD_H" />
@@ -244,23 +220,14 @@
 
 	<files id="sdl_ttf-deps-plutosvg-files" dir="${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}" tags="optim-std">
 		<section>
-			<!-- freetype include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
-
-			<!-- plutovg include -->
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
-
-			<!-- plutovg defines -->
-			<compilerflag value="-DPLUTOVG_BUILD" />
 		</section>
 	
-		<!-- plutosvg source -->
 		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
 
-		<!-- plutosvg defines -->
+		<compilerflag value="-DPLUTOVG_BUILD" />
 		<compilerflag value="-DPLUTOSVG_BUILD" />
-
-		<!-- plutosvg options -->
 		<compilerflag value="-DPLUTOSVG_HAS_FREETYPE" />
 
 		<section>
@@ -269,14 +236,11 @@
 	</files>
 
 	<files id="sdl_ttf-deps-plutovg-files" dir="${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}" tags="optim-std">
-		<!-- plutovg include -->
 		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
 
-		<!-- plutovg defines -->
 		<compilerflag value="-DPLUTOVG_BUILD" />
 
 		<section>
-			<!-- plutovg source -->
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/src" />
 
 			<file name="source/plutovg-blend.c" />

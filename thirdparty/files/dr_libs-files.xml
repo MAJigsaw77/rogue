@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
 	<files id="dr_libs-files" dir="${DR_LIBS_OVERRIDE_DIRECTORY}" tags="optim-std">
-		<!-- dr_libs include -->
 		<compilerflag value="-I${DR_LIBS_DIRECTORY}" />
 
-		<!-- dr_libs defines -->
 		<compilerflag value="-DDRMP3_DLL" unless="emscripten" />
 		<compilerflag value="-DDRWAV_DLL" unless="emscripten" />
 		<compilerflag value="-DDRFLAC_DLL" unless="emscripten" />
 
-		<!-- dr_libs implementation -->
 		<file name="dr_impl.cpp" />
 	</files>
 </xml>

@@ -15,6 +15,7 @@
 
 	<section>
 		<!-- Defines -->
+		<compilerflag value="-DSDL_DISABLE_ALLOCA" />
 		<compilerflag value="-DSDL_MAIN_HANDLED" />
 
 		<compilerflag value="-DGLAD_API_CALL_EXPORT" />

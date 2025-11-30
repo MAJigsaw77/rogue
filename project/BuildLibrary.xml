@@ -55,10 +55,6 @@
 
 	<target id="${PROJECT_NAME}" output="${LIBPREFIX}${PROJECT_NAME}${HX_TARGET_SUFFIX}" tool="linker" toolid="${STD_MODULE_LINK}">
 
-		<!--TODO: Remove this when https://github.com/HaxeFoundation/hxcpp/pull/1266 is merged-->
-
-		<ext value=".so" if="android" />
-
 		<outdir name="${PROJECT_LIB_DIR}/${BINDIR}" />
 
 		<files id="sdl-files" />

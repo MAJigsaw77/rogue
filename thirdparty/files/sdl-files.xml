@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
 	<files id="sdl-files" dir="${SDL_DIRECTORY}">
-		<!-- sdl overrideable include -->
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
 
-		<!-- sdl include -->
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
 
-		<!-- sdl defines -->
+		<compilerflag value="-DSDL_DISABLE_ALLOCA" />
+
 		<compilerflag value="-DDLL_EXPORT" if="windows" />
 
 		<section>
-			<!-- sdl src -->
 			<compilerflag value="-I${SDL_DIRECTORY}/src" />
 
-			<!-- src -->
 			<file name="src/SDL.c" />
 			<file name="src/SDL_assert.c" />
 			<file name="src/SDL_error.c" />
@@ -26,12 +23,10 @@
 			<file name="src/SDL_properties.c" />
 			<file name="src/SDL_utils.c" />
 
-			<!-- src/atomic -->
 			<file name="src/atomic/SDL_atomic.c" />
 			<file name="src/atomic/SDL_spinlock.c" />
 
 			<section>
-				<!-- src/audio -->
 				<file name="src/audio/SDL_audio.c" />
 				<file name="src/audio/SDL_audiocvt.c" />
 				<file name="src/audio/SDL_audiodev.c" />
@@ -41,44 +36,32 @@
 				<file name="src/audio/SDL_mixer.c" />
 				<file name="src/audio/SDL_wave.c" />
 
-				<!-- src/audio/dummy -->
 				<file name="src/audio/dummy/SDL_dummyaudio.c" />
 			</section>
 
 			<section>
-				<!-- src/camera -->
 				<file name="src/camera/SDL_camera.c" />
 
-				<!-- src/camera/android -->
 				<file name="src/camera/android/SDL_camera_android.c" if="android" />
 
-				<!-- src/camera/coremedia -->
 				<file name="src/camera/coremedia/SDL_camera_coremedia.m" if="macos || iphone" />
 
-				<!-- src/camera/dummy -->
 				<file name="src/camera/dummy/SDL_camera_dummy.c" />
 
-				<!-- src/camera/emscripten -->
 				<file name="src/camera/emscripten/SDL_camera_emscripten.c" if="emscripten" />
 
-				<!-- src/camera/mediafoundation -->
 				<file name="src/camera/mediafoundation/SDL_camera_mediafoundation.c" if="windows" />
 
-				<!-- src/camera/pipewire -->
 				<file name="src/camera/pipewire/SDL_camera_pipewire.c" if="linux" />
 
-				<!-- src/camera/v4l2 -->
 				<file name="src/camera/v4l2/SDL_camera_v4l2.c" if="linux" />
 			</section>
 
 			<section>
-				<!-- src/core -->
 				<file name="src/core/SDL_core_unsupported.c" />
 
-				<!-- src/core/android -->
 				<file name="src/core/android/SDL_android.c" if="android" />
 
-				<!-- src/core/linux -->
 				<section if="linux">
 					<file name="src/core/linux/SDL_dbus.c" />
 					<file name="src/core/linux/SDL_evdev.c" />
@@ -93,7 +76,6 @@
 					<file name="src/core/linux/SDL_udev.c" />
 				</section>
 
-				<!-- src/core/unix -->
 				<section unless="windows">
 					<file name="src/core/unix/SDL_appid.c" />
 					<file name="src/core/unix/SDL_fribidi.c" />
@@ -101,7 +83,6 @@
 					<file name="src/core/unix/SDL_poll.c" />
 				</section>
 
-				<!-- src/core/windows -->
 				<section if="windows">
 					<file name="src/core/windows/pch.c" />
 					<file name="src/core/windows/pch_cpp.cpp" />
@@ -114,41 +95,32 @@
 			</section>
 
 			<section>
-				<!-- src/cpuinfo -->
 				<file name="src/cpuinfo/SDL_cpuinfo.c" />
 			</section>
 
 			<section>
-				<!-- src/dialog -->
 				<file name="src/dialog/SDL_dialog.c" />
 				<file name="src/dialog/SDL_dialog_utils.c" />
 
-				<!-- src/dialog/android -->
 				<file name="src/dialog/android/SDL_androiddialog.c" if="android" />
 
-				<!-- src/dialog/cocoa -->
 				<file name="src/dialog/cocoa/SDL_cocoadialog.m" if="macos" />
 
-				<!-- src/dialog/dummy -->
 				<file name="src/dialog/dummy/SDL_dummydialog.c" />
 
-				<!-- src/dialog/unix -->
 				<file name="src/dialog/unix/SDL_portaldialog.c" if="linux" />
 				<file name="src/dialog/unix/SDL_unixdialog.c" if="linux" />
 				<file name="src/dialog/unix/SDL_zenitydialog.c" if="linux" />
 				<file name="src/dialog/unix/SDL_zenitymessagebox.c" if="linux" />
 
-				<!-- src/dialog/windows -->
 				<file name="src/dialog/windows/SDL_windowsdialog.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/dynapi -->
 				<file name="src/dynapi/SDL_dynapi.c" />
 			</section>
 
 			<section>
-				<!-- src/events -->
 				<file name="src/events/imKStoUCS.c" />
 				<file name="src/events/SDL_categories.c" />
 				<file name="src/events/SDL_clipboardevents.c" />
@@ -169,130 +141,94 @@
 			</section>
 
 			<section>
-				<!-- src/filesystem -->
 				<file name="src/filesystem/SDL_filesystem.c" />
 
-				<!-- src/filesystem/android -->
 				<file name="src/filesystem/android/SDL_sysfilesystem.c" if="android" />
 
-				<!-- src/filesystem/cocoa -->
 				<file name="src/filesystem/cocoa/SDL_sysfilesystem.m" if="apple" />
 
-				<!-- src/filesystem/dummy -->
 				<file name="src/filesystem/dummy/SDL_sysfilesystem.c" />
 				<file name="src/filesystem/dummy/SDL_sysfsops.c" />
 
-				<!-- src/filesystem/emscripten -->
 				<file name="src/filesystem/emscripten/SDL_sysfilesystem.c" if="emscripten" />
 
-				<!-- src/filesystem/posix -->
 				<file name="src/filesystem/posix/SDL_sysfsops.c" unless="windows" />
 
-				<!-- src/filesystem/unix -->
 				<file name="src/filesystem/unix/SDL_sysfilesystem.c" unless="android || emscripten || apple || windows" />
 
-				<!-- src/filesystem/windows -->
 				<file name="src/filesystem/windows/SDL_sysfilesystem.c" if="windows" />
 				<file name="src/filesystem/windows/SDL_sysfsops.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/gpu -->
 				<file name="src/gpu/SDL_gpu.c" />
 			</section>
 
 			<section>
-				<!-- src/haptic -->
 				<file name="src/haptic/SDL_haptic.c" />
 
-				<!-- src/haptic/android -->
 				<file name="src/haptic/android/SDL_syshaptic.c" if="android" />
 
-				<!-- src/haptic/darwin -->
 				<file name="src/haptic/darwin/SDL_syshaptic.c" if="macos" />
 
-				<!-- src/haptic/dummy -->
 				<file name="src/haptic/dummy/SDL_syshaptic.c" />
 
-				<!-- src/haptic/hidapi -->
 				<file name="src/haptic/hidapi/SDL_hidapihaptic.c" />
 				<file name="src/haptic/hidapi/SDL_hidapihaptic_lg4ff.c" />
 
-				<!-- src/haptic/linux -->
 				<file name="src/haptic/linux/SDL_syshaptic.c" if="linux" />
 
-				<!-- src/haptic/windows -->
 				<file name="src/haptic/windows/SDL_dinputhaptic.c" if="windows" />
 				<file name="src/haptic/windows/SDL_windowshaptic.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/hidapi -->
 				<file name="src/hidapi/SDL_hidapi.c" />
 
-				<!-- src/hidapi/android -->
 				<file name="src/hidapi/android/hid.cpp" if="android" />
 
-				<!-- src/hidapi/ios -->
 				<file name="src/hidapi/ios/hid.m" if="iphone" />
 
-				<!-- src/hidapi/libusb -->
 				<file name="src/hidapi/libusb/hid.c" if="linux" />
 
-				<!-- src/hidapi/linux -->
 				<file name="src/hidapi/linux/hid.c" if="linux" />
 
-				<!-- src/hidapi/mac -->
 				<file name="src/hidapi/mac/hid.c" if="macos" />
 
-				<!-- src/hidapi/windows -->
 				<file name="src/hidapi/windows/hid.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/io -->
 				<file name="src/io/SDL_asyncio.c" />
 				<file name="src/io/SDL_iostream.c" />
 
-				<!-- src/io/generic -->
 				<file name="src/io/generic/SDL_asyncio_generic.c" />
 
-				<!-- src/io/io_uring -->
 				<file name="src/io/io_uring/SDL_asyncio_liburing.c" />
 
-				<!-- src/io/windows -->
 				<file name="src/io/windows/SDL_asyncio_windows_ioring.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/joystick -->
 				<file name="src/joystick/controller_type.c" />
 				<file name="src/joystick/SDL_gamepad.c" />
 				<file name="src/joystick/SDL_joystick.c" />
 				<file name="src/joystick/SDL_steam_virtual_gamepad.c" />
 
-				<!-- src/joystick/android -->
 				<file name="src/joystick/android/SDL_sysjoystick.c" if="android" />
 
-				<!-- src/joystick/apple -->
 				<file name="src/joystick/apple/SDL_mfijoystick.m" if="apple" />
 
-				<!-- src/joystick/bsd -->
 				<file name="src/joystick/bsd/SDL_bsdjoystick.c" />
 
-				<!-- src/joystick/darwin -->
 				<file name="src/joystick/darwin/SDL_iokitjoystick.c" if="macos" />
 
-				<!-- src/joystick/dummy -->
 				<file name="src/joystick/dummy/SDL_sysjoystick.c" />
 
-				<!-- src/joystick/emscripten -->
 				<file name="src/joystick/emscripten/SDL_sysjoystick.c" if="emscripten" />
 
-				<!-- src/joystick/gdk -->
 				<file name="src/joystick/gdk/SDL_gameinputjoystick.cpp" if="windows" />
 
-				<!-- src/joystick/hidapi -->
 				<file name="src/joystick/hidapi/SDL_hidapijoystick.c" />
 				<file name="src/joystick/hidapi/SDL_hidapi_8bitdo.c" />
 				<file name="src/joystick/hidapi/SDL_hidapi_combined.c" />
@@ -320,22 +256,20 @@
 				<file name="src/joystick/hidapi/SDL_hidapi_xboxone.c" />
 				<file name="src/joystick/hidapi/SDL_hidapi_zuiki.c" />
 
-				<!-- src/joystick/linux -->
 				<file name="src/joystick/linux/SDL_sysjoystick.c" if="linux" />
 
-				<!-- src/joystick/virtual -->
 				<file name="src/joystick/virtual/SDL_virtualjoystick.c" />
 
-				<!-- src/joystick/windows -->
-				<file name="src/joystick/windows/SDL_dinputjoystick.c" if="windows" />
-				<file name="src/joystick/windows/SDL_rawinputjoystick.c" if="windows" />
-				<file name="src/joystick/windows/SDL_windowsjoystick.c" if="windows" />
-				<file name="src/joystick/windows/SDL_windows_gaming_input.c" if="windows" />
-				<file name="src/joystick/windows/SDL_xinputjoystick.c" if="windows" />
+				<section if="windows">
+					<file name="src/joystick/windows/SDL_dinputjoystick.c" />
+					<file name="src/joystick/windows/SDL_rawinputjoystick.c" />
+					<file name="src/joystick/windows/SDL_windowsjoystick.c" />
+					<file name="src/joystick/windows/SDL_windows_gaming_input.c" />
+					<file name="src/joystick/windows/SDL_xinputjoystick.c" />
+				</section>
 			</section>
 
 			<section>
-				<!-- src/libm -->
 				<file name="src/libm/e_atan2.c" />
 				<file name="src/libm/e_exp.c" />
 				<file name="src/libm/e_fmod.c" />
@@ -364,144 +298,104 @@
 			</section>
 
 			<section>
-				<!-- src/loadso/dlopen -->
 				<file name="src/loadso/dlopen/SDL_sysloadso.c" />
 
-				<!-- src/loadso/dummy -->
 				<file name="src/loadso/dummy/SDL_sysloadso.c" />
 
-				<!-- src/loadso/windows -->
 				<file name="src/loadso/windows/SDL_sysloadso.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/locale -->
 				<file name="src/locale/SDL_locale.c" />
 
-				<!-- src/locale/android -->
 				<file name="src/locale/android/SDL_syslocale.c" if="android" />
 
-				<!-- src/locale/emscripten -->
 				<file name="src/locale/emscripten/SDL_syslocale.c" if="emscripten" />
 
-				<!-- src/locale/macos -->
 				<file name="src/locale/macos/SDL_syslocale.m" if="macos" />
 
-				<!-- src/locale/unix -->
 				<file name="src/locale/unix/SDL_syslocale.c" if="linux" />
 
-				<!-- src/locale/windows -->
 				<file name="src/locale/windows/SDL_syslocale.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/main -->
 				<file name="src/main/SDL_main_callbacks.c" />
 				<file name="src/main/SDL_runapp.c" />
 
-				<!-- src/main/emscripten -->
 				<file name="src/main/emscripten/SDL_sysmain_callbacks.c" if="emscripten" />
 				<file name="src/main/emscripten/SDL_sysmain_runapp.c" if="emscripten" />
 
-				<!-- src/main/generic -->
 				<file name="src/main/generic/SDL_sysmain_callbacks.c" unless="emscripten || iphone" />
 
-				<!-- src/main/ios -->
 				<file name="src/main/ios/SDL_sysmain_callbacks.m" if="iphone" />
 
-				<!-- src/main/windows -->
 				<file name="src/main/windows/SDL_sysmain_runapp.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/misc -->
 				<file name="src/misc/SDL_libusb.c" />
 				<file name="src/misc/SDL_url.c" />
 
-				<!-- src/misc/android -->
 				<file name="src/misc/android/SDL_sysurl.c" if="android" />
 
-				<!-- src/misc/emscripten -->
 				<file name="src/misc/emscripten/SDL_sysurl.c" if="emscripten" />
 
-				<!-- src/misc/ios -->
 				<file name="src/misc/ios/SDL_sysurl.m" if="iphone" />
 
-				<!-- src/misc/macos -->
 				<file name="src/misc/macos/SDL_sysurl.m" if="macos" />
 
-				<!-- src/misc/unix -->
 				<file name="src/misc/unix/SDL_sysurl.c" if="linux" />
 
-				<!-- src/misc/windows -->
 				<file name="src/misc/windows/SDL_sysurl.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/power -->
 				<file name="src/power/SDL_power.c" />
 
-				<!-- src/power/android -->
 				<file name="src/power/android/SDL_syspower.c" if="android" />
 
-				<!-- src/power/emscripten -->
 				<file name="src/power/emscripten/SDL_syspower.c" if="emscripten" />
 
-				<!-- src/power/linux -->
 				<file name="src/power/linux/SDL_syspower.c" if="linux" />
 
-				<!-- src/power/macos -->
 				<file name="src/power/macos/SDL_syspower.c" if="macos" />
 
-				<!-- src/power/uikit -->
 				<file name="src/power/uikit/SDL_syspower.m" if="iphone" />
 
-				<!-- src/power/windows -->
 				<file name="src/power/windows/SDL_syspower.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/process -->
 				<file name="src/process/SDL_process.c" />
 
-				<!-- src/process/dummy -->
 				<file name="src/process/dummy/SDL_dummyprocess.c" />
 
-				<!-- src/process/posix -->
 				<file name="src/process/posix/SDL_posixprocess.c" unless="android || emscripten || ios || windows" />
 
-				<!-- src/process/windows -->
 				<file name="src/process/windows/SDL_windowsprocess.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/render -->
 				<file name="src/render/SDL_render.c" />
 				<file name="src/render/SDL_yuv_sw.c" />
 			</section>
 
 			<section>
-				<!-- src/sensor -->
 				<file name="src/sensor/SDL_sensor.c" />
 
-				<!-- src/sensor/android -->
 				<file name="src/sensor/android/SDL_androidsensor.c" if="android" />
 
-				<!-- src/sensor/coremotion -->
 				<file name="src/sensor/coremotion/SDL_coremotionsensor.m" if="apple" unless="tvos" />
 
-				<!-- src/sensor/dummy -->
 				<file name="src/sensor/dummy/SDL_dummysensor.c" />
 
-				<!-- src/sensor/emscripten -->
 				<file name="src/sensor/emscripten/SDL_emscriptensensor.c" if="emscripten" />
 
-				<!-- src/sensor/windows -->
 				<file name="src/sensor/windows/SDL_windowssensor.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/stdlib -->
 				<file name="src/stdlib/SDL_crc16.c" />
 				<file name="src/stdlib/SDL_crc32.c" />
 				<file name="src/stdlib/SDL_getenv.c" />
@@ -520,21 +414,16 @@
 			</section>
 
 			<section>
-				<!-- src/storage -->
 				<file name="src/storage/SDL_storage.c" />
 
-				<!-- src/storage/generic -->
 				<file name="src/storage/generic/SDL_genericstorage.c" />
 
-				<!-- src/storage/steam -->
 				<file name="src/storage/steam/SDL_steamstorage.c" />
 			</section>
 
 			<section>
-				<!-- src/thread -->
 				<file name="src/thread/SDL_thread.c" />
 
-				<!-- src/thread/generic -->
 				<file name="src/thread/generic/SDL_syscond.c" if="emscripten || windows" />
 				<file name="src/thread/generic/SDL_sysmutex.c" if="emscripten" />
 				<file name="src/thread/generic/SDL_sysrwlock.c" if="emscripten || windows" />
@@ -542,7 +431,6 @@
 				<file name="src/thread/generic/SDL_systhread.c" if="emscripten" />
 				<file name="src/thread/generic/SDL_systls.c" if="emscripten" />
 
-				<!-- src/thread/pthread -->
 				<file name="src/thread/pthread/SDL_syscond.c" unless="windows || emscripten" />
 				<file name="src/thread/pthread/SDL_sysmutex.c" unless="windows || emscripten" />
 				<file name="src/thread/pthread/SDL_sysrwlock.c" unless="windows || emscripten" />
@@ -550,7 +438,6 @@
 				<file name="src/thread/pthread/SDL_systhread.c" unless="windows || emscripten" />
 				<file name="src/thread/pthread/SDL_systls.c" unless="windows || emscripten" />
 
-				<!-- src/thread/windows -->
 				<file name="src/thread/windows/SDL_syscond_cv.c" if="windows" />
 				<file name="src/thread/windows/SDL_sysmutex.c" if="windows" />
 				<file name="src/thread/windows/SDL_sysrwlock_srw.c" if="windows" />
@@ -560,46 +447,34 @@
 			</section>
 
 			<section>
-				<!-- src/time -->
 				<file name="src/time/SDL_time.c" />
 
-				<!-- src/time/unix -->
 				<file name="src/time/unix/SDL_systime.c" unless="windows" />
 
-				<!-- src/time/windows -->
 				<file name="src/time/windows/SDL_systime.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/timer -->
 				<file name="src/timer/SDL_timer.c" />
 
-				<!-- src/timer/unix -->
 				<file name="src/timer/unix/SDL_systimer.c" unless="windows" />
 
-				<!-- src/timer/windows -->
 				<file name="src/timer/windows/SDL_systimer.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/tray -->
 				<file name="src/tray/SDL_tray_utils.c" />
 
-				<!-- src/tray/cocoa -->
 				<file name="src/tray/cocoa/SDL_tray.m" if="macos" />
 
-				<!-- src/tray/dummy -->
 				<file name="src/tray/dummy/SDL_tray.c" if="emscripten || android || iphone" />
 
-				<!-- src/tray/unix -->
 				<file name="src/tray/unix/SDL_tray.c" unless="android || iphone || macos || windows" />
 
-				<!-- src/tray/windows -->
 				<file name="src/tray/windows/SDL_tray.c" if="windows" />
 			</section>
 
 			<section>
-				<!-- src/video -->
 				<file name="src/video/SDL_blit.c" />
 				<file name="src/video/SDL_blit_0.c" />
 				<file name="src/video/SDL_blit_1.c" />
@@ -624,56 +499,58 @@
 				<file name="src/video/SDL_vulkan_utils.c" />
 				<file name="src/video/SDL_yuv.c" />
 
-				<!-- src/video/android -->
-				<file name="src/video/android/SDL_androidclipboard.c" if="android" />
-				<file name="src/video/android/SDL_androidevents.c" if="android" />
-				<file name="src/video/android/SDL_androidgl.c" if="android" />
-				<file name="src/video/android/SDL_androidkeyboard.c" if="android" />
-				<file name="src/video/android/SDL_androidmessagebox.c" if="android" />
-				<file name="src/video/android/SDL_androidmouse.c" if="android" />
-				<file name="src/video/android/SDL_androidpen.c" if="android" />
-				<file name="src/video/android/SDL_androidtouch.c" if="android" />
-				<file name="src/video/android/SDL_androidvideo.c" if="android" />
-				<file name="src/video/android/SDL_androidvulkan.c" if="android" />
-				<file name="src/video/android/SDL_androidwindow.c" if="android" />
+				<section if="android">
+					<file name="src/video/android/SDL_androidclipboard.c" />
+					<file name="src/video/android/SDL_androidevents.c" />
+					<file name="src/video/android/SDL_androidgl.c" />
+					<file name="src/video/android/SDL_androidkeyboard.c" />
+					<file name="src/video/android/SDL_androidmessagebox.c" />
+					<file name="src/video/android/SDL_androidmouse.c" />
+					<file name="src/video/android/SDL_androidpen.c" />
+					<file name="src/video/android/SDL_androidtouch.c" />
+					<file name="src/video/android/SDL_androidvideo.c" />
+					<file name="src/video/android/SDL_androidvulkan.c" />
+					<file name="src/video/android/SDL_androidwindow.c" />
+				</section>
 
-				<!-- src/video/cocoa -->
-				<file name="src/video/cocoa/SDL_cocoaclipboard.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoaevents.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoakeyboard.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoamessagebox.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoametalview.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoamodes.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoamouse.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoaopengl.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoaopengles.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoapen.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoashape.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoavideo.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoavulkan.m" if="macos" />
-				<file name="src/video/cocoa/SDL_cocoawindow.m" if="macos" />
+				<section if="macos">
+					<file name="src/video/cocoa/SDL_cocoaclipboard.m" />
+					<file name="src/video/cocoa/SDL_cocoaevents.m" />
+					<file name="src/video/cocoa/SDL_cocoakeyboard.m" />
+					<file name="src/video/cocoa/SDL_cocoamessagebox.m" />
+					<file name="src/video/cocoa/SDL_cocoametalview.m" />
+					<file name="src/video/cocoa/SDL_cocoamodes.m" />
+					<file name="src/video/cocoa/SDL_cocoamouse.m" />
+					<file name="src/video/cocoa/SDL_cocoaopengl.m" />
+					<file name="src/video/cocoa/SDL_cocoaopengles.m" />
+					<file name="src/video/cocoa/SDL_cocoapen.m" />
+					<file name="src/video/cocoa/SDL_cocoashape.m" />
+					<file name="src/video/cocoa/SDL_cocoavideo.m" />
+					<file name="src/video/cocoa/SDL_cocoavulkan.m" />
+					<file name="src/video/cocoa/SDL_cocoawindow.m" />
+				</section>
 
-				<!-- src/video/dummy -->
 				<file name="src/video/dummy/SDL_nullevents.c" />
 				<file name="src/video/dummy/SDL_nullframebuffer.c" />
 				<file name="src/video/dummy/SDL_nullvideo.c" />
 
-				<!-- src/video/emscripten -->
-				<file name="src/video/emscripten/SDL_emscriptenevents.c" if="emscripten" />
-				<file name="src/video/emscripten/SDL_emscriptenframebuffer.c" if="emscripten" />
-				<file name="src/video/emscripten/SDL_emscriptenmouse.c" if="emscripten" />
-				<file name="src/video/emscripten/SDL_emscriptenopengles.c" if="emscripten" />
-				<file name="src/video/emscripten/SDL_emscriptenvideo.c" if="emscripten" />
+				<section if="emscripten">
+					<file name="src/video/emscripten/SDL_emscriptenevents.c" />
+					<file name="src/video/emscripten/SDL_emscriptenframebuffer.c" />
+					<file name="src/video/emscripten/SDL_emscriptenmouse.c" />
+					<file name="src/video/emscripten/SDL_emscriptenopengles.c" />
+					<file name="src/video/emscripten/SDL_emscriptenvideo.c" />
+				</section>
 
-				<!-- src/video/kmsdrm -->
-				<file name="src/video/kmsdrm/SDL_kmsdrmdyn.c" if="rpi" />
-				<file name="src/video/kmsdrm/SDL_kmsdrmevents.c" if="rpi" />
-				<file name="src/video/kmsdrm/SDL_kmsdrmmouse.c" if="rpi" />
-				<file name="src/video/kmsdrm/SDL_kmsdrmopengles.c" if="rpi" />
-				<file name="src/video/kmsdrm/SDL_kmsdrmvideo.c" if="rpi" />
-				<file name="src/video/kmsdrm/SDL_kmsdrmvulkan.c" if="rpi" />
+				<section if="rpi">
+					<file name="src/video/kmsdrm/SDL_kmsdrmdyn.c" />
+					<file name="src/video/kmsdrm/SDL_kmsdrmevents.c" />
+					<file name="src/video/kmsdrm/SDL_kmsdrmmouse.c" />
+					<file name="src/video/kmsdrm/SDL_kmsdrmopengles.c" />
+					<file name="src/video/kmsdrm/SDL_kmsdrmvideo.c" />
+					<file name="src/video/kmsdrm/SDL_kmsdrmvulkan.c" />
+				</section>
 
-				<!-- src/video/offscreen -->
 				<file name="src/video/offscreen/SDL_offscreenevents.c" />
 				<file name="src/video/offscreen/SDL_offscreenframebuffer.c" />
 				<file name="src/video/offscreen/SDL_offscreenopengles.c" />
@@ -681,87 +558,91 @@
 				<file name="src/video/offscreen/SDL_offscreenvulkan.c" />
 				<file name="src/video/offscreen/SDL_offscreenwindow.c" />
 
-				<!-- src/video/raspberry -->
-				<file name="src/video/raspberry/SDL_rpievents.c" if="rpi" />
-				<file name="src/video/raspberry/SDL_rpimouse.c" if="rpi" />
-				<file name="src/video/raspberry/SDL_rpiopengles.c" if="rpi" />
-				<file name="src/video/raspberry/SDL_rpivideo.c" if="rpi" />
+				<section if="rpi">
+					<file name="src/video/raspberry/SDL_rpievents.c" />
+					<file name="src/video/raspberry/SDL_rpimouse.c" />
+					<file name="src/video/raspberry/SDL_rpiopengles.c" />
+					<file name="src/video/raspberry/SDL_rpivideo.c" />
+				</section>
 
-				<!-- src/video/uikit -->
-				<file name="src/video/uikit/SDL_uikitappdelegate.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitclipboard.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitevents.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitmessagebox.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitmetalview.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitmodes.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitopengles.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitopenglview.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitpen.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitvideo.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitview.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitviewcontroller.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitvulkan.m" if="iphone" />
-				<file name="src/video/uikit/SDL_uikitwindow.m" if="iphone" />
+				<section if="iphone">
+					<file name="src/video/uikit/SDL_uikitappdelegate.m" />
+					<file name="src/video/uikit/SDL_uikitclipboard.m" />
+					<file name="src/video/uikit/SDL_uikitevents.m" />
+					<file name="src/video/uikit/SDL_uikitmessagebox.m" />
+					<file name="src/video/uikit/SDL_uikitmetalview.m" />
+					<file name="src/video/uikit/SDL_uikitmodes.m" />
+					<file name="src/video/uikit/SDL_uikitopengles.m" />
+					<file name="src/video/uikit/SDL_uikitopenglview.m" />
+					<file name="src/video/uikit/SDL_uikitpen.m" />
+					<file name="src/video/uikit/SDL_uikitvideo.m" />
+					<file name="src/video/uikit/SDL_uikitview.m" />
+					<file name="src/video/uikit/SDL_uikitviewcontroller.m" />
+					<file name="src/video/uikit/SDL_uikitvulkan.m" />
+					<file name="src/video/uikit/SDL_uikitwindow.m" />
+				</section>
 
-				<!-- src/video/wayland -->
-				<file name="src/video/wayland/SDL_waylandclipboard.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandcolor.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylanddatamanager.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylanddyn.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandevents.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandkeyboard.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandmessagebox.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandmouse.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandopengles.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandshmbuffer.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandvideo.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandvulkan.c" if="linux" />
-				<file name="src/video/wayland/SDL_waylandwindow.c" if="linux" />
+				<section if="linux">
+					<file name="src/video/wayland/SDL_waylandclipboard.c" />
+					<file name="src/video/wayland/SDL_waylandcolor.c" />
+					<file name="src/video/wayland/SDL_waylanddatamanager.c" />
+					<file name="src/video/wayland/SDL_waylanddyn.c" />
+					<file name="src/video/wayland/SDL_waylandevents.c" />
+					<file name="src/video/wayland/SDL_waylandkeyboard.c" />
+					<file name="src/video/wayland/SDL_waylandmessagebox.c" />
+					<file name="src/video/wayland/SDL_waylandmouse.c" />
+					<file name="src/video/wayland/SDL_waylandopengles.c" />
+					<file name="src/video/wayland/SDL_waylandshmbuffer.c" />
+					<file name="src/video/wayland/SDL_waylandvideo.c" />
+					<file name="src/video/wayland/SDL_waylandvulkan.c" />
+					<file name="src/video/wayland/SDL_waylandwindow.c" />
+				</section>
 
-				<!-- src/video/windows -->
-				<file name="src/video/windows/SDL_windowsclipboard.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsevents.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsframebuffer.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsgameinput.cpp" if="windows" />
-				<file name="src/video/windows/SDL_windowskeyboard.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsmessagebox.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsmodes.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsmouse.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsopengl.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsopengles.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsrawinput.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsshape.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsvideo.c" if="windows" />
-				<file name="src/video/windows/SDL_windowsvulkan.c" if="windows" />
-				<file name="src/video/windows/SDL_windowswindow.c" if="windows" />
+				<section if="windows">
+					<file name="src/video/windows/SDL_windowsclipboard.c" />
+					<file name="src/video/windows/SDL_windowsevents.c" />
+					<file name="src/video/windows/SDL_windowsframebuffer.c" />
+					<file name="src/video/windows/SDL_windowsgameinput.cpp" />
+					<file name="src/video/windows/SDL_windowskeyboard.c" />
+					<file name="src/video/windows/SDL_windowsmessagebox.c" />
+					<file name="src/video/windows/SDL_windowsmodes.c" />
+					<file name="src/video/windows/SDL_windowsmouse.c" />
+					<file name="src/video/windows/SDL_windowsopengl.c" />
+					<file name="src/video/windows/SDL_windowsopengles.c" />
+					<file name="src/video/windows/SDL_windowsrawinput.c" />
+					<file name="src/video/windows/SDL_windowsshape.c" />
+					<file name="src/video/windows/SDL_windowsvideo.c" />
+					<file name="src/video/windows/SDL_windowsvulkan.c" />
+					<file name="src/video/windows/SDL_windowswindow.c" />
+				</section>
 
-				<!-- src/video/x11 -->
-				<file name="src/video/x11/edid-parse.c" if="linux" />
-				<file name="src/video/x11/SDL_x11clipboard.c" if="linux" />
-				<file name="src/video/x11/SDL_x11dyn.c" if="linux" />
-				<file name="src/video/x11/SDL_x11events.c" if="linux" />
-				<file name="src/video/x11/SDL_x11framebuffer.c" if="linux" />
-				<file name="src/video/x11/SDL_x11keyboard.c" if="linux" />
-				<file name="src/video/x11/SDL_x11messagebox.c" if="linux" />
-				<file name="src/video/x11/SDL_x11modes.c" if="linux" />
-				<file name="src/video/x11/SDL_x11mouse.c" if="linux" />
-				<file name="src/video/x11/SDL_x11opengl.c" if="linux" />
-				<file name="src/video/x11/SDL_x11opengles.c" if="linux" />
-				<file name="src/video/x11/SDL_x11pen.c" if="linux" />
-				<file name="src/video/x11/SDL_x11settings.c" if="linux" />
-				<file name="src/video/x11/SDL_x11shape.c" if="linux" />
-				<file name="src/video/x11/SDL_x11toolkit.c" if="linux" />
-				<file name="src/video/x11/SDL_x11touch.c" if="linux" />
-				<file name="src/video/x11/SDL_x11video.c" if="linux" />
-				<file name="src/video/x11/SDL_x11vulkan.c" if="linux" />
-				<file name="src/video/x11/SDL_x11window.c" if="linux" />
-				<file name="src/video/x11/SDL_x11xfixes.c" if="linux" />
-				<file name="src/video/x11/SDL_x11xinput2.c" if="linux" />
-				<file name="src/video/x11/SDL_x11xsync.c" if="linux" />
-				<file name="src/video/x11/SDL_x11xtest.c" if="linux" />
-				<file name="src/video/x11/xsettings-client.c" if="linux" />
+				<section if="linux">
+					<file name="src/video/x11/edid-parse.c" />
+					<file name="src/video/x11/SDL_x11clipboard.c" />
+					<file name="src/video/x11/SDL_x11dyn.c" />
+					<file name="src/video/x11/SDL_x11events.c" />
+					<file name="src/video/x11/SDL_x11framebuffer.c" />
+					<file name="src/video/x11/SDL_x11keyboard.c" />
+					<file name="src/video/x11/SDL_x11messagebox.c" />
+					<file name="src/video/x11/SDL_x11modes.c" />
+					<file name="src/video/x11/SDL_x11mouse.c" />
+					<file name="src/video/x11/SDL_x11opengl.c" />
+					<file name="src/video/x11/SDL_x11opengles.c" />
+					<file name="src/video/x11/SDL_x11pen.c" />
+					<file name="src/video/x11/SDL_x11settings.c" />
+					<file name="src/video/x11/SDL_x11shape.c" />
+					<file name="src/video/x11/SDL_x11toolkit.c" />
+					<file name="src/video/x11/SDL_x11touch.c" />
+					<file name="src/video/x11/SDL_x11video.c" />
+					<file name="src/video/x11/SDL_x11vulkan.c" />
+					<file name="src/video/x11/SDL_x11window.c" />
+					<file name="src/video/x11/SDL_x11xfixes.c" />
+					<file name="src/video/x11/SDL_x11xinput2.c" />
+					<file name="src/video/x11/SDL_x11xsync.c" />
+					<file name="src/video/x11/SDL_x11xtest.c" />
+					<file name="src/video/x11/xsettings-client.c" />
+				</section>
 
-				<!-- src/video/yuv2rgb -->
 				<file name="src/video/yuv2rgb/yuv_rgb_lsx.c" />
 				<file name="src/video/yuv2rgb/yuv_rgb_sse.c" />
 				<file name="src/video/yuv2rgb/yuv_rgb_std.c" />
