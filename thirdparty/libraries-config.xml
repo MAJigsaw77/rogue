@@ -23,6 +23,8 @@
 
 	<set name="DR_LIBS_DIRECTORY" value="${this_dir}/submodules/dr_libs" />
 
+	<set name="STB_DIRECTORY" value="${this_dir}/modules/stb" />
+
 	<set name="SOFT_OAL_DIRECTORY" value="${this_dir}/submodules/soft_oal" />
 
 	<section>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xml>
+
 	<!-- 
 		Static linking policy for Rogue:
 		- WebAssembly (Emscripten) targets: MUST use static_link
@@ -48,6 +49,9 @@
 
 			<!--Soft OpenAL Files-->
 			<include name="${PROJECT_THIRDPARTY_DIR}/files/soft_oal-files.xml" />
+
+			<!--STB Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/stb-files.xml" />
 		</section>
 	</section>
 
@@ -73,6 +77,8 @@
 		<files id="glad-files" />
 
 		<files id="dr_libs-files" />
+
+		<files id="stb-files" />
 
 		<section unless="emscripten">
 			<files id="soft_oal-deps-oboe-files" if="android" />
