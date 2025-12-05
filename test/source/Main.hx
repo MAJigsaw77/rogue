@@ -1,13 +1,11 @@
 package;
 
-import cpp.Callable;
+import rogue.internal.externs.dr_libs.DrWAV;
 import cpp.Pointer;
-import cpp.RawConstPointer;
 import cpp.RawPointer;
 import cpp.SizeT;
 import cpp.Stdlib;
 import cpp.UInt32;
-import cpp.UInt64;
 import cpp.UInt8;
 
 import haxe.Resource;
@@ -15,9 +13,6 @@ import haxe.Resource;
 import rogue.internal.MainLoop;
 import rogue.internal.externs.SDL;
 import rogue.internal.externs.STBVorbis;
-import rogue.internal.externs.dr_libs.DrFLAC;
-import rogue.internal.externs.dr_libs.DrMP3;
-import rogue.internal.externs.dr_libs.DrWAV;
 import rogue.internal.externs.openal.AL;
 import rogue.internal.externs.openal.ALC;
 #if (android || rpi || iphone)
@@ -241,6 +236,8 @@ class Main
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 		#end
 
+		SDL.GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1);
+
 		var flags:SDL_WindowFlags = untyped SDL.WINDOW_OPENGL | untyped SDL.WINDOW_RESIZABLE;
 
 		#if android
@@ -392,28 +389,28 @@ class Main
 		}
 
 		// {
+		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Through The Fire And Flames.wav', 'rb');
+		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Chxxai.wav', 'rb');
+		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/IRIS OUT.wav', 'rb');
+
+		// 	final data_size:SizeT = 0;
+		// 	final data:RawPointer<cpp.Void> = SDL.LoadFile_IO(SDL.IOFromFile('assets/IRIS OUT.wav', 'rb'), Pointer.addressOf(data_size).raw, true);
+
 		// 	var channels:UInt32 = 0;
 		// 	var sampleRate:UInt32 = 0;
 		// 	var totalFrames:DrWAV_UInt64 = 0;
 
-		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Through The Fire And Flames.wav', 'rb');
-		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Chxxai.wav', 'rb');
-		// 	final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/IRIS OUT.wav', 'rb');
-
-		// 	final data:RawPointer<Single> = DrWAV.open_and_read_pcm_frames_f32(Callable.fromStaticFunction(drwav_read),
-		// 		Callable.fromStaticFunction(drwav_seek), Callable.fromStaticFunction(drwav_tell), untyped io, Pointer.addressOf(channels).raw,
+		// 	final decoded:RawPointer<Single> = DrWAV.open_memory_and_read_pcm_frames_f32(data, data_size, Pointer.addressOf(channels).raw,
 		// 		Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
 
-		// 	SDL.CloseIO(io);
-
-		// 	if (data == null)
+		// 	if (decoded == null)
 		// 		Sys.println('Failed to read WAV data.');
 		// 	else
 		// 	{
-		// 		AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped data,
+		// 		AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
 		// 			untyped totalFrames * channels * ALfloat.size(), sampleRate);
 
-		// 		DrWAV.free(untyped data, null);
+		// 		DrWAV.free(untyped decoded, null);
 		// 	}
 		// }
 
@@ -500,38 +497,5 @@ class Main
 		}
 
 		MainLoop.frameEnd();
-	}
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	static function drwav_read(pUserData:RawPointer<cpp.Void>, pBufferOut:RawPointer<cpp.Void>, bytesToRead:SizeT):SizeT
-	{
-		return SDL.ReadIO(cast pUserData, pBufferOut, bytesToRead);
-	}
-
-	static function drwav_seek(pUserData:RawPointer<cpp.Void>, offset:Int, origin:DrWAV_Seek_Origin):DrWAV_Bool32
-	{
-		var whence:SDL_IOWhence = 0;
-
-		switch (origin)
-		{
-			case origin if (origin == DRWAV_SEEK_SET):
-				whence = SDL_IO_SEEK_SET;
-			case origin if (origin == DRWAV_SEEK_CUR):
-				whence = SDL_IO_SEEK_CUR;
-			case origin if (origin == DRWAV_SEEK_END):
-				whence = SDL_IO_SEEK_END;
-		}
-
-		return untyped __cpp__('{0} >= {1}', SDL.SeekIO(cast pUserData, offset, whence), 0) ? DrWAV.TRUE : DrWAV.FALSE;
-	}
-
-	static function drwav_tell(pUserData:RawPointer<cpp.Void>, pCursor:RawPointer<DrWAV_Int64>):DrWAV_Bool32
-	{
-		final cursor:DrWAV_Int64 = SDL.TellIO(cast pUserData);
-
-		pCursor[0] = cursor;
-
-		return untyped __cpp__('{0} >= {1}', cursor, 0) ? DrWAV.TRUE : DrWAV.FALSE;
 	}
 }
