@@ -1,5 +1,7 @@
 package;
 
+import cpp.StdVector;
+
 import rogue.internal.externs.dr_libs.DrWAV;
 
 import cpp.Pointer;
@@ -40,8 +42,8 @@ class Main
 	static var vertexArray:GLuint = 0;
 	static var vertexBufferObject:GLuint = 0;
 
-	static var alBuffer:ALuint = 0;
-	static var alSource:ALuint = 0;
+	static var alBuffers:StdVector<ALuint>;
+	static var alSources:StdVector<ALuint>;
 
 	static var running:Bool = true;
 
@@ -178,6 +180,89 @@ class Main
 	{
 		var buffer:ALuint = 0;
 		AL.genBuffers(1, Pointer.addressOf(buffer).raw);
+		return buffer;
+	}
+
+	static function makeOggAudioBuffer(path:String):ALuint
+	{
+		final buffer:ALuint = createALBuffer();
+
+		{
+			final data_size:SizeT = 0;
+			final data:RawPointer<UInt8> = cast SDL.LoadFile_IO(SDL.IOFromFile(path, 'rb'), Pointer.addressOf(data_size).raw, true);
+
+			{
+				final error:Int = 0;
+				final vorbis:RawPointer<STB_Vorbis> = STBVorbis.open_memory(data, data_size, Pointer.addressOf(error).raw, null);
+
+				if (vorbis == null)
+				{
+					Sys.println('Failed to open `.ogg` file, Error Code: $error');
+				}
+				else
+				{
+					final info:STB_Vorbis_Info = STBVorbis.get_info(vorbis);
+					final total_samples:UInt32 = STBVorbis.stream_length_in_samples(vorbis);
+					final decoded:RawPointer<Single> = cast Stdlib.nativeMalloc(total_samples * info.channels * Stdlib.sizeof(cpp.Float32));
+					final samples:Int = STBVorbis.get_samples_float_interleaved(vorbis, info.channels, decoded, total_samples * info.channels);
+
+					trace('Path: $path');
+					trace('Sample Rate: ${info.sample_rate}');
+					trace('Channels: ${info.channels}');
+					trace('Max Frame Size: ${info.max_frame_size}');
+					trace('Total Samples: ${total_samples}');
+					trace('Decoded $samples samples!');
+
+					AL.bufferData(buffer, (info.channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
+						untyped total_samples * info.channels * ALfloat.size(), info.sample_rate);
+
+					Stdlib.nativeFree(untyped decoded);
+
+					STBVorbis.close(vorbis);
+				}
+			}
+
+			if (data != null)
+				SDL.free(untyped data);
+		}
+
+		return buffer;
+	}
+
+	static function makeWavAudioBuffer(path:String):ALuint
+	{
+		final buffer:ALuint = createALBuffer();
+
+		{
+			final data_size:SizeT = 0;
+			final data:RawPointer<cpp.Void> = SDL.LoadFile_IO(SDL.IOFromFile(path, 'rb'), Pointer.addressOf(data_size).raw, true);
+
+			{
+				var channels:UInt32 = 0;
+				var sampleRate:UInt32 = 0;
+				var totalFrames:DrWAV_UInt64 = 0;
+
+				final decoded:RawPointer<Single> = DrWAV.open_memory_and_read_pcm_frames_f32(data, data_size, Pointer.addressOf(channels).raw,
+					Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
+
+				if (decoded == null)
+				{
+					Sys.println('Failed to read WAV data.');
+					SDL.free(untyped data);
+				}
+				else
+				{
+					AL.bufferData(buffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
+						untyped totalFrames * channels * ALfloat.size(), sampleRate);
+
+					DrWAV.free(untyped decoded, null);
+				}
+			}
+
+			if (data != null)
+				SDL.free(untyped data);
+		}
+
 		return buffer;
 	}
 
@@ -352,86 +437,33 @@ class Main
 
 		ALC.makeContextCurrent(context);
 
-		alBuffer = createALBuffer();
+		alBuffers = new StdVector<ALuint>();
+		alSources = new StdVector<ALuint>();
 
+		final paths:Array<String> = [
+			'assets/Inst-erect.ogg',
+			'assets/Voices-bf-pixel-erect.ogg',
+			'assets/Voices-spirit-erect.ogg'
+		];
+
+		for (path in paths)
 		{
-			final data_size:SizeT = 0;
-			final data:RawPointer<UInt8> = cast SDL.LoadFile_IO(SDL.IOFromFile('assets/Inst-erect.ogg', 'rb'), Pointer.addressOf(data_size).raw, true);
+			final source:ALuint = createALSource();
 
 			{
-				final error:Int = 0;
-				final vorbis:RawPointer<STB_Vorbis> = STBVorbis.open_memory(data, data_size, Pointer.addressOf(error).raw, null);
+				final buffer:ALuint = makeOggAudioBuffer(path);
 
-				if (vorbis == null)
-				{
-					Sys.println('Failed to open `.ogg` file, Error Code: $error');
-				}
-				else
-				{
-					final info:STB_Vorbis_Info = STBVorbis.get_info(vorbis);
-					final total_samples:UInt32 = STBVorbis.stream_length_in_samples(vorbis);
-					final decoded:RawPointer<Single> = cast Stdlib.nativeMalloc(total_samples * info.channels * Stdlib.sizeof(cpp.Float32));
-					final samples:Int = STBVorbis.get_samples_float_interleaved(vorbis, info.channels, decoded, total_samples * info.channels);
+				AL.sourcei(source, AL.BUFFER, buffer);
 
-					trace('Sample Rate: ${info.sample_rate}');
-					trace('Channels: ${info.channels}');
-					trace('Max Frame Size: ${info.max_frame_size}');
-					trace('Total Samples: ${total_samples}');
-					trace('Decoded $samples samples!');
-
-					AL.bufferData(alBuffer, (info.channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
-						untyped total_samples * info.channels * ALfloat.size(), info.sample_rate);
-
-					Stdlib.nativeFree(untyped decoded);
-
-					STBVorbis.close(vorbis);
-				}
+				alBuffers.push_back(buffer);
 			}
 
-			if (data != null)
-				SDL.free(untyped data);
+			AL.sourcei(source, AL.LOOPING, AL.TRUE);
+
+			alSources.push_back(source);
 		}
 
-		// {
-		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Through The Fire And Flames.wav', 'rb');
-		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Chxxai.wav', 'rb');
-		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/IRIS OUT.wav', 'rb');
-
-		// 	final data_size:SizeT = 0;
-		// 	final data:RawPointer<cpp.Void> = SDL.LoadFile_IO(SDL.IOFromFile('assets/IRIS OUT.wav', 'rb'), Pointer.addressOf(data_size).raw, true);
-
-		// 	{
-		// 		var channels:UInt32 = 0;
-		// 		var sampleRate:UInt32 = 0;
-		// 		var totalFrames:DrWAV_UInt64 = 0;
-
-		// 		final decoded:RawPointer<Single> = DrWAV.open_memory_and_read_pcm_frames_f32(data, data_size, Pointer.addressOf(channels).raw,
-		// 			Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
-
-		// 		if (decoded == null)
-		// 		{
-		// 			Sys.println('Failed to read WAV data.');
-		// 			SDL.free(untyped data);
-		// 		}
-		// 		else
-		// 		{
-		// 			AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
-		// 				untyped totalFrames * channels * ALfloat.size(), sampleRate);
-
-		// 			DrWAV.free(untyped decoded, null);
-		// 		}
-		// 	}
-
-		// 	if (data != null)
-		// 		SDL.free(untyped data);
-		// }
-
-		alSource = createALSource();
-
-		AL.sourcei(alSource, AL.BUFFER, alBuffer);
-		AL.sourcei(alSource, AL.LOOPING, AL.TRUE);
-
-		AL.sourcePlay(alSource);
+		AL.sourcePlayv(alSources.size(), alSources.data());
 
 		{
 			MainLoop.setTargetFPS(60);
@@ -446,9 +478,9 @@ class Main
 		GL.deleteBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		GL.deleteProgram(shaderProgram);
 
-		AL.sourceStop(alSource);
-		AL.deleteSources(1, Pointer.addressOf(alSource).raw);
-		AL.deleteBuffers(1, Pointer.addressOf(alBuffer).raw);
+		AL.sourceStopv(alSources.size(), alSources.data());
+		AL.deleteSources(alSources.size(), alSources.data());
+		AL.deleteBuffers(alBuffers.size(), alBuffers.data());
 
 		ALC.makeContextCurrent(null);
 		ALC.destroyContext(context);
@@ -476,9 +508,42 @@ class Main
 				}
 				else if (event.type == SDL_EVENT_KEY_DOWN)
 				{
-					if (event.key.key == SDL.K_ESCAPE)
+					if (event.key.key == SDL.K_P)
 					{
-						running = false;
+						AL.sourcePausev(alSources.size(), alSources.data());
+					}
+					else if (event.key.key == SDL.K_S)
+					{
+						AL.sourcePlayv(alSources.size(), alSources.data());
+					}
+					else if (event.key.key == SDL.K_R)
+					{
+						AL.sourceRewindv(alSources.size(), alSources.data());
+					}
+
+					if (event.key.key == SDL.K_KP_0)
+					{
+						AL.sourcef(alSources[0], AL.GAIN, 0.0);
+					}
+					else if (event.key.key == SDL.K_KP_1)
+					{
+						AL.sourcef(alSources[0], AL.GAIN, 1);
+					}
+					else if (event.key.key == SDL.K_KP_2)
+					{
+						AL.sourcef(alSources[1], AL.GAIN, 0.0);
+					}
+					else if (event.key.key == SDL.K_KP_3)
+					{
+						AL.sourcef(alSources[1], AL.GAIN, 1);
+					}
+					else if (event.key.key == SDL.K_KP_4)
+					{
+						AL.sourcef(alSources[2], AL.GAIN, 0.0);
+					}
+					else if (event.key.key == SDL.K_KP_5)
+					{
+						AL.sourcef(alSources[2], AL.GAIN, 1);
 					}
 				}
 				else if (event.type == SDL_EVENT_WINDOW_RESIZED)
@@ -491,8 +556,22 @@ class Main
 		{
 			// Update
 
-			if (MainLoop.deltaTime > 0)
-				Sys.println('FPS: ${Math.fround(1000.0 / MainLoop.deltaTime)} - Frame: ${MainLoop.deltaTime}ms');
+			// Sys.println('FPS: ${Math.fround(1000.0 / MainLoop.deltaTime)} - Frame: ${MainLoop.deltaTime}ms');
+
+			final paths:Array<String> = [
+				'assets/Inst-erect.ogg',
+				'assets/Voices-bf-pixel-erect.ogg',
+				'assets/Voices-spirit-erect.ogg'
+			];
+
+			Sys.println('');
+
+			for (i in 0...paths.length)
+			{
+				Sys.println('Path: ${paths[i]}, Current: ${getCurrentSeconds(alSources[i])} seconds / Total: ${getTotalSeconds(alBuffers[i])} seconds');
+			}
+
+			Sys.println('');
 		}
 
 		{

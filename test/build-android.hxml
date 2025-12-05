@@ -61,6 +61,10 @@
 
 --cmd adb shell am start -n org.haxe.rogue/.GameActivity
 
+# Start scrcpy
+
+# --cmd scrcpy
+
 # Use logcat for debugging
 
 # --cmd adb logcat -c
