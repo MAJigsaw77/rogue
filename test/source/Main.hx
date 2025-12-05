@@ -1,29 +1,26 @@
 package;
 
-import cpp.UInt64;
-
-import haxe.display.JsonModuleTypes.JsonUnop;
-
 import cpp.Callable;
-import cpp.SizeT;
-import cpp.UInt32;
 import cpp.Pointer;
+import cpp.RawConstPointer;
 import cpp.RawPointer;
+import cpp.SizeT;
+import cpp.Stdlib;
+import cpp.UInt32;
+import cpp.UInt64;
+import cpp.UInt8;
 
 import haxe.Resource;
 
+import rogue.internal.MainLoop;
 import rogue.internal.externs.SDL;
+import rogue.internal.externs.STBVorbis;
 import rogue.internal.externs.dr_libs.DrFLAC;
 import rogue.internal.externs.dr_libs.DrMP3;
 import rogue.internal.externs.dr_libs.DrWAV;
-#if emscripten
-import rogue.internal.externs.openal.emscripten.AL;
-import rogue.internal.externs.openal.emscripten.ALC;
-#else
-import rogue.internal.externs.openal.soft_oal.AL;
-import rogue.internal.externs.openal.soft_oal.ALC;
-#end
-#if (android || rpi || emscripten || iphone)
+import rogue.internal.externs.openal.AL;
+import rogue.internal.externs.openal.ALC;
+#if (android || rpi || iphone)
 import rogue.internal.externs.opengl.gles2.GL;
 import rogue.internal.externs.opengl.gles2.Glad;
 #else
@@ -31,6 +28,7 @@ import rogue.internal.externs.opengl.gl.GL;
 import rogue.internal.externs.opengl.gl.Glad;
 #end
 
+@:access(rogue.internal.MainLoop)
 @:buildXml("<include name=\"${haxelib:rogue}/project/IncludeLibrary.xml\" />")
 class Main
 {
@@ -84,7 +82,7 @@ class Main
 		return vertexBufferObject;
 	}
 
-	static function createGLProgram(vertexShader:GLuint, fragmentShader:GLuint, window:RawPointer<SDL_Window>):GLuint
+	static function createGLProgram(vertexShader:GLuint, fragmentShader:GLuint):GLuint
 	{
 		var shaderProgram:GLuint = GL.createProgram();
 
@@ -111,7 +109,7 @@ class Main
 		return shaderProgram;
 	}
 
-	static function createGLShader(type:GLenum, window:RawPointer<SDL_Window>, source:ConstGLcharStar):GLuint
+	static function createGLShader(type:GLenum, source:ConstGLcharStar):GLuint
 	{
 		var shader:GLuint = GL.createShader(type);
 
@@ -233,7 +231,7 @@ class Main
 		SDL.GL_SetAttribute(SD_GL_CONTEXT_FLAGS, SDL.GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
 		#end
 
-		#if (android || rpi || emscripten || iphone)
+		#if (android || rpi || iphone)
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL.GL_CONTEXT_PROFILE_ES);
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
@@ -242,9 +240,6 @@ class Main
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 		SDL.GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 		#end
-
-		SDL.GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-		SDL.GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
 		var flags:SDL_WindowFlags = untyped SDL.WINDOW_OPENGL | untyped SDL.WINDOW_RESIZABLE;
 
@@ -271,9 +266,7 @@ class Main
 			return;
 		}
 
-		// SDL.GL_SetSwapInterval(1);
-
-		#if (android || rpi || emscripten || iphone)
+		#if (android || rpi || iphone)
 		final version:Int = Glad.loadGLES2(cast SDL.GL_GetProcAddress);
 		#else
 		final version:Int = Glad.loadGL(cast SDL.GL_GetProcAddress);
@@ -290,15 +283,6 @@ class Main
 			return;
 		}
 
-		#if (android || rpi || emscripten || iphone)
-		if (isExtensionSupported('GL_EXT_multisample'))
-		{
-			GL.enable(GL.MULTISAMPLE_EXT);
-		}
-		#else
-		GL.enable(GL.MULTISAMPLE);
-		#end
-
 		var w:Int = 0;
 		var h:Int = 0;
 
@@ -310,7 +294,7 @@ class Main
 
 		GL.viewport(0, 0, w, h);
 
-		#if (android || rpi || emscripten || iphone)
+		#if (android || rpi || iphone)
 		final vertexShaderSource:String = Resource.getString('assets/gl300es/default.vert');
 		final fragmentShaderSource:String = Resource.getString('assets/gl300es/default.frag');
 		#else
@@ -318,8 +302,10 @@ class Main
 		final fragmentShaderSource:String = Resource.getString('assets/gl330core/default.frag');
 		#end
 
-		shaderProgram = createGLProgram(createGLShader(GL.VERTEX_SHADER, window, vertexShaderSource),
-			createGLShader(GL.FRAGMENT_SHADER, window, fragmentShaderSource), window);
+		final vertexShader:GLuint = createGLShader(GL.VERTEX_SHADER, vertexShaderSource);
+		final fragmentShader:GLuint = createGLShader(GL.FRAGMENT_SHADER, fragmentShaderSource);
+
+		shaderProgram = createGLProgram(vertexShader, fragmentShader);
 		vertexArray = createGLVertexArray();
 		vertexBufferObject = createGLBuffer();
 
@@ -371,30 +357,65 @@ class Main
 		alBuffer = createALBuffer();
 
 		{
-			var channels:UInt32 = 0;
-			var sampleRate:UInt32 = 0;
-			var totalFrames:DrWAV_UInt64 = 0;
+			final data_size:SizeT = 0;
+			final data:RawPointer<UInt8> = cast SDL.LoadFile_IO(SDL.IOFromFile('assets/Inst-erect.ogg', 'rb'), Pointer.addressOf(data_size).raw, true);
 
-			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Through The Fire And Flames.wav', 'rb');
-			// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Chxxai.wav', 'rb');
-			final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/IRIS OUT.wav', 'rb');
+			final error:Int = 0;
+			final vorbis:RawPointer<STB_Vorbis> = STBVorbis.open_memory(data, data_size, Pointer.addressOf(error).raw, null);
 
-			final data:RawPointer<Single> = DrWAV.open_and_read_pcm_frames_f32(Callable.fromStaticFunction(drwav_read),
-				Callable.fromStaticFunction(drwav_seek), Callable.fromStaticFunction(drwav_tell), untyped io, Pointer.addressOf(channels).raw,
-				Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
-
-			SDL.CloseIO(io);
-
-			if (data == null)
-				Sys.println('Failed to read WAV data.');
+			if (vorbis == null)
+			{
+				Sys.println('Failed to open `.ogg` file, Error Code: $error');
+			}
 			else
 			{
-				AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped data,
-					untyped totalFrames * channels * ALfloat.size(), sampleRate);
+				final info:STB_Vorbis_Info = STBVorbis.get_info(vorbis);
+				final total_samples:UInt32 = STBVorbis.stream_length_in_samples(vorbis);
+				final decoded:RawPointer<Single> = cast Stdlib.nativeMalloc(total_samples * info.channels * Stdlib.sizeof(cpp.Float32));
+				final samples:Int = STBVorbis.get_samples_float_interleaved(vorbis, info.channels, decoded, total_samples * info.channels);
 
-				DrWAV.free(untyped data, null);
+				trace('Sample Rate: ${info.sample_rate}');
+				trace('Channels: ${info.channels}');
+				trace('Max Frame Size: ${info.max_frame_size}');
+				trace('Total Samples: ${total_samples}');
+				trace('Decoded $samples samples!');
+
+				AL.bufferData(alBuffer, (info.channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
+					untyped total_samples * info.channels * ALfloat.size(), info.sample_rate);
+
+				Stdlib.nativeFree(untyped decoded);
+
+				STBVorbis.close(vorbis);
+
+				SDL.free(untyped data);
 			}
 		}
+
+		// {
+		// 	var channels:UInt32 = 0;
+		// 	var sampleRate:UInt32 = 0;
+		// 	var totalFrames:DrWAV_UInt64 = 0;
+
+		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Through The Fire And Flames.wav', 'rb');
+		// 	// final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Chxxai.wav', 'rb');
+		// 	final io:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/IRIS OUT.wav', 'rb');
+
+		// 	final data:RawPointer<Single> = DrWAV.open_and_read_pcm_frames_f32(Callable.fromStaticFunction(drwav_read),
+		// 		Callable.fromStaticFunction(drwav_seek), Callable.fromStaticFunction(drwav_tell), untyped io, Pointer.addressOf(channels).raw,
+		// 		Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
+
+		// 	SDL.CloseIO(io);
+
+		// 	if (data == null)
+		// 		Sys.println('Failed to read WAV data.');
+		// 	else
+		// 	{
+		// 		AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped data,
+		// 			untyped totalFrames * channels * ALfloat.size(), sampleRate);
+
+		// 		DrWAV.free(untyped data, null);
+		// 	}
+		// }
 
 		alSource = createALSource();
 
@@ -404,14 +425,12 @@ class Main
 		AL.sourcePlay(alSource);
 
 		{
-			#if emscripten
-			emscripten.Emscripten.set_main_loop(cpp.Callable.fromStaticFunction(run), 0, true);
-			#else
+			MainLoop.setTargetFPS(60);
+
 			while (running)
 			{
 				run();
 			}
-			#end
 		}
 
 		GL.deleteVertexArrays(1, Pointer.addressOf(vertexArray).raw);
@@ -431,60 +450,40 @@ class Main
 		SDL.Quit();
 	}
 
-	static var lastTime:UInt64 = 0;
-	static var deltaTime:Float = 0;
-
-	static var times:Array<Float> = [];
-	static var timeAccumulator:Float = 0;
-
-	static var targetFrameTime:UInt64 = Math.round(1000000000.0 / 120.0);
-
 	static function run():Void
 	{
+		MainLoop.frameStart();
+
 		{
-			final currentTime:UInt64 = SDL.GetTicksNS();
+			// Events Fetching
 
-			deltaTime = untyped (currentTime - lastTime) / 1000000.0;
+			final event:SDL_Event = new SDL_Event();
 
-			lastTime = currentTime;
-		}
-
-		final event:SDL_Event = new SDL_Event();
-
-		while (SDL.PollEvent(RawPointer.addressOf(event)))
-		{
-			if (event.type == SDL_EVENT_QUIT)
+			while (SDL.PollEvent(RawPointer.addressOf(event)))
 			{
-				running = false;
-			}
-			else if (event.type == SDL_EVENT_KEY_DOWN)
-			{
-				if (event.key.key == SDL.K_ESCAPE)
+				if (event.type == SDL_EVENT_QUIT)
 				{
 					running = false;
 				}
-			}
-			else if (event.type == SDL_EVENT_WINDOW_RESIZED)
-			{
-				GL.viewport(0, 0, event.window.data1, event.window.data2);
+				else if (event.type == SDL_EVENT_KEY_DOWN)
+				{
+					if (event.key.key == SDL.K_ESCAPE)
+					{
+						running = false;
+					}
+				}
+				else if (event.type == SDL_EVENT_WINDOW_RESIZED)
+				{
+					GL.viewport(0, 0, event.window.data1, event.window.data2);
+				}
 			}
 		}
 
 		{
 			// Update
 
-			times.push(deltaTime);
-
-			{
-				timeAccumulator += deltaTime;
-
-				while (timeAccumulator > 1000.0 && times.length > 1)
-				{
-					timeAccumulator -= times.shift();
-				}
-			}
-
-			// Sys.println('FPS: ${Math.fround(times.length / (timeAccumulator / 1000.0))} - Frame: ${deltaTime}ms');
+			if (MainLoop.deltaTime > 0)
+				Sys.println('FPS: ${Math.fround(1000.0 / MainLoop.deltaTime)} - Frame: ${MainLoop.deltaTime}ms');
 		}
 
 		{
@@ -496,17 +495,11 @@ class Main
 			GL.bindVertexArray(vertexArray);
 			GL.drawArrays(GL.TRIANGLES, 0, 3);
 			GL.bindVertexArray(0);
+
+			SDL.GL_SwapWindow(window);
 		}
 
-		SDL.GL_SwapWindow(window);
-
-		if (untyped __cpp__('{0} > {1}', targetFrameTime, 0))
-		{
-			final currentTime:UInt64 = untyped SDL.GetTicksNS() - lastTime;
-
-			if (untyped __cpp__('{0} < {1}', currentTime, targetFrameTime))
-				SDL.DelayPrecise(untyped targetFrameTime - currentTime);
-		}
+		MainLoop.frameEnd();
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
