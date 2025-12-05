@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xml>
 
-	<!-- 
-		Static linking policy for Rogue:
-		- WebAssembly (Emscripten) targets: MUST use static_link
-		- All other targets: MUST NOT use static_link
-	-->
+	<!--Static linking MUST NOT be used-->
 
-	<error value="Static linking should only be used for WebAssembly targets" if="static_link" unless="emscripten" />
-
-	<error value="WebAssembly targets require static linking" if="emscripten" unless="static_link" />
+	<error value="Static linking MUST NOT be used." if="static_link" />
 
 	<!--HXCPP Defines-->
 
@@ -80,7 +74,7 @@
 
 		<files id="stb-files" />
 
-		<section unless="emscripten">
+		<section>
 			<files id="soft_oal-deps-oboe-files" if="android" />
 
 			<files id="soft_oal-deps-fmt-files" />

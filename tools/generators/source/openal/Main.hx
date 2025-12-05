@@ -18,16 +18,6 @@ class Main
 
 	static final INVALID_KEYWORDS:Array<String> = ['in'];
 
-	static final AL_EMSCRIPTEN_EXTENSIONS:Array<String> = [
-		"ALC_SOFT_pause_device",
-		"ALC_SOFT_HRTF",
-		"AL_EXT_float32",
-		"AL_SOFT_loop_points",
-		"AL_SOFT_source_length",
-		"AL_EXT_source_distance_model",
-		"AL_SOFT_source_spatialize"
-	];
-
 	static final AL_EXTERNS_TO_FROM:Map<String, String> = [
 		'ALCdevice' => NO_TYPE_EXTERN,
 		'ALCcontext' => NO_TYPE_EXTERN,
@@ -103,9 +93,6 @@ class Main
 		generateOpenALExterns(AL_ACCESS, 'al', 'soft_oal');
 		generateOpenALExterns(AL_ACCESS, 'alc', 'soft_oal');
 
-		generateOpenALExterns(AL_ACCESS, 'al', 'emscripten');
-		generateOpenALExterns(AL_ACCESS, 'alc', 'emscripten');
-
 		Sys.println('Finished generating `openal` externs.');
 	}
 
@@ -152,9 +139,6 @@ class Main
 
 		for (extensionVal in access.node.extensions.nodes.extension)
 		{
-			if (folder == 'emscripten' && !AL_EMSCRIPTEN_EXTENSIONS.contains(extensionVal.att.name))
-				continue;
-
 			var supportedVers:Array<String> = extensionVal.att.supported.split('|');
 
 			{
@@ -195,7 +179,7 @@ class Main
 			}
 		}
 
-		addLine('package rogue.internal.externs.openal.$folder;');
+		addLine('package rogue.internal.externs.openal;');
 		addLine('');
 		addLine('import cpp.Callable;');
 		addLine('import cpp.Char;');
@@ -212,9 +196,9 @@ class Main
 		addLine('');
 
 		if (namespace == 'al')
-			addLine('import rogue.internal.externs.openal.$folder.ALC;');
+			addLine('import rogue.internal.externs.openal.ALC;');
 		else if (namespace == 'alc')
-			addLine('import rogue.internal.externs.openal.$folder.AL;');
+			addLine('import rogue.internal.externs.openal.AL;');
 
 		addLine('');
 
@@ -329,7 +313,7 @@ class Main
 
 		endWritingToClass();
 
-		File.saveContent('../../source/rogue/internal/externs/openal/$folder/${namespace.toUpperCase()}.hx', AL_FILE.join('\n'));
+		File.saveContent('../../source/rogue/internal/externs/openal/${namespace.toUpperCase()}.hx', AL_FILE.join('\n'));
 
 		AL_COMMANDS = [];
 		AL_ENUMS = [];

@@ -8786,6 +8786,19 @@ extern class SDL
 	@:native('SDL_UpdateSensors')
 	static function UpdateSensors():Void;
 
+	// SDL_stdinc.h
+	@:native('SDL_malloc')
+	static function malloc(size:SizeT):RawPointer<cpp.Void>;
+
+	@:native('SDL_calloc')
+	static function calloc(nmemb:SizeT, size:SizeT):RawPointer<cpp.Void>;
+
+	@:native('SDL_realloc')
+	static function realloc(mem:RawPointer<cpp.Void>, size:SizeT):RawPointer<cpp.Void>;
+
+	@:native('SDL_free')
+	static function free(mem:RawPointer<cpp.Void>):Void;
+
 	// SDL_storage.h
 	@:native('SDL_OpenTitleStorage')
 	static function OpenTitleStorage(override_path:ConstCharStar, props:SDL_PropertiesID):RawPointer<SDL_Storage>;
