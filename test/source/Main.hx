@@ -1,6 +1,7 @@
 package;
 
 import rogue.internal.externs.dr_libs.DrWAV;
+
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.SizeT;
@@ -357,35 +358,38 @@ class Main
 			final data_size:SizeT = 0;
 			final data:RawPointer<UInt8> = cast SDL.LoadFile_IO(SDL.IOFromFile('assets/Inst-erect.ogg', 'rb'), Pointer.addressOf(data_size).raw, true);
 
-			final error:Int = 0;
-			final vorbis:RawPointer<STB_Vorbis> = STBVorbis.open_memory(data, data_size, Pointer.addressOf(error).raw, null);
-
-			if (vorbis == null)
 			{
-				Sys.println('Failed to open `.ogg` file, Error Code: $error');
+				final error:Int = 0;
+				final vorbis:RawPointer<STB_Vorbis> = STBVorbis.open_memory(data, data_size, Pointer.addressOf(error).raw, null);
+
+				if (vorbis == null)
+				{
+					Sys.println('Failed to open `.ogg` file, Error Code: $error');
+				}
+				else
+				{
+					final info:STB_Vorbis_Info = STBVorbis.get_info(vorbis);
+					final total_samples:UInt32 = STBVorbis.stream_length_in_samples(vorbis);
+					final decoded:RawPointer<Single> = cast Stdlib.nativeMalloc(total_samples * info.channels * Stdlib.sizeof(cpp.Float32));
+					final samples:Int = STBVorbis.get_samples_float_interleaved(vorbis, info.channels, decoded, total_samples * info.channels);
+
+					trace('Sample Rate: ${info.sample_rate}');
+					trace('Channels: ${info.channels}');
+					trace('Max Frame Size: ${info.max_frame_size}');
+					trace('Total Samples: ${total_samples}');
+					trace('Decoded $samples samples!');
+
+					AL.bufferData(alBuffer, (info.channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
+						untyped total_samples * info.channels * ALfloat.size(), info.sample_rate);
+
+					Stdlib.nativeFree(untyped decoded);
+
+					STBVorbis.close(vorbis);
+				}
 			}
-			else
-			{
-				final info:STB_Vorbis_Info = STBVorbis.get_info(vorbis);
-				final total_samples:UInt32 = STBVorbis.stream_length_in_samples(vorbis);
-				final decoded:RawPointer<Single> = cast Stdlib.nativeMalloc(total_samples * info.channels * Stdlib.sizeof(cpp.Float32));
-				final samples:Int = STBVorbis.get_samples_float_interleaved(vorbis, info.channels, decoded, total_samples * info.channels);
 
-				trace('Sample Rate: ${info.sample_rate}');
-				trace('Channels: ${info.channels}');
-				trace('Max Frame Size: ${info.max_frame_size}');
-				trace('Total Samples: ${total_samples}');
-				trace('Decoded $samples samples!');
-
-				AL.bufferData(alBuffer, (info.channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
-					untyped total_samples * info.channels * ALfloat.size(), info.sample_rate);
-
-				Stdlib.nativeFree(untyped decoded);
-
-				STBVorbis.close(vorbis);
-
+			if (data != null)
 				SDL.free(untyped data);
-			}
 		}
 
 		// {
@@ -396,22 +400,30 @@ class Main
 		// 	final data_size:SizeT = 0;
 		// 	final data:RawPointer<cpp.Void> = SDL.LoadFile_IO(SDL.IOFromFile('assets/IRIS OUT.wav', 'rb'), Pointer.addressOf(data_size).raw, true);
 
-		// 	var channels:UInt32 = 0;
-		// 	var sampleRate:UInt32 = 0;
-		// 	var totalFrames:DrWAV_UInt64 = 0;
-
-		// 	final decoded:RawPointer<Single> = DrWAV.open_memory_and_read_pcm_frames_f32(data, data_size, Pointer.addressOf(channels).raw,
-		// 		Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
-
-		// 	if (decoded == null)
-		// 		Sys.println('Failed to read WAV data.');
-		// 	else
 		// 	{
-		// 		AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
-		// 			untyped totalFrames * channels * ALfloat.size(), sampleRate);
+		// 		var channels:UInt32 = 0;
+		// 		var sampleRate:UInt32 = 0;
+		// 		var totalFrames:DrWAV_UInt64 = 0;
 
-		// 		DrWAV.free(untyped decoded, null);
+		// 		final decoded:RawPointer<Single> = DrWAV.open_memory_and_read_pcm_frames_f32(data, data_size, Pointer.addressOf(channels).raw,
+		// 			Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
+
+		// 		if (decoded == null)
+		// 		{
+		// 			Sys.println('Failed to read WAV data.');
+		// 			SDL.free(untyped data);
+		// 		}
+		// 		else
+		// 		{
+		// 			AL.bufferData(alBuffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
+		// 				untyped totalFrames * channels * ALfloat.size(), sampleRate);
+
+		// 			DrWAV.free(untyped decoded, null);
+		// 		}
 		// 	}
+
+		// 	if (data != null)
+		// 		SDL.free(untyped data);
 		// }
 
 		alSource = createALSource();
