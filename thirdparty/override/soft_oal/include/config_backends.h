@@ -4,6 +4,8 @@
     #include "platforms/apple/config_backends.h"
 #elif defined(__ANDROID__)
     #include "platforms/android/config_backends.h"
+#elif defined(__linux__)
+    #include "platforms/linux/config_backends.h"
 #elif defined(__EMSCRIPTEN__)
     #include "platforms/emscripten/config_backends.h"
 #endif

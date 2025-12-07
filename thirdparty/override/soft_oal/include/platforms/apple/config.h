@@ -2,7 +2,7 @@
 #define FORCE_ALIGN
 
 /* Define if HRTF data is embedded in the library */
-/* #define ALSOFT_EMBED_HRTF_DATA */
+#define ALSOFT_EMBED_HRTF_DATA
 
 /* Define if we have the proc_pidpath function */
 #if defined(__APPLE__) && defined(__MACH__)
