@@ -9,9 +9,26 @@
 
 	<set name="HXCPP_CPP20" value="1" />
 
-	<!--HXCPP Defines-->
-
 	<set name="LIBPREFIX" value="lib" unless="windows" />
+
+	<!--Adjust The `BINDIR` For Each Target-->
+
+	<set name="BINDIR" value="Windows" if="windows" />
+	<set name="BINDIR" value="MacOS" if="macos" />
+	<set name="BINDIR" value="Linux" if="linux" />
+
+	<section if="windows || macos || linux">
+		<set name="BINDIR" value="${BINDIR}/arm64" if="HXCPP_ARM64" />
+		<set name="BINDIR" value="${BINDIR}/x64" if="HXCPP_M64" unless="HXCPP_ARM64" />
+		<set name="BINDIR" value="${BINDIR}/x86" if="HXCPP_M32" />
+	</section>
+
+	<section if="android">
+		<set name="BINDIR" value="${BINDIR}/arm64-v8a" if="HXCPP_ARM64" />
+		<set name="BINDIR" value="${BINDIR}/armeabi-v7a" if="HXCPP_ARMV7" />
+		<set name="BINDIR" value="${BINDIR}/x86" if="HXCPP_X86" />
+		<set name="BINDIR" value="${BINDIR}/x86_64" if="HXCPP_X86_64" />
+	</section>
 
 	<!--Project Specific-->
 
@@ -55,8 +72,7 @@
 
 	<!--Project Target-->
 
-	<target id="${PROJECT_NAME}" output="${LIBPREFIX}${PROJECT_NAME}${HX_TARGET_SUFFIX}" tool="linker" toolid="${STD_MODULE_LINK}">
-
+	<target id="${PROJECT_NAME}" output="${LIBPREFIX}${PROJECT_NAME}" tool="linker" toolid="${STD_MODULE_LINK}">
 		<outdir name="${PROJECT_LIB_DIR}/${BINDIR}" />
 
 		<section>

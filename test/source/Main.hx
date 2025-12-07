@@ -206,13 +206,6 @@ class Main
 					final decoded:RawPointer<Single> = cast Stdlib.nativeMalloc(total_samples * info.channels * Stdlib.sizeof(cpp.Float32));
 					final samples:Int = STBVorbis.get_samples_float_interleaved(vorbis, info.channels, decoded, total_samples * info.channels);
 
-					trace('Path: $path');
-					trace('Sample Rate: ${info.sample_rate}');
-					trace('Channels: ${info.channels}');
-					trace('Max Frame Size: ${info.max_frame_size}');
-					trace('Total Samples: ${total_samples}');
-					trace('Decoded $samples samples!');
-
 					AL.bufferData(buffer, (info.channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
 						untyped total_samples * info.channels * ALfloat.size(), info.sample_rate);
 
@@ -248,7 +241,6 @@ class Main
 				if (decoded == null)
 				{
 					Sys.println('Failed to read WAV data.');
-					SDL.free(untyped data);
 				}
 				else
 				{
@@ -426,7 +418,13 @@ class Main
 			return;
 		}
 
-		final context:RawPointer<ALCcontext> = ALC.createContext(device, null);
+		final attrlist:StdVector<ALCint> = new StdVector<ALCint>();
+
+		attrlist.push_back(ALC.HRTF_SOFT);
+		attrlist.push_back(ALC.FALSE);
+		attrlist.push_back(0);
+
+		final context:RawPointer<ALCcontext> = ALC.createContext(device, attrlist.data());
 
 		if (context == null)
 		{
@@ -442,8 +440,8 @@ class Main
 
 		final paths:Array<String> = [
 			'assets/Inst-erect.ogg',
-			'assets/Voices-bf-pixel-erect.ogg',
-			'assets/Voices-spirit-erect.ogg'
+			'assets/Voices-darnell-erect.ogg',
+			'assets/Voices-pico-erect.ogg'
 		];
 
 		for (path in paths)
@@ -560,8 +558,8 @@ class Main
 
 			final paths:Array<String> = [
 				'assets/Inst-erect.ogg',
-				'assets/Voices-bf-pixel-erect.ogg',
-				'assets/Voices-spirit-erect.ogg'
+				'assets/Voices-darnell-erect.ogg',
+				'assets/Voices-pico-erect.ogg'
 			];
 
 			Sys.println('');

@@ -31,20 +31,22 @@
 
 	<target id="haxe">
 		<section if="windows">
-			<lib name="${PROJECT_LIB_DIR}/WindowsArm64/rogue.lib" if="HXCPP_ARM64" />
-			<lib name="${PROJECT_LIB_DIR}/Windows64/rogue.lib" if="HXCPP_M64" unless="HXCPP_ARM64" />
-			<lib name="${PROJECT_LIB_DIR}/Windows/rogue.lib" if="HXCPP_M32" />
+			<lib name="${PROJECT_LIB_DIR}/Windows/arm64/rogue.lib" if="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Windows/x64/rogue.lib" if="HXCPP_M64" unless="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Windows/x86/rogue.lib" if="HXCPP_M32" />
 		</section>
 
 		<section if="android">
-			<lib name="${PROJECT_LIB_DIR}/Android/librogue-64.so" if="HXCPP_ARM64" />
-			<lib name="${PROJECT_LIB_DIR}/Android/librogue-v7.so" if="HXCPP_ARMV7" />
-			<lib name="${PROJECT_LIB_DIR}/Android/librogue-x86.so" if="HXCPP_X86" />
-			<lib name="${PROJECT_LIB_DIR}/Android/librogue-x86_64.so" if="HXCPP_X86_64" />
+			<lib name="${PROJECT_LIB_DIR}/Android/arm64-v8a/librogue.so" if="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Android/armeabi-v7a/librogue.so" if="HXCPP_ARMV7" />
+			<lib name="${PROJECT_LIB_DIR}/Android/x86/librogue.so" if="HXCPP_X86" />
+			<lib name="${PROJECT_LIB_DIR}/Android/x86_64/librogue.so" if="HXCPP_X86_64" />
 		</section>
 
 		<section if="linux">
-			<flag value="-L${PROJECT_LIB_DIR}/Linux64" />
+			<flag value="-L${PROJECT_LIB_DIR}/Linux/arm64" if="HXCPP_ARM64" />
+			<flag value="-L${PROJECT_LIB_DIR}/Linux/x64" if="HXCPP_M64" unless="HXCPP_ARM64" />
+			<flag value="-L${PROJECT_LIB_DIR}/Linux/x86" if="HXCPP_M32" />
 
 			<flag value="-Wl,-rpath,$ORIGIN" />
 
@@ -55,12 +57,14 @@
 	<!--Copy Libraries-->
 
 	<section if="windows">
-		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/WindowsArm64" if="HXCPP_ARM64" />
-		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows64" if="HXCPP_M64" unless="HXCPP_ARM64" />
-		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows" if="HXCPP_M32" />
+		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows/arm64" if="HXCPP_ARM64" />
+		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows/x64" if="HXCPP_M64" unless="HXCPP_ARM64" />
+		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows/x86" if="HXCPP_M32" />
 	</section>
 
 	<section if="linux">
-		<copyFile toolId="exe" name="librogue.so" from="${PROJECT_LIB_DIR}/Linux64" if="HXCPP_M64" />
+		<copyFile toolId="exe" name="librogue.so" from="${PROJECT_LIB_DIR}/Linux/arm64" if="HXCPP_ARM64" />
+		<copyFile toolId="exe" name="librogue.so" from="${PROJECT_LIB_DIR}/Linux/x64" if="HXCPP_M64" unless="HXCPP_ARM64" />
+		<copyFile toolId="exe" name="librogue.so" from="${PROJECT_LIB_DIR}/Linux/x86" if="HXCPP_M32" />
 	</section>
 </xml>
