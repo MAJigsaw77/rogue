@@ -86,7 +86,6 @@
 #define HAVE_ISNAN 1
 #define HAVE_ISNAN_FLOAT_MACRO 1
 #define HAVE_ITOA 1
-#define HAVE_LIBC 1
 #define HAVE_LIMITS_H 1
 #define HAVE_LOG 1
 #define HAVE_LOG10 1
@@ -214,14 +213,5 @@
 /* Enable the camera driver */
 #define SDL_CAMERA_DRIVER_MEDIAFOUNDATION 1
 #define SDL_CAMERA_DRIVER_DUMMY 1
-
-#define SDL_DISABLE_MMX 1
-#define SDL_DISABLE_LSX 1
-#define SDL_DISABLE_LASX 1
-
-/* Disable AVX on non‑x86 Windows platforms */
-#if !(defined(_M_IX86) || defined(_M_X64) || defined(_M_AMD64))
-#define SDL_DISABLE_AVX 1
-#endif
 
 #endif /* SDL_build_config_windows_h_ */

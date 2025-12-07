@@ -68,7 +68,6 @@
 #define HAVE_ISINF_FLOAT_MACRO 1
 #define HAVE_ISNAN 1
 #define HAVE_ISNAN_FLOAT_MACRO 1
-#define HAVE_LIBC 1
 #define HAVE_LIMITS_H 1
 #define HAVE_LOCALTIME_R 1
 #define HAVE_LOG 1
@@ -188,10 +187,5 @@
 /* Enable camera support */
 #define SDL_CAMERA_DRIVER_COREMEDIA 1
 #define SDL_CAMERA_DRIVER_DUMMY 1
-
-/* Disable AVX on non-Intel Apple platforms (ARM / Apple Silicon) */
-#if !(defined(__i386__) || defined(__x86_64__))
-#define SDL_DISABLE_AVX 1
-#endif
 
 #endif /* SDL_build_config_macos_h_ */

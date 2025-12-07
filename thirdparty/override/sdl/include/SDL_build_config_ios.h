@@ -68,7 +68,6 @@
 #define HAVE_ISINF_FLOAT_MACRO 1
 #define HAVE_ISNAN 1
 #define HAVE_ISNAN_FLOAT_MACRO 1
-#define HAVE_LIBC 1
 #define HAVE_LIMITS_H 1
 #define HAVE_LOCALTIME_R 1
 #define HAVE_LOG 1

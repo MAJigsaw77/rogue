@@ -35,6 +35,9 @@
 #define SDL_GPU_DISABLED 1
 #define SDL_RENDER_DISABLED 1
 
+/* Comment this if you want to build without any C library requirements */
+#define HAVE_LIBC 1
+
 /* Add any platform that doesn't build using the configure system. */
 #if defined(SDL_PLATFORM_WIN32)
 #include "SDL_build_config_windows.h"
@@ -44,8 +47,8 @@
 #include "SDL_build_config_ios.h"
 #elif defined(SDL_PLATFORM_ANDROID)
 #include "SDL_build_config_android.h"
-#elif defined(SDL_PLATFORM_EMSCRIPTEN)
-#include "SDL_build_config_emscripten.h"
+#elif defined(SDL_PLATFORM_LINUX)
+#include "SDL_build_config_linux.h"
 #endif /* platform config */
 
 #ifdef USING_GENERATED_CONFIG_H
