@@ -9,6 +9,10 @@
 
 	<set name="HXCPP_CPP20" value="1" />
 
+	<!--HXCPP Defines-->
+
+	<set name="LIBPREFIX" value="lib" unless="windows" />
+
 	<!--Project Specific-->
 
 	<set name="PROJECT_NAME" value="rogue" />
@@ -54,6 +58,12 @@
 	<target id="${PROJECT_NAME}" output="${LIBPREFIX}${PROJECT_NAME}${HX_TARGET_SUFFIX}" tool="linker" toolid="${STD_MODULE_LINK}">
 
 		<outdir name="${PROJECT_LIB_DIR}/${BINDIR}" />
+
+		<section>
+			<ext value=".so" if="android || linux" />
+			<ext value=".dylib" if="apple" />
+			<ext value=".dll" if="windows" />
+		</section>
 
 		<files id="sdl-files" />
 
@@ -102,6 +112,10 @@
 			<section if="android">
 				<lib name="-lGLESv2" />
 				<lib name="-landroid" />
+			</section>
+
+			<section if="linux">
+				<lib name="-ludev" />
 			</section>
 		</section>
 	</target>

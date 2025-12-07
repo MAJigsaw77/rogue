@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
 	<files id="sdl-files" dir="${SDL_DIRECTORY}">
+		<section>
+			<section if="linux">
+				<compilerflag value="-I/usr/include/dbus-1.0" />
+
+				<compilerflag value="-I/usr/lib/aarch64-linux-gnu/dbus-1.0/include" if="HXCPP_ARM64" />
+				<compilerflag value="-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include" if="HXCPP_M64" unless="HXCPP_ARM64" />
+				<compilerflag value="-I/usr/lib/i386-linux-gnu/dbus-1.0/include" if="HXCPP_M32" />
+			</section>
+
+			<compilerflag value="-I/usr/include/libdrm" if="rpi" />
+		</section>
+
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
 
 		<compilerflag value="-I${SDL_DIRECTORY}/include" />
@@ -47,8 +59,6 @@
 				<file name="src/camera/coremedia/SDL_camera_coremedia.m" if="macos || iphone" />
 
 				<file name="src/camera/dummy/SDL_camera_dummy.c" />
-
-				<file name="src/camera/emscripten/SDL_camera_emscripten.c" if="emscripten" />
 
 				<file name="src/camera/mediafoundation/SDL_camera_mediafoundation.c" if="windows" />
 
@@ -150,11 +160,9 @@
 				<file name="src/filesystem/dummy/SDL_sysfilesystem.c" />
 				<file name="src/filesystem/dummy/SDL_sysfsops.c" />
 
-				<file name="src/filesystem/emscripten/SDL_sysfilesystem.c" if="emscripten" />
-
 				<file name="src/filesystem/posix/SDL_sysfsops.c" unless="windows" />
 
-				<file name="src/filesystem/unix/SDL_sysfilesystem.c" unless="android || emscripten || apple || windows" />
+				<file name="src/filesystem/unix/SDL_sysfilesystem.c" unless="android || apple || windows" />
 
 				<file name="src/filesystem/windows/SDL_sysfilesystem.c" if="windows" />
 				<file name="src/filesystem/windows/SDL_sysfsops.c" if="windows" />
@@ -189,8 +197,6 @@
 
 				<file name="src/hidapi/ios/hid.m" if="iphone" />
 
-				<file name="src/hidapi/libusb/hid.c" if="linux" />
-
 				<file name="src/hidapi/linux/hid.c" if="linux" />
 
 				<file name="src/hidapi/mac/hid.c" if="macos" />
@@ -224,8 +230,6 @@
 				<file name="src/joystick/darwin/SDL_iokitjoystick.c" if="macos" />
 
 				<file name="src/joystick/dummy/SDL_sysjoystick.c" />
-
-				<file name="src/joystick/emscripten/SDL_sysjoystick.c" if="emscripten" />
 
 				<file name="src/joystick/gdk/SDL_gameinputjoystick.cpp" if="windows" />
 
@@ -310,8 +314,6 @@
 
 				<file name="src/locale/android/SDL_syslocale.c" if="android" />
 
-				<file name="src/locale/emscripten/SDL_syslocale.c" if="emscripten" />
-
 				<file name="src/locale/macos/SDL_syslocale.m" if="macos" />
 
 				<file name="src/locale/unix/SDL_syslocale.c" if="linux" />
@@ -323,10 +325,7 @@
 				<file name="src/main/SDL_main_callbacks.c" />
 				<file name="src/main/SDL_runapp.c" />
 
-				<file name="src/main/emscripten/SDL_sysmain_callbacks.c" if="emscripten" />
-				<file name="src/main/emscripten/SDL_sysmain_runapp.c" if="emscripten" />
-
-				<file name="src/main/generic/SDL_sysmain_callbacks.c" unless="emscripten || iphone" />
+				<file name="src/main/generic/SDL_sysmain_callbacks.c" unless="iphone" />
 
 				<file name="src/main/ios/SDL_sysmain_callbacks.m" if="iphone" />
 
@@ -338,8 +337,6 @@
 				<file name="src/misc/SDL_url.c" />
 
 				<file name="src/misc/android/SDL_sysurl.c" if="android" />
-
-				<file name="src/misc/emscripten/SDL_sysurl.c" if="emscripten" />
 
 				<file name="src/misc/ios/SDL_sysurl.m" if="iphone" />
 
@@ -355,8 +352,6 @@
 
 				<file name="src/power/android/SDL_syspower.c" if="android" />
 
-				<file name="src/power/emscripten/SDL_syspower.c" if="emscripten" />
-
 				<file name="src/power/linux/SDL_syspower.c" if="linux" />
 
 				<file name="src/power/macos/SDL_syspower.c" if="macos" />
@@ -371,7 +366,7 @@
 
 				<file name="src/process/dummy/SDL_dummyprocess.c" />
 
-				<file name="src/process/posix/SDL_posixprocess.c" unless="android || emscripten || ios || windows" />
+				<file name="src/process/posix/SDL_posixprocess.c" unless="android || ios || windows" />
 
 				<file name="src/process/windows/SDL_windowsprocess.c" if="windows" />
 			</section>
@@ -389,8 +384,6 @@
 				<file name="src/sensor/coremotion/SDL_coremotionsensor.m" if="apple" unless="tvos" />
 
 				<file name="src/sensor/dummy/SDL_dummysensor.c" />
-
-				<file name="src/sensor/emscripten/SDL_emscriptensensor.c" if="emscripten" />
 
 				<file name="src/sensor/windows/SDL_windowssensor.c" if="windows" />
 			</section>
@@ -424,19 +417,19 @@
 			<section>
 				<file name="src/thread/SDL_thread.c" />
 
-				<file name="src/thread/generic/SDL_syscond.c" if="emscripten || windows" />
-				<file name="src/thread/generic/SDL_sysmutex.c" if="emscripten" />
-				<file name="src/thread/generic/SDL_sysrwlock.c" if="emscripten || windows" />
-				<file name="src/thread/generic/SDL_syssem.c" if="emscripten" />
-				<file name="src/thread/generic/SDL_systhread.c" if="emscripten" />
-				<file name="src/thread/generic/SDL_systls.c" if="emscripten" />
+				<file name="src/thread/generic/SDL_syscond.c" if="windows" />
+				<!-- <file name="src/thread/generic/SDL_sysmutex.c" /> -->
+				<file name="src/thread/generic/SDL_sysrwlock.c" if="windows" />
+				<!-- <file name="src/thread/generic/SDL_syssem.c" /> -->
+				<!-- <file name="src/thread/generic/SDL_systhread.c" /> -->
+				<!-- <file name="src/thread/generic/SDL_systls.c" /> -->
 
-				<file name="src/thread/pthread/SDL_syscond.c" unless="windows || emscripten" />
-				<file name="src/thread/pthread/SDL_sysmutex.c" unless="windows || emscripten" />
-				<file name="src/thread/pthread/SDL_sysrwlock.c" unless="windows || emscripten" />
-				<file name="src/thread/pthread/SDL_syssem.c" unless="windows || emscripten" />
-				<file name="src/thread/pthread/SDL_systhread.c" unless="windows || emscripten" />
-				<file name="src/thread/pthread/SDL_systls.c" unless="windows || emscripten" />
+				<file name="src/thread/pthread/SDL_syscond.c" unless="windows" />
+				<file name="src/thread/pthread/SDL_sysmutex.c" unless="windows" />
+				<file name="src/thread/pthread/SDL_sysrwlock.c" unless="windows" />
+				<file name="src/thread/pthread/SDL_syssem.c" unless="windows" />
+				<file name="src/thread/pthread/SDL_systhread.c" unless="windows" />
+				<file name="src/thread/pthread/SDL_systls.c" unless="windows" />
 
 				<file name="src/thread/windows/SDL_syscond_cv.c" if="windows" />
 				<file name="src/thread/windows/SDL_sysmutex.c" if="windows" />
@@ -467,7 +460,7 @@
 
 				<file name="src/tray/cocoa/SDL_tray.m" if="macos" />
 
-				<file name="src/tray/dummy/SDL_tray.c" if="emscripten || android || iphone" />
+				<file name="src/tray/dummy/SDL_tray.c" if="android || iphone" />
 
 				<file name="src/tray/unix/SDL_tray.c" unless="android || iphone || macos || windows" />
 
@@ -534,14 +527,6 @@
 				<file name="src/video/dummy/SDL_nullframebuffer.c" />
 				<file name="src/video/dummy/SDL_nullvideo.c" />
 
-				<section if="emscripten">
-					<file name="src/video/emscripten/SDL_emscriptenevents.c" />
-					<file name="src/video/emscripten/SDL_emscriptenframebuffer.c" />
-					<file name="src/video/emscripten/SDL_emscriptenmouse.c" />
-					<file name="src/video/emscripten/SDL_emscriptenopengles.c" />
-					<file name="src/video/emscripten/SDL_emscriptenvideo.c" />
-				</section>
-
 				<section if="rpi">
 					<file name="src/video/kmsdrm/SDL_kmsdrmdyn.c" />
 					<file name="src/video/kmsdrm/SDL_kmsdrmevents.c" />
@@ -580,22 +565,6 @@
 					<file name="src/video/uikit/SDL_uikitviewcontroller.m" />
 					<file name="src/video/uikit/SDL_uikitvulkan.m" />
 					<file name="src/video/uikit/SDL_uikitwindow.m" />
-				</section>
-
-				<section if="linux">
-					<file name="src/video/wayland/SDL_waylandclipboard.c" />
-					<file name="src/video/wayland/SDL_waylandcolor.c" />
-					<file name="src/video/wayland/SDL_waylanddatamanager.c" />
-					<file name="src/video/wayland/SDL_waylanddyn.c" />
-					<file name="src/video/wayland/SDL_waylandevents.c" />
-					<file name="src/video/wayland/SDL_waylandkeyboard.c" />
-					<file name="src/video/wayland/SDL_waylandmessagebox.c" />
-					<file name="src/video/wayland/SDL_waylandmouse.c" />
-					<file name="src/video/wayland/SDL_waylandopengles.c" />
-					<file name="src/video/wayland/SDL_waylandshmbuffer.c" />
-					<file name="src/video/wayland/SDL_waylandvideo.c" />
-					<file name="src/video/wayland/SDL_waylandvulkan.c" />
-					<file name="src/video/wayland/SDL_waylandwindow.c" />
 				</section>
 
 				<section if="windows">

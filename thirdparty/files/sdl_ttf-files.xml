@@ -52,7 +52,7 @@
 			<file name="src/base/ftbdf.c" />
 			<file name="src/base/ftbitmap.c" />
 			<file name="src/base/ftcid.c" />
-			<file name="src/base/ftdebug.c" unless="windows" />
+			<file name="src/base/ftdebug.c"/>
 			<file name="src/base/ftfstype.c" />
 			<file name="src/base/ftgasp.c" />
 			<file name="src/base/ftglyph.c" />
@@ -64,7 +64,7 @@
 			<file name="src/base/ftpfr.c" />
 			<file name="src/base/ftstroke.c" />
 			<file name="src/base/ftsynth.c" />
-			<file name="src/base/ftsystem.c" if="emscripten || android" />
+			<file name="src/base/ftsystem.c" />
 			<file name="src/base/fttype1.c" />
 			<file name="src/base/ftwinfnt.c" />
 			<file name="src/bdf/bdf.c" />
@@ -88,13 +88,6 @@
 			<file name="src/type1/type1.c" />
 			<file name="src/type42/type42.c" />
 			<file name="src/winfonts/winfnt.c" />
-
-			<section if="windows">
-				<file name="builds/windows/ftsystem.c" />
-				<file name="builds/windows/ftdebug.c" />
-			</section>
-
-			<file name="builds/unix/ftsystem.c" unless="windows || emscripten || android" />
 		</section>
 	</files>
 
@@ -110,7 +103,7 @@
 
 			<compilerflag value="-DHAVE_STDBOOL_H" />
 
-			<compilerflag value="-DHAVE_PTHREAD" unless="windows || emscripten" />
+			<compilerflag value="-DHAVE_PTHREAD" unless="windows" />
 			<compilerflag value="-DHAVE_CORETEXT" if="apple" />
 			<compilerflag value="-DHAVE_FREETYPE" />
 
@@ -213,8 +206,6 @@
 			<file name="src/hb-ucd.cc" />
 			<file name="src/hb-unicode.cc" />
 			<file name="src/hb-uniscribe.cc" if="windows" />
-			<file name="src/hb-wasm-api.cc" if="emscripten" />
-			<file name="src/hb-wasm-shape.cc" if="emscripten" />
 		</section>
 	</files>
 

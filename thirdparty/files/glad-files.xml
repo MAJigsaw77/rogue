@@ -7,6 +7,6 @@
 		<compilerflag value="-DGLAD_API_CALL_EXPORT_BUILD" />
 
 		<file name="src/gl.c" if="windows || macos || linux" />
-		<file name="src/gles2.c" if="android || rpi || emscripten || iphone" />
+		<file name="src/gles2.c" if="android || rpi || iphone" />
 	</files>
 </xml>

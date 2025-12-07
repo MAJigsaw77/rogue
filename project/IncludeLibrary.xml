@@ -42,11 +42,25 @@
 			<lib name="${PROJECT_LIB_DIR}/Android/librogue-x86.so" if="HXCPP_X86" />
 			<lib name="${PROJECT_LIB_DIR}/Android/librogue-x86_64.so" if="HXCPP_X86_64" />
 		</section>
+
+		<section if="linux">
+			<flag value="-L${PROJECT_LIB_DIR}/Linux64" />
+
+			<flag value="-Wl,-rpath,$ORIGIN" />
+
+			<lib name="-lrogue" />
+		</section>
 	</target>
 
 	<!--Copy Libraries-->
 
-	<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/WindowsArm64" if="HXCPP_ARM64" />
-	<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows64" if="HXCPP_M64" unless="HXCPP_ARM64" />
-	<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows" if="HXCPP_M32" />
+	<section if="windows">
+		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/WindowsArm64" if="HXCPP_ARM64" />
+		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows64" if="HXCPP_M64" unless="HXCPP_ARM64" />
+		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows" if="HXCPP_M32" />
+	</section>
+
+	<section if="linux">
+		<copyFile toolId="exe" name="librogue.so" from="${PROJECT_LIB_DIR}/Linux64" if="HXCPP_M64" />
+	</section>
 </xml>

@@ -2,8 +2,18 @@
 <xml>
 	<files id="soft_oal-files" dir="${SOFT_OAL_DIRECTORY}" tags="optim-std">
 		<section>
+			<section if="linux">
+				<compilerflag value="-I/usr/include/dbus-1.0" />
+
+				<compilerflag value="-I/usr/lib/aarch64-linux-gnu/dbus-1.0/include" if="HXCPP_ARM64" />
+				<compilerflag value="-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include" if="HXCPP_M64" unless="HXCPP_ARM64" />
+				<compilerflag value="-I/usr/lib/i386-linux-gnu/dbus-1.0/include" if="HXCPP_M32" />
+			</section>
+
 			<compilerflag value="-I${SOFT_OAL_DEPS_OBOE_DIRECTORY}/include" if="android" />
+
 			<compilerflag value="-I${SOFT_OAL_DEPS_FMT_DIRECTORY}/include" />
+
 			<compilerflag value="-I${SOFT_OAL_DEPS_GSL_DIRECTORY}/include" />
 		</section>
 
@@ -37,6 +47,12 @@
 			</section>
 
 			<compilerflag value="-Wno-switch" if="android" />
+
+			<section if="linux">
+				<compilerflag value="-Wno-interference-size" />
+
+				<compilerflag value="-Wno-stringop-overflow" />
+			</section>
 		</section>
 
 		<section>
@@ -97,6 +113,11 @@
 					<file name="alc/backends/coreaudio.cpp" />
 				</section>
 
+				<section if="linux">
+					<file name="alc/backends/alsa.cpp" />
+					<file name="alc/backends/oss.cpp" />
+					<file name="alc/backends/pulseaudio.cpp" />
+				</section>
 
 				<section if="windows">
 					<file name="alc/backends/wasapi.cpp" />
@@ -168,19 +189,17 @@
 				<file name="core/filters/nfc.cpp" />
 				<file name="core/filters/splitter.cpp" />
 
-				<section unless="emscripten">
-					<file name="core/mixer/mixer_c.cpp" />
+				<file name="core/mixer/mixer_c.cpp" />
 
-					<section if="HXCPP_ARM64">
-						<file name="core/mixer/mixer_neon.cpp" />
-					</section>
+				<section if="HXCPP_ARM64">
+					<file name="core/mixer/mixer_neon.cpp" />
+				</section>
 
-					<section unless="HXCPP_ARM64 || HXCPP_ARMV7">
-						<file name="core/mixer/mixer_sse.cpp" />
-						<file name="core/mixer/mixer_sse2.cpp" />
-						<file name="core/mixer/mixer_sse3.cpp" />
-						<file name="core/mixer/mixer_sse41.cpp" />
-					</section>
+				<section unless="HXCPP_ARM64 || HXCPP_ARMV7">
+					<file name="core/mixer/mixer_sse.cpp" />
+					<file name="core/mixer/mixer_sse2.cpp" />
+					<file name="core/mixer/mixer_sse3.cpp" />
+					<file name="core/mixer/mixer_sse41.cpp" />
 				</section>
 			</section>
 		</section>
