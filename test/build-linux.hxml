@@ -1,0 +1,17 @@
+# Project Settings
+
+--resource assets/gl330core/default.frag
+--resource assets/gl330core/default.vert
+
+--class-path source
+
+--cpp bin/linux
+
+--define analyzer-optimize
+
+--library rogue
+
+--main Main
+
+--cmd cd bin/linux
+--cmd ./Main
