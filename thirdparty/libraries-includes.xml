@@ -8,7 +8,7 @@
 		<compilerflag value="-I${DR_LIBS_DIRECTORY}" />
 		<compilerflag value="-I${STB_DIRECTORY}/include" />
 		<compilerflag value="-I${STB_DIRECTORY}/src" />
-		<compilerflag value="-I${SOFT_OAL_DIRECTORY}/include" unless="emscripten" />
+		<compilerflag value="-I${SOFT_OAL_DIRECTORY}/include" />
 	</section>
 
 	<section>
@@ -16,7 +16,7 @@
 		<compilerflag value="-DSDL_MAIN_HANDLED" />
 		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
 
-		<section unless="emscripten">
+		<section>
 			<compilerflag value="-DDRMP3_DLL" />
 			<compilerflag value="-DDRWAV_DLL" />
 			<compilerflag value="-DDRFLAC_DLL" />

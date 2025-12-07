@@ -1,5 +1,5 @@
 /* Define the alignment attribute for externally callable functions. */
-#define FORCE_ALIGN
+#define FORCE_ALIGN 
 
 /* Define if HRTF data is embedded in the library */
 #define ALSOFT_EMBED_HRTF_DATA
