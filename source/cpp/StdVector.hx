@@ -17,7 +17,7 @@ extern class StdVector<T> implements ArrayAccess<Reference<T>>
 	function data():RawPointer<T>;
 
 	function empty():Bool;
-	function size():Int;
+	function size():SizeT;
 	function capacity():Int;
 	function reserve(newCapacity:Int):Void;
 	function clear():Void;
