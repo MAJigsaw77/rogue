@@ -6,6 +6,7 @@ import cpp.CastWCharTStar;
 import cpp.ConstCharStar;
 import cpp.ConstCharStarConstStar;
 import cpp.ConstWCharTStar;
+import cpp.Float32;
 import cpp.Int16;
 import cpp.Int32;
 import cpp.Int64;
@@ -815,10 +816,10 @@ extern class SDL_MouseMotionEvent
 	var windowID:SDL_WindowID;
 	var which:SDL_MouseID;
 	var state:SDL_MouseButtonFlags;
-	var x:Single;
-	var y:Single;
-	var xrel:Single;
-	var yrel:Single;
+	var x:Float32;
+	var y:Float32;
+	var xrel:Float32;
+	var yrel:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -837,8 +838,8 @@ extern class SDL_MouseButtonEvent
 	var down:Bool;
 	var clicks:UInt8;
 	var padding:UInt8;
-	var x:Single;
-	var y:Single;
+	var x:Float32;
+	var y:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -853,11 +854,11 @@ extern class SDL_MouseWheelEvent
 	var timestamp:UInt64;
 	var windowID:SDL_WindowID;
 	var which:SDL_MouseID;
-	var x:Single;
-	var y:Single;
+	var x:Float32;
+	var y:Float32;
 	var direction:SDL_MouseWheelDirection;
-	var mouse_x:Single;
-	var mouse_y:Single;
+	var mouse_x:Float32;
+	var mouse_y:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -1022,9 +1023,9 @@ extern class SDL_GamepadTouchpadEvent
 	var which:SDL_JoystickID;
 	var touchpad:Int32;
 	var finger:Int32;
-	var x:Single;
-	var y:Single;
-	var pressure:Single;
+	var x:Float32;
+	var y:Float32;
+	var pressure:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -1039,7 +1040,7 @@ extern class SDL_GamepadSensorEvent
 	var timestamp:UInt64;
 	var which:SDL_JoystickID;
 	var sensor:Int32;
-	var data:RawPointer<Single>;
+	var data:RawPointer<Float32>;
 	var sensor_timestamp:UInt64;
 }
 
@@ -1068,11 +1069,11 @@ extern class SDL_TouchFingerEvent
 	var timestamp:UInt64;
 	var touchID:SDL_TouchID;
 	var fingerID:SDL_FingerID;
-	var x:Single;
-	var y:Single;
-	var dx:Single;
-	var dy:Single;
-	var pressure:Single;
+	var x:Float32;
+	var y:Float32;
+	var dx:Float32;
+	var dy:Float32;
+	var pressure:Float32;
 	var windowID:SDL_WindowID;
 }
 
@@ -1087,7 +1088,7 @@ extern class SDL_PinchFingerEvent
 	var type:SDL_EventType;
 	var reserved:UInt32;
 	var timestamp:UInt64;
-	var scale:Single;
+	var scale:Float32;
 	var windowID:SDL_WindowID;
 }
 
@@ -1118,8 +1119,8 @@ extern class SDL_PenMotionEvent
 	var windowID:SDL_WindowID;
 	var which:SDL_PenID;
 	var pen_state:SDL_PenInputFlags;
-	var x:Single;
-	var y:Single;
+	var x:Float32;
+	var y:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -1135,8 +1136,8 @@ extern class SDL_PenTouchEvent
 	var windowID:SDL_WindowID;
 	var which:SDL_PenID;
 	var pen_state:SDL_PenInputFlags;
-	var x:Single;
-	var y:Single;
+	var x:Float32;
+	var y:Float32;
 	var eraser:Bool;
 	var down:Bool;
 }
@@ -1154,8 +1155,8 @@ extern class SDL_PenButtonEvent
 	var windowID:SDL_WindowID;
 	var which:SDL_PenID;
 	var pen_state:SDL_PenInputFlags;
-	var x:Single;
-	var y:Single;
+	var x:Float32;
+	var y:Float32;
 	var button:UInt8;
 	var down:Bool;
 }
@@ -1173,10 +1174,10 @@ extern class SDL_PenAxisEvent
 	var windowID:SDL_WindowID;
 	var which:SDL_PenID;
 	var pen_state:SDL_PenInputFlags;
-	var x:Single;
-	var y:Single;
+	var x:Float32;
+	var y:Float32;
 	var axis:SDL_PenAxis;
-	var value:Single;
+	var value:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -1190,8 +1191,8 @@ extern class SDL_DropEvent
 	var reserved:UInt32;
 	var timestamp:UInt64;
 	var windowID:SDL_WindowID;
-	var x:Single;
-	var y:Single;
+	var x:Float32;
+	var y:Float32;
 	var source:ConstCharStar;
 	var data:ConstCharStar;
 }
@@ -1222,7 +1223,7 @@ extern class SDL_SensorEvent
 	var reserved:UInt32;
 	var timestamp:UInt64;
 	var which:SDL_SensorID;
-	var data:RawPointer<Single>;
+	var data:RawPointer<Float32>;
 	var sensor_timestamp:UInt64;
 }
 
@@ -2215,7 +2216,7 @@ extern class SDL_VirtualJoystickSensorDesc
 	function new():Void;
 
 	var type:SDL_SensorType;
-	var rate:Single;
+	var rate:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -3578,10 +3579,10 @@ extern class SDL_FColor
 {
 	function new():Void;
 
-	var r:Single;
-	var g:Single;
-	var b:Single;
-	var a:Single;
+	var r:Float32;
+	var g:Float32;
+	var b:Float32;
+	var a:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -3716,8 +3717,8 @@ extern class SDL_FPoint
 {
 	function new():Void;
 
-	var x:Single;
-	var y:Single;
+	var x:Float32;
+	var y:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -3740,10 +3741,10 @@ extern class SDL_FRect
 {
 	function new():Void;
 
-	var x:Single;
-	var y:Single;
-	var w:Single;
-	var h:Single;
+	var x:Float32;
+	var y:Float32;
+	var w:Float32;
+	var h:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -4903,9 +4904,9 @@ extern class SDL_Finger
 	function new():Void;
 
 	var id:SDL_FingerID;
-	var x:Single;
-	var y:Single;
-	var pressure:Single;
+	var x:Float32;
+	var y:Float32;
+	var pressure:Float32;
 }
 
 @:include('SDL3/SDL.h')
@@ -4981,8 +4982,8 @@ extern class SDL_DisplayMode
 	var format:SDL_PixelFormat;
 	var w:Int;
 	var h:Int;
-	var pixel_density:Single;
-	var refresh_rate:Single;
+	var pixel_density:Float32;
+	var refresh_rate:Float32;
 	var refresh_rate_numerator:Int;
 	var refresh_rate_denominator:Int;
 	var internal:SDL_DisplayModeData;
@@ -5838,8 +5839,8 @@ extern class SDL
 	static function GetNumGamepadTouchpadFingers(gamepad:RawPointer<SDL_Gamepad>, touchpad:Int):Int;
 
 	@:native('SDL_GetGamepadTouchpadFinger')
-	static function GetGamepadTouchpadFinger(gamepad:RawPointer<SDL_Gamepad>, touchpad:Int, finger:Int, down:RawPointer<Bool>, x:RawPointer<Single>, y:RawPointer<Single>,
-		pressure:RawPointer<Single>):Bool;
+	static function GetGamepadTouchpadFinger(gamepad:RawPointer<SDL_Gamepad>, touchpad:Int, finger:Int, down:RawPointer<Bool>, x:RawPointer<Float32>, y:RawPointer<Float32>,
+		pressure:RawPointer<Float32>):Bool;
 
 	@:native('SDL_GamepadHasSensor')
 	static function GamepadHasSensor(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType):Bool;
@@ -5851,10 +5852,10 @@ extern class SDL
 	static function GamepadSensorEnabled(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType):Bool;
 
 	@:native('SDL_GetGamepadSensorDataRate')
-	static function GetGamepadSensorDataRate(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType):Single;
+	static function GetGamepadSensorDataRate(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType):Float32;
 
 	@:native('SDL_GetGamepadSensorData')
-	static function GetGamepadSensorData(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType, data:RawPointer<Single>, num_values:Int):Bool;
+	static function GetGamepadSensorData(gamepad:RawPointer<SDL_Gamepad>, type:SDL_SensorType, data:RawPointer<Float32>, num_values:Int):Bool;
 
 	@:native('SDL_RumbleGamepad')
 	static function RumbleGamepad(gamepad:RawPointer<SDL_Gamepad>, low_frequency_rumble:UInt16, high_frequency_rumble:UInt16, duration_ms:UInt32):Bool;
@@ -6049,7 +6050,7 @@ extern class SDL
 	static function InitHapticRumble(haptic:RawPointer<SDL_Haptic>):Bool;
 
 	@:native('SDL_PlayHapticRumble')
-	static function PlayHapticRumble(haptic:RawPointer<SDL_Haptic>, strength:Single, length:UInt32):Bool;
+	static function PlayHapticRumble(haptic:RawPointer<SDL_Haptic>, strength:Float32, length:UInt32):Bool;
 
 	@:native('SDL_StopHapticRumble')
 	static function StopHapticRumble(haptic:RawPointer<SDL_Haptic>):Bool;
@@ -7182,11 +7183,11 @@ extern class SDL
 	static function SetJoystickVirtualHat(joystick:RawPointer<SDL_Joystick>, hat:Int, value:UInt8):Bool;
 
 	@:native('SDL_SetJoystickVirtualTouchpad')
-	static function SetJoystickVirtualTouchpad(joystick:RawPointer<SDL_Joystick>, touchpad:Int, finger:Int, down:Bool, x:Single, y:Single,
-		pressure:Single):Bool;
+	static function SetJoystickVirtualTouchpad(joystick:RawPointer<SDL_Joystick>, touchpad:Int, finger:Int, down:Bool, x:Float32, y:Float32,
+		pressure:Float32):Bool;
 
 	@:native('SDL_SendJoystickVirtualSensorData')
-	static function SendJoystickVirtualSensorData(joystick:RawPointer<SDL_Joystick>, type:SDL_SensorType, sensor_timestamp:UInt64, data:RawPointer<Single>,
+	static function SendJoystickVirtualSensorData(joystick:RawPointer<SDL_Joystick>, type:SDL_SensorType, sensor_timestamp:UInt64, data:RawPointer<Float32>,
 		num_values:Int):Bool;
 
 	@:native('SDL_GetJoystickProperties')
@@ -8395,19 +8396,19 @@ extern class SDL
 	public static function GetMouseFocus():RawPointer<SDL_Window>;
 
 	@:native('SDL_GetMouseState')
-	public static function GetMouseState(x:RawPointer<Single>, y:RawPointer<Single>):SDL_MouseButtonFlags;
+	public static function GetMouseState(x:RawPointer<Float32>, y:RawPointer<Float32>):SDL_MouseButtonFlags;
 
 	@:native('SDL_GetGlobalMouseState')
-	public static function GetGlobalMouseState(x:RawPointer<Single>, y:RawPointer<Single>):SDL_MouseButtonFlags;
+	public static function GetGlobalMouseState(x:RawPointer<Float32>, y:RawPointer<Float32>):SDL_MouseButtonFlags;
 
 	@:native('SDL_GetRelativeMouseState')
-	public static function GetRelativeMouseState(x:RawPointer<Single>, y:RawPointer<Single>):SDL_MouseButtonFlags;
+	public static function GetRelativeMouseState(x:RawPointer<Float32>, y:RawPointer<Float32>):SDL_MouseButtonFlags;
 
 	@:native('SDL_WarpMouseInWindow')
-	public static function WarpMouseInWindow(window:RawPointer<SDL_Window>, x:Single, y:Single):Void;
+	public static function WarpMouseInWindow(window:RawPointer<SDL_Window>, x:Float32, y:Float32):Void;
 
 	@:native('SDL_WarpMouseGlobal')
-	public static function WarpMouseGlobal(x:Single, y:Single):Bool;
+	public static function WarpMouseGlobal(x:Float32, y:Float32):Bool;
 
 	@:native('SDL_SetWindowRelativeMouseMode')
 	public static function SetWindowRelativeMouseMode(window:RawPointer<SDL_Window>, enabled:Bool):Bool;
@@ -8566,13 +8567,13 @@ extern class SDL
 	static var ALPHA_OPAQUE:UInt8;
 
 	@:native('SDL_ALPHA_OPAQUE_FLOAT')
-	static var ALPHA_OPAQUE_FLOAT:Single;
+	static var ALPHA_OPAQUE_FLOAT:Float32;
 
 	@:native('SDL_ALPHA_TRANSPARENT')
 	static var ALPHA_TRANSPARENT:UInt8;
 
 	@:native('SDL_ALPHA_TRANSPARENT_FLOAT')
-	static var ALPHA_TRANSPARENT_FLOAT:Single;
+	static var ALPHA_TRANSPARENT_FLOAT:Float32;
 
 	@:native('SDL_GetPixelFormatName')
 	static function GetPixelFormatName(format:SDL_PixelFormat):ConstCharStar;
@@ -8651,7 +8652,7 @@ extern class SDL
 	static function SetNumberProperty(props:SDL_PropertiesID, name:ConstCharStar, value:Int64):Bool;
 
 	@:native('SDL_SetFloatProperty')
-	static function SetFloatProperty(props:SDL_PropertiesID, name:ConstCharStar, value:Single):Bool;
+	static function SetFloatProperty(props:SDL_PropertiesID, name:ConstCharStar, value:Float32):Bool;
 
 	@:native('SDL_SetBooleanProperty')
 	static function SetBooleanProperty(props:SDL_PropertiesID, name:ConstCharStar, value:Bool):Bool;
@@ -8672,7 +8673,7 @@ extern class SDL
 	static function GetNumberProperty(props:SDL_PropertiesID, name:ConstCharStar, default_value:Int64):Int64;
 
 	@:native('SDL_GetFloatProperty')
-	static function GetFloatProperty(props:SDL_PropertiesID, name:ConstCharStar, default_value:Single):Single;
+	static function GetFloatProperty(props:SDL_PropertiesID, name:ConstCharStar, default_value:Float32):Float32;
 
 	@:native('SDL_GetBooleanProperty')
 	static function GetBooleanProperty(props:SDL_PropertiesID, name:ConstCharStar, default_value:Bool):Bool;
@@ -8721,7 +8722,7 @@ extern class SDL
 	static function RectEmptyFloat(r:RawConstPointer<SDL_FRect>):Bool;
 
 	@:native('SDL_RectsEqualEpsilon')
-	static function RectsEqualEpsilon(a:RawConstPointer<SDL_FRect>, b:RawConstPointer<SDL_FRect>, epsilon:Single):Bool;
+	static function RectsEqualEpsilon(a:RawConstPointer<SDL_FRect>, b:RawConstPointer<SDL_FRect>, epsilon:Float32):Bool;
 
 	@:native('SDL_RectsEqualFloat')
 	static function RectsEqualFloat(a:RawConstPointer<SDL_FRect>, b:RawConstPointer<SDL_FRect>):Bool;
@@ -8740,8 +8741,8 @@ extern class SDL
 		result:RawPointer<SDL_FRect>):Bool;
 
 	@:native('SDL_GetRectAndLineIntersectionFloat')
-	static function GetRectAndLineIntersectionFloat(rect:RawConstPointer<SDL_FRect>, X1:RawPointer<Single>, Y1:RawPointer<Single>, X2:RawPointer<Single>,
-		Y2:RawPointer<Single>):Bool;
+	static function GetRectAndLineIntersectionFloat(rect:RawConstPointer<SDL_FRect>, X1:RawPointer<Float32>, Y1:RawPointer<Float32>, X2:RawPointer<Float32>,
+		Y2:RawPointer<Float32>):Bool;
 
 	// SDL_sensor.h
 	@:native('SDL_GetSensors')
@@ -8778,7 +8779,7 @@ extern class SDL
 	static function GetSensorID(sensor:RawPointer<SDL_Sensor>):SDL_SensorID;
 
 	@:native('SDL_GetSensorData')
-	static function GetSensorData(sensor:RawPointer<SDL_Sensor>, data:RawPointer<Single>, num_values:Int):Bool;
+	static function GetSensorData(sensor:RawPointer<SDL_Sensor>, data:RawPointer<Float32>, num_values:Int):Bool;
 
 	@:native('SDL_CloseSensor')
 	static function CloseSensor(sensor:RawPointer<SDL_Sensor>):Void;
@@ -8999,7 +9000,7 @@ extern class SDL
 	static function FlipSurface(surface:RawPointer<SDL_Surface>, flip:SDL_FlipMode):Bool;
 
 	@:native('SDL_RotateSurface')
-	static function RotateSurface(surface:RawPointer<SDL_Surface>, angle:Single):Bool;
+	static function RotateSurface(surface:RawPointer<SDL_Surface>, angle:Float32):Bool;
 
 	@:native('SDL_DuplicateSurface')
 	static function DuplicateSurface(surface:RawPointer<SDL_Surface>):RawPointer<SDL_Surface>;
@@ -9031,7 +9032,7 @@ extern class SDL
 	static function PremultiplySurfaceAlpha(surface:RawPointer<SDL_Surface>, linear:Bool):Bool;
 
 	@:native('SDL_ClearSurface')
-	static function ClearSurface(surface:RawPointer<SDL_Surface>, r:Single, g:Single, b:Single, a:Single):Bool;
+	static function ClearSurface(surface:RawPointer<SDL_Surface>, r:Float32, g:Float32, b:Float32, a:Float32):Bool;
 
 	@:native('SDL_FillSurfaceRect')
 	static function FillSurfaceRect(dst:RawPointer<SDL_Surface>, rect:RawPointer<SDL_Rect>, color:UInt32):Bool;
@@ -9062,12 +9063,12 @@ extern class SDL
 	static function BlitSurfaceTiled(src:RawPointer<SDL_Surface>, srcrect:RawPointer<SDL_Rect>, dst:RawPointer<SDL_Surface>, dstrect:RawPointer<SDL_Rect>):Bool;
 
 	@:native('SDL_BlitSurfaceTiledWithScale')
-	static function BlitSurfaceTiledWithScale(src:RawPointer<SDL_Surface>, srcrect:RawPointer<SDL_Rect>, scale:Single, scaleMode:SDL_ScaleMode,
+	static function BlitSurfaceTiledWithScale(src:RawPointer<SDL_Surface>, srcrect:RawPointer<SDL_Rect>, scale:Float32, scaleMode:SDL_ScaleMode,
 		dst:RawPointer<SDL_Surface>, dstrect:RawPointer<SDL_Rect>):Bool;
 
 	@:native('SDL_BlitSurface9Grid')
 	static function BlitSurface9Grid(src:RawPointer<SDL_Surface>, srcrect:RawPointer<SDL_Rect>, left_width:Int, right_width:Int, top_height:Int,
-		bottom_height:Int, scale:Single, scaleMode:SDL_ScaleMode, dst:RawPointer<SDL_Surface>, dstrect:RawPointer<SDL_Rect>):Bool;
+		bottom_height:Int, scale:Float32, scaleMode:SDL_ScaleMode, dst:RawPointer<SDL_Surface>, dstrect:RawPointer<SDL_Rect>):Bool;
 
 	@:native('SDL_MapSurfaceRGB')
 	static function MapSurfaceRGB(surface:RawPointer<SDL_Surface>, r:UInt8, g:UInt8, b:UInt8):UInt32;
@@ -9079,14 +9080,14 @@ extern class SDL
 	static function ReadSurfacePixel(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>, a:RawPointer<UInt8>):Bool;
 
 	@:native('SDL_ReadSurfacePixelFloat')
-	static function ReadSurfacePixelFloat(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:RawPointer<Single>, g:RawPointer<Single>, b:RawPointer<Single>,
-		a:RawPointer<Single>):Bool;
+	static function ReadSurfacePixelFloat(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:RawPointer<Float32>, g:RawPointer<Float32>, b:RawPointer<Float32>,
+		a:RawPointer<Float32>):Bool;
 
 	@:native('SDL_WriteSurfacePixel')
 	static function WriteSurfacePixel(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:UInt8, g:UInt8, b:UInt8, a:UInt8):Bool;
 
 	@:native('SDL_WriteSurfacePixelFloat')
-	static function WriteSurfacePixelFloat(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:Single, g:Single, b:Single, a:Single):Bool;
+	static function WriteSurfacePixelFloat(surface:RawPointer<SDL_Surface>, x:Int, y:Int, r:Float32, g:Float32, b:Float32, a:Float32):Bool;
 
 	// SDL_system.h
 	#if windows
@@ -9544,13 +9545,13 @@ extern class SDL
 	static function GetCurrentDisplayOrientation(displayID:SDL_DisplayID):SDL_DisplayOrientation;
 
 	@:native('SDL_GetDisplayContentScale')
-	static function GetDisplayContentScale(displayID:SDL_DisplayID):Single;
+	static function GetDisplayContentScale(displayID:SDL_DisplayID):Float32;
 
 	@:native('SDL_GetFullscreenDisplayModes')
 	static function GetFullscreenDisplayModes(displayID:SDL_DisplayID, count:RawPointer<Int>):RawPointer<RawPointer<SDL_DisplayMode>>;
 
 	@:native('SDL_GetClosestFullscreenDisplayMode')
-	static function GetClosestFullscreenDisplayMode(displayID:SDL_DisplayID, w:Int, h:Int, refresh_rate:Single, include_high_density_modes:Bool,
+	static function GetClosestFullscreenDisplayMode(displayID:SDL_DisplayID, w:Int, h:Int, refresh_rate:Float32, include_high_density_modes:Bool,
 		closest:RawPointer<SDL_DisplayMode>):Bool;
 
 	@:native('SDL_GetDesktopDisplayMode')
@@ -9569,10 +9570,10 @@ extern class SDL
 	static function GetDisplayForWindow(window:RawPointer<SDL_Window>):SDL_DisplayID;
 
 	@:native('SDL_GetWindowPixelDensity')
-	static function GetWindowPixelDensity(window:RawPointer<SDL_Window>):Single;
+	static function GetWindowPixelDensity(window:RawPointer<SDL_Window>):Float32;
 
 	@:native('SDL_GetWindowDisplayScale')
-	static function GetWindowDisplayScale(window:RawPointer<SDL_Window>):Single;
+	static function GetWindowDisplayScale(window:RawPointer<SDL_Window>):Float32;
 
 	@:native('SDL_SetWindowFullscreenMode')
 	static function SetWindowFullscreenMode(window:RawPointer<SDL_Window>, mode:RawConstPointer<SDL_DisplayMode>):Bool;
@@ -9863,10 +9864,10 @@ extern class SDL
 	static function GetWindowSafeArea(window:RawPointer<SDL_Window>, rect:RawPointer<SDL_Rect>):Bool;
 
 	@:native('SDL_SetWindowAspectRatio')
-	static function SetWindowAspectRatio(window:RawPointer<SDL_Window>, min_aspect:Single, max_aspect:Single):Bool;
+	static function SetWindowAspectRatio(window:RawPointer<SDL_Window>, min_aspect:Float32, max_aspect:Float32):Bool;
 
 	@:native('SDL_GetWindowAspectRatio')
-	static function GetWindowAspectRatio(window:RawPointer<SDL_Window>, min_aspect:RawPointer<Single>, max_aspect:RawPointer<Single>):Bool;
+	static function GetWindowAspectRatio(window:RawPointer<SDL_Window>, min_aspect:RawPointer<Float32>, max_aspect:RawPointer<Float32>):Bool;
 
 	@:native('SDL_GetWindowBordersSize')
 	static function GetWindowBordersSize(window:RawPointer<SDL_Window>, top:RawPointer<Int>, left:RawPointer<Int>, bottom:RawPointer<Int>, right:RawPointer<Int>):Bool;
@@ -9968,10 +9969,10 @@ extern class SDL
 	static function GetWindowMouseRect(window:RawPointer<SDL_Window>):RawPointer<SDL_Rect>;
 
 	@:native('SDL_SetWindowOpacity')
-	static function SetWindowOpacity(window:RawPointer<SDL_Window>, opacity:Single):Bool;
+	static function SetWindowOpacity(window:RawPointer<SDL_Window>, opacity:Float32):Bool;
 
 	@:native('SDL_GetWindowOpacity')
-	static function GetWindowOpacity(window:RawPointer<SDL_Window>):Single;
+	static function GetWindowOpacity(window:RawPointer<SDL_Window>):Float32;
 
 	@:native('SDL_SetWindowParent')
 	static function SetWindowParent(window:RawPointer<SDL_Window>, parent:RawPointer<SDL_Window>):Bool;

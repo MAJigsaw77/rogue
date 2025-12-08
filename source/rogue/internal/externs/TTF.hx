@@ -2,6 +2,7 @@ package rogue.internal.externs;
 
 import cpp.CastCharStar;
 import cpp.ConstCharStar;
+import cpp.Float32;
 import cpp.RawConstPointer;
 import cpp.RawPointer;
 import cpp.SizeT;
@@ -196,10 +197,10 @@ extern class TTF
 	static function Init():Bool;
 
 	@:native('TTF_OpenFont')
-	static function OpenFont(file:ConstCharStar, ptsize:Single):RawPointer<TTF_Font>;
+	static function OpenFont(file:ConstCharStar, ptsize:Float32):RawPointer<TTF_Font>;
 
 	@:native('TTF_OpenFontIO')
-	static function OpenFontIO(src:RawPointer<SDL_IOStream>, closeio:Bool, ptsize:Single):RawPointer<TTF_Font>;
+	static function OpenFontIO(src:RawPointer<SDL_IOStream>, closeio:Bool, ptsize:Float32):RawPointer<TTF_Font>;
 
 	@:native('TTF_OpenFontWithProperties')
 	static function OpenFontWithProperties(props:SDL_PropertiesID):RawPointer<TTF_Font>;
@@ -259,13 +260,13 @@ extern class TTF
 	static function ClearFallbackFonts(font:RawPointer<TTF_Font>):Void;
 
 	@:native('TTF_SetFontSize')
-	static function SetFontSize(font:RawPointer<TTF_Font>, ptsize:Single):Bool;
+	static function SetFontSize(font:RawPointer<TTF_Font>, ptsize:Float32):Bool;
 
 	@:native('TTF_SetFontSizeDPI')
-	static function SetFontSizeDPI(font:RawPointer<TTF_Font>, ptsize:Single, hdpi:Int, vdpi:Int):Bool;
+	static function SetFontSizeDPI(font:RawPointer<TTF_Font>, ptsize:Float32, hdpi:Int, vdpi:Int):Bool;
 
 	@:native('TTF_GetFontSize')
-	static function GetFontSize(font:RawPointer<TTF_Font>):Single;
+	static function GetFontSize(font:RawPointer<TTF_Font>):Float32;
 
 	@:native('TTF_GetFontDPI')
 	static function GetFontDPI(font:RawPointer<TTF_Font>, hdpi:RawPointer<Int>, vdpi:RawPointer<Int>):Bool;
@@ -516,13 +517,13 @@ extern class TTF
 	static function SetTextColor(text:RawPointer<TTF_Text>, r:UInt8, g:UInt8, b:UInt8, a:UInt8):Bool;
 
 	@:native('TTF_SetTextColorFloat')
-	static function SetTextColorFloat(text:RawPointer<TTF_Text>, r:Single, g:Single, b:Single, a:Single):Bool;
+	static function SetTextColorFloat(text:RawPointer<TTF_Text>, r:Float32, g:Float32, b:Float32, a:Float32):Bool;
 
 	@:native('TTF_GetTextColor')
 	static function GetTextColor(text:RawPointer<TTF_Text>, r:RawPointer<UInt8>, g:RawPointer<UInt8>, b:RawPointer<UInt8>, a:RawPointer<UInt8>):Bool;
 
 	@:native('TTF_GetTextColorFloat')
-	static function GetTextColorFloat(text:RawPointer<TTF_Text>, r:RawPointer<Single>, g:RawPointer<Single>, b:RawPointer<Single>, a:RawPointer<Single>):Bool;
+	static function GetTextColorFloat(text:RawPointer<TTF_Text>, r:RawPointer<Float32>, g:RawPointer<Float32>, b:RawPointer<Float32>, a:RawPointer<Float32>):Bool;
 
 	@:native('TTF_SetTextPosition')
 	static function SetTextPosition(text:RawPointer<TTF_Text>, x:Int, y:Int):Bool;

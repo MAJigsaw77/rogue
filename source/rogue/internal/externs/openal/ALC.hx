@@ -2,6 +2,7 @@ package rogue.internal.externs.openal;
 
 import cpp.Callable;
 import cpp.Char;
+import cpp.Float32;
 import cpp.Int16;
 import cpp.Int64;
 import cpp.Int8;
@@ -187,7 +188,7 @@ extern abstract ALCenum from Int to Int
 @:scalar
 @:coreType
 @:notNull
-extern abstract ALCfloat from Single to Single
+extern abstract ALCfloat from Float32 to Float32
 {
 	static inline function size():SizeT
 	{
@@ -247,7 +248,7 @@ extern abstract ALCuint64SOFT from UInt64 to UInt64
 	}
 }
 
-typedef ALCEVENTPROCTYPESOFT = Callable<(eventType:ALCenum, deviceType:ALCenum, device:RawPointer<ALCdevice>, length:ALCsizei, message:RawConstPointer<ALCchar>, userParam:RawPointer<ALCvoid>)->Void>;
+typedef ALCEVENTPROCTYPESOFT = Callable<(eventType:ALCenum, deviceType:ALCenum, device:RawPointer<ALCdevice>, length:ALCsizei, message:ConstALCcharStar, userParam:RawPointer<ALCvoid>)->Void>;
 
 @:include('AL/alc.h')
 @:include('AL/alext.h')

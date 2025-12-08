@@ -41,8 +41,8 @@ class Main
 		'ALCsizei' => 'Int',
 		'ALenum' => 'Int',
 		'ALCenum' => 'Int',
-		'ALfloat' => 'Single',
-		'ALCfloat' => 'Single',
+		'ALfloat' => 'Float32',
+		'ALCfloat' => 'Float32',
 		'ALdouble' => 'Float',
 		'ALCdouble' => 'Float',
 		'ALvoid' => 'cpp.Void',
@@ -59,7 +59,7 @@ class Main
 		'ALDEBUGPROCEXT' =>
 		'Callable<(source:ALenum, type:ALenum, id:ALuint, severity:ALenum, length:ALsizei, message:ConstALcharStar, userParam:RawPointer<ALvoid>)->Void>',
 		'ALCEVENTPROCTYPESOFT' =>
-		'Callable<(eventType:ALCenum, deviceType:ALCenum, device:RawPointer<ALCdevice>, length:ALCsizei, message:RawConstPointer<ALCchar>, userParam:RawPointer<ALCvoid>)->Void>'
+		'Callable<(eventType:ALCenum, deviceType:ALCenum, device:RawPointer<ALCdevice>, length:ALCsizei, message:ConstALCcharStar, userParam:RawPointer<ALCvoid>)->Void>'
 	];
 
 	static var AL_CONTENT:Null<Xml>;
@@ -183,6 +183,7 @@ class Main
 		addLine('');
 		addLine('import cpp.Callable;');
 		addLine('import cpp.Char;');
+		addLine('import cpp.Float32;');
 		addLine('import cpp.Int16;');
 		addLine('import cpp.Int64;');
 		addLine('import cpp.Int8;');

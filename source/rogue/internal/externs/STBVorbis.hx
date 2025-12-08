@@ -1,11 +1,12 @@
 package rogue.internal.externs;
 
+import cpp.CastCharStar;
+import cpp.Float32;
 import cpp.Int16;
-import cpp.UInt8;
 import cpp.RawConstPointer;
 import cpp.RawPointer;
-import cpp.CastCharStar;
 import cpp.UInt32;
+import cpp.UInt8;
 
 @:include('stb_vorbis.h')
 @:structAccess
@@ -74,10 +75,10 @@ extern class STBVorbis
 	static function stream_length_in_samples(f:RawPointer<STB_Vorbis>):UInt32;
 
 	@:native('stb_vorbis_stream_length_in_seconds')
-	static function stream_length_in_seconds(f:RawPointer<STB_Vorbis>):Single;
+	static function stream_length_in_seconds(f:RawPointer<STB_Vorbis>):Float32;
 
 	@:native('stb_vorbis_get_samples_float_interleaved')
-	static function get_samples_float_interleaved(f:RawPointer<STB_Vorbis>, channels:Int, buffer:RawPointer<Single>, num_floats:Int):Int;
+	static function get_samples_float_interleaved(f:RawPointer<STB_Vorbis>, channels:Int, buffer:RawPointer<Float32>, num_floats:Int):Int;
 
 	@:native('stb_vorbis_get_samples_short_interleaved')
 	static function get_samples_short_interleaved(f:RawPointer<STB_Vorbis>, channels:Int, buffer:RawPointer<Int16>, num_shorts:Int):Int;

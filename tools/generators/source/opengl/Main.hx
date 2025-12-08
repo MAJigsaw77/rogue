@@ -28,8 +28,8 @@ class Main
 		'GLuint' => 'UInt32',
 		'GLclampx' => 'Int',
 		'GLsizei' => 'Int',
-		'GLfloat' => 'Single',
-		'GLclampf' => 'Single',
+		'GLfloat' => 'Float32',
+		'GLclampf' => 'Float32',
 		'GLdouble' => 'Float',
 		'GLclampd' => 'Float',
 		'GLeglClientBufferEXT' => 'RawPointer<Void>',
@@ -190,6 +190,7 @@ class Main
 		addLine('');
 		addLine('import cpp.Callable;');
 		addLine('import cpp.Char;');
+		addLine('import cpp.Float32;');
 		addLine('import cpp.Int16;');
 		addLine('import cpp.Int64;');
 		addLine('import cpp.Int8;');

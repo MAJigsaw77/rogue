@@ -2,6 +2,7 @@ package rogue.internal.externs.opengl.gl;
 
 import cpp.Callable;
 import cpp.Char;
+import cpp.Float32;
 import cpp.Int16;
 import cpp.Int64;
 import cpp.Int8;
@@ -161,7 +162,7 @@ extern abstract GLsizei from Int to Int
 @:scalar
 @:coreType
 @:notNull
-extern abstract GLfloat from Single to Single
+extern abstract GLfloat from Float32 to Float32
 {
 	static inline function size():SizeT
 	{
@@ -174,7 +175,7 @@ extern abstract GLfloat from Single to Single
 @:scalar
 @:coreType
 @:notNull
-extern abstract GLclampf from Single to Single
+extern abstract GLclampf from Float32 to Float32
 {
 	static inline function size():SizeT
 	{

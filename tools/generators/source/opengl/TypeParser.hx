@@ -18,7 +18,7 @@ class TypeParser
 		'bool' => 'Bool',
 		'char' => 'Char',
 		'double' => 'Float',
-		'float' => 'Single',
+		'float' => 'Float32',
 		'int' => 'Int',
 		'long' => 'Long',
 		'ptrdiff_t' => 'PtrDiffT',

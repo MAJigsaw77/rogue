@@ -2,6 +2,7 @@ package rogue.internal.externs.openal;
 
 import cpp.Callable;
 import cpp.Char;
+import cpp.Float32;
 import cpp.Int16;
 import cpp.Int64;
 import cpp.Int8;
@@ -179,7 +180,7 @@ extern abstract ALenum from Int to Int
 @:scalar
 @:coreType
 @:notNull
-extern abstract ALfloat from Single to Single
+extern abstract ALfloat from Float32 to Float32
 {
 	static inline function size():SizeT
 	{

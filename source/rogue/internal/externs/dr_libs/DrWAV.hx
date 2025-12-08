@@ -1,6 +1,7 @@
 package rogue.internal.externs.dr_libs;
 
 import cpp.Callable;
+import cpp.Float32;
 import cpp.Int16;
 import cpp.RawConstPointer;
 import cpp.RawPointer;
@@ -47,7 +48,7 @@ extern class DrWAV
 	@:native('drwav_open_memory_and_read_pcm_frames_f32')
 	static function open_memory_and_read_pcm_frames_f32(data:RawConstPointer<cpp.Void>, dataSize:SizeT,
 		channelsOut:RawPointer<UInt32>, sampleRateOut:RawPointer<UInt32>, totalFrameCountOut:RawPointer<DrWAV_UInt64>,
-		pAllocationCallbacks:RawConstPointer<DrWAV_Allocation_Callbacks>):RawPointer<Single>;
+		pAllocationCallbacks:RawConstPointer<DrWAV_Allocation_Callbacks>):RawPointer<Float32>;
 
 	@:native('drwav_free')
 	static function free(p:RawPointer<cpp.Void>, pAllocationCallbacks:RawConstPointer<DrWAV_Allocation_Callbacks>):Void;
