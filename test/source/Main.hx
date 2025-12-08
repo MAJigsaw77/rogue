@@ -1,23 +1,20 @@
 package;
 
-import cpp.StdVector;
-
-import rogue.internal.externs.dr_libs.DrWAV;
-
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.SizeT;
-import cpp.Stdlib;
-import cpp.UInt32;
+import cpp.StdVector;
 import cpp.UInt8;
 
 import haxe.Resource;
+import haxe.io.Bytes;
+import haxe.io.BytesData;
 
 import rogue.internal.MainLoop;
 import rogue.internal.externs.SDL;
-import rogue.internal.externs.STBVorbis;
 import rogue.internal.externs.openal.AL;
-import rogue.internal.externs.openal.ALC;
+import rogue.media.AudioManager;
+import rogue.media.buffer.AudioBuffer;
 #if (android || rpi || iphone)
 import rogue.internal.externs.opengl.gles2.GL;
 import rogue.internal.externs.opengl.gles2.Glad;
@@ -27,6 +24,7 @@ import rogue.internal.externs.opengl.gl.Glad;
 #end
 
 @:access(rogue.internal.MainLoop)
+@:access(rogue.media.AudioManager)
 @:buildXml("<include name=\"${haxelib:rogue}/project/IncludeLibrary.xml\" />")
 class Main
 {
@@ -183,81 +181,6 @@ class Main
 		return buffer;
 	}
 
-	static function makeOggAudioBuffer(path:String):ALuint
-	{
-		final buffer:ALuint = createALBuffer();
-
-		{
-			final data_size:SizeT = 0;
-			final data:RawPointer<UInt8> = cast SDL.LoadFile_IO(SDL.IOFromFile(path, 'rb'), Pointer.addressOf(data_size).raw, true);
-
-			{
-				final error:Int = 0;
-				final vorbis:RawPointer<STB_Vorbis> = STBVorbis.open_memory(data, data_size, Pointer.addressOf(error).raw, null);
-
-				if (vorbis == null)
-				{
-					Sys.println('Failed to open `.ogg` file, Error Code: $error');
-				}
-				else
-				{
-					final info:STB_Vorbis_Info = STBVorbis.get_info(vorbis);
-					final total_samples:UInt32 = STBVorbis.stream_length_in_samples(vorbis);
-					final decoded:RawPointer<Single> = cast Stdlib.nativeMalloc(total_samples * info.channels * Stdlib.sizeof(cpp.Float32));
-					final samples:Int = STBVorbis.get_samples_float_interleaved(vorbis, info.channels, decoded, total_samples * info.channels);
-
-					AL.bufferData(buffer, (info.channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
-						untyped total_samples * info.channels * ALfloat.size(), info.sample_rate);
-
-					Stdlib.nativeFree(untyped decoded);
-
-					STBVorbis.close(vorbis);
-				}
-			}
-
-			if (data != null)
-				SDL.free(untyped data);
-		}
-
-		return buffer;
-	}
-
-	static function makeWavAudioBuffer(path:String):ALuint
-	{
-		final buffer:ALuint = createALBuffer();
-
-		{
-			final data_size:SizeT = 0;
-			final data:RawPointer<cpp.Void> = SDL.LoadFile_IO(SDL.IOFromFile(path, 'rb'), Pointer.addressOf(data_size).raw, true);
-
-			{
-				var channels:UInt32 = 0;
-				var sampleRate:UInt32 = 0;
-				var totalFrames:DrWAV_UInt64 = 0;
-
-				final decoded:RawPointer<Single> = DrWAV.open_memory_and_read_pcm_frames_f32(data, data_size, Pointer.addressOf(channels).raw,
-					Pointer.addressOf(sampleRate).raw, Pointer.addressOf(totalFrames).raw, null);
-
-				if (decoded == null)
-				{
-					Sys.println('Failed to read WAV data.');
-				}
-				else
-				{
-					AL.bufferData(buffer, (channels == 1) ? AL.FORMAT_MONO_FLOAT32 : AL.FORMAT_STEREO_FLOAT32, untyped decoded,
-						untyped totalFrames * channels * ALfloat.size(), sampleRate);
-
-					DrWAV.free(untyped decoded, null);
-				}
-			}
-
-			if (data != null)
-				SDL.free(untyped data);
-		}
-
-		return buffer;
-	}
-
 	static function getCurrentSeconds(source:ALuint):Float
 	{
 		var secOffset:ALfloat = 0;
@@ -280,6 +203,19 @@ class Main
 		AL.getBufferi(buffer, AL.BITS, Pointer.addressOf(bits).raw);
 
 		return ((size / ((bits / 8.0) * channels)) / frequency);
+	}
+
+	static function getBytesFromIO(path:String):Bytes
+	{
+		final data_size:SizeT = 0;
+
+		final data:RawPointer<UInt8> = cast SDL.LoadFile_IO(SDL.IOFromFile(path, 'rb'), Pointer.addressOf(data_size).raw, true);
+
+		final bytes:BytesData = Pointer.fromRaw(data).toUnmanagedArray(data_size);
+
+		SDL.free(untyped data);
+
+		return Bytes.ofData(bytes);
 	}
 
 	public static function main():Void
@@ -410,30 +346,7 @@ class Main
 
 		GL.bindVertexArray(0);
 
-		final device:RawPointer<ALCdevice> = ALC.openDevice(null);
-
-		if (device == null)
-		{
-			Sys.println('Failed to open OpenAL device.');
-			return;
-		}
-
-		final attrlist:StdVector<ALCint> = new StdVector<ALCint>();
-
-		attrlist.push_back(ALC.HRTF_SOFT);
-		attrlist.push_back(ALC.FALSE);
-		attrlist.push_back(0);
-
-		final context:RawPointer<ALCcontext> = ALC.createContext(device, attrlist.data());
-
-		if (context == null)
-		{
-			Sys.println('Failed to create OpenAL context.');
-			ALC.closeDevice(device);
-			return;
-		}
-
-		ALC.makeContextCurrent(context);
+		AudioManager.init();
 
 		alBuffers = new StdVector<ALuint>();
 		alSources = new StdVector<ALuint>();
@@ -449,11 +362,19 @@ class Main
 			final source:ALuint = createALSource();
 
 			{
-				final buffer:ALuint = makeOggAudioBuffer(path);
+				final buffer:AudioBuffer = new AudioBuffer();
 
-				AL.sourcei(source, AL.BUFFER, buffer);
+				if (buffer.decode(path, OGG))
+				{
+					@:privateAccess
+					final alBuffer:ALuint = buffer.createALBuffer();
 
-				alBuffers.push_back(buffer);
+					AL.sourcei(source, AL.BUFFER, alBuffer);
+
+					alBuffers.push_back(alBuffer);
+				}
+
+				buffer.dispose();
 			}
 
 			AL.sourcei(source, AL.LOOPING, AL.TRUE);
@@ -480,9 +401,7 @@ class Main
 		AL.deleteSources(alSources.size(), alSources.data());
 		AL.deleteBuffers(alBuffers.size(), alBuffers.data());
 
-		ALC.makeContextCurrent(null);
-		ALC.destroyContext(context);
-		ALC.closeDevice(device);
+		AudioManager.shutdown();
 
 		SDL.GL_DestroyContext(glContext);
 		SDL.DestroyWindow(window);
@@ -556,20 +475,20 @@ class Main
 
 			// Sys.println('FPS: ${Math.fround(1000.0 / MainLoop.deltaTime)} - Frame: ${MainLoop.deltaTime}ms');
 
-			final paths:Array<String> = [
-				'assets/Inst-erect.ogg',
-				'assets/Voices-darnell-erect.ogg',
-				'assets/Voices-pico-erect.ogg'
-			];
+			// final paths:Array<String> = [
+			// 	'assets/Inst-erect.ogg',
+			// 	'assets/Voices-darnell-erect.ogg',
+			// 	'assets/Voices-pico-erect.ogg'
+			// ];
 
-			Sys.println('');
+			// Sys.println('');
 
-			for (i in 0...paths.length)
-			{
-				Sys.println('Path: ${paths[i]}, Current: ${getCurrentSeconds(alSources[i])} seconds / Total: ${getTotalSeconds(alBuffers[i])} seconds');
-			}
+			// for (i in 0...paths.length)
+			// {
+			// 	Sys.println('Path: ${paths[i]}, Current: ${getCurrentSeconds(alSources[i])} seconds / Total: ${getTotalSeconds(alBuffers[i])} seconds');
+			// }
 
-			Sys.println('');
+			// Sys.println('');
 		}
 
 		{
