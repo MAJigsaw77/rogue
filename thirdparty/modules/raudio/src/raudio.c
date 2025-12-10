@@ -11,13 +11,6 @@
 *       - Play/Stop/Pause/Resume loaded audio
 *
 *   CONFIGURATION:
-*       #define SUPPORT_MODULE_RAUDIO
-*           raudio module is included in the build
-*
-*       #define RAUDIO_STANDALONE
-*           Define to use the module as standalone library (independently of raylib).
-*           Required types and functions are defined in the same module.
-*
 *       #define SUPPORT_FILEFORMAT_WAV
 *       #define SUPPORT_FILEFORMAT_OGG
 *       #define SUPPORT_FILEFORMAT_MP3
@@ -69,19 +62,7 @@
 *
 **********************************************************************************************/
 
-#if defined(RAUDIO_STANDALONE)
-    #include "raudio.h"
-#else
-    #include "raylib.h"         // Declares module functions
-
-    // Check if config flags have been externally provided on compilation line
-    #if !defined(EXTERNAL_CONFIG_FLAGS)
-        #include "config.h"     // Defines module configuration flags
-    #endif
-    #include "utils.h"          // Required for: fopen() Android mapping
-#endif
-
-#if defined(SUPPORT_MODULE_RAUDIO)
+#include "raudio.h"
 
 #if defined(_WIN32)
 // To avoid conflicting windows.h symbols with raylib, some flags are defined
@@ -184,24 +165,22 @@ typedef struct tagBITMAPINFOHEADER {
 #include <stdio.h>                      // Required for: FILE, fopen(), fclose(), fread()
 #include <string.h>                     // Required for: strcmp() [Used in IsFileExtension(), LoadWaveFromMemory(), LoadMusicStreamFromMemory()]
 
-#if defined(RAUDIO_STANDALONE)
-    #ifndef TRACELOG
-        #define TRACELOG(level, ...)    printf(__VA_ARGS__)
-    #endif
+#ifndef TRACELOG
+	#define TRACELOG(level, ...)    printf(__VA_ARGS__)
+#endif
 
-    // Allow custom memory allocators
-    #ifndef RL_MALLOC
-        #define RL_MALLOC(sz)           malloc(sz)
-    #endif
-    #ifndef RL_CALLOC
-        #define RL_CALLOC(n,sz)         calloc(n,sz)
-    #endif
-    #ifndef RL_REALLOC
-        #define RL_REALLOC(ptr,sz)      realloc(ptr,sz)
-    #endif
-    #ifndef RL_FREE
-        #define RL_FREE(ptr)            free(ptr)
-    #endif
+// Allow custom memory allocators
+#ifndef RL_MALLOC
+	#define RL_MALLOC(sz)           malloc(sz)
+#endif
+#ifndef RL_CALLOC
+	#define RL_CALLOC(n,sz)         calloc(n,sz)
+#endif
+#ifndef RL_REALLOC
+	#define RL_REALLOC(ptr,sz)      realloc(ptr,sz)
+#endif
+#ifndef RL_FREE
+	#define RL_FREE(ptr)            free(ptr)
 #endif
 
 #if defined(SUPPORT_FILEFORMAT_WAV)
@@ -302,7 +281,6 @@ typedef struct tagBITMAPINFOHEADER {
 //----------------------------------------------------------------------------------
 // Types and Structures Definition
 //----------------------------------------------------------------------------------
-#if defined(RAUDIO_STANDALONE)
 // Trace log level
 // NOTE: Organized by priority level
 typedef enum {
@@ -315,7 +293,6 @@ typedef enum {
     LOG_FATAL,          // Fatal logging, used to abort program: exit(EXIT_FAILURE)
     LOG_NONE            // Disable logging
 } TraceLogLevel;
-#endif
 
 // Music context type
 // NOTE: Depends on data structure provided by the library
@@ -413,16 +390,13 @@ static void OnLog(void *pUserData, ma_uint32 level, const char *pMessage);
 static void OnSendAudioDataToDevice(ma_device *pDevice, void *pFramesOut, const void *pFramesInput, ma_uint32 frameCount);
 static void MixAudioFrames(float *framesOut, const float *framesIn, ma_uint32 frameCount, AudioBuffer *buffer);
 
-#if defined(RAUDIO_STANDALONE)
 static bool IsFileExtension(const char *fileName, const char *ext); // Check file extension
 static const char *GetFileExtension(const char *fileName);          // Get pointer to extension for a filename string (includes the dot: .png)
 static const char *GetFileName(const char *filePath);               // Get pointer to filename for a path string
 static const char *GetFileNameWithoutExt(const char *filePath);     // Get filename string without extension (uses static string)
-
 static unsigned char *LoadFileData(const char *fileName, int *dataSize);    // Load file data as byte array (read)
 static bool SaveFileData(const char *fileName, void *data, int dataSize);   // Save data to file from byte array (write)
 static bool SaveFileText(const char *fileName, char *text);         // Save text data to file (write), string must be '\0' terminated
-#endif
 
 //----------------------------------------------------------------------------------
 // AudioBuffer management functions declaration
@@ -430,7 +404,6 @@ static bool SaveFileText(const char *fileName, char *text);         // Save text
 //----------------------------------------------------------------------------------
 AudioBuffer *LoadAudioBuffer(ma_format format, ma_uint32 channels, ma_uint32 sampleRate, ma_uint32 sizeInFrames, int usage);
 void UnloadAudioBuffer(AudioBuffer *buffer);
-
 bool IsAudioBufferPlaying(AudioBuffer *buffer);
 void PlayAudioBuffer(AudioBuffer *buffer);
 void StopAudioBuffer(AudioBuffer *buffer);
@@ -446,7 +419,7 @@ void UntrackAudioBuffer(AudioBuffer *buffer);
 // Module Functions Definition - Audio Device initialization and Closing
 //----------------------------------------------------------------------------------
 // Initialize audio device
-void InitAudioDevice(void)
+RAUDIO_API void InitAudioDevice(void)
 {
     // Init audio context
     ma_context_config ctxConfig = ma_context_config_init();
@@ -512,7 +485,7 @@ void InitAudioDevice(void)
 }
 
 // Close the audio device for all contexts
-void CloseAudioDevice(void)
+RAUDIO_API void CloseAudioDevice(void)
 {
     if (AUDIO.System.isReady)
     {
@@ -531,19 +504,19 @@ void CloseAudioDevice(void)
 }
 
 // Check if device has been initialized successfully
-bool IsAudioDeviceReady(void)
+RAUDIO_API bool IsAudioDeviceReady(void)
 {
     return AUDIO.System.isReady;
 }
 
 // Set master volume (listener)
-void SetMasterVolume(float volume)
+RAUDIO_API void SetMasterVolume(float volume)
 {
     ma_device_set_master_volume(&AUDIO.System.device, volume);
 }
 
 // Get master volume (listener)
-float GetMasterVolume(void)
+RAUDIO_API float GetMasterVolume(void)
 {
     float volume = 0.0f;
     ma_device_get_master_volume(&AUDIO.System.device, &volume);
@@ -741,7 +714,7 @@ void UntrackAudioBuffer(AudioBuffer *buffer)
 //----------------------------------------------------------------------------------
 
 // Load wave data from file
-Wave LoadWave(const char *fileName)
+RAUDIO_API Wave LoadWave(const char *fileName)
 {
     Wave wave = { 0 };
 
@@ -759,7 +732,7 @@ Wave LoadWave(const char *fileName)
 
 // Load wave from memory buffer, fileType refers to extension: i.e. ".wav"
 // WARNING: File extension must be provided in lower-case
-Wave LoadWaveFromMemory(const char *fileType, const unsigned char *fileData, int dataSize)
+RAUDIO_API Wave LoadWaveFromMemory(const char *fileType, const unsigned char *fileData, int dataSize)
 {
     Wave wave = { 0 };
 
@@ -868,7 +841,7 @@ Wave LoadWaveFromMemory(const char *fileType, const unsigned char *fileData, int
 }
 
 // Checks if wave data is ready
-bool IsWaveReady(Wave wave)
+RAUDIO_API bool IsWaveReady(Wave wave)
 {
     return ((wave.data != NULL) &&      // Validate wave data available
             (wave.frameCount > 0) &&    // Validate frame count
@@ -879,7 +852,7 @@ bool IsWaveReady(Wave wave)
 
 // Load sound from file
 // NOTE: The entire file is loaded to memory to be played (no-streaming)
-Sound LoadSound(const char *fileName)
+RAUDIO_API Sound LoadSound(const char *fileName)
 {
     Wave wave = LoadWave(fileName);
 
@@ -892,7 +865,7 @@ Sound LoadSound(const char *fileName)
 
 // Load sound from wave data
 // NOTE: Wave data must be unallocated manually
-Sound LoadSoundFromWave(Wave wave)
+RAUDIO_API Sound LoadSoundFromWave(Wave wave)
 {
     Sound sound = { 0 };
 
@@ -935,7 +908,7 @@ Sound LoadSoundFromWave(Wave wave)
 
 // Clone sound from existing sound data, clone does not own wave data
 // NOTE: Wave data must be unallocated manually and will be shared across all clones
-Sound LoadSoundAlias(Sound source)
+RAUDIO_API Sound LoadSoundAlias(Sound source)
 {
     Sound sound = { 0 };
 
@@ -965,7 +938,7 @@ Sound LoadSoundAlias(Sound source)
 
 
 // Checks if a sound is ready
-bool IsSoundReady(Sound sound)
+RAUDIO_API bool IsSoundReady(Sound sound)
 {
     return ((sound.frameCount > 0) &&           // Validate frame count
             (sound.stream.buffer != NULL) &&    // Validate stream buffer
@@ -975,20 +948,20 @@ bool IsSoundReady(Sound sound)
 }
 
 // Unload wave data
-void UnloadWave(Wave wave)
+RAUDIO_API void UnloadWave(Wave wave)
 {
     RL_FREE(wave.data);
     //TRACELOG(LOG_INFO, "WAVE: Unloaded wave data from RAM");
 }
 
 // Unload sound
-void UnloadSound(Sound sound)
+RAUDIO_API void UnloadSound(Sound sound)
 {
     UnloadAudioBuffer(sound.stream.buffer);
     //TRACELOG(LOG_INFO, "SOUND: Unloaded sound data from RAM");
 }
 
-void UnloadSoundAlias(Sound alias)
+RAUDIO_API void UnloadSoundAlias(Sound alias)
 {
     // Untrack and unload just the sound buffer, not the sample data, it is shared with the source for the alias
     if (alias.stream.buffer != NULL)
@@ -1000,7 +973,7 @@ void UnloadSoundAlias(Sound alias)
 }
 
 // Update sound buffer with new data
-void UpdateSound(Sound sound, const void *data, int frameCount)
+RAUDIO_API void UpdateSound(Sound sound, const void *data, int frameCount)
 {
     if (sound.stream.buffer != NULL)
     {
@@ -1012,7 +985,7 @@ void UpdateSound(Sound sound, const void *data, int frameCount)
 }
 
 // Export wave data to file
-bool ExportWave(Wave wave, const char *fileName)
+RAUDIO_API bool ExportWave(Wave wave, const char *fileName)
 {
     bool success = false;
 
@@ -1070,7 +1043,7 @@ bool ExportWave(Wave wave, const char *fileName)
 }
 
 // Export wave sample data to code (.h)
-bool ExportWaveAsCode(Wave wave, const char *fileName)
+RAUDIO_API bool ExportWaveAsCode(Wave wave, const char *fileName)
 {
     bool success = false;
 
@@ -1136,55 +1109,55 @@ bool ExportWaveAsCode(Wave wave, const char *fileName)
 }
 
 // Play a sound
-void PlaySound(Sound sound)
+RAUDIO_API void PlaySound(Sound sound)
 {
     PlayAudioBuffer(sound.stream.buffer);
 }
 
 // Pause a sound
-void PauseSound(Sound sound)
+RAUDIO_API void PauseSound(Sound sound)
 {
     PauseAudioBuffer(sound.stream.buffer);
 }
 
 // Resume a paused sound
-void ResumeSound(Sound sound)
+RAUDIO_API void ResumeSound(Sound sound)
 {
     ResumeAudioBuffer(sound.stream.buffer);
 }
 
 // Stop reproducing a sound
-void StopSound(Sound sound)
+RAUDIO_API void StopSound(Sound sound)
 {
     StopAudioBuffer(sound.stream.buffer);
 }
 
 // Check if a sound is playing
-bool IsSoundPlaying(Sound sound)
+RAUDIO_API bool IsSoundPlaying(Sound sound)
 {
     return IsAudioBufferPlaying(sound.stream.buffer);
 }
 
 // Set volume for a sound
-void SetSoundVolume(Sound sound, float volume)
+RAUDIO_API void SetSoundVolume(Sound sound, float volume)
 {
     SetAudioBufferVolume(sound.stream.buffer, volume);
 }
 
 // Set pitch for a sound
-void SetSoundPitch(Sound sound, float pitch)
+RAUDIO_API void SetSoundPitch(Sound sound, float pitch)
 {
     SetAudioBufferPitch(sound.stream.buffer, pitch);
 }
 
 // Set pan for a sound
-void SetSoundPan(Sound sound, float pan)
+RAUDIO_API void SetSoundPan(Sound sound, float pan)
 {
     SetAudioBufferPan(sound.stream.buffer, pan);
 }
 
 // Convert wave data to desired format
-void WaveFormat(Wave *wave, int sampleRate, int sampleSize, int channels)
+RAUDIO_API void WaveFormat(Wave *wave, int sampleRate, int sampleSize, int channels)
 {
     ma_format formatIn = ((wave->sampleSize == 8)? ma_format_u8 : ((wave->sampleSize == 16)? ma_format_s16 : ma_format_f32));
     ma_format formatOut = ((sampleSize == 8)? ma_format_u8 : ((sampleSize == 16)? ma_format_s16 : ma_format_f32));
@@ -1217,7 +1190,7 @@ void WaveFormat(Wave *wave, int sampleRate, int sampleSize, int channels)
 }
 
 // Copy a wave to a new wave
-Wave WaveCopy(Wave wave)
+RAUDIO_API Wave WaveCopy(Wave wave)
 {
     Wave newWave = { 0 };
 
@@ -1239,7 +1212,7 @@ Wave WaveCopy(Wave wave)
 
 // Crop a wave to defined samples range
 // NOTE: Security check in case of out-of-range
-void WaveCrop(Wave *wave, int initSample, int finalSample)
+RAUDIO_API void WaveCrop(Wave *wave, int initSample, int finalSample)
 {
     if ((initSample >= 0) && (initSample < finalSample) && ((unsigned int)finalSample < (wave->frameCount*wave->channels)))
     {
@@ -1258,7 +1231,7 @@ void WaveCrop(Wave *wave, int initSample, int finalSample)
 // Load samples data from wave as a floats array
 // NOTE 1: Returned sample values are normalized to range [-1..1]
 // NOTE 2: Sample data allocated should be freed with UnloadWaveSamples()
-float *LoadWaveSamples(Wave wave)
+RAUDIO_API float *LoadWaveSamples(Wave wave)
 {
     float *samples = (float *)RL_MALLOC(wave.frameCount*wave.channels*sizeof(float));
 
@@ -1275,7 +1248,7 @@ float *LoadWaveSamples(Wave wave)
 }
 
 // Unload samples data loaded with LoadWaveSamples()
-void UnloadWaveSamples(float *samples)
+RAUDIO_API void UnloadWaveSamples(float *samples)
 {
     RL_FREE(samples);
 }
@@ -1285,7 +1258,7 @@ void UnloadWaveSamples(float *samples)
 //----------------------------------------------------------------------------------
 
 // Load music stream from file
-Music LoadMusicStream(const char *fileName)
+RAUDIO_API Music LoadMusicStream(const char *fileName)
 {
     Music music = { 0 };
     bool musicLoaded = false;
@@ -1477,7 +1450,7 @@ Music LoadMusicStream(const char *fileName)
 
 // Load music stream from memory buffer, fileType refers to extension: i.e. ".wav"
 // WARNING: File extension must be provided in lower-case
-Music LoadMusicStreamFromMemory(const char *fileType, const unsigned char *data, int dataSize)
+RAUDIO_API Music LoadMusicStreamFromMemory(const char *fileType, const unsigned char *data, int dataSize)
 {
     Music music = { 0 };
     bool musicLoaded = false;
@@ -1685,7 +1658,7 @@ Music LoadMusicStreamFromMemory(const char *fileType, const unsigned char *data,
 }
 
 // Checks if a music stream is ready
-bool IsMusicReady(Music music)
+RAUDIO_API bool IsMusicReady(Music music)
 {
     return ((music.ctxData != NULL) &&          // Validate context loaded
             (music.frameCount > 0) &&           // Validate audio frame count
@@ -1695,7 +1668,7 @@ bool IsMusicReady(Music music)
 }
 
 // Unload music stream
-void UnloadMusicStream(Music music)
+RAUDIO_API void UnloadMusicStream(Music music)
 {
     UnloadAudioStream(music.stream);
 
@@ -1727,7 +1700,7 @@ void UnloadMusicStream(Music music)
 }
 
 // Start music playing (open stream)
-void PlayMusicStream(Music music)
+RAUDIO_API void PlayMusicStream(Music music)
 {
     if (music.stream.buffer != NULL)
     {
@@ -1742,19 +1715,19 @@ void PlayMusicStream(Music music)
 }
 
 // Pause music playing
-void PauseMusicStream(Music music)
+RAUDIO_API void PauseMusicStream(Music music)
 {
     PauseAudioStream(music.stream);
 }
 
 // Resume music playing
-void ResumeMusicStream(Music music)
+RAUDIO_API void ResumeMusicStream(Music music)
 {
     ResumeAudioStream(music.stream);
 }
 
 // Stop music playing (close stream)
-void StopMusicStream(Music music)
+RAUDIO_API void StopMusicStream(Music music)
 {
     StopAudioStream(music.stream);
 
@@ -1786,7 +1759,7 @@ void StopMusicStream(Music music)
 }
 
 // Seek music to a certain position (in seconds)
-void SeekMusicStream(Music music, float position)
+RAUDIO_API void SeekMusicStream(Music music, float position)
 {
     // Seeking is not supported in module formats
     if ((music.ctxType == MUSIC_MODULE_XM) || (music.ctxType == MUSIC_MODULE_MOD)) return;
@@ -1824,7 +1797,7 @@ void SeekMusicStream(Music music, float position)
 }
 
 // Update (re-fill) music buffers if data already processed
-void UpdateMusicStream(Music music)
+RAUDIO_API void UpdateMusicStream(Music music)
 {
     if (music.stream.buffer == NULL) return;
 
@@ -1984,31 +1957,31 @@ void UpdateMusicStream(Music music)
 }
 
 // Check if any music is playing
-bool IsMusicStreamPlaying(Music music)
+RAUDIO_API bool IsMusicStreamPlaying(Music music)
 {
     return IsAudioStreamPlaying(music.stream);
 }
 
 // Set volume for music
-void SetMusicVolume(Music music, float volume)
+RAUDIO_API void SetMusicVolume(Music music, float volume)
 {
     SetAudioStreamVolume(music.stream, volume);
 }
 
 // Set pitch for music
-void SetMusicPitch(Music music, float pitch)
+RAUDIO_API void SetMusicPitch(Music music, float pitch)
 {
     SetAudioBufferPitch(music.stream.buffer, pitch);
 }
 
 // Set pan for a music
-void SetMusicPan(Music music, float pan)
+RAUDIO_API void SetMusicPan(Music music, float pan)
 {
     SetAudioBufferPan(music.stream.buffer, pan);
 }
 
 // Get music time length (in seconds)
-float GetMusicTimeLength(Music music)
+RAUDIO_API float GetMusicTimeLength(Music music)
 {
     float totalSeconds = 0.0f;
 
@@ -2018,7 +1991,7 @@ float GetMusicTimeLength(Music music)
 }
 
 // Get current music time played (in seconds)
-float GetMusicTimePlayed(Music music)
+RAUDIO_API float GetMusicTimePlayed(Music music)
 {
     float secondsPlayed = 0.0f;
     if (music.stream.buffer != NULL)
@@ -2050,7 +2023,7 @@ float GetMusicTimePlayed(Music music)
 }
 
 // Load audio stream (to stream audio pcm data)
-AudioStream LoadAudioStream(unsigned int sampleRate, unsigned int sampleSize, unsigned int channels)
+RAUDIO_API AudioStream LoadAudioStream(unsigned int sampleRate, unsigned int sampleSize, unsigned int channels)
 {
     AudioStream stream = { 0 };
 
@@ -2082,7 +2055,7 @@ AudioStream LoadAudioStream(unsigned int sampleRate, unsigned int sampleSize, un
 }
 
 // Checks if an audio stream is ready
-bool IsAudioStreamReady(AudioStream stream)
+RAUDIO_API bool IsAudioStreamReady(AudioStream stream)
 {
     return ((stream.buffer != NULL) &&    // Validate stream buffer
             (stream.sampleRate > 0) &&    // Validate sample rate is supported
@@ -2091,7 +2064,7 @@ bool IsAudioStreamReady(AudioStream stream)
 }
 
 // Unload audio stream and free memory
-void UnloadAudioStream(AudioStream stream)
+RAUDIO_API void UnloadAudioStream(AudioStream stream)
 {
     UnloadAudioBuffer(stream.buffer);
 
@@ -2101,7 +2074,7 @@ void UnloadAudioStream(AudioStream stream)
 // Update audio stream buffers with data
 // NOTE 1: Only updates one buffer of the stream source: dequeue -> update -> queue
 // NOTE 2: To dequeue a buffer it needs to be processed: IsAudioStreamProcessed()
-void UpdateAudioStream(AudioStream stream, const void *data, int frameCount)
+RAUDIO_API void UpdateAudioStream(AudioStream stream, const void *data, int frameCount)
 {
     if (stream.buffer != NULL)
     {
@@ -2151,7 +2124,7 @@ void UpdateAudioStream(AudioStream stream, const void *data, int frameCount)
 }
 
 // Check if any audio stream buffers requires refill
-bool IsAudioStreamProcessed(AudioStream stream)
+RAUDIO_API bool IsAudioStreamProcessed(AudioStream stream)
 {
     if (stream.buffer == NULL) return false;
 
@@ -2159,61 +2132,61 @@ bool IsAudioStreamProcessed(AudioStream stream)
 }
 
 // Play audio stream
-void PlayAudioStream(AudioStream stream)
+RAUDIO_API void PlayAudioStream(AudioStream stream)
 {
     PlayAudioBuffer(stream.buffer);
 }
 
 // Play audio stream
-void PauseAudioStream(AudioStream stream)
+RAUDIO_API void PauseAudioStream(AudioStream stream)
 {
     PauseAudioBuffer(stream.buffer);
 }
 
 // Resume audio stream playing
-void ResumeAudioStream(AudioStream stream)
+RAUDIO_API void ResumeAudioStream(AudioStream stream)
 {
     ResumeAudioBuffer(stream.buffer);
 }
 
 // Check if audio stream is playing.
-bool IsAudioStreamPlaying(AudioStream stream)
+RAUDIO_API bool IsAudioStreamPlaying(AudioStream stream)
 {
     return IsAudioBufferPlaying(stream.buffer);
 }
 
 // Stop audio stream
-void StopAudioStream(AudioStream stream)
+RAUDIO_API void StopAudioStream(AudioStream stream)
 {
     StopAudioBuffer(stream.buffer);
 }
 
 // Set volume for audio stream (1.0 is max level)
-void SetAudioStreamVolume(AudioStream stream, float volume)
+RAUDIO_API void SetAudioStreamVolume(AudioStream stream, float volume)
 {
     SetAudioBufferVolume(stream.buffer, volume);
 }
 
 // Set pitch for audio stream (1.0 is base level)
-void SetAudioStreamPitch(AudioStream stream, float pitch)
+RAUDIO_API void SetAudioStreamPitch(AudioStream stream, float pitch)
 {
     SetAudioBufferPitch(stream.buffer, pitch);
 }
 
 // Set pan for audio stream
-void SetAudioStreamPan(AudioStream stream, float pan)
+RAUDIO_API void SetAudioStreamPan(AudioStream stream, float pan)
 {
     SetAudioBufferPan(stream.buffer, pan);
 }
 
 // Default size for new audio streams
-void SetAudioStreamBufferSizeDefault(int size)
+RAUDIO_API void SetAudioStreamBufferSizeDefault(int size)
 {
     AUDIO.Buffer.defaultSize = size;
 }
 
 // Audio thread callback to request new data
-void SetAudioStreamCallback(AudioStream stream, AudioCallback callback)
+RAUDIO_API void SetAudioStreamCallback(AudioStream stream, AudioCallback callback)
 {
     if (stream.buffer != NULL) stream.buffer->callback = callback;
 }
@@ -2221,7 +2194,7 @@ void SetAudioStreamCallback(AudioStream stream, AudioCallback callback)
 // Add processor to audio stream. Contrary to buffers, the order of processors is important.
 // The new processor must be added at the end. As there aren't supposed to be a lot of processors attached to
 // a given stream, we iterate through the list to find the end. That way we don't need a pointer to the last element.
-void AttachAudioStreamProcessor(AudioStream stream, AudioCallback process)
+RAUDIO_API void AttachAudioStreamProcessor(AudioStream stream, AudioCallback process)
 {
     ma_mutex_lock(&AUDIO.System.lock);
 
@@ -2245,7 +2218,7 @@ void AttachAudioStreamProcessor(AudioStream stream, AudioCallback process)
 }
 
 // Remove processor from audio stream
-void DetachAudioStreamProcessor(AudioStream stream, AudioCallback process)
+RAUDIO_API void DetachAudioStreamProcessor(AudioStream stream, AudioCallback process)
 {
     ma_mutex_lock(&AUDIO.System.lock);
 
@@ -2274,7 +2247,7 @@ void DetachAudioStreamProcessor(AudioStream stream, AudioCallback process)
 // Add processor to audio pipeline. Order of processors is important
 // Works the same way as {Attach,Detach}AudioStreamProcessor() functions, except
 // these two work on the already mixed output just before sending it to the sound hardware
-void AttachAudioMixedProcessor(AudioCallback process)
+RAUDIO_API void AttachAudioMixedProcessor(AudioCallback process)
 {
     ma_mutex_lock(&AUDIO.System.lock);
 
@@ -2298,7 +2271,7 @@ void AttachAudioMixedProcessor(AudioCallback process)
 }
 
 // Remove processor from audio pipeline
-void DetachAudioMixedProcessor(AudioCallback process)
+RAUDIO_API void DetachAudioMixedProcessor(AudioCallback process)
 {
     ma_mutex_lock(&AUDIO.System.lock);
 
@@ -2618,8 +2591,6 @@ static void MixAudioFrames(float *framesOut, const float *framesIn, ma_uint32 fr
     }
 }
 
-// Some required functions for audio standalone module version
-#if defined(RAUDIO_STANDALONE)
 // Check file extension
 static bool IsFileExtension(const char *fileName, const char *ext)
 {
@@ -2790,8 +2761,5 @@ static bool SaveFileText(const char *fileName, char *text)
 
     return true;
 }
-#endif
 
 #undef AudioBuffer
-
-#endif      // SUPPORT_MODULE_RAUDIO

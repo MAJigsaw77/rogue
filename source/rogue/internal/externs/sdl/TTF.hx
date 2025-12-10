@@ -1,4 +1,4 @@
-package rogue.internal.externs;
+package rogue.internal.externs.sdl;
 
 import cpp.CastCharStar;
 import cpp.ConstCharStar;
@@ -9,7 +9,7 @@ import cpp.SizeT;
 import cpp.UInt32;
 import cpp.UInt8;
 
-import rogue.internal.externs.SDL;
+import rogue.internal.externs.sdl.SDL;
 
 @:include('SDL3_ttf/SDL_ttf.h')
 @:native('TTF_Font')

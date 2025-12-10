@@ -4,20 +4,17 @@
 		<compilerflag value="-I${RAUDIO_DIRECTORY}/src" />
 
 		<section>
-			<compilerflag value="-DRAUDIO_STANDALONE" />
+			<compilerflag value="-DRAUDIO_API_CALL_EXPORT" />
+			<compilerflag value="-DRAUDIO_API_CALL_EXPORT_BUILD" />
 
 			<section>
-				<compilerflag value="-DSUPPORT_MODULE_RAUDIO" />
-
-				<section>
-					<compilerflag value="-DSUPPORT_FILEFORMAT_WAV" />
-					<compilerflag value="-DSUPPORT_FILEFORMAT_OGG" />
-					<compilerflag value="-DSUPPORT_FILEFORMAT_MP3" />
-					<compilerflag value="-DSUPPORT_FILEFORMAT_QOA" />
-					<compilerflag value="-DSUPPORT_FILEFORMAT_FLAC" />
-					<compilerflag value="-DSUPPORT_FILEFORMAT_XM" />
-					<compilerflag value="-DSUPPORT_FILEFORMAT_MOD" />
-				</section>
+				<compilerflag value="-DSUPPORT_FILEFORMAT_WAV" />
+				<compilerflag value="-DSUPPORT_FILEFORMAT_OGG" />
+				<compilerflag value="-DSUPPORT_FILEFORMAT_MP3" />
+				<compilerflag value="-DSUPPORT_FILEFORMAT_QOA" />
+				<compilerflag value="-DSUPPORT_FILEFORMAT_FLAC" />
+				<compilerflag value="-DSUPPORT_FILEFORMAT_XM" />
+				<compilerflag value="-DSUPPORT_FILEFORMAT_MOD" />
 			</section>
 		</section>
 

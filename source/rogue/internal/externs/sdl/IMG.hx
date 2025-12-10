@@ -1,10 +1,10 @@
-package rogue.internal.externs;
+package rogue.internal.externs.sdl;
 
 import cpp.CastCharStar;
 import cpp.ConstCharStar;
 import cpp.RawPointer;
 
-import rogue.internal.externs.SDL;
+import rogue.internal.externs.sdl.SDL;
 
 @:include('SDL3_image/SDL_image.h')
 @:structAccess

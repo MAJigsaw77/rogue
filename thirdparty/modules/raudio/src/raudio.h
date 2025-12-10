@@ -57,11 +57,6 @@
 //----------------------------------------------------------------------------------
 // Defines and Macros
 //----------------------------------------------------------------------------------
-// In case this file is included, we are using raudio in standalone mode
-#ifndef RAUDIO_STANDALONE
-#define RAUDIO_STANDALONE
-#endif // RAUDIO_STANDALONE
-
 // Allow custom memory allocators
 #ifndef RL_MALLOC
     #define RL_MALLOC(sz)       malloc(sz)
@@ -73,15 +68,35 @@
     #define RL_FREE(p)          free(p)
 #endif
 
+#if !defined(RAUDIO_API)
+    #if defined(RAUDIO_API_CALL_EXPORT)
+        #if defined(_WIN32)
+            #define RAUDIO_DLL_IMPORT  __declspec(dllimport)
+            #define RAUDIO_DLL_EXPORT  __declspec(dllexport)
+        #else
+            #if defined(__GNUC__) && __GNUC__ >= 4
+                #define RAUDIO_DLL_IMPORT  __attribute__((visibility("default")))
+                #define RAUDIO_DLL_EXPORT  __attribute__((visibility("default")))
+            #else
+                #define RAUDIO_DLL_IMPORT
+                #define RAUDIO_DLL_EXPORT
+            #endif
+        #endif
+
+        #if defined(RAUDIO_API_CALL_EXPORT_BUILD)
+            #define RAUDIO_API RAUDIO_DLL_EXPORT
+        #else
+            #define RAUDIO_API RAUDIO_DLL_IMPORT
+        #endif
+    #else
+        #define RAUDIO_API extern
+    #endif
+#endif
+
 //----------------------------------------------------------------------------------
 // Types and Structures Definition
 //----------------------------------------------------------------------------------
-#if (defined(__STDC__) && __STDC_VERSION__ >= 199901L) || (defined(_MSC_VER) && _MSC_VER >= 1800)
-    #include <stdbool.h>
-#elif !defined(__cplusplus) && !defined(bool)
-    typedef enum bool { false = 0, true = !false } bool;
-    #define RL_BOOL_TYPE
-#endif
+#include <stdbool.h>
 
 typedef void (*AudioCallback)(void *bufferData, unsigned int frames);
 
@@ -138,82 +153,80 @@ extern "C" {            // Prevents name mangling of functions
 #endif
 
 // Audio device management functions
-void InitAudioDevice(void);                                     // Initialize audio device and context
-void CloseAudioDevice(void);                                    // Close the audio device and context
-bool IsAudioDeviceReady(void);                                  // Check if audio device has been initialized successfully
-void SetMasterVolume(float volume);                             // Set master volume (listener)
-float GetMasterVolume(void);                                    // Get master volume (listener)
+RAUDIO_API void InitAudioDevice(void);                                     // Initialize audio device and context
+RAUDIO_API void CloseAudioDevice(void);                                    // Close the audio device and context
+RAUDIO_API bool IsAudioDeviceReady(void);                                  // Check if audio device has been initialized successfully
+RAUDIO_API void SetMasterVolume(float volume);                             // Set master volume (listener)
+RAUDIO_API float GetMasterVolume(void);                                    // Get master volume (listener)
 
 // Wave/Sound loading/unloading functions
-Wave LoadWave(const char *fileName);                            // Load wave data from file
-Wave LoadWaveFromMemory(const char *fileType, const unsigned char *fileData, int dataSize); // Load wave from memory buffer, fileType refers to extension: i.e. ".wav"
-bool IsWaveReady(Wave wave);                                    // Checks if wave data is ready
-Sound LoadSound(const char *fileName);                          // Load sound from file
-Sound LoadSoundFromWave(Wave wave);                             // Load sound from wave data
-Sound LoadSoundAlias(Sound source);                             // Create a new sound that shares the same sample data as the source sound, does not own the sound data
-bool IsSoundReady(Sound sound);                                 // Checks if a sound is ready
-void UpdateSound(Sound sound, const void *data, int frameCount);// Update sound buffer with new data
-void UnloadWave(Wave wave);                                     // Unload wave data
-void UnloadSound(Sound sound);                                  // Unload sound
-void UnloadSoundAlias(Sound alias);                             // Unload a sound alias (does not deallocate sample data)
-bool ExportWave(Wave wave, const char *fileName);               // Export wave data to file, returns true on success
-bool ExportWaveAsCode(Wave wave, const char *fileName);         // Export wave sample data to code (.h), returns true on success
+RAUDIO_API Wave LoadWave(const char *fileName);                            // Load wave data from file
+RAUDIO_API Wave LoadWaveFromMemory(const char *fileType, const unsigned char *fileData, int dataSize); // Load wave from memory buffer, fileType refers to extension: i.e. ".wav"
+RAUDIO_API bool IsWaveReady(Wave wave);                                    // Checks if wave data is ready
+RAUDIO_API Sound LoadSound(const char *fileName);                          // Load sound from file
+RAUDIO_API Sound LoadSoundFromWave(Wave wave);                             // Load sound from wave data
+RAUDIO_API Sound LoadSoundAlias(Sound source);                             // Create a new sound that shares the same sample data as the source sound, does not own the sound data
+RAUDIO_API bool IsSoundReady(Sound sound);                                 // Checks if a sound is ready
+RAUDIO_API void UpdateSound(Sound sound, const void *data, int frameCount);// Update sound buffer with new data
+RAUDIO_API void UnloadWave(Wave wave);                                     // Unload wave data
+RAUDIO_API void UnloadSound(Sound sound);                                  // Unload sound
+RAUDIO_API void UnloadSoundAlias(Sound alias);                             // Unload a sound alias (does not deallocate sample data)
+RAUDIO_API bool ExportWave(Wave wave, const char *fileName);               // Export wave data to file, returns true on success
+RAUDIO_API bool ExportWaveAsCode(Wave wave, const char *fileName);         // Export wave sample data to code (.h), returns true on success
 
 // Wave/Sound management functions
-void PlaySound(Sound sound);                                    // Play a sound
-void StopSound(Sound sound);                                    // Stop playing a sound
-void PauseSound(Sound sound);                                   // Pause a sound
-void ResumeSound(Sound sound);                                  // Resume a paused sound
-bool IsSoundPlaying(Sound sound);                               // Check if a sound is currently playing
-void SetSoundVolume(Sound sound, float volume);                 // Set volume for a sound (1.0 is max level)
-void SetSoundPitch(Sound sound, float pitch);                   // Set pitch for a sound (1.0 is base level)
-void SetSoundPan(Sound sound, float pan);                       // Set pan for a sound (0.0 to 1.0, 0.5=center)
-Wave WaveCopy(Wave wave);                                       // Copy a wave to a new wave
-void WaveCrop(Wave *wave, int initSample, int finalSample);     // Crop a wave to defined samples range
-void WaveFormat(Wave *wave, int sampleRate, int sampleSize, int channels);  // Convert wave data to desired format
-float *LoadWaveSamples(Wave wave);                              // Load samples data from wave as a floats array
-void UnloadWaveSamples(float *samples);                         // Unload samples data loaded with LoadWaveSamples()
+RAUDIO_API void PlaySound(Sound sound);                                    // Play a sound
+RAUDIO_API void StopSound(Sound sound);                                    // Stop playing a sound
+RAUDIO_API void PauseSound(Sound sound);                                   // Pause a sound
+RAUDIO_API void ResumeSound(Sound sound);                                  // Resume a paused sound
+RAUDIO_API bool IsSoundPlaying(Sound sound);                               // Check if a sound is currently playing
+RAUDIO_API void SetSoundVolume(Sound sound, float volume);                 // Set volume for a sound (1.0 is max level)
+RAUDIO_API void SetSoundPitch(Sound sound, float pitch);                   // Set pitch for a sound (1.0 is base level)
+RAUDIO_API void SetSoundPan(Sound sound, float pan);                       // Set pan for a sound (0.0 to 1.0, 0.5=center)
+RAUDIO_API Wave WaveCopy(Wave wave);                                       // Copy a wave to a new wave
+RAUDIO_API void WaveCrop(Wave *wave, int initSample, int finalSample);     // Crop a wave to defined samples range
+RAUDIO_API void WaveFormat(Wave *wave, int sampleRate, int sampleSize, int channels);  // Convert wave data to desired format
+RAUDIO_API float *LoadWaveSamples(Wave wave);                              // Load samples data from wave as a floats array
+RAUDIO_API void UnloadWaveSamples(float *samples);                         // Unload samples data loaded with LoadWaveSamples()
 
 // Music management functions
-Music LoadMusicStream(const char *fileName);                    // Load music stream from file
-Music LoadMusicStreamFromMemory(const char *fileType, const unsigned char* data, int dataSize); // Load music stream from data
-bool IsMusicReady(Music music);                                 // Checks if a music stream is ready
-void UnloadMusicStream(Music music);                            // Unload music stream
-void PlayMusicStream(Music music);                              // Start music playing
-bool IsMusicStreamPlaying(Music music);                         // Check if music is playing
-void UpdateMusicStream(Music music);                            // Updates buffers for music streaming
-void StopMusicStream(Music music);                              // Stop music playing
-void PauseMusicStream(Music music);                             // Pause music playing
-void ResumeMusicStream(Music music);                            // Resume playing paused music
-void SeekMusicStream(Music music, float position);              // Seek music to a position (in seconds)
-void SetMusicVolume(Music music, float volume);                 // Set volume for music (1.0 is max level)
-void SetMusicPitch(Music music, float pitch);                   // Set pitch for a music (1.0 is base level)
-void SetMusicPan(Music music, float pan);                       // Set pan for a music (0.0 to 1.0, 0.5=center)
-float GetMusicTimeLength(Music music);                          // Get music time length (in seconds)
-float GetMusicTimePlayed(Music music);                          // Get current music time played (in seconds)
+RAUDIO_API Music LoadMusicStream(const char *fileName);                    // Load music stream from file
+RAUDIO_API Music LoadMusicStreamFromMemory(const char *fileType, const unsigned char* data, int dataSize); // Load music stream from data
+RAUDIO_API bool IsMusicReady(Music music);                                 // Checks if a music stream is ready
+RAUDIO_API void UnloadMusicStream(Music music);                            // Unload music stream
+RAUDIO_API void PlayMusicStream(Music music);                              // Start music playing
+RAUDIO_API bool IsMusicStreamPlaying(Music music);                         // Check if music is playing
+RAUDIO_API void UpdateMusicStream(Music music);                            // Updates buffers for music streaming
+RAUDIO_API void StopMusicStream(Music music);                              // Stop music playing
+RAUDIO_API void PauseMusicStream(Music music);                             // Pause music playing
+RAUDIO_API void ResumeMusicStream(Music music);                            // Resume playing paused music
+RAUDIO_API void SeekMusicStream(Music music, float position);              // Seek music to a position (in seconds)
+RAUDIO_API void SetMusicVolume(Music music, float volume);                 // Set volume for music (1.0 is max level)
+RAUDIO_API void SetMusicPitch(Music music, float pitch);                   // Set pitch for a music (1.0 is base level)
+RAUDIO_API void SetMusicPan(Music music, float pan);                       // Set pan for a music (0.0 to 1.0, 0.5=center)
+RAUDIO_API float GetMusicTimeLength(Music music);                          // Get music time length (in seconds)
+RAUDIO_API float GetMusicTimePlayed(Music music);                          // Get current music time played (in seconds)
 
 // AudioStream management functions
-AudioStream LoadAudioStream(unsigned int sampleRate, unsigned int sampleSize, unsigned int channels); // Load audio stream (to stream raw audio pcm data)
-bool IsAudioStreamReady(AudioStream stream);                    // Checks if an audio stream is ready
-void UnloadAudioStream(AudioStream stream);                     // Unload audio stream and free memory
-void UpdateAudioStream(AudioStream stream, const void *data, int samplesCount); // Update audio stream buffers with data
-bool IsAudioStreamProcessed(AudioStream stream);                // Check if any audio stream buffers requires refill
-void PlayAudioStream(AudioStream stream);                       // Play audio stream
-void PauseAudioStream(AudioStream stream);                      // Pause audio stream
-void ResumeAudioStream(AudioStream stream);                     // Resume audio stream
-bool IsAudioStreamPlaying(AudioStream stream);                  // Check if audio stream is playing
-void StopAudioStream(AudioStream stream);                       // Stop audio stream
-void SetAudioStreamVolume(AudioStream stream, float volume);    // Set volume for audio stream (1.0 is max level)
-void SetAudioStreamPitch(AudioStream stream, float pitch);      // Set pitch for audio stream (1.0 is base level)
-void SetAudioStreamPan(AudioStream strean, float pan);          // Set pan for audio stream  (0.0 to 1.0, 0.5=center)
-void SetAudioStreamBufferSizeDefault(int size);                 // Default size for new audio streams
-void SetAudioStreamCallback(AudioStream stream, AudioCallback callback);  // Audio thread callback to request new data
-
-void AttachAudioStreamProcessor(AudioStream stream, AudioCallback processor); // Attach audio stream processor to stream
-void DetachAudioStreamProcessor(AudioStream stream, AudioCallback processor); // Detach audio stream processor from stream
-
-void AttachAudioMixedProcessor(AudioCallback processor); // Attach audio stream processor to the entire audio pipeline
-void DetachAudioMixedProcessor(AudioCallback processor); // Detach audio stream processor from the entire audio pipeline
+RAUDIO_API AudioStream LoadAudioStream(unsigned int sampleRate, unsigned int sampleSize, unsigned int channels); // Load audio stream (to stream raw audio pcm data)
+RAUDIO_API bool IsAudioStreamReady(AudioStream stream);                    // Checks if an audio stream is ready
+RAUDIO_API void UnloadAudioStream(AudioStream stream);                     // Unload audio stream and free memory
+RAUDIO_API void UpdateAudioStream(AudioStream stream, const void *data, int samplesCount); // Update audio stream buffers with data
+RAUDIO_API bool IsAudioStreamProcessed(AudioStream stream);                // Check if any audio stream buffers requires refill
+RAUDIO_API void PlayAudioStream(AudioStream stream);                       // Play audio stream
+RAUDIO_API void PauseAudioStream(AudioStream stream);                      // Pause audio stream
+RAUDIO_API void ResumeAudioStream(AudioStream stream);                     // Resume audio stream
+RAUDIO_API bool IsAudioStreamPlaying(AudioStream stream);                  // Check if audio stream is playing
+RAUDIO_API void StopAudioStream(AudioStream stream);                       // Stop audio stream
+RAUDIO_API void SetAudioStreamVolume(AudioStream stream, float volume);    // Set volume for audio stream (1.0 is max level)
+RAUDIO_API void SetAudioStreamPitch(AudioStream stream, float pitch);      // Set pitch for audio stream (1.0 is base level)
+RAUDIO_API void SetAudioStreamPan(AudioStream strean, float pan);          // Set pan for audio stream  (0.0 to 1.0, 0.5=center)
+RAUDIO_API void SetAudioStreamBufferSizeDefault(int size);                 // Default size for new audio streams
+RAUDIO_API void SetAudioStreamCallback(AudioStream stream, AudioCallback callback);  // Audio thread callback to request new data
+RAUDIO_API void AttachAudioStreamProcessor(AudioStream stream, AudioCallback processor); // Attach audio stream processor to stream
+RAUDIO_API void DetachAudioStreamProcessor(AudioStream stream, AudioCallback processor); // Detach audio stream processor from stream
+RAUDIO_API void AttachAudioMixedProcessor(AudioCallback processor); // Attach audio stream processor to the entire audio pipeline
+RAUDIO_API void DetachAudioMixedProcessor(AudioCallback processor); // Detach audio stream processor from the entire audio pipeline
 
 #ifdef __cplusplus
 }
