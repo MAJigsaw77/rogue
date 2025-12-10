@@ -18,6 +18,10 @@
 			</section>
 		</section>
 
+		<section unless="windows">
+			<compilerflag value="-Wno-tautological-compare" />
+		</section>
+
 		<file name="src/raudio.c" />
 	</files>
 </xml>

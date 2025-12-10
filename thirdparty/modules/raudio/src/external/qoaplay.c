@@ -1,260 +1,278 @@
-/*
+/*******************************************************************************************
+*
+*   qoaplay - QOA stream playing helper functions
+*
+*   qoaplay is a tiny abstraction to read and decode a QOA file "on the fly".
+*   It reads and decodes one frame at a time with minimal memory requirements.
+*   qoaplay also provides some functions to seek to a specific frame.
+*
+*   LICENSE: MIT License
+*
+*   Copyright (c) 2023 Dominic Szablewski (@phoboslab), reviewed by Ramon Santamaria (@raysan5)
+*
+*   Permission is hereby granted, free of charge, to any person obtaining a copy
+*   of this software and associated documentation files (the "Software"), to deal
+*   in the Software without restriction, including without limitation the rights
+*   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*   copies of the Software, and to permit persons to whom the Software is
+*   furnished to do so, subject to the following conditions:
+*
+*   The above copyright notice and this permission notice shall be included in all
+*   copies or substantial portions of the Software.
+*
+*   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+*   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+*   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+*   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+*   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+*   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+*   SOFTWARE.
+*
+**********************************************************************************************/
 
-Copyright (c) 2023, Dominic Szablewski - https://phoboslab.org
-SPDX-License-Identifier: MIT
-
-
-Command line tool to play QOA files
-
-Requires:
-	-"sokol_audio.h" (https://github.com/floooh/sokol/blob/master/sokol_audio.h)
-
-Compile with: 
-	gcc qoaplay.c -std=gnu99 -lasound -pthread -O3 -o qoaplay
-
-*/
-
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#define SOKOL_AUDIO_IMPL
-#include "sokol_audio.h"
-
-#define QOA_IMPLEMENTATION
-#include "qoa.h"
-
-
-/* -----------------------------------------------------------------------------
-	qoaplay */
-
-/* qoaplay is a tiny abstraction to read and decode a QOA file "on the fly".
-It reads and decodes one frame at a time with minimal memory requirements.
-qoaplay also provides some functions to seek to a specific frame. */
-
+//----------------------------------------------------------------------------------
+// Types and Structures Definition
+//----------------------------------------------------------------------------------
+// QOA streaming data descriptor
 typedef struct {
-	qoa_desc info;
-	FILE *file;
+    qoa_desc info;                  // QOA descriptor data
 
-	unsigned int first_frame_pos;
-	unsigned int sample_pos;
+    FILE *file;                     // QOA file to read, if NULL, using memory buffer -> file_data
+    unsigned char *file_data;       // QOA file data on memory
+    unsigned int file_data_size;    // QOA file data on memory size
+    unsigned int file_data_offset;  // QOA file data on memory offset for next read
 
-	unsigned int buffer_len;
-	unsigned char *buffer;
+    unsigned int first_frame_pos;   // First frame position (after QOA header, required for offset)
+    unsigned int sample_position;   // Current streaming sample position
 
-	unsigned int sample_data_pos;
-	unsigned int sample_data_len;
-	short *sample_data;
+    unsigned char *buffer;          // Buffer used to read samples from file/memory (used on decoding)
+    unsigned int buffer_len;        // Buffer length to read samples for streaming
+
+    short *sample_data;             // Sample data decoded
+    unsigned int sample_data_len;   // Sample data decoded length
+    unsigned int sample_data_pos;   // Sample data decoded position
+
 } qoaplay_desc;
 
-qoaplay_desc *qoaplay_open(const char *path) {
-	FILE *file = fopen(path, "rb");
-	if (!file) {
-		return NULL;
-	}
+//----------------------------------------------------------------------------------
+// Module Functions Declaration
+//----------------------------------------------------------------------------------
 
-	/* Read and decode the file header */
-
-	unsigned char header[QOA_MIN_FILESIZE];
-	int read = fread(header, QOA_MIN_FILESIZE, 1, file);
-	if (!read) {
-		return NULL;
-	}
-
-	qoa_desc qoa;
-	unsigned int first_frame_pos = qoa_decode_header(header, QOA_MIN_FILESIZE, &qoa);
-	if (!first_frame_pos) {
-		return NULL;
-	}
-
-	/* Rewind the file back to beginning of the first frame */
-
-	fseek(file, first_frame_pos, SEEK_SET);
-
-	/* Allocate one chunk of memory for the qoaplay_desc struct, the sample data
-	for one frame and a buffer to hold one frame of encoded data. */
-
-	unsigned int buffer_size = qoa_max_frame_size(&qoa);
-	unsigned int sample_data_size = qoa.channels * QOA_FRAME_LEN * sizeof(short) * 2;
-
-	qoaplay_desc *qp = malloc(sizeof(qoaplay_desc) + buffer_size + sample_data_size);
-	memset(qp, 0, sizeof(qoaplay_desc));
-	
-	qp->first_frame_pos = first_frame_pos;
-	qp->file = file;
-	qp->buffer = ((unsigned char *)qp) + sizeof(qoaplay_desc);
-	qp->sample_data = (short *)(((unsigned char *)qp) + sizeof(qoaplay_desc) + buffer_size);
-
-	qp->info.channels = qoa.channels;
-	qp->info.samplerate = qoa.samplerate;
-	qp->info.samples = qoa.samples;
-	return qp;
-}
-
-void qoaplay_close(qoaplay_desc *qp) {
-	fclose(qp->file);
-	free(qp);
-}
-
-unsigned int qoaplay_decode_frame(qoaplay_desc *qp) {
-	qp->buffer_len = fread(qp->buffer, 1, qoa_max_frame_size(&qp->info), qp->file);
-
-	unsigned int frame_len;
-	qoa_decode_frame(qp->buffer, qp->buffer_len, &qp->info, qp->sample_data, &frame_len);
-	qp->sample_data_pos = 0;
-	qp->sample_data_len = frame_len;
-	return frame_len;
-}
-
-void qoaplay_rewind(qoaplay_desc *qp) {
-	fseek(qp->file, qp->first_frame_pos, SEEK_SET);
-	qp->sample_pos = 0;
-	qp->sample_data_len = 0;
-	qp->sample_data_pos = 0;
-}
-
-unsigned int qoaplay_decode(qoaplay_desc *qp, float *sample_data, int num_samples) {
-	int src_index = qp->sample_data_pos * qp->info.channels;
-	int dst_index = 0;
-	for (int i = 0; i < num_samples; i++) {
-
-		/* Do we have to decode more samples? */
-		if (qp->sample_data_len - qp->sample_data_pos == 0) {
-			if (!qoaplay_decode_frame(qp)) {
-				// Loop to the beginning
-				qoaplay_rewind(qp);
-				qoaplay_decode_frame(qp);
-			}
-			src_index = 0;
-		}
-
-		/* Normalize to -1..1 floats and write to dest */
-		for (int c = 0; c < qp->info.channels; c++) {
-			sample_data[dst_index++] = qp->sample_data[src_index++] / 32768.0;
-		}
-		qp->sample_data_pos++;
-		qp->sample_pos++;
-	}
-	return num_samples;
-}
-
-double qoaplay_get_duration(qoaplay_desc *qp) {
-	return (double)qp->info.samples / (double)qp->info.samplerate;
-}
-
-double qoaplay_get_time(qoaplay_desc *qp) {
-	return (double)qp->sample_pos / (double)qp->info.samplerate;
-}
-
-int qoaplay_get_frame(qoaplay_desc *qp) {
-	return qp->sample_pos / QOA_FRAME_LEN;
-}
-
-void qoaplay_seek_frame(qoaplay_desc *qp, int frame) {
-	if (frame < 0) {
-		frame = 0;
-	}
-	if (frame > qp->info.samples / QOA_FRAME_LEN) {
-		frame = qp->info.samples / QOA_FRAME_LEN;
-	}
-
-	qp->sample_pos = frame * QOA_FRAME_LEN;
-	qp->sample_data_len = 0;
-	qp->sample_data_pos = 0;
-
-	unsigned int offset = qp->first_frame_pos + frame * qoa_max_frame_size(&qp->info);
-	fseek(qp->file, offset, SEEK_SET);
-}
-
-
-
-
-/* -----------------------------------------------------------------------------
-	The application code */
-
-/* getch() for windows/mac/linux */
-
-#if defined(_WIN32)
-	#include <conio.h>
-#else
-	#if defined(__APPLE__)
-		#include <unistd.h>
-	#endif
-	#include <termios.h>
-	int getch(void) {
-		struct termios oldattr, newattr;
-		int ch;
-		tcgetattr(STDIN_FILENO, &oldattr);
-		newattr = oldattr;
-		newattr.c_lflag &= ~(ICANON | ECHO);
-		tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
-		ch = getchar();
-		tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
-		return ch;
-	}
+#if defined(__cplusplus)
+extern "C" {            // Prevents name mangling of functions
 #endif
 
+qoaplay_desc *qoaplay_open(const char *path);
+qoaplay_desc *qoaplay_open_memory(const unsigned char *data, int data_size);
+void qoaplay_close(qoaplay_desc *qoa_ctx);
 
-/* Sokol Audio callback. This gets called whenever sokol needs more samples to
-hand over to the platform's audio API. All file IO and decoding is done here. */
+void qoaplay_rewind(qoaplay_desc *qoa_ctx);
+void qoaplay_seek_frame(qoaplay_desc *qoa_ctx, int frame);
+unsigned int qoaplay_decode(qoaplay_desc *qoa_ctx, float *sample_data, int num_samples);
+unsigned int qoaplay_decode_frame(qoaplay_desc *qoa_ctx);
+double qoaplay_get_duration(qoaplay_desc *qoa_ctx);
+double qoaplay_get_time(qoaplay_desc *qoa_ctx);
+int qoaplay_get_frame(qoaplay_desc *qoa_ctx);
 
-static void sokol_audio_cb(float* sample_data, int num_samples, int num_channels, void *user_data) {
-	qoaplay_desc *qoaplay = (qoaplay_desc *)user_data;
-	if (num_channels != qoaplay->info.channels) {
-		printf("Audio cb channels %d not equal qoa channels %d\n", num_channels, qoaplay->info.channels);
-		exit(1);
-	}
+#if defined(__cplusplus)
+}            // Prevents name mangling of functions
+#endif
 
-	qoaplay_decode(qoaplay, sample_data, num_samples);
+//----------------------------------------------------------------------------------
+// Module Functions Definition
+//----------------------------------------------------------------------------------
 
-	printf("\r %6.2f / %.2f sec", qoaplay_get_time(qoaplay), qoaplay_get_duration(qoaplay));
-	fflush(stdout);
+// Open QOA file, keep FILE pointer to keep reading from file
+qoaplay_desc *qoaplay_open(const char *path)
+{
+    FILE *file = fopen(path, "rb");
+    if (!file) return NULL;
+
+    // Read and decode the file header
+    unsigned char header[QOA_MIN_FILESIZE];
+    int read = fread(header, QOA_MIN_FILESIZE, 1, file);
+    if (!read) return NULL;
+
+    qoa_desc qoa;
+    unsigned int first_frame_pos = qoa_decode_header(header, QOA_MIN_FILESIZE, &qoa);
+    if (!first_frame_pos) return NULL;
+
+    // Rewind the file back to beginning of the first frame
+    fseek(file, first_frame_pos, SEEK_SET);
+
+    // Allocate one chunk of memory for the qoaplay_desc struct
+    // + the sample data for one frame
+    // + a buffer to hold one frame of encoded data
+    unsigned int buffer_size = qoa_max_frame_size(&qoa);
+    unsigned int sample_data_size = qoa.channels*QOA_FRAME_LEN*sizeof(short)*2;
+    qoaplay_desc *qoa_ctx = QOA_MALLOC(sizeof(qoaplay_desc) + buffer_size + sample_data_size);
+    memset(qoa_ctx, 0, sizeof(qoaplay_desc));
+
+    qoa_ctx->file = file;
+    qoa_ctx->file_data = NULL;
+    qoa_ctx->file_data_size = 0;
+    qoa_ctx->file_data_offset = 0;
+    qoa_ctx->first_frame_pos = first_frame_pos;
+
+    // Setup data pointers to previously allocated data
+    qoa_ctx->buffer = ((unsigned char *)qoa_ctx) + sizeof(qoaplay_desc);
+    qoa_ctx->sample_data = (short *)(((unsigned char *)qoa_ctx) + sizeof(qoaplay_desc) + buffer_size);
+
+    qoa_ctx->info.channels = qoa.channels;
+    qoa_ctx->info.samplerate = qoa.samplerate;
+    qoa_ctx->info.samples = qoa.samples;
+
+    return qoa_ctx;
 }
 
+// Open QOA file from memory, no FILE pointer required
+qoaplay_desc *qoaplay_open_memory(const unsigned char *data, int data_size)
+{
+    // Read and decode the file header
+    unsigned char header[QOA_MIN_FILESIZE];
+    memcpy(header, data, QOA_MIN_FILESIZE);
 
-int main(int argc, char **argv) {
-	if (argc < 2) {
-		printf("Usage: qoaplay <file.qoa>\n");
-		exit(1);
-	}
+    qoa_desc qoa;
+    unsigned int first_frame_pos = qoa_decode_header(header, QOA_MIN_FILESIZE, &qoa);
+    if (!first_frame_pos) return NULL;
 
-	qoaplay_desc *qoaplay = qoaplay_open(argv[1]);
+    // Allocate one chunk of memory for the qoaplay_desc struct
+    // + the sample data for one frame
+    // + a buffer to hold one frame of encoded data
+    unsigned int buffer_size = qoa_max_frame_size(&qoa);
+    unsigned int sample_data_size = qoa.channels*QOA_FRAME_LEN*sizeof(short)*2;
+    qoaplay_desc *qoa_ctx = QOA_MALLOC(sizeof(qoaplay_desc) + buffer_size + sample_data_size);
+    memset(qoa_ctx, 0, sizeof(qoaplay_desc));
 
-	if (!qoaplay) {
-		printf("Failed to load %s\n", argv[1]);
-		exit(1);
-	}
+    qoa_ctx->file = NULL;
 
-	printf(
-		"%s: channels: %d, samplerate: %d hz, samples per channel: %d, duration: %d sec\n",
-		argv[1], 
-		qoaplay->info.channels,
-		qoaplay->info.samplerate,
-		qoaplay->info.samples, 
-		qoaplay->info.samples/qoaplay->info.samplerate
-	);
-	printf("Controls: [x] rewind / [c] skip / [q] quit\n");
+    // Keep a copy of file data provided to be managed internally
+    qoa_ctx->file_data = (unsigned char *)QOA_MALLOC(data_size);
+    memcpy(qoa_ctx->file_data, data, data_size);
+    qoa_ctx->file_data_size = data_size;
+    qoa_ctx->file_data_offset = 0;
+    qoa_ctx->first_frame_pos = first_frame_pos;
 
-	saudio_setup(&(saudio_desc){
-		.sample_rate = qoaplay->info.samplerate,
-		.num_channels = qoaplay->info.channels,
-		.stream_userdata_cb = sokol_audio_cb,
-		.user_data = qoaplay
-	});
+    // Setup data pointers to previously allocated data
+    qoa_ctx->buffer = ((unsigned char *)qoa_ctx) + sizeof(qoaplay_desc);
+    qoa_ctx->sample_data = (short *)(((unsigned char *)qoa_ctx) + sizeof(qoaplay_desc) + buffer_size);
 
-	int wants_to_quit = 0;
-	while (!wants_to_quit) {
-		char c = getch();
-		switch (c) {
-			case 'c': qoaplay_seek_frame(qoaplay, qoaplay_get_frame(qoaplay) + 48); break;
-			case 'x': qoaplay_seek_frame(qoaplay, qoaplay_get_frame(qoaplay) - 48); break;
-			case 'q': wants_to_quit = 1; break;
-		}
-	}
+    qoa_ctx->info.channels = qoa.channels;
+    qoa_ctx->info.samplerate = qoa.samplerate;
+    qoa_ctx->info.samples = qoa.samples;
 
-	saudio_shutdown();
-	qoaplay_close(qoaplay);
+    return qoa_ctx;
+}
 
-	printf("\n");
-	return 0;
+// Close QOA file (if open) and free internal memory
+void qoaplay_close(qoaplay_desc *qoa_ctx)
+{
+    if (qoa_ctx->file) fclose(qoa_ctx->file);
+
+    if ((qoa_ctx->file_data) && (qoa_ctx->file_data_size > 0))
+    {
+        QOA_FREE(qoa_ctx->file_data);
+        qoa_ctx->file_data_size = 0;
+    }
+
+    QOA_FREE(qoa_ctx);
+}
+
+// Decode one frame from QOA data
+unsigned int qoaplay_decode_frame(qoaplay_desc *qoa_ctx)
+{
+    if (qoa_ctx->file) qoa_ctx->buffer_len = fread(qoa_ctx->buffer, 1, qoa_max_frame_size(&qoa_ctx->info), qoa_ctx->file);
+    else
+    {
+        qoa_ctx->buffer_len = qoa_max_frame_size(&qoa_ctx->info);
+        memcpy(qoa_ctx->buffer, qoa_ctx->file_data + qoa_ctx->file_data_offset, qoa_ctx->buffer_len);
+        qoa_ctx->file_data_offset += qoa_ctx->buffer_len;
+    }
+
+    unsigned int frame_len;
+    qoa_decode_frame(qoa_ctx->buffer, qoa_ctx->buffer_len, &qoa_ctx->info, qoa_ctx->sample_data, &frame_len);
+    qoa_ctx->sample_data_pos = 0;
+    qoa_ctx->sample_data_len = frame_len;
+
+    return frame_len;
+}
+
+// Rewind QOA file or memory pointer to beginning
+void qoaplay_rewind(qoaplay_desc *qoa_ctx)
+{
+    if (qoa_ctx->file) fseek(qoa_ctx->file, qoa_ctx->first_frame_pos, SEEK_SET);
+    else qoa_ctx->file_data_offset = 0;
+
+    qoa_ctx->sample_position = 0;
+    qoa_ctx->sample_data_len = 0;
+    qoa_ctx->sample_data_pos = 0;
+}
+
+// Decode required QOA frames
+unsigned int qoaplay_decode(qoaplay_desc *qoa_ctx, float *sample_data, int num_samples)
+{
+    int src_index = qoa_ctx->sample_data_pos*qoa_ctx->info.channels;
+    int dst_index = 0;
+
+    for (int i = 0; i < num_samples; i++)
+    {
+        // Do we have to decode more samples?
+        if (qoa_ctx->sample_data_len - qoa_ctx->sample_data_pos == 0)
+        {
+            if (!qoaplay_decode_frame(qoa_ctx))
+            {
+                // Loop to the beginning
+                qoaplay_rewind(qoa_ctx);
+                qoaplay_decode_frame(qoa_ctx);
+            }
+
+            src_index = 0;
+        }
+
+        // Normalize to -1..1 floats and write to dest
+        for (int c = 0; c < qoa_ctx->info.channels; c++)
+        {
+            sample_data[dst_index++] = qoa_ctx->sample_data[src_index++]/32768.0;
+        }
+
+        qoa_ctx->sample_data_pos++;
+        qoa_ctx->sample_position++;
+    }
+
+    return num_samples;
+}
+
+// Get QOA total time duration in seconds
+double qoaplay_get_duration(qoaplay_desc *qoa_ctx)
+{
+    return (double)qoa_ctx->info.samples/(double)qoa_ctx->info.samplerate;
+}
+
+// Get QOA current time position in seconds
+double qoaplay_get_time(qoaplay_desc *qoa_ctx)
+{
+    return (double)qoa_ctx->sample_position/(double)qoa_ctx->info.samplerate;
+}
+
+// Get QOA current audio frame
+int qoaplay_get_frame(qoaplay_desc *qoa_ctx)
+{
+    return qoa_ctx->sample_position/QOA_FRAME_LEN;
+}
+
+// Seek QOA audio frame
+void qoaplay_seek_frame(qoaplay_desc *qoa_ctx, int frame)
+{
+    if (frame < 0) frame = 0;
+
+    if (frame > qoa_ctx->info.samples/QOA_FRAME_LEN) frame = qoa_ctx->info.samples/QOA_FRAME_LEN;
+
+    qoa_ctx->sample_position = frame*QOA_FRAME_LEN;
+    qoa_ctx->sample_data_len = 0;
+    qoa_ctx->sample_data_pos = 0;
+
+    unsigned int offset = qoa_ctx->first_frame_pos + frame*qoa_max_frame_size(&qoa_ctx->info);
+
+    if (qoa_ctx->file) fseek(qoa_ctx->file, offset, SEEK_SET);
+    else qoa_ctx->file_data_offset = offset;
 }
