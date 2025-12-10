@@ -1,5 +1,7 @@
 package;
 
+import rogue.internal.externs.raudio.RAudio;
+
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.SizeT;
@@ -11,7 +13,7 @@ import haxe.io.Bytes;
 import haxe.io.BytesData;
 
 import rogue.internal.MainLoop;
-import rogue.internal.externs.SDL;
+import rogue.internal.externs.sdl.SDL;
 #if (android || rpi || iphone)
 import rogue.internal.externs.opengl.gles2.GL;
 import rogue.internal.externs.opengl.gles2.Glad;
@@ -289,11 +291,40 @@ class Main
 
 		GL.bindVertexArray(0);
 
+		RAudio.InitAudioDevice();
+
+		var inst:Music = RAudio.LoadMusicStream("assets/Inst-erect.ogg");
+		// RAudio.SetMusicPitch(inst, 1.25);
+		RAudio.PlayMusicStream(inst);
+
+		var voices0:Music = RAudio.LoadMusicStream("assets/Voices-darnell-erect.ogg");
+		// RAudio.SetMusicPitch(voices0, 1.25);
+		RAudio.PlayMusicStream(voices0);
+
+		var voices1:Music = RAudio.LoadMusicStream("assets/Voices-pico-erect.ogg");
+		// RAudio.SetMusicPitch(voices1, 1.25);
+		RAudio.PlayMusicStream(voices1);
+
 		{
 			MainLoop.setTargetFPS(60);
 
 			while (running)
 			{
+				if (RAudio.IsMusicStreamPlaying(inst))
+					RAudio.UpdateMusicStream(inst);
+
+				if (RAudio.IsMusicStreamPlaying(voices0))
+					RAudio.UpdateMusicStream(voices0);
+
+				if (RAudio.IsMusicStreamPlaying(voices1))
+					RAudio.UpdateMusicStream(voices1);
+
+				trace('');
+				trace('Inst-erect.ogg:           ${RAudio.GetMusicTimePlayed(inst)} seconds / ${RAudio.GetMusicTimeLength(inst)} length.');
+				trace('Voices-darnell-erect.ogg: ${RAudio.GetMusicTimePlayed(inst)} seconds / ${RAudio.GetMusicTimeLength(inst)} length.');
+				trace('Voices-pico-erect.ogg:    ${RAudio.GetMusicTimePlayed(inst)} seconds / ${RAudio.GetMusicTimeLength(inst)} length.');
+				trace('');
+
 				run();
 			}
 		}
@@ -301,6 +332,8 @@ class Main
 		GL.deleteVertexArrays(1, Pointer.addressOf(vertexArray).raw);
 		GL.deleteBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		GL.deleteProgram(shaderProgram);
+
+		RAudio.CloseAudioDevice();
 
 		SDL.GL_DestroyContext(glContext);
 		SDL.DestroyWindow(window);
@@ -332,7 +365,7 @@ class Main
 		{
 			// Update
 
-			Sys.println('FPS: ${Math.fround(1000.0 / MainLoop.deltaTime)} - Frame: ${MainLoop.deltaTime}ms');
+			// Sys.println('FPS: ${Math.fround(1000.0 / MainLoop.deltaTime)} - Frame: ${MainLoop.deltaTime}ms');
 		}
 
 		{

@@ -2,7 +2,7 @@ package rogue.internal;
 
 import cpp.UInt64;
 
-import rogue.internal.externs.SDL;
+import rogue.internal.externs.sdl.SDL;
 
 class MainLoop
 {
