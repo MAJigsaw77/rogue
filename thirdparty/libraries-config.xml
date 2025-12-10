@@ -3,10 +3,12 @@
 	<!-- Libs Overrideable Directories -->
 
 	<set name="SDL_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl" />
-	<set name="DR_LIBS_OVERRIDE_DIRECTORY" value="${this_dir}/override/dr_libs" />
-	<set name="SOFT_OAL_OVERRIDE_DIRECTORY" value="${this_dir}/override/soft_oal" />
 
 	<!-- Libs Directories -->
+
+	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
+
+	<set name="RAUDIO_DIRECTORY" value="${this_dir}/modules/raudio" />
 
 	<set name="SDL_DIRECTORY" value="${this_dir}/submodules/sdl" />
 	<set name="SDL_IMAGE_DIRECTORY" value="${this_dir}/submodules/sdl_image" />
@@ -17,19 +19,5 @@
 		<set name="SDL_TTF_DEPS_HARFBUZZ_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/harfbuzz" />
 		<set name="SDL_TTF_DEPS_PLUTOSVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutosvg" />
 		<set name="SDL_TTF_DEPS_PLUTOVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutovg" />
-	</section>
-
-	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
-
-	<set name="DR_LIBS_DIRECTORY" value="${this_dir}/submodules/dr_libs" />
-
-	<set name="STB_DIRECTORY" value="${this_dir}/modules/stb" />
-
-	<set name="SOFT_OAL_DIRECTORY" value="${this_dir}/submodules/soft_oal" />
-
-	<section>
-		<set name="SOFT_OAL_DEPS_OBOE_DIRECTORY" value="${this_dir}/submodules/oboe" />
-		<set name="SOFT_OAL_DEPS_FMT_DIRECTORY" value="${this_dir}/submodules/soft_oal/fmt-11.2.0" />
-		<set name="SOFT_OAL_DEPS_GSL_DIRECTORY" value="${this_dir}/submodules/soft_oal/gsl" />
 	</section>
 </xml>

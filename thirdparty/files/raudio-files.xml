@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<files id="raudio-files" dir="${RAUDIO_DIRECTORY}" tags="optim-std">
+		<compilerflag value="-I${RAUDIO_DIRECTORY}/src" />
+
+		<section>
+			<compilerflag value="-DRAUDIO_STANDALONE" />
+
+			<section>
+				<compilerflag value="-DSUPPORT_MODULE_RAUDIO" />
+
+				<section>
+					<compilerflag value="-DSUPPORT_FILEFORMAT_WAV" />
+					<compilerflag value="-DSUPPORT_FILEFORMAT_OGG" />
+					<compilerflag value="-DSUPPORT_FILEFORMAT_MP3" />
+					<compilerflag value="-DSUPPORT_FILEFORMAT_QOA" />
+					<compilerflag value="-DSUPPORT_FILEFORMAT_FLAC" />
+					<compilerflag value="-DSUPPORT_FILEFORMAT_XM" />
+					<compilerflag value="-DSUPPORT_FILEFORMAT_MOD" />
+				</section>
+			</section>
+		</section>
+
+		<file name="src/raudio.c" />
+	</files>
+</xml>

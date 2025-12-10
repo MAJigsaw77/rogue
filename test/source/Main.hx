@@ -12,9 +12,6 @@ import haxe.io.BytesData;
 
 import rogue.internal.MainLoop;
 import rogue.internal.externs.SDL;
-import rogue.internal.externs.openal.AL;
-import rogue.media.AudioManager;
-import rogue.media.buffer.AudioBuffer;
 #if (android || rpi || iphone)
 import rogue.internal.externs.opengl.gles2.GL;
 import rogue.internal.externs.opengl.gles2.Glad;
@@ -39,9 +36,6 @@ class Main
 	static var shaderProgram:GLuint = 0;
 	static var vertexArray:GLuint = 0;
 	static var vertexBufferObject:GLuint = 0;
-
-	static var alBuffers:StdVector<ALuint>;
-	static var alSources:StdVector<ALuint>;
 
 	static var running:Bool = true;
 
@@ -165,57 +159,6 @@ class Main
 		}
 
 		return null;
-	}
-
-	static function createALSource():ALuint
-	{
-		var source:ALuint = 0;
-		AL.genSources(1, Pointer.addressOf(source).raw);
-		return source;
-	}
-
-	static function createALBuffer():ALuint
-	{
-		var buffer:ALuint = 0;
-		AL.genBuffers(1, Pointer.addressOf(buffer).raw);
-		return buffer;
-	}
-
-	static function getCurrentSeconds(source:ALuint):Float
-	{
-		var secOffset:ALfloat = 0;
-
-		AL.getSourcef(source, AL.SEC_OFFSET, Pointer.addressOf(secOffset).raw);
-
-		return secOffset;
-	}
-
-	static function getTotalSeconds(buffer:ALuint):Float
-	{
-		var frequency:ALint = 0;
-		var size:ALint = 0;
-		var channels:ALint = 0;
-		var bits:ALint = 0;
-
-		AL.getBufferi(buffer, AL.FREQUENCY, Pointer.addressOf(frequency).raw);
-		AL.getBufferi(buffer, AL.SIZE, Pointer.addressOf(size).raw);
-		AL.getBufferi(buffer, AL.CHANNELS, Pointer.addressOf(channels).raw);
-		AL.getBufferi(buffer, AL.BITS, Pointer.addressOf(bits).raw);
-
-		return ((size / ((bits / 8.0) * channels)) / frequency);
-	}
-
-	static function getBytesFromIO(path:String):Bytes
-	{
-		final data_size:SizeT = 0;
-
-		final data:RawPointer<UInt8> = cast SDL.LoadFile_IO(SDL.IOFromFile(path, 'rb'), Pointer.addressOf(data_size).raw, true);
-
-		final bytes:BytesData = Pointer.fromRaw(data).toUnmanagedArray(data_size);
-
-		SDL.free(untyped data);
-
-		return Bytes.ofData(bytes);
 	}
 
 	public static function main():Void
@@ -346,44 +289,6 @@ class Main
 
 		GL.bindVertexArray(0);
 
-		AudioManager.init();
-
-		alBuffers = new StdVector<ALuint>();
-		alSources = new StdVector<ALuint>();
-
-		final paths:Array<String> = [
-			'assets/Inst-erect.ogg',
-			'assets/Voices-darnell-erect.ogg',
-			'assets/Voices-pico-erect.ogg'
-		];
-
-		for (path in paths)
-		{
-			final source:ALuint = createALSource();
-
-			{
-				final buffer:AudioBuffer = new AudioBuffer();
-
-				if (buffer.decode(path, OGG))
-				{
-					@:privateAccess
-					final alBuffer:ALuint = buffer.createALBuffer();
-
-					AL.sourcei(source, AL.BUFFER, alBuffer);
-
-					alBuffers.push_back(alBuffer);
-				}
-
-				buffer.dispose();
-			}
-
-			AL.sourcei(source, AL.LOOPING, AL.TRUE);
-
-			alSources.push_back(source);
-		}
-
-		AL.sourcePlayv(alSources.size(), alSources.data());
-
 		{
 			MainLoop.setTargetFPS(60);
 
@@ -396,12 +301,6 @@ class Main
 		GL.deleteVertexArrays(1, Pointer.addressOf(vertexArray).raw);
 		GL.deleteBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		GL.deleteProgram(shaderProgram);
-
-		AL.sourceStopv(alSources.size(), alSources.data());
-		AL.deleteSources(alSources.size(), alSources.data());
-		AL.deleteBuffers(alBuffers.size(), alBuffers.data());
-
-		AudioManager.shutdown();
 
 		SDL.GL_DestroyContext(glContext);
 		SDL.DestroyWindow(window);
@@ -423,46 +322,6 @@ class Main
 				{
 					running = false;
 				}
-				else if (event.type == SDL_EVENT_KEY_DOWN)
-				{
-					if (event.key.key == SDL.K_P)
-					{
-						AL.sourcePausev(alSources.size(), alSources.data());
-					}
-					else if (event.key.key == SDL.K_S)
-					{
-						AL.sourcePlayv(alSources.size(), alSources.data());
-					}
-					else if (event.key.key == SDL.K_R)
-					{
-						AL.sourceRewindv(alSources.size(), alSources.data());
-					}
-
-					if (event.key.key == SDL.K_KP_0)
-					{
-						AL.sourcef(alSources[0], AL.GAIN, 0.0);
-					}
-					else if (event.key.key == SDL.K_KP_1)
-					{
-						AL.sourcef(alSources[0], AL.GAIN, 1);
-					}
-					else if (event.key.key == SDL.K_KP_2)
-					{
-						AL.sourcef(alSources[1], AL.GAIN, 0.0);
-					}
-					else if (event.key.key == SDL.K_KP_3)
-					{
-						AL.sourcef(alSources[1], AL.GAIN, 1);
-					}
-					else if (event.key.key == SDL.K_KP_4)
-					{
-						AL.sourcef(alSources[2], AL.GAIN, 0.0);
-					}
-					else if (event.key.key == SDL.K_KP_5)
-					{
-						AL.sourcef(alSources[2], AL.GAIN, 1);
-					}
-				}
 				else if (event.type == SDL_EVENT_WINDOW_RESIZED)
 				{
 					GL.viewport(0, 0, event.window.data1, event.window.data2);
@@ -473,22 +332,7 @@ class Main
 		{
 			// Update
 
-			// Sys.println('FPS: ${Math.fround(1000.0 / MainLoop.deltaTime)} - Frame: ${MainLoop.deltaTime}ms');
-
-			// final paths:Array<String> = [
-			// 	'assets/Inst-erect.ogg',
-			// 	'assets/Voices-darnell-erect.ogg',
-			// 	'assets/Voices-pico-erect.ogg'
-			// ];
-
-			// Sys.println('');
-
-			// for (i in 0...paths.length)
-			// {
-			// 	Sys.println('Path: ${paths[i]}, Current: ${getCurrentSeconds(alSources[i])} seconds / Total: ${getTotalSeconds(alBuffers[i])} seconds');
-			// }
-
-			// Sys.println('');
+			Sys.println('FPS: ${Math.fround(1000.0 / MainLoop.deltaTime)} - Frame: ${MainLoop.deltaTime}ms');
 		}
 
 		{

@@ -47,11 +47,11 @@
 		<include name="${PROJECT_THIRDPARTY_DIR}/libraries-config.xml" />
 
 		<section>
-			<!--Dr_Libs Files-->
-			<include name="${PROJECT_THIRDPARTY_DIR}/files/dr_libs-files.xml" />
-
 			<!--Glad Files-->
 			<include name="${PROJECT_THIRDPARTY_DIR}/files/glad-files.xml" />
+
+			<!--RAudio Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/raudio-files.xml" />
 
 			<!--SDL Files-->
 			<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl-files.xml" />
@@ -61,12 +61,6 @@
 
 			<!--SDL_TTF Files-->
 			<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl_ttf-files.xml" />
-
-			<!--Soft OpenAL Files-->
-			<include name="${PROJECT_THIRDPARTY_DIR}/files/soft_oal-files.xml" />
-
-			<!--STB Files-->
-			<include name="${PROJECT_THIRDPARTY_DIR}/files/stb-files.xml" />
 		</section>
 	</section>
 
@@ -81,6 +75,10 @@
 			<ext value=".dll" if="windows" />
 		</section>
 
+		<files id="glad-files" />
+
+		<files id="raudio-files" />
+
 		<files id="sdl-files" />
 
 		<files id="sdl_image-files" />
@@ -92,20 +90,6 @@
 			<files id="sdl_ttf-deps-plutosvg-files" />
 
 			<files id="sdl_ttf-files" />
-		</section>
-
-		<files id="glad-files" />
-
-		<files id="dr_libs-files" />
-
-		<files id="stb-files" />
-
-		<section>
-			<files id="soft_oal-deps-oboe-files" if="android" />
-
-			<files id="soft_oal-deps-fmt-files" />
-
-			<files id="soft_oal-files" />
 		</section>
 
 		<section>

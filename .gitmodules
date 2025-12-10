@@ -10,15 +10,3 @@
 	path = thirdparty/submodules/sdl_ttf
 	url = https://github.com/libsdl-org/SDL_ttf.git
 	shallow = true
-[submodule "thirdparty/submodules/soft_oal"]
-	path = thirdparty/submodules/soft_oal
-	url = https://github.com/kcat/openal-soft.git
-	shallow = true
-[submodule "thirdparty/submodules/dr_libs"]
-	path = thirdparty/submodules/dr_libs
-	url = https://github.com/mackron/dr_libs
-	shallow = true
-[submodule "thirdparty/submodules/oboe"]
-	path = thirdparty/submodules/oboe
-	url = https://github.com/google/oboe.git
-	shallow = true
