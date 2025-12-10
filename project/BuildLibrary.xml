@@ -9,7 +9,7 @@
 
 	<set name="HXCPP_CPP20" value="1" />
 
-	<set name="LIBPREFIX" value="lib" unless="windows" />
+	<set name="LIBPREFIX" value="lib" if="linux" />
 
 	<!--Adjust The `BINDIR` For Each Target-->
 
@@ -66,7 +66,7 @@
 
 	<!--Project Target-->
 
-	<target id="${PROJECT_NAME}" output="${LIBPREFIX}${PROJECT_NAME}" tool="linker" toolid="${STD_MODULE_LINK}">
+	<target id="${PROJECT_NAME}" output="${PROJECT_NAME}" tool="linker" toolid="${STD_MODULE_LINK}">
 		<outdir name="${PROJECT_LIB_DIR}/${BINDIR}" />
 
 		<section>
