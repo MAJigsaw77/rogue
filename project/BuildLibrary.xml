@@ -7,8 +7,6 @@
 
 	<!--HXCPP Defines-->
 
-	<set name="HXCPP_CPP20" value="1" />
-
 	<set name="LIBPREFIX" value="lib" if="linux" />
 
 	<!--Adjust The `BINDIR` For Each Target-->

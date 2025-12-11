@@ -294,15 +294,11 @@ class Main
 		RAudio.InitAudioDevice();
 
 		var inst:Music = RAudio.LoadMusicStream("assets/Inst-erect.ogg");
-		// RAudio.SetMusicPitch(inst, 1.25);
-		RAudio.PlayMusicStream(inst);
-
 		var voices0:Music = RAudio.LoadMusicStream("assets/Voices-darnell-erect.ogg");
-		// RAudio.SetMusicPitch(voices0, 1.25);
-		RAudio.PlayMusicStream(voices0);
-
 		var voices1:Music = RAudio.LoadMusicStream("assets/Voices-pico-erect.ogg");
-		// RAudio.SetMusicPitch(voices1, 1.25);
+
+		RAudio.PlayMusicStream(inst);
+		RAudio.PlayMusicStream(voices0);
 		RAudio.PlayMusicStream(voices1);
 
 		{
@@ -321,8 +317,8 @@ class Main
 
 				trace('');
 				trace('Inst-erect.ogg:           ${RAudio.GetMusicTimePlayed(inst)} seconds / ${RAudio.GetMusicTimeLength(inst)} length.');
-				trace('Voices-darnell-erect.ogg: ${RAudio.GetMusicTimePlayed(inst)} seconds / ${RAudio.GetMusicTimeLength(inst)} length.');
-				trace('Voices-pico-erect.ogg:    ${RAudio.GetMusicTimePlayed(inst)} seconds / ${RAudio.GetMusicTimeLength(inst)} length.');
+				trace('Voices-darnell-erect.ogg: ${RAudio.GetMusicTimePlayed(voices0)} seconds / ${RAudio.GetMusicTimeLength(voices0)} length.');
+				trace('Voices-pico-erect.ogg:    ${RAudio.GetMusicTimePlayed(voices1)} seconds / ${RAudio.GetMusicTimeLength(voices1)} length.');
 				trace('');
 
 				run();
