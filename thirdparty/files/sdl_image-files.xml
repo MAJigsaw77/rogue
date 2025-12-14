@@ -5,7 +5,7 @@
 
 		<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/include" />
 
-		<compilerflag value="-DDLL_EXPORT" if="windows" />
+		<compilerflag value="-DSDL_DISABLE_ALLOCA" />
 
 		<section>
 			<compilerflag value="-DUSE_STBIMAGE" />

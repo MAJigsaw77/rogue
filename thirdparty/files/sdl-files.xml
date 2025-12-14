@@ -19,8 +19,6 @@
 
 		<compilerflag value="-DSDL_DISABLE_ALLOCA" />
 
-		<compilerflag value="-DDLL_EXPORT" if="windows" />
-
 		<section>
 			<compilerflag value="-I${SDL_DIRECTORY}/src" />
 

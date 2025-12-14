@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
-	<!-- Libs Overrideable Directories -->
-
-	<set name="SDL_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl" />
-
 	<!-- Libs Directories -->
 
-	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
+	<section>
+		<set name="SDL_OVERRIDE_DIRECTORY" value="${this_dir}/override/sdl" />
+		<set name="SDL_DIRECTORY" value="${this_dir}/submodules/sdl" />
+	</section>
 
-	<set name="SDL_DIRECTORY" value="${this_dir}/submodules/sdl" />
 	<set name="SDL_IMAGE_DIRECTORY" value="${this_dir}/submodules/sdl_image" />
 
 	<section>
@@ -17,5 +15,24 @@
 		<set name="SDL_TTF_DEPS_PLUTOSVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutosvg" />
 		<set name="SDL_TTF_DEPS_PLUTOVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutovg" />
 		<set name="SDL_TTF_DIRECTORY" value="${this_dir}/submodules/sdl_ttf" />
+	</section>
+
+	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
+
+	<section>
+		<section>
+			<set name="MINIAUDIO_DEPS_OPUS_DIRECTORY" value="${this_dir}/submodules/opus" />
+			<set name="MINIAUDIO_DEPS_OPUSFILE_DIRECTORY" value="${this_dir}/submodules/opusfile" />
+
+			<section>
+				<set name="MINIAUDIO_DEPS_OGG_OVERRIDE_DIRECTORY" value="${this_dir}/override/ogg" />
+				<set name="MINIAUDIO_DEPS_OGG_DIRECTORY" value="${this_dir}/submodules/ogg" />
+			</section>
+
+			<set name="MINIAUDIO_DEPS_VORBIS_DIRECTORY" value="${this_dir}/submodules/vorbis" />
+		</section>
+
+		<set name="MINIAUDIO_CUSTOM_DIRECTORY" value="${this_dir}/modules/miniaudio" />
+		<set name="MINIAUDIO_DIRECTORY" value="${this_dir}/submodules/miniaudio" />
 	</section>
 </xml>

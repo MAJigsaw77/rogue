@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<files id="miniaudio-deps-opus-files" dir="${MINIAUDIO_DEPS_OPUS_DIRECTORY}" tags="optim-std">
+		<compilerflag value="-I${MINIAUDIO_DEPS_OPUS_DIRECTORY}/celt" />
+		<compilerflag value="-I${MINIAUDIO_DEPS_OPUS_DIRECTORY}/silk" />
+		<compilerflag value="-I${MINIAUDIO_DEPS_OPUS_DIRECTORY}/silk/float" />
+		<compilerflag value="-I${MINIAUDIO_DEPS_OPUS_DIRECTORY}/include" />
+
+		<compilerflag value="-DOPUS_BUILD" />
+		<compilerflag value="-DUSE_ALLOCA" />
+		<compilerflag value="-DHAVE_LRINTF" if="HXCPP_ARMV7" />
+
+		<section>
+			<section if="windows">
+				<compilerflag value="/wd4477" />
+				<compilerflag value="/wd4133" />
+			</section>
+		</section>
+
+		<section>
+			<file name="celt/bands.c" />
+			<file name="celt/celt_decoder.c" />
+			<file name="celt/celt_encoder.c" />
+			<file name="celt/celt_lpc.c" />
+			<file name="celt/celt.c" />
+			<file name="celt/cwrs.c" />
+			<file name="celt/entcode.c" />
+			<file name="celt/entdec.c" />
+			<file name="celt/entenc.c" />
+			<file name="celt/kiss_fft.c" />
+			<file name="celt/laplace.c" />
+			<file name="celt/mathops.c" />
+			<file name="celt/mdct.c" />
+			<file name="celt/modes.c" />
+			<file name="celt/pitch.c" />
+			<file name="celt/quant_bands.c" />
+			<file name="celt/rate.c" />
+			<file name="celt/vq.c" />
+		</section>
+
+		<section>
+			<file name="silk/CNG.c" />
+			<file name="silk/code_signs.c" />
+			<file name="silk/init_decoder.c" />
+			<file name="silk/decode_core.c" />
+			<file name="silk/decode_frame.c" />
+			<file name="silk/decode_parameters.c" />
+			<file name="silk/decode_indices.c" />
+			<file name="silk/decode_pulses.c" />
+			<file name="silk/decoder_set_fs.c" />
+			<file name="silk/dec_API.c" />
+			<file name="silk/enc_API.c" />
+			<file name="silk/encode_indices.c" />
+			<file name="silk/encode_pulses.c" />
+			<file name="silk/gain_quant.c" />
+			<file name="silk/interpolate.c" />
+			<file name="silk/LP_variable_cutoff.c" />
+			<file name="silk/NLSF_decode.c" />
+			<file name="silk/NSQ.c" />
+			<file name="silk/NSQ_del_dec.c" />
+			<file name="silk/PLC.c" />
+			<file name="silk/shell_coder.c" />
+			<file name="silk/tables_gain.c" />
+			<file name="silk/tables_LTP.c" />
+			<file name="silk/tables_NLSF_CB_NB_MB.c" />
+			<file name="silk/tables_NLSF_CB_WB.c" />
+			<file name="silk/tables_other.c" />
+			<file name="silk/tables_pitch_lag.c" />
+			<file name="silk/tables_pulses_per_block.c" />
+			<file name="silk/VAD.c" />
+			<file name="silk/control_audio_bandwidth.c" />
+			<file name="silk/quant_LTP_gains.c" />
+			<file name="silk/VQ_WMat_EC.c" />
+			<file name="silk/HP_variable_cutoff.c" />
+			<file name="silk/NLSF_encode.c" />
+			<file name="silk/NLSF_VQ.c" />
+			<file name="silk/NLSF_unpack.c" />
+			<file name="silk/NLSF_del_dec_quant.c" />
+			<file name="silk/process_NLSFs.c" />
+			<file name="silk/stereo_LR_to_MS.c" />
+			<file name="silk/stereo_MS_to_LR.c" />
+			<file name="silk/check_control_input.c" />
+			<file name="silk/control_SNR.c" />
+			<file name="silk/init_encoder.c" />
+			<file name="silk/control_codec.c" />
+			<file name="silk/A2NLSF.c" />
+			<file name="silk/ana_filt_bank_1.c" />
+			<file name="silk/biquad_alt.c" />
+			<file name="silk/bwexpander_32.c" />
+			<file name="silk/bwexpander.c" />
+			<file name="silk/debug.c" />
+			<file name="silk/decode_pitch.c" />
+			<file name="silk/inner_prod_aligned.c" />
+			<file name="silk/lin2log.c" />
+			<file name="silk/log2lin.c" />
+			<file name="silk/LPC_analysis_filter.c" />
+			<file name="silk/LPC_inv_pred_gain.c" />
+			<file name="silk/table_LSF_cos.c" />
+			<file name="silk/NLSF2A.c" />
+			<file name="silk/NLSF_stabilize.c" />
+			<file name="silk/NLSF_VQ_weights_laroia.c" />
+			<file name="silk/pitch_est_tables.c" />
+			<file name="silk/resampler.c" />
+			<file name="silk/resampler_down2_3.c" />
+			<file name="silk/resampler_down2.c" />
+			<file name="silk/resampler_private_AR2.c" />
+			<file name="silk/resampler_private_down_FIR.c" />
+			<file name="silk/resampler_private_IIR_FIR.c" />
+			<file name="silk/resampler_private_up2_HQ.c" />
+			<file name="silk/resampler_rom.c" />
+			<file name="silk/sigm_Q15.c" />
+			<file name="silk/sort.c" />
+			<file name="silk/sum_sqr_shift.c" />
+			<file name="silk/stereo_decode_pred.c" />
+			<file name="silk/stereo_encode_pred.c" />
+			<file name="silk/stereo_find_predictor.c" />
+			<file name="silk/stereo_quant_pred.c" />
+			<file name="silk/LPC_fit.c" />
+
+			<file name="silk/float/apply_sine_window_FLP.c" />
+			<file name="silk/float/corrMatrix_FLP.c" />
+			<file name="silk/float/encode_frame_FLP.c" />
+			<file name="silk/float/find_LPC_FLP.c" />
+			<file name="silk/float/find_LTP_FLP.c" />
+			<file name="silk/float/find_pitch_lags_FLP.c" />
+			<file name="silk/float/find_pred_coefs_FLP.c" />
+			<file name="silk/float/LPC_analysis_filter_FLP.c" />
+			<file name="silk/float/LTP_analysis_filter_FLP.c" />
+			<file name="silk/float/LTP_scale_ctrl_FLP.c" />
+			<file name="silk/float/noise_shape_analysis_FLP.c" />
+			<file name="silk/float/process_gains_FLP.c" />
+			<file name="silk/float/regularize_correlations_FLP.c" />
+			<file name="silk/float/residual_energy_FLP.c" />
+			<file name="silk/float/warped_autocorrelation_FLP.c" />
+			<file name="silk/float/wrappers_FLP.c" />
+			<file name="silk/float/autocorrelation_FLP.c" />
+			<file name="silk/float/burg_modified_FLP.c" />
+			<file name="silk/float/bwexpander_FLP.c" />
+			<file name="silk/float/energy_FLP.c" />
+			<file name="silk/float/inner_product_FLP.c" />
+			<file name="silk/float/k2a_FLP.c" />
+			<file name="silk/float/LPC_inv_pred_gain_FLP.c" />
+			<file name="silk/float/pitch_analysis_core_FLP.c" />
+			<file name="silk/float/scale_copy_vector_FLP.c" />
+			<file name="silk/float/scale_vector_FLP.c" />
+			<file name="silk/float/schur_FLP.c" />
+			<file name="silk/float/sort_FLP.c" />
+		</section>
+
+		<file name="src/analysis.c" />
+		<file name="src/extensions.c" />
+		<file name="src/mapping_matrix.c" />
+		<file name="src/mlp_data.c" />
+		<file name="src/mlp.c" />
+		<file name="src/opus_decoder.c" />
+		<file name="src/opus_encoder.c" />
+		<file name="src/opus_multistream_decoder.c" />
+		<file name="src/opus_multistream_encoder.c" />
+		<file name="src/opus_multistream.c" />
+		<file name="src/opus_projection_decoder.c" />
+		<file name="src/opus_projection_encoder.c" />
+		<file name="src/opus.c" />
+		<file name="src/repacketizer.c" />
+	</files>
+
+	<files id="miniaudio-deps-ogg-files" dir="${MINIAUDIO_DEPS_OGG_DIRECTORY}" tags="optim-std">
+		<compilerflag value="-I${MINIAUDIO_DEPS_OGG_OVERRIDE_DIRECTORY}/include" />
+		<compilerflag value="-I${MINIAUDIO_DEPS_OGG_DIRECTORY}/include" />
+
+		<file name="src/bitwise.c" />
+		<file name="src/framing.c" />
+	</files>
+
+	<files id="miniaudio-deps-opusfile-files" dir="${MINIAUDIO_DEPS_OPUSFILE_DIRECTORY}" tags="optim-std">
+		<section>
+			<compilerflag value="-I${MINIAUDIO_DEPS_OPUS_DIRECTORY}/include" />
+
+			<section>
+				<compilerflag value="-I${MINIAUDIO_DEPS_OGG_OVERRIDE_DIRECTORY}/include" />
+				<compilerflag value="-I${MINIAUDIO_DEPS_OGG_DIRECTORY}/include" />
+			</section>
+		</section>
+
+		<compilerflag value="-I${MINIAUDIO_DEPS_OPUSFILE_DIRECTORY}/include" />
+
+		<file name="src/http.c" />
+		<file name="src/info.c" />
+		<file name="src/internal.c" />
+		<file name="src/opusfile.c" />
+		<file name="src/stream.c" />
+		<file name="src/wincerts.c" />
+	</files>
+
+	<files id="miniaudio-deps-vorbis-files" dir="${MINIAUDIO_DEPS_VORBIS_DIRECTORY}" tags="optim-std">
+		<section>
+			<compilerflag value="-I${MINIAUDIO_DEPS_OGG_OVERRIDE_DIRECTORY}/include" />
+			<compilerflag value="-I${MINIAUDIO_DEPS_OGG_DIRECTORY}/include" />
+		</section>
+
+		<compilerflag value="-I${MINIAUDIO_DEPS_VORBIS_DIRECTORY}/include" />
+		<compilerflag value="-I${MINIAUDIO_DEPS_VORBIS_DIRECTORY}/lib" />
+
+		<file name="lib/analysis.c" />
+		<file name="lib/bitrate.c" />
+		<file name="lib/block.c" />
+		<file name="lib/codebook.c" />
+		<file name="lib/envelope.c" />
+		<file name="lib/floor0.c" />
+		<file name="lib/floor1.c" />
+		<file name="lib/info.c" />
+		<file name="lib/lookup.c" />
+		<file name="lib/lpc.c" />
+		<file name="lib/lsp.c" />
+		<file name="lib/mapping0.c" />
+		<file name="lib/mdct.c" />
+		<file name="lib/psy.c" />
+		<file name="lib/registry.c" />
+		<file name="lib/res0.c" />
+		<file name="lib/sharedbook.c" />
+		<file name="lib/smallft.c" />
+		<file name="lib/synthesis.c" />
+		<file name="lib/vorbisenc.c" />
+		<file name="lib/vorbisfile.c" />
+		<file name="lib/window.c" />
+	</files>
+
+	<files id="miniaudio-files" dir="${MINIAUDIO_CUSTOM_DIRECTORY}" tags="optim-std">
+		<section>
+			<compilerflag value="-I${MINIAUDIO_DEPS_OPUS_DIRECTORY}/include" />
+			<compilerflag value="-I${MINIAUDIO_DEPS_OPUSFILE_DIRECTORY}/include" />
+
+			<section>
+				<compilerflag value="-I${MINIAUDIO_DEPS_OGG_OVERRIDE_DIRECTORY}/include" />
+				<compilerflag value="-I${MINIAUDIO_DEPS_OGG_DIRECTORY}/include" />
+			</section>
+
+			<compilerflag value="-I${MINIAUDIO_DEPS_VORBIS_DIRECTORY}/include" />
+		</section>
+
+		<compilerflag value="-I${MINIAUDIO_DIRECTORY}" />
+
+		<file name="miniaudio_custom.c" />
+	</files>
+</xml>

@@ -31,40 +31,48 @@
 
 	<target id="haxe">
 		<section if="windows">
-			<lib name="${PROJECT_LIB_DIR}/Windows/arm64/rogue.lib" if="HXCPP_ARM64" />
-			<lib name="${PROJECT_LIB_DIR}/Windows/x64/rogue.lib" if="HXCPP_M64" unless="HXCPP_ARM64" />
-			<lib name="${PROJECT_LIB_DIR}/Windows/x86/rogue.lib" if="HXCPP_M32" />
+			<lib name="${PROJECT_LIB_DIR}/Windows/arm64/librogue.lib" if="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Windows/x64/librogue.lib" if="HXCPP_M64" unless="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Windows/x86/librogue.lib" if="HXCPP_M32" />
+
+			<section>
+				<lib name="advapi32.lib" />
+				<lib name="avrt.lib" />
+				<lib name="cfgmgr32.lib" />
+				<lib name="gdi32.lib" />
+				<lib name="imm32.lib" />
+				<lib name="ole32.lib" />
+				<lib name="oleaut32.lib" />
+				<lib name="rpcrt4.lib" />
+				<lib name="setupapi.lib" />
+				<lib name="shell32.lib" />
+				<lib name="usp10.lib" />
+				<lib name="version.lib" />
+				<lib name="winmm.lib" />
+			</section>
 		</section>
 
 		<section if="android">
-			<lib name="${PROJECT_LIB_DIR}/Android/arm64-v8a/librogue.so" if="HXCPP_ARM64" />
-			<lib name="${PROJECT_LIB_DIR}/Android/armeabi-v7a/librogue.so" if="HXCPP_ARMV7" />
-			<lib name="${PROJECT_LIB_DIR}/Android/x86/librogue.so" if="HXCPP_X86" />
-			<lib name="${PROJECT_LIB_DIR}/Android/x86_64/librogue.so" if="HXCPP_X86_64" />
+			<lib name="${PROJECT_LIB_DIR}/Android/arm64-v8a/librogue.a" if="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Android/armeabi-v7a/librogue.a" if="HXCPP_ARMV7" />
+			<lib name="${PROJECT_LIB_DIR}/Android/x86/librogue.a" if="HXCPP_X86" />
+			<lib name="${PROJECT_LIB_DIR}/Android/x86_64/librogue.a" if="HXCPP_X86_64" />
+
+			<section>
+				<lib name="-lGLESv2" />
+				<lib name="-landroid" />
+			</section>
 		</section>
 
 		<section if="linux">
-			<flag value="-L${PROJECT_LIB_DIR}/Linux/arm64" if="HXCPP_ARM64" />
-			<flag value="-L${PROJECT_LIB_DIR}/Linux/x64" if="HXCPP_M64" unless="HXCPP_ARM64" />
-			<flag value="-L${PROJECT_LIB_DIR}/Linux/x86" if="HXCPP_M32" />
+			<lib name="${PROJECT_LIB_DIR}/Linux/arm64/librogue.lib" if="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Linux/x64/librogue.lib" if="HXCPP_M64" unless="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Linux/x86/librogue.lib" if="HXCPP_M32" />
 
-			<flag value="-Wl,-rpath,$ORIGIN" />
-
-			<lib name="-lrogue" />
+			<section>
+				<lib name="-ludev" />
+			</section>
 		</section>
 	</target>
 
-	<!--Copy Libraries-->
-
-	<section if="windows">
-		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows/arm64" if="HXCPP_ARM64" />
-		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows/x64" if="HXCPP_M64" unless="HXCPP_ARM64" />
-		<copyFile toolId="exe" name="rogue.dll" from="${PROJECT_LIB_DIR}/Windows/x86" if="HXCPP_M32" />
-	</section>
-
-	<section if="linux">
-		<copyFile toolId="exe" name="librogue.so" from="${PROJECT_LIB_DIR}/Linux/arm64" if="HXCPP_ARM64" />
-		<copyFile toolId="exe" name="librogue.so" from="${PROJECT_LIB_DIR}/Linux/x64" if="HXCPP_M64" unless="HXCPP_ARM64" />
-		<copyFile toolId="exe" name="librogue.so" from="${PROJECT_LIB_DIR}/Linux/x86" if="HXCPP_M32" />
-	</section>
 </xml>

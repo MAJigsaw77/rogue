@@ -5,13 +5,11 @@
 		<compilerflag value="-I${SDL_IMAGE_DIRECTORY}/include" />
 		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
 		<compilerflag value="-I${GLAD_DIRECTORY}/include" />
-		<compilerflag value="-I${RAUDIO_DIRECTORY}/src" />
+		<compilerflag value="-I${MINIAUDIO_DIRECTORY}" />
 	</section>
 
 	<section>
 		<compilerflag value="-DSDL_DISABLE_ALLOCA" />
 		<compilerflag value="-DSDL_MAIN_HANDLED" />
-		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
-		<compilerflag value="-DRAUDIO_API_CALL_EXPORT" />
 	</section>
 </xml>

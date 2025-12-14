@@ -1,40 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
-	<files id="sdl_ttf-files" dir="${SDL_TTF_DIRECTORY}" tags="optim-std">
-		<section>
-			<compilerflag value="-I${SDL_DIRECTORY}/include" />
-			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
-			<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
-			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
-			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
-		</section>
-
-		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
-
-		<section>
-			<compilerflag value="-DPLUTOSVG_BUILD" />
-			<compilerflag value="-DPLUTOVG_BUILD" />
-		</section>
-
-		<compilerflag value="-DDLL_EXPORT" if="windows" />
-
-		<section>
-			<compilerflag value="-DTTF_USE_HARFBUZZ" />
-			<compilerflag value="-DTTF_USE_PLUTOSVG" />
-		</section>
-
-		<section>
-			<compilerflag value="-I${SDL_TTF_DIRECTORY}/src" />
-
-			<file name="src/SDL_gpu_textengine.c" />
-			<file name="src/SDL_hashtable.c" />
-			<file name="src/SDL_hashtable_ttf.c" />
-			<file name="src/SDL_renderer_textengine.c" />
-			<file name="src/SDL_surface_textengine.c" />
-			<file name="src/SDL_ttf.c" />
-		</section>
-	</files>
-
 	<files id="sdl_ttf-deps-freetype-files" dir="${SDL_TTF_DEPS_FREETYPE_DIRECTORY}" tags="optim-std">
 		<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
 		<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
@@ -217,8 +182,8 @@
 	
 		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
 
-		<compilerflag value="-DPLUTOVG_BUILD" />
-		<compilerflag value="-DPLUTOSVG_BUILD" />
+		<compilerflag value="-DPLUTOVG_BUILD_STATIC" />
+		<compilerflag value="-DPLUTOSVG_BUILD_STATIC" />
 		<compilerflag value="-DPLUTOSVG_HAS_FREETYPE" />
 
 		<section>
@@ -229,7 +194,7 @@
 	<files id="sdl_ttf-deps-plutovg-files" dir="${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}" tags="optim-std">
 		<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
 
-		<compilerflag value="-DPLUTOVG_BUILD" />
+		<compilerflag value="-DPLUTOVG_BUILD_STATIC" />
 
 		<section>
 			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/src" />
@@ -245,6 +210,39 @@
 			<file name="source/plutovg-ft-math.c" />
 			<file name="source/plutovg-ft-raster.c" />
 			<file name="source/plutovg-ft-stroker.c" />
+		</section>
+	</files>
+
+	<files id="sdl_ttf-files" dir="${SDL_TTF_DIRECTORY}" tags="optim-std">
+		<section>
+			<compilerflag value="-I${SDL_DIRECTORY}/include" />
+			<compilerflag value="-I${SDL_TTF_DEPS_FREETYPE_DIRECTORY}/include" />
+			<compilerflag value="-I${SDL_TTF_DEPS_HARFBUZZ_DIRECTORY}/src" />
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOSVG_DIRECTORY}/source" />
+			<compilerflag value="-I${SDL_TTF_DEPS_PLUTOVG_DIRECTORY}/include" />
+		</section>
+
+		<compilerflag value="-I${SDL_TTF_DIRECTORY}/include" />
+
+		<section>
+			<compilerflag value="-DPLUTOSVG_BUILD_STATIC" />
+			<compilerflag value="-DPLUTOVG_BUILD_STATIC" />
+		</section>
+
+		<section>
+			<compilerflag value="-DTTF_USE_HARFBUZZ" />
+			<compilerflag value="-DTTF_USE_PLUTOSVG" />
+		</section>
+
+		<section>
+			<compilerflag value="-I${SDL_TTF_DIRECTORY}/src" />
+
+			<file name="src/SDL_gpu_textengine.c" />
+			<file name="src/SDL_hashtable.c" />
+			<file name="src/SDL_hashtable_ttf.c" />
+			<file name="src/SDL_renderer_textengine.c" />
+			<file name="src/SDL_surface_textengine.c" />
+			<file name="src/SDL_ttf.c" />
 		</section>
 	</files>
 </xml>

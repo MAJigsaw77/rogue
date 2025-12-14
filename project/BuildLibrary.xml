@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xml>
-
-	<!--Static linking MUST NOT be used-->
-
-	<error value="Static linking MUST NOT be used." if="static_link" />
-
 	<!--HXCPP Defines-->
 
-	<set name="LIBPREFIX" value="lib" if="linux" />
+	<set name="HXCPP_ANDROID_PLATFORM" value="24" />
 
 	<!--Adjust The `BINDIR` For Each Target-->
+
+	<set name="LIBPREFIX" value="lib" />
 
 	<set name="BINDIR" value="Windows" if="windows" />
 	<set name="BINDIR" value="MacOS" if="macos" />
@@ -33,9 +30,7 @@
 	<set name="PROJECT_NAME" value="rogue" />
 
 	<set name="PROJECT_DIR" value="${this_dir}" />
-
 	<set name="PROJECT_THIRDPARTY_DIR" value="${PROJECT_DIR}/../thirdparty" />
-
 	<set name="PROJECT_LIB_DIR" value="../lib" />
 
 	<!--XML Includes-->
@@ -45,12 +40,6 @@
 		<include name="${PROJECT_THIRDPARTY_DIR}/libraries-config.xml" />
 
 		<section>
-			<!--Glad Files-->
-			<include name="${PROJECT_THIRDPARTY_DIR}/files/glad-files.xml" />
-
-			<!--RAudio Files-->
-			<include name="${PROJECT_THIRDPARTY_DIR}/files/raudio-files.xml" />
-
 			<!--SDL Files-->
 			<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl-files.xml" />
 
@@ -59,23 +48,19 @@
 
 			<!--SDL_TTF Files-->
 			<include name="${PROJECT_THIRDPARTY_DIR}/files/sdl_ttf-files.xml" />
+
+			<!--Glad Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/glad-files.xml" />
+
+			<!--Miniaudio Files-->
+			<include name="${PROJECT_THIRDPARTY_DIR}/files/miniaudio-files.xml" />
 		</section>
 	</section>
 
 	<!--Project Target-->
 
-	<target id="${PROJECT_NAME}" output="${PROJECT_NAME}" tool="linker" toolid="${STD_MODULE_LINK}">
+	<target id="${PROJECT_NAME}" output="${LIBPREFIX}${PROJECT_NAME}" tool="linker" toolid="${STD_MODULE_LINK}">
 		<outdir name="${PROJECT_LIB_DIR}/${BINDIR}" />
-
-		<section>
-			<ext value=".so" if="android || linux" />
-			<ext value=".dylib" if="apple" />
-			<ext value=".dll" if="windows" />
-		</section>
-
-		<files id="glad-files" />
-
-		<files id="raudio-files" />
 
 		<files id="sdl-files" />
 
@@ -86,56 +71,24 @@
 			<files id="sdl_ttf-deps-harfbuzz-files" />
 			<files id="sdl_ttf-deps-plutovg-files" />
 			<files id="sdl_ttf-deps-plutosvg-files" />
-
 			<files id="sdl_ttf-files" />
 		</section>
 
+		<files id="glad-files" />
+
 		<section>
-			<section if="windows">
-				<lib name="advapi32.lib" />
-				<lib name="avrt.lib" />
-				<lib name="cfgmgr32.lib" />
-				<lib name="gdi32.lib" />
-				<lib name="imm32.lib" />
-				<lib name="ole32.lib" />
-				<lib name="oleaut32.lib" />
-				<lib name="rpcrt4.lib" />
-				<lib name="setupapi.lib" />
-				<lib name="shell32.lib" />
-				<lib name="usp10.lib" />
-				<lib name="version.lib" />
-				<lib name="winmm.lib" />
-			</section>
-
-			<section if="android">
-				<lib name="-lGLESv2" />
-				<lib name="-landroid" />
-			</section>
-
-			<section if="linux">
-				<lib name="-ludev" />
-			</section>
+			<files id="miniaudio-deps-opus-files" />
+			<files id="miniaudio-deps-ogg-files" />
+			<files id="miniaudio-deps-opusfile-files" />
+			<files id="miniaudio-deps-vorbis-files" />
+			<files id="miniaudio-files" />
 		</section>
 	</target>
 
 	<!--Default Target-->
 
 	<target id="default">
-
 		<target id="${PROJECT_NAME}" />
-
 	</target>
-
-	<!--Tweak Android Linker-->
-
-	<linker id="dll" if="android">
-		<flag value="-Wl,-soname,librogue.so" />
-	</linker>
-
-	<!--Copy the Windows lib (thanks tobil4sk)-->
-
-	<section if="windows">
-		<copyFile toolId="dll" name="${PROJECT_NAME}.lib" from="obj/lib" />
-	</section>
 
 </xml>

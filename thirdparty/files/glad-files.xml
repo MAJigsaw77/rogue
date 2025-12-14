@@ -3,9 +3,6 @@
 	<files id="glad-files" dir="${GLAD_DIRECTORY}" tags="optim-std">
 		<compilerflag value="-I${GLAD_DIRECTORY}/include" />
 
-		<compilerflag value="-DGLAD_API_CALL_EXPORT" />
-		<compilerflag value="-DGLAD_API_CALL_EXPORT_BUILD" />
-
 		<file name="src/gl.c" if="windows || macos || linux" />
 		<file name="src/gles2.c" if="android || rpi || iphone" />
 	</files>

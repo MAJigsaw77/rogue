@@ -1,7 +1,5 @@
 package;
 
-import rogue.internal.externs.raudio.RAudio;
-
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.SizeT;
@@ -22,6 +20,58 @@ import rogue.internal.externs.opengl.gl.GL;
 import rogue.internal.externs.opengl.gl.Glad;
 #end
 
+@:headerInclude('miniaudio.h')
+@:headerInclude('extras/decoders/libvorbis/miniaudio_libvorbis.h')
+@:headerInclude('extras/decoders/libopus/miniaudio_libopus.h')
+@:cppNamespaceCode('ma_result sdl_decoder_read(ma_decoder* pDecoder, void* pBufferOut, size_t bytesToRead, size_t* pBytesRead)
+{
+    size_t bytesRead = SDL_ReadIO((SDL_IOStream*)pDecoder->pUserData, pBufferOut, bytesToRead);
+    
+    if (pBytesRead != NULL)
+    {
+        (*pBytesRead) = bytesRead;
+    }
+    return MA_SUCCESS;
+}
+
+ma_result sdl_decoder_seek(ma_decoder* pDecoder, ma_int64 byteOffset, ma_seek_origin origin)
+{
+    SDL_IOWhence whence;
+
+    switch (origin)
+    {
+        case MA_SEEK_SET:
+            whence = SDL_IO_SEEK_SET;
+            break;
+        case MA_SEEK_CUR:
+            whence = SDL_IO_SEEK_CUR;
+            break;
+        case MA_SEEK_END:
+            whence = SDL_IO_SEEK_END;
+            break;
+        default:
+            return MA_INVALID_ARGS;
+    }
+
+    return SDL_SeekIO((SDL_IOStream*)pDecoder->pUserData, byteOffset, whence) < 0 ? MA_ERROR : MA_SUCCESS;
+}
+	
+ma_result sdl_decoder_tell(ma_decoder* pDecoder, ma_int64* pCursor)
+{
+    ma_int64 position = SDL_TellIO((SDL_IOStream*)pDecoder->pUserData);
+    
+    if (position < 0)
+    {
+        return MA_ERROR;
+    }
+    
+    if (pCursor != NULL)
+    {
+        (*pCursor) = position;
+    }
+    
+    return MA_SUCCESS;
+}')
 @:access(rogue.internal.MainLoop)
 @:access(rogue.media.AudioManager)
 @:buildXml("<include name=\"${haxelib:rogue}/project/IncludeLibrary.xml\" />")
@@ -291,36 +341,63 @@ class Main
 
 		GL.bindVertexArray(0);
 
-		RAudio.InitAudioDevice();
+		final fileIO:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Otonoke.opus', 'rb');
 
-		var inst:Music = RAudio.LoadMusicStream("assets/Inst-erect.ogg");
-		var voices0:Music = RAudio.LoadMusicStream("assets/Voices-darnell-erect.ogg");
-		var voices1:Music = RAudio.LoadMusicStream("assets/Voices-pico-erect.ogg");
+		untyped __cpp__('
+			ma_engine engine;
+			ma_decoder decoder;
+			ma_sound sound;
 
-		RAudio.PlayMusicStream(inst);
-		RAudio.PlayMusicStream(voices0);
-		RAudio.PlayMusicStream(voices1);
+			if (ma_engine_init(NULL, &engine) != MA_SUCCESS)
+			{
+				printf("Failed to initialize audio engine!\\n");
+				fflush(stdout);
+			}
+
+			ma_decoding_backend_vtable* pBackendVTables[] =
+			{
+				ma_decoding_backend_libvorbis,
+				ma_decoding_backend_libopus,
+				ma_decoding_backend_wav,
+				ma_decoding_backend_flac,
+				ma_decoding_backend_mp3
+			};
+
+			ma_decoder_config decoderConfig = ma_decoder_config_init_default();
+
+			decoderConfig.ppBackendVTables = pBackendVTables;
+
+			decoderConfig.backendCount = sizeof(pBackendVTables) / sizeof(pBackendVTables[0]);
+
+			ma_result result = ma_decoder_init(sdl_decoder_read, sdl_decoder_seek, sdl_decoder_tell, fileIO, &decoderConfig, &decoder);
+
+			if (result != MA_SUCCESS)
+			{
+				printf("Failed to initialize decoder: %s\\n", ma_result_description(result));
+				fflush(stdout);
+				ma_engine_uninit(&engine);
+			}
+			else
+			{
+				if (ma_sound_init_from_data_source(&engine, &decoder, MA_SOUND_FLAG_STREAM, NULL, NULL, &sound) != MA_SUCCESS)
+				{
+					ma_decoder_uninit(&decoder);
+					ma_engine_uninit(&engine);
+				}
+
+				ma_sound_set_pitch(&sound, 1.25f);
+
+				ma_sound_set_looping(&sound, MA_TRUE);
+
+				ma_sound_start(&sound);
+			}
+		');
 
 		{
 			MainLoop.setTargetFPS(60);
 
 			while (running)
 			{
-				if (RAudio.IsMusicStreamPlaying(inst))
-					RAudio.UpdateMusicStream(inst);
-
-				if (RAudio.IsMusicStreamPlaying(voices0))
-					RAudio.UpdateMusicStream(voices0);
-
-				if (RAudio.IsMusicStreamPlaying(voices1))
-					RAudio.UpdateMusicStream(voices1);
-
-				trace('');
-				trace('Inst-erect.ogg:           ${RAudio.GetMusicTimePlayed(inst)} seconds / ${RAudio.GetMusicTimeLength(inst)} length.');
-				trace('Voices-darnell-erect.ogg: ${RAudio.GetMusicTimePlayed(voices0)} seconds / ${RAudio.GetMusicTimeLength(voices0)} length.');
-				trace('Voices-pico-erect.ogg:    ${RAudio.GetMusicTimePlayed(voices1)} seconds / ${RAudio.GetMusicTimeLength(voices1)} length.');
-				trace('');
-
 				run();
 			}
 		}
@@ -329,7 +406,11 @@ class Main
 		GL.deleteBuffers(1, Pointer.addressOf(vertexBufferObject).raw);
 		GL.deleteProgram(shaderProgram);
 
-		RAudio.CloseAudioDevice();
+		untyped __cpp__('
+			ma_sound_uninit(&sound);
+			ma_decoder_uninit(&decoder);
+			ma_engine_uninit(&engine);
+		');
 
 		SDL.GL_DestroyContext(glContext);
 		SDL.DestroyWindow(window);
