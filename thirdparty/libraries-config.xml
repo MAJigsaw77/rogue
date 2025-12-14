@@ -8,16 +8,14 @@
 
 	<set name="GLAD_DIRECTORY" value="${this_dir}/modules/glad" />
 
-	<set name="RAUDIO_DIRECTORY" value="${this_dir}/modules/raudio" />
-
 	<set name="SDL_DIRECTORY" value="${this_dir}/submodules/sdl" />
 	<set name="SDL_IMAGE_DIRECTORY" value="${this_dir}/submodules/sdl_image" />
-	<set name="SDL_TTF_DIRECTORY" value="${this_dir}/submodules/sdl_ttf" />
 
 	<section>
 		<set name="SDL_TTF_DEPS_FREETYPE_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/freetype" />
 		<set name="SDL_TTF_DEPS_HARFBUZZ_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/harfbuzz" />
 		<set name="SDL_TTF_DEPS_PLUTOSVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutosvg" />
 		<set name="SDL_TTF_DEPS_PLUTOVG_DIRECTORY" value="${this_dir}/submodules/sdl_ttf/external/plutovg" />
+		<set name="SDL_TTF_DIRECTORY" value="${this_dir}/submodules/sdl_ttf" />
 	</section>
 </xml>
