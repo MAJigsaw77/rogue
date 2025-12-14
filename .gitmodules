@@ -10,3 +10,19 @@
 	path = thirdparty/submodules/sdl_ttf
 	url = https://github.com/libsdl-org/SDL_ttf.git
 	shallow = true
+[submodule "thirdparty/submodules/miniaudio"]
+	path = thirdparty/submodules/miniaudio
+	url = https://github.com/mackron/miniaudio.git
+	branch = dev-0.12
+[submodule "thirdparty/submodules/opusfile"]
+	path = thirdparty/submodules/opusfile
+	url = https://github.com/xiph/opusfile.git
+[submodule "thirdparty/submodules/ogg"]
+	path = thirdparty/submodules/ogg
+	url = https://github.com/xiph/ogg.git
+[submodule "thirdparty/submodules/opus"]
+	path = thirdparty/submodules/opus
+	url = https://github.com/xiph/opus.git
+[submodule "thirdparty/submodules/vorbis"]
+	path = thirdparty/submodules/vorbis
+	url = https://github.com/xiph/vorbis.git
