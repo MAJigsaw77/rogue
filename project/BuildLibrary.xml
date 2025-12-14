@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xml>
+	<!--Static linking MUST be used-->
+
+	<error value="Static linking MUST be used." unless="static_link" />
+
 	<!--HXCPP Defines-->
 
 	<set name="HXCPP_ANDROID_PLATFORM" value="24" />
