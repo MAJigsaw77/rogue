@@ -181,7 +181,12 @@
 			</section>
 		</section>
 
-		<compilerflag value="-I${MINIAUDIO_DEPS_OPUSFILE_DIRECTORY}/include" />
+		<section>
+			<compilerflag value="-I${MINIAUDIO_DEPS_OPUSFILE_OVERRIDE_DIRECTORY}/include" />
+			<compilerflag value="-I${MINIAUDIO_DEPS_OPUSFILE_DIRECTORY}/include" />
+		</section>
+
+		<compilerflag value="-DHAVE_CONFIG_H" />
 
 		<file name="src/http.c" />
 		<file name="src/info.c" />

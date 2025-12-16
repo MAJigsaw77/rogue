@@ -4,10 +4,6 @@
 
 	<error value="Static linking MUST be used." unless="static_link" />
 
-	<!--HXCPP Defines-->
-
-	<set name="HXCPP_ANDROID_PLATFORM" value="24" />
-
 	<!--Adjust The `BINDIR` For Each Target-->
 
 	<set name="LIBPREFIX" value="lib" />

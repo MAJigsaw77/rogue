@@ -11,8 +11,6 @@
 
 --define analyzer-optimize
 
---define HXCPP_ANDROID_PLATFORM=24
-
 --library rogue
 
 --main Main

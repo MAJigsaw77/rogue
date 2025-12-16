@@ -22,7 +22,11 @@
 	<section>
 		<section>
 			<set name="MINIAUDIO_DEPS_OPUS_DIRECTORY" value="${this_dir}/submodules/opus" />
-			<set name="MINIAUDIO_DEPS_OPUSFILE_DIRECTORY" value="${this_dir}/submodules/opusfile" />
+
+			<section>
+				<set name="MINIAUDIO_DEPS_OPUSFILE_OVERRIDE_DIRECTORY" value="${this_dir}/override/opusfile" />
+				<set name="MINIAUDIO_DEPS_OPUSFILE_DIRECTORY" value="${this_dir}/submodules/opusfile" />
+			</section>
 
 			<section>
 				<set name="MINIAUDIO_DEPS_OGG_OVERRIDE_DIRECTORY" value="${this_dir}/override/ogg" />
