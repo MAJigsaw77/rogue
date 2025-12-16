@@ -341,7 +341,7 @@ class Main
 
 		GL.bindVertexArray(0);
 
-		final fileIO:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/Otonoke.opus', 'rb');
+		final fileIO:RawPointer<SDL_IOStream> = SDL.IOFromFile('assets/NextToYou.opus', 'rb');
 
 		untyped __cpp__('
 			ma_engine engine;
@@ -369,7 +369,7 @@ class Main
 
 			decoderConfig.backendCount = sizeof(pBackendVTables) / sizeof(pBackendVTables[0]);
 
-			ma_result result = ma_decoder_init(sdl_decoder_read, sdl_decoder_seek, sdl_decoder_tell, fileIO, &decoderConfig, &decoder);
+			ma_result result = ma_decoder_init(sdl_decoder_read, sdl_decoder_seek, sdl_decoder_tell, {0}, &decoderConfig, &decoder);
 
 			if (result != MA_SUCCESS)
 			{
@@ -385,13 +385,11 @@ class Main
 					ma_engine_uninit(&engine);
 				}
 
-				ma_sound_set_pitch(&sound, 1.25f);
-
 				ma_sound_set_looping(&sound, MA_TRUE);
 
 				ma_sound_start(&sound);
 			}
-		');
+		', fileIO);
 
 		{
 			MainLoop.setTargetFPS(60);
