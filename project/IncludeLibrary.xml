@@ -65,9 +65,9 @@
 		</section>
 
 		<section if="linux">
-			<lib name="${PROJECT_LIB_DIR}/Linux/arm64/librogue.lib" if="HXCPP_ARM64" />
-			<lib name="${PROJECT_LIB_DIR}/Linux/x64/librogue.lib" if="HXCPP_M64" unless="HXCPP_ARM64" />
-			<lib name="${PROJECT_LIB_DIR}/Linux/x86/librogue.lib" if="HXCPP_M32" />
+			<lib name="${PROJECT_LIB_DIR}/Linux/arm64/librogue.a" if="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Linux/x64/librogue.a" if="HXCPP_M64" unless="HXCPP_ARM64" />
+			<lib name="${PROJECT_LIB_DIR}/Linux/x86/librogue.a" if="HXCPP_M32" />
 
 			<section>
 				<lib name="-ludev" />
