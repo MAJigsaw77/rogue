@@ -8,9 +8,9 @@
 				<compilerflag value="-I/usr/lib/aarch64-linux-gnu/dbus-1.0/include" if="HXCPP_ARM64" />
 				<compilerflag value="-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include" if="HXCPP_M64" unless="HXCPP_ARM64" />
 				<compilerflag value="-I/usr/lib/i386-linux-gnu/dbus-1.0/include" if="HXCPP_M32" />
-			</section>
 
-			<compilerflag value="-I/usr/include/libdrm" if="rpi" />
+				<compilerflag value="-I/usr/include/libdrm" />
+			</section>
 		</section>
 
 		<compilerflag value="-I${SDL_OVERRIDE_DIRECTORY}/include" />
@@ -526,28 +526,12 @@
 				<file name="src/video/dummy/SDL_nullframebuffer.c" />
 				<file name="src/video/dummy/SDL_nullvideo.c" />
 
-				<section if="rpi">
-					<file name="src/video/kmsdrm/SDL_kmsdrmdyn.c" />
-					<file name="src/video/kmsdrm/SDL_kmsdrmevents.c" />
-					<file name="src/video/kmsdrm/SDL_kmsdrmmouse.c" />
-					<file name="src/video/kmsdrm/SDL_kmsdrmopengles.c" />
-					<file name="src/video/kmsdrm/SDL_kmsdrmvideo.c" />
-					<file name="src/video/kmsdrm/SDL_kmsdrmvulkan.c" />
-				</section>
-
-				<file name="src/video/offscreen/SDL_offscreenevents.c" />
-				<file name="src/video/offscreen/SDL_offscreenframebuffer.c" />
-				<file name="src/video/offscreen/SDL_offscreenopengles.c" />
-				<file name="src/video/offscreen/SDL_offscreenvideo.c" />
-				<file name="src/video/offscreen/SDL_offscreenvulkan.c" />
-				<file name="src/video/offscreen/SDL_offscreenwindow.c" />
-
-				<section if="rpi">
-					<file name="src/video/raspberry/SDL_rpievents.c" />
-					<file name="src/video/raspberry/SDL_rpimouse.c" />
-					<file name="src/video/raspberry/SDL_rpiopengles.c" />
-					<file name="src/video/raspberry/SDL_rpivideo.c" />
-				</section>
+				<file name="src/video/kmsdrm/SDL_kmsdrmdyn.c" />
+				<file name="src/video/kmsdrm/SDL_kmsdrmevents.c" />
+				<file name="src/video/kmsdrm/SDL_kmsdrmmouse.c" />
+				<file name="src/video/kmsdrm/SDL_kmsdrmopengles.c" />
+				<file name="src/video/kmsdrm/SDL_kmsdrmvideo.c" />
+				<file name="src/video/kmsdrm/SDL_kmsdrmvulkan.c" />
 
 				<section if="iphone">
 					<file name="src/video/uikit/SDL_uikitappdelegate.m" />
